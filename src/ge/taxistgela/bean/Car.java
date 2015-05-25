@@ -7,6 +7,8 @@ public class Car {
     private String carID;
     private String carDescription;
     private int carYear;
+    private boolean conditioning;
+    private int numPassengers;
 
     public String getCarID() {
         return carID;
@@ -48,8 +50,6 @@ public class Car {
         this.numPassengers = numPassengers;
     }
 
-    private boolean conditioning;
-    private int numPassengers;
 
 
 }

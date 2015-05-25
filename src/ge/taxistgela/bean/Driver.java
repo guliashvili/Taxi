@@ -15,7 +15,7 @@ public class Driver {
     private String phoneNumber;
     private Car car;
     private String facebookID;
-    private String googleIID;
+    private String googleID;
     private Location location;
     private double rating;
     private DriverPreferences preferences;
@@ -118,11 +118,11 @@ public class Driver {
     }
 
     public String getGoogleIID() {
-        return googleIID;
+        return googleID;
     }
 
     public void setGoogleIID(String googleIID) {
-        this.googleIID = googleIID;
+        this.googleID = googleIID;
     }
 
     public Location getLocation() {
