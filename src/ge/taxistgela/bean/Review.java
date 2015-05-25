@@ -9,7 +9,7 @@ public class Review {
     private boolean orientationFlag; // if its true then User scored driver else driver scored user
     private double timeRating;
     private double comfortRating;
-    private String text;
+    private String description;
 
     public int getUserID() {
         return userID;
@@ -52,10 +52,10 @@ public class Review {
     }
 
     public String getText() {
-        return text;
+        return description;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setText(String description) {
+        this.description = description;
     }
 }
