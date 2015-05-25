@@ -5,7 +5,7 @@ create database taxistGela
 use taxistGela;
 
 create table Cars(
-	CarID varchar(8) primary key,
+	carID varchar(8) primary key,
 	carDescrption text,
 	carYear TINYINT(4),
 	conditioning boolean,
@@ -37,7 +37,7 @@ create table Drivers(
 	firstName text,
 	lastName text,
 	phoneNumber varchar(13) unique,
-	CarID varchar(8),
+	carID varchar(8),
 	facebookID text,
 	googleID text,
 	rating double,
@@ -45,7 +45,7 @@ create table Drivers(
 	latitude decimal,
 	longitude decimal,
 	isActive boolean,
-	foreign key(CarID) references Cars(CarID),
+	foreign key(carID) references Cars(carID),
 	foreign key(preferences) references DriverPreferenes(ID),
 	foreign key(companyID) references Companies(companyID)
 );
@@ -69,14 +69,14 @@ create table Users(
 	gender enum("MALE","FEMALE"),
 	facebookID text,
 	googleID text,
- 	prefences int,
+	prefences int,
 	foreign key(prefences) references UserPreferences(ID)
 );
 create table Orders(
 	orderID int auto_increment primary key,
 	userID int,/*foreign key*/
 	driverID int,/*foreign key*/
-  numPassengers int,
+	numPassengers int,
 	startLocation_long decimal,
 	startLocation_lat decimal,
 	endLocation_long decimal,
