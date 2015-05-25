@@ -16,6 +16,15 @@ public class Order {
     private Date startTime;
     private Date endTime;
     private BigDecimal paymentAmount;
+    private Date callTime;
+
+    public Date getCallTime() {
+        return callTime;
+    }
+
+    public void setCallTime(Date callTime) {
+        this.callTime = callTime;
+    }
 
     public int getOrderID() {
         return orderID;
