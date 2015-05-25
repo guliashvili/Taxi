@@ -4,6 +4,10 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class User {
+    private enum Gender{
+        MALE,FEMALE
+    }
+
     private int userID;
     private String username;
     private String email;
@@ -11,13 +15,10 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private enum Gender{
-        MALE,FEMALE
-    }
     Gender gender;
     private String facebookID;
     private String googleID;
-    private Preferences prefences;
+    private UserPreferences prefences;
 
     public int getUserID() {
         return userID;
@@ -99,11 +100,11 @@ public class User {
         this.googleID = googleID;
     }
 
-    public Preferences getPrefences() {
+    public UserPreferences getPrefences() {
         return prefences;
     }
 
-    public void setPrefences(Preferences prefences) {
+    public void setPrefences(UserPreferences prefences) {
         this.prefences = prefences;
     }
 }

@@ -18,7 +18,7 @@ public class Driver {
     private String googleIID;
     private Location location;
     private double rating;
-    private Preferences preferences;
+    private DriverPreferences preferences;
 
     public int getDriverID() {
         return driverID;
@@ -132,11 +132,11 @@ public class Driver {
         this.rating = rating;
     }
 
-    public Preferences getPreferences() {
+    public DriverPreferences getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(Preferences preferences) {
+    public void setPreferences(DriverPreferences preferences) {
         this.preferences = preferences;
     }
 }

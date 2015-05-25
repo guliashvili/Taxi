@@ -3,12 +3,11 @@ package ge.taxistgela.bean;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Preferences {
+public class DriverPreferences {
     private double rating;
-    private int numPassengers;
     private boolean conditioning;
     private int carYear;
-    private int timeLimit;
+    private int timeLimit; // maximum ra dros daxarjavs klienttan misvlaze
     private int passengersLimit;
 
     public double getRating() {
@@ -19,15 +18,7 @@ public class Preferences {
         this.rating = rating;
     }
 
-    public int getNumPassengers() {
-        return numPassengers;
-    }
-
-    public void setNumPassengers(int numPassengers) {
-        this.numPassengers = numPassengers;
-    }
-
-    public boolean hasConditioning() {
+    public boolean isConditioning() {
         return conditioning;
     }
 
@@ -58,4 +49,6 @@ public class Preferences {
     public void setPassengersLimit(int passengersLimit) {
         this.passengersLimit = passengersLimit;
     }
+
+
 }
