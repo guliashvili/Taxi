@@ -13,89 +13,89 @@ CREATE TABLE Cars (
 );
 CREATE TABLE Companies (
   companyID   INT AUTO_INCREMENT PRIMARY KEY,
-  companyCode VARCHAR(9) UNIQUE,
-  username    VARCHAR(50) UNIQUE,
-  email       VARCHAR(50) UNIQUE,
-  password    TEXT,
-  companyName VARCHAR(50) UNIQUE,
-  phoneNumber VARCHAR(13) UNIQUE,
+  companyCode VARCHAR(9) UNIQUE not null,
+  username    VARCHAR(50) UNIQUE not null,
+  email       VARCHAR(50) UNIQUE not null,
+  password    TEXT not null,
+  companyName VARCHAR(50) UNIQUE not null,
+  phoneNumber VARCHAR(13) UNIQUE not null,
   facebookID  TEXT, -- TODO trigger davadot uniquesi
   googleID    TEXT -- TODO trigger davadot uniquesi
 );
 
 CREATE TABLE DriverPreferenes (
   ID        INT AUTO_INCREMENT PRIMARY KEY,
-  rating    DOUBLE,
-  timeLimit INT
+  rating    DOUBLE not null,
+  timeLimit INT not null
 );
 CREATE TABLE Drivers (
   driverID    INT AUTO_INCREMENT PRIMARY KEY,
-  personalID  VARCHAR(11) UNIQUE,
-  username    VARCHAR(50) UNIQUE,
-  password    TEXT,
-  email       VARCHAR(50) UNIQUE,
+  personalID  VARCHAR(11) UNIQUE not null,
+  username    VARCHAR(50) UNIQUE not null,
+  password    TEXT not null,
+  email       VARCHAR(50) UNIQUE not null,
   companyID   INT,
-  firstName   TEXT,
-  lastName    TEXT,
-  phoneNumber VARCHAR(13) UNIQUE,
-  carID       VARCHAR(8),
+  firstName   TEXT not null,
+  lastName    TEXT not null,
+  phoneNumber VARCHAR(13) UNIQUE not null,
+  carID       VARCHAR(8) not null,
   facebookID  TEXT, -- TODO trigger davadot uniquesi
   googleID    TEXT, -- TODO trigger davadot uniquesi
-  rating      DOUBLE,
-  preferencesID INT,
-  latitude    DECIMAL,
-  longitude   DECIMAL,
-  isActive    BOOLEAN,
+  rating      DOUBLE not null,
+  preferencesID INT not null,
+  latitude    DECIMAL not null,
+  longitude   DECIMAL not null,
+  isActive    BOOLEAN not null,
   FOREIGN KEY (carID) REFERENCES Cars (carID),
   FOREIGN KEY (preferencesID) REFERENCES DriverPreferenes (ID),
   FOREIGN KEY (companyID) REFERENCES Companies (companyID)
 );
 CREATE TABLE UserPreferences (
   ID              INT AUTO_INCREMENT PRIMARY KEY,
-  rating          DOUBLE,
-  conditioning    BOOLEAN,
-  carYear         TINYINT(4),
-  passengersCount TINYINT(2),
-  wantsAlone      BOOLEAN,
-  timeLimit       INT
+  rating          DOUBLE not null,
+  conditioning    BOOLEAN not null,
+  carYear         TINYINT(4) not null,
+  passengersCount TINYINT(2) not null,
+  wantsAlone      BOOLEAN not null,
+  timeLimit       INT not null
 );
 CREATE TABLE Users (
   userID      INT AUTO_INCREMENT PRIMARY KEY,
-  username    VARCHAR(50) UNIQUE,
-  password    TEXT,
-  email       VARCHAR(50) UNIQUE,
-  firstName   TEXT,
-  lastName    TEXT,
-  phoneNumber VARCHAR(13) UNIQUE,
-  gender      ENUM("MALE", "FEMALE"),
+  username    VARCHAR(50) UNIQUE not null,
+  password    TEXT not null,
+  email       VARCHAR(50) UNIQUE not null,
+  firstName   TEXT not null,
+  lastName    TEXT not null,
+  phoneNumber VARCHAR(13) UNIQUE not null,
+  gender      ENUM("MALE", "FEMALE") not null,
   facebookID  TEXT,
   googleID    TEXT,
-  prefences   INT,
-  FOREIGN KEY (prefences) REFERENCES UserPreferences (ID)
+  preferencesID   INT not null,
+  FOREIGN KEY (preferencesID) REFERENCES UserPreferences (ID)
 );
 CREATE TABLE Orders (
   orderID            INT AUTO_INCREMENT PRIMARY KEY,
-  userID             INT, /*foreign key*/
-  driverID           INT, /*foreign key*/
-  numPassengers      INT,
-  startLocation_long DECIMAL,
-  startLocation_lat  DECIMAL,
-  endLocation_long   DECIMAL,
-  endLocation_lat    DECIMAL,
+  userID             INT not null, /*foreign key*/
+  driverID           INT not null, /*foreign key*/
+  numPassengers      INT not null,
+  startLocation_long DECIMAL not null,
+  startLocation_lat  DECIMAL not null,
+  endLocation_long   DECIMAL not null,
+  endLocation_lat    DECIMAL not null,
   startTime          DATETIME,
   endTime            DATETIME,
-  paymentAmount      DECIMAL,
-  callTime           DATETIME,
+  paymentAmount      DECIMAL not null,
+  callTime           DATETIME not null,
   FOREIGN KEY (userID) REFERENCES Users (userID)
 );
 CREATE TABLE Reviews (
   reviewID        INT AUTO_INCREMENT PRIMARY KEY,
-  userID          INT,
-  driverID        INT,
-  orientationFlag BOOLEAN,
-  timeRating      DOUBLE,
-  comfortRating   DOUBLE,
-  description     TEXT,
+  userID          INT not null,
+  driverID        INT not null,
+  orientationFlag BOOLEAN not null,
+  timeRating      DOUBLE not null,
+  comfortRating   DOUBLE not null,
+  description     TEXT not null,
   FOREIGN KEY (userID) REFERENCES Users (userID),
   FOREIGN KEY (driverID) REFERENCES Drivers (driverID)
 );
