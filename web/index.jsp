@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Alex
+  ge.taxistgela.bean.User: Alex
   Date: 5/23/2015
   Time: 10:42 PM
   To change this template use File | Settings | File Templates.
