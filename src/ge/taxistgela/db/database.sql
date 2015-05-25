@@ -99,3 +99,9 @@ CREATE TABLE Reviews (
   FOREIGN KEY (userID) REFERENCES Users (userID),
   FOREIGN KEY (driverID) REFERENCES Drivers (driverID)
 );
+
+CREATE TABLE Queue(
+  queueID         INT AUTO_INCREMENT PRIMARY KEY,
+  userID          INT not null,
+  driverID        INT not null
+)
