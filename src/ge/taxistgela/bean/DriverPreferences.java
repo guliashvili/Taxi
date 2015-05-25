@@ -24,7 +24,7 @@ public class DriverPreferences {
     public void setConditioning(boolean conditioning) {
         this.conditioning = conditioning;
     }
-    
+
     public int getTimeLimit() {
         return timeLimit;
     }
