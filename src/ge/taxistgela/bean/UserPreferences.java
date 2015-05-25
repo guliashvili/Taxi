@@ -9,6 +9,15 @@ public class UserPreferences {
     private int carYear; // meti an toli gamoshvebis wliani manqanebi
     private int timeLimit; // maximum ra dro daelodeba
     private int passengersCount; // ramdeni kaci midian
+    private boolean wantsAlone;
+
+    public boolean isWantsAlone() {
+        return wantsAlone;
+    }
+
+    public void setWantsAlone(boolean wantsAlone) {
+        this.wantsAlone = wantsAlone;
+    }
 
     public double getRating() {
         return rating;
