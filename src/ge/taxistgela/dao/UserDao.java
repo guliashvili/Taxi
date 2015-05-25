@@ -29,4 +29,9 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public int registerUser(User user) {
         return 0;
     }
+
+    @Override
+    public int updateUser(User user) {
+        return 0;
+    }
 }

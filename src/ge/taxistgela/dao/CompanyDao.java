@@ -16,4 +16,9 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
     public int registerCompany(Company company) {
         return 0;
     }
+
+    @Override
+    public int updateCompany(Company company) {
+        return 0;
+    }
 }

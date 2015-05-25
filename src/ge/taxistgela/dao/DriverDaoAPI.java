@@ -44,4 +44,12 @@ public interface DriverDaoAPI {
      * @return operationCode
      */
     public int registerDriver(Driver driver);
+
+    /**
+     * Updates the certain driver with the new data.
+     *
+     * @param driver
+     * @return operationCode
+     */
+    public int updateDriver(Driver driver);
 }

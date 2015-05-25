@@ -44,4 +44,12 @@ public interface UserDaoAPI {
      * @return operationCode
      */
     public int registerUser(User user);
+
+    /**
+     * Updates the user order with the new data.
+     *
+     * @param user
+     * @return operationCode
+     */
+    public int updateUser(User user);
 }

@@ -29,4 +29,9 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     public int registerDriver(Driver driver) {
         return 0;
     }
+
+    @Override
+    public int updateDriver(Driver driver) {
+        return 0;
+    }
 }

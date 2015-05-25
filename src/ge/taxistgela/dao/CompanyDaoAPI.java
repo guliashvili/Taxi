@@ -25,4 +25,12 @@ public interface CompanyDaoAPI {
      * @return operationCode
      */
     public int registerCompany(Company company);
+
+    /**
+     * Updates the certain company with the new data.
+     *
+     * @param company
+     * @return operationCode
+     */
+    public int updateCompany(Company company);
 }
