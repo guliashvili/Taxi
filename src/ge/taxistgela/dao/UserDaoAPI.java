@@ -20,7 +20,7 @@ public interface UserDaoAPI {
 
     /**
      * Returns Users selected by the driver preferences criteria.
-     *
+     *  Does not consider TimeLimit
      * @param driverPreferences
      * @return List of users generated from database.
      */

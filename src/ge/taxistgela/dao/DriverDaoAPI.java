@@ -20,7 +20,7 @@ public interface DriverDaoAPI {
 
     /**
      * Returns Drivers selected by the user preferences.
-     *
+     * Does not consider TimeLimit
      * @param userPreferences
      * @return List of drivers generated from database.
      */
