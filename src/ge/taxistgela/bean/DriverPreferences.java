@@ -23,5 +23,5 @@ public class DriverPreferences {
     public void setTimeLimit(int timeLimit) {
         this.timeLimit = timeLimit;
     }
-    
+
 }
