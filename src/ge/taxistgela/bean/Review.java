@@ -6,7 +6,7 @@ package ge.taxistgela.bean;
 public class Review {
     private int userID;
     private int driverID;
-    private boolean orientationFlag;
+    private boolean orientationFlag; // if its true then User scored driver else driver scored user
     private double timeRating;
     private double comfortRating;
     private String text;
