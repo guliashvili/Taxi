@@ -6,7 +6,6 @@ package ge.taxistgela.bean;
 public class DriverPreferences {
     private double rating;
     private boolean conditioning;
-    private int carYear;
     private int timeLimit; // maximum ra dros daxarjavs klienttan misvlaze
     private int passengersLimit;
 
@@ -25,15 +24,7 @@ public class DriverPreferences {
     public void setConditioning(boolean conditioning) {
         this.conditioning = conditioning;
     }
-
-    public int getCarYear() {
-        return carYear;
-    }
-
-    public void setCarYear(int carYear) {
-        this.carYear = carYear;
-    }
-
+    
     public int getTimeLimit() {
         return timeLimit;
     }
