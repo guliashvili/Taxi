@@ -10,8 +10,6 @@ import java.util.List;
  */
 public interface UserDaoAPI {
 
-    // TODO Add Error Constants
-
     /**
      * Returns User selected by the certain userID.
      *
@@ -30,10 +28,11 @@ public interface UserDaoAPI {
 
     /**
      * Tries to login with the certain username/email and password.
+     * Returns null if no user exists.
      *
      * @param usernameOrEmail
      * @param password
-     * @return
+     * @return Loggedin User.
      */
     public User loginUser(String usernameOrEmail, String password);
 
@@ -42,7 +41,7 @@ public interface UserDaoAPI {
      * Returns operation result.
      *
      * @param user
-     * @return errorCode
+     * @return operationCode
      */
     public int registerUser(User user);
 }

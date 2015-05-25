@@ -1,100 +1,100 @@
-drop database if exists taxistGela;
-create database taxistGela
-	default character set utf8
-	default collate utf8_general_ci;
-use taxistGela;
+DROP DATABASE IF EXISTS taxistGela;
+CREATE DATABASE taxistGela
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+USE taxistGela;
 
-create table Cars(
-	carID varchar(8) primary key,
-	carDescrption text,
-	carYear TINYINT(4),
-	conditioning boolean,
-	numPassengers tinyint(2)
+CREATE TABLE Cars (
+  carID         VARCHAR(8) PRIMARY KEY,
+  carDescrption TEXT,
+  carYear       TINYINT(4),
+  conditioning  BOOLEAN,
+  numPassengers TINYINT(2)
 );
-create table Companies(
-	companyID int auto_increment primary key,
-	companyCode varchar(9) unique,
-	username varchar(50) unique,
-	email varchar(50) unique,
-	password text,
-	companyName varchar(50) unique,
-	phoneNumber varchar(13) unique,
-	facebookID text,
-	googleID text
+CREATE TABLE Companies (
+  companyID   INT AUTO_INCREMENT PRIMARY KEY,
+  companyCode VARCHAR(9) UNIQUE,
+  username    VARCHAR(50) UNIQUE,
+  email       VARCHAR(50) UNIQUE,
+  password    TEXT,
+  companyName VARCHAR(50) UNIQUE,
+  phoneNumber VARCHAR(13) UNIQUE,
+  facebookID  TEXT,
+  googleID    TEXT
 );
-create table DriverPreferenes(
-	ID int auto_increment primary key,
-	rating double,
-	timeLimit int
+CREATE TABLE DriverPreferenes (
+  ID        INT AUTO_INCREMENT PRIMARY KEY,
+  rating    DOUBLE,
+  timeLimit INT
 );
-create table Drivers(
-	driverID int auto_increment primary key,
-	presonalID varchar(11) unique,
-	username varchar(50) unique,
-	password text,
-	email varchar(50) unique,
-	companyID int,
-	firstName text,
-	lastName text,
-	phoneNumber varchar(13) unique,
-	carID varchar(8),
-	facebookID text,
-	googleID text,
-	rating double,
-	preferences int,
-	latitude decimal,
-	longitude decimal,
-	isActive boolean,
-	foreign key(carID) references Cars(carID),
-	foreign key(preferences) references DriverPreferenes(ID),
-	foreign key(companyID) references Companies(companyID)
+CREATE TABLE Drivers (
+  driverID    INT AUTO_INCREMENT PRIMARY KEY,
+  presonalID  VARCHAR(11) UNIQUE,
+  username    VARCHAR(50) UNIQUE,
+  password    TEXT,
+  email       VARCHAR(50) UNIQUE,
+  companyID   INT,
+  firstName   TEXT,
+  lastName    TEXT,
+  phoneNumber VARCHAR(13) UNIQUE,
+  carID       VARCHAR(8),
+  facebookID  TEXT,
+  googleID    TEXT,
+  rating      DOUBLE,
+  preferences INT,
+  latitude    DECIMAL,
+  longitude   DECIMAL,
+  isActive    BOOLEAN,
+  FOREIGN KEY (carID) REFERENCES Cars (carID),
+  FOREIGN KEY (preferences) REFERENCES DriverPreferenes (ID),
+  FOREIGN KEY (companyID) REFERENCES Companies (companyID)
 );
-create table UserPreferences(
-	ID int auto_increment primary key,
-	rating double,
-	conditioning boolean,
-	carYear tinyint(4),
-	passengersCount tinyint(2),
-	wantsAlone boolean,
-	timeLimit int
+CREATE TABLE UserPreferences (
+  ID              INT AUTO_INCREMENT PRIMARY KEY,
+  rating          DOUBLE,
+  conditioning    BOOLEAN,
+  carYear         TINYINT(4),
+  passengersCount TINYINT(2),
+  wantsAlone      BOOLEAN,
+  timeLimit       INT
 );
-create table Users(
-	userID int auto_increment primary key,
-	username varchar(50) unique,
-	password text,
-	email varchar(50) unique,
-	firstName text,
-	lastName text,
-	phoneNumber varchar(13) unique,
-	gender enum("MALE","FEMALE"),
-	facebookID text,
-	googleID text,
-	prefences int,
-	foreign key(prefences) references UserPreferences(ID)
+CREATE TABLE Users (
+  userID      INT AUTO_INCREMENT PRIMARY KEY,
+  username    VARCHAR(50) UNIQUE,
+  password    TEXT,
+  email       VARCHAR(50) UNIQUE,
+  firstName   TEXT,
+  lastName    TEXT,
+  phoneNumber VARCHAR(13) UNIQUE,
+  gender      ENUM("MALE", "FEMALE"),
+  facebookID  TEXT,
+  googleID    TEXT,
+  prefences   INT,
+  FOREIGN KEY (prefences) REFERENCES UserPreferences (ID)
 );
-create table Orders(
-	orderID int auto_increment primary key,
-	userID int,/*foreign key*/
-	driverID int,/*foreign key*/
-	numPassengers int,
-	startLocation_long decimal,
-	startLocation_lat decimal,
-	endLocation_long decimal,
-	endLocation_lat decimal,
-	startTime datetime,
-	endTime datetime,
-	paymentAmount decimal,
-	callTime datetime,
-	foreign key(userID) references Users(userID)
+CREATE TABLE Orders (
+  orderID            INT AUTO_INCREMENT PRIMARY KEY,
+  userID             INT, /*foreign key*/
+  driverID           INT, /*foreign key*/
+  numPassengers      INT,
+  startLocation_long DECIMAL,
+  startLocation_lat  DECIMAL,
+  endLocation_long   DECIMAL,
+  endLocation_lat    DECIMAL,
+  startTime          DATETIME,
+  endTime            DATETIME,
+  paymentAmount      DECIMAL,
+  callTime           DATETIME,
+  FOREIGN KEY (userID) REFERENCES Users (userID)
 );
-create table Reviews(
-	reviewID int auto_increment primary key,
-	userID int,
-	driverID int,
-	orientationFlag boolean,
-	timeRating double,
-	comfortRating double,
-	description text,
-	foreign key(userID) references Users(userID),
-	foreign key(driverID) references Drivers(driverID)
+CREATE TABLE Reviews (
+  reviewID        INT AUTO_INCREMENT PRIMARY KEY,
+  userID          INT,
+  driverID        INT,
+  orientationFlag BOOLEAN,
+  timeRating      DOUBLE,
+  comfortRating   DOUBLE,
+  description     TEXT,
+  FOREIGN KEY (userID) REFERENCES Users (userID),
+  FOREIGN KEY (driverID) REFERENCES Drivers (driverID)
 );
