@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Order {
+public class Order_t {
     private int orderID;
     private int userID;
     private int driverID;
