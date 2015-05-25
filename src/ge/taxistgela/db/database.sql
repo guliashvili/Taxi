@@ -7,9 +7,9 @@ USE taxistGela;
 CREATE TABLE Cars (
   carID         VARCHAR(8) PRIMARY KEY,
   carDescrption TEXT,
-  carYear       TINYINT(4),
-  conditioning  BOOLEAN,
-  numPassengers TINYINT(2)
+  carYear       TINYINT(4) not null,
+  conditioning  BOOLEAN not null,
+  numPassengers TINYINT(2) not null
 );
 CREATE TABLE Companies (
   companyID   INT AUTO_INCREMENT PRIMARY KEY,
@@ -19,9 +19,10 @@ CREATE TABLE Companies (
   password    TEXT,
   companyName VARCHAR(50) UNIQUE,
   phoneNumber VARCHAR(13) UNIQUE,
-  facebookID  TEXT,
-  googleID    TEXT
+  facebookID  TEXT, -- TODO trigger davadot uniquesi
+  googleID    TEXT -- TODO trigger davadot uniquesi
 );
+
 CREATE TABLE DriverPreferenes (
   ID        INT AUTO_INCREMENT PRIMARY KEY,
   rating    DOUBLE,
@@ -29,7 +30,7 @@ CREATE TABLE DriverPreferenes (
 );
 CREATE TABLE Drivers (
   driverID    INT AUTO_INCREMENT PRIMARY KEY,
-  presonalID  VARCHAR(11) UNIQUE,
+  personalID  VARCHAR(11) UNIQUE,
   username    VARCHAR(50) UNIQUE,
   password    TEXT,
   email       VARCHAR(50) UNIQUE,
@@ -38,15 +39,15 @@ CREATE TABLE Drivers (
   lastName    TEXT,
   phoneNumber VARCHAR(13) UNIQUE,
   carID       VARCHAR(8),
-  facebookID  TEXT,
-  googleID    TEXT,
+  facebookID  TEXT, -- TODO trigger davadot uniquesi
+  googleID    TEXT, -- TODO trigger davadot uniquesi
   rating      DOUBLE,
-  preferences INT,
+  preferencesID INT,
   latitude    DECIMAL,
   longitude   DECIMAL,
   isActive    BOOLEAN,
   FOREIGN KEY (carID) REFERENCES Cars (carID),
-  FOREIGN KEY (preferences) REFERENCES DriverPreferenes (ID),
+  FOREIGN KEY (preferencesID) REFERENCES DriverPreferenes (ID),
   FOREIGN KEY (companyID) REFERENCES Companies (companyID)
 );
 CREATE TABLE UserPreferences (
