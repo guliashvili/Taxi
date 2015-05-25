@@ -11,7 +11,10 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private boolean gender;
+    private enum Gender{
+        MALE,FEMALE
+    }
+    Gender gender;
     private String facebookID;
     private String googleID;
     private Preferences prefences;
@@ -72,11 +75,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isGender() {
+    public Gender isGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
