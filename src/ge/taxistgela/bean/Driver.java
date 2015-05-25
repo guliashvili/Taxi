@@ -19,6 +19,15 @@ public class Driver {
     private Location location;
     private double rating;
     private DriverPreferences preferences;
+    private boolean isActive;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
     public int getDriverID() {
         return driverID;
