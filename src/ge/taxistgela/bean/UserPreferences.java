@@ -7,7 +7,7 @@ public class UserPreferences {
     private double rating;
     private boolean conditioning;
     private int carYear; // meti an toli gamoshvebis wliani manqanebi
-    private int timeLimit; // maximum ra dro daelodeba
+    private int timeLimit; // maximum ra droshi(Call time idan) unda mimiyvanos danishnulebis punqtshi
     private int passengersCount; // ramdeni kaci midian
     private boolean wantsAlone;
 
