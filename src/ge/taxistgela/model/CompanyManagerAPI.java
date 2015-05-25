@@ -1,7 +1,14 @@
 package ge.taxistgela.model;
 
+import ge.taxistgela.dao.CompanyDaoAPI;
+
 /**
- * Created by Alex on 5/25/2015.
+ * Created by GIO on 5/25/2015.
  */
-public class CompanyManagerAPI {
+public abstract class CompanyManagerAPI {
+    private CompanyDaoAPI companyDao;
+    public  CompanyManagerAPI(CompanyDaoAPI companyDao){
+        this.companyDao = companyDao;
+    }
+
 }
