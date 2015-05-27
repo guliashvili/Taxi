@@ -86,7 +86,8 @@ CREATE TABLE Orders (
   endTime            DATETIME,
   paymentAmount      DECIMAL  NOT NULL,
   callTime           DATETIME NOT NULL,
-  FOREIGN KEY (userID) REFERENCES Users (userID)
+  FOREIGN KEY (userID) REFERENCES Users (userID),
+  FOREIGN KEY (driverID) REFERENCES Drivers (driverID)
 );
 CREATE TABLE Reviews (
   reviewID        INT AUTO_INCREMENT PRIMARY KEY,
