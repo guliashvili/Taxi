@@ -46,6 +46,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 output.setFirstName(res.getString("firstName"));
                 output.setLastName(res.getString("lastName"));
                 //if() TODO GENDER
+                //TODO Car
                 //output.Gender.valueOf()
                 output.setPhoneNumber(res.getString("phoneNumber"));
                 output.setFacebookID(res.getString("facebookID"));
