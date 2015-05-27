@@ -72,6 +72,7 @@ CREATE TABLE Users (
   preferenceID INT                    NOT NULL,
   FOREIGN KEY (preferenceID) REFERENCES UserPreferences (ID)
 );
+
 CREATE TABLE Orders (
   orderID            INT AUTO_INCREMENT PRIMARY KEY,
   userID             INT      NOT NULL, /*foreign key*/
