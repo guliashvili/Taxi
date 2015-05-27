@@ -3,23 +3,24 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.db.DBConnectionProvider;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by Alex on 5/25/2015.
  */
 public class CompanyDao implements CompanyDaoAPI, OperationCodes {
-
+    final static String login_STMT="SELECT * FROM Companies WHERE email=? AND password=?";
+    final static String register_STMT="INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID) VALUES(?,?,?,?,?,?,?)";
+    final static String update_STMT="UPDATE Companies SET companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?";
     @Override
     public Company loginCompany(String email, String password) {
         try(Connection con = DBConnectionProvider.getConnection()){
-            Statement st = con.createStatement();
-            ResultSet res = st.executeQuery("SELECT * FROM Companies WHERE email='"+email+"' AND password='"+password+"'"); // NEEDS HASHING
-            res.next();
-            return new Company(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8));
+            try(PreparedStatement st = con.prepareStatement(login_STMT)) {
+                st.setString(1,email);
+                st.setString(2,password);//NEEDS HASH
+                ResultSet res = st.executeQuery();
+                return new Company(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8));
+            }
         }catch(SQLException e){
             //NEEDS LOGGING
         }
@@ -29,13 +30,19 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
     @Override
     public int registerCompany(Company company) {
         try(Connection con = DBConnectionProvider.getConnection()){
-            Statement st = con.createStatement();
-            st.executeUpdate("INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID) VALUES('"+company.getCompanyCode()
-                    +"','"+company.getEmail()+"','"+company.getPassword()+"','"+company.getCompanyName()+"','"+company.getPhoneNumber()+"','"+company.getFacebookID()+"','"+company.getGoogleID()+"') ",
-                    Statement.RETURN_GENERATED_KEYS);
-            ResultSet res = st.getGeneratedKeys();
-            res.next();
-            company.setCompanyID(res.getInt(1));
+            try(PreparedStatement st = con.prepareStatement(register_STMT,Statement.RETURN_GENERATED_KEYS)) {
+                st.setString(1,company.getCompanyCode());
+                st.setString(2,company.getEmail());
+                st.setString(3,company.getPassword());
+                st.setString(4,company.getCompanyName());
+                st.setString(5,company.getPhoneNumber());
+                st.setString(6,company.getFacebookID());
+                st.setString(7,company.getGoogleID());
+                st.executeUpdate();
+                ResultSet res = st.getGeneratedKeys();
+                res.next();
+                company.setCompanyID(res.getInt(1));
+            }
         }catch(SQLException e){
 
         }
@@ -45,10 +52,16 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
     @Override
     public int updateCompany(Company company) {
         try(Connection con = DBConnectionProvider.getConnection()){
-            Statement st = con.createStatement();
-            st.executeUpdate("UPDATE Companies SET companyCode='"+company. getCompanyCode()+"'" +
-                    ",email='"+company.getEmail()+"',password='"+company.getPassword()+"',companyName='"+company.getCompanyName()+"'" +
-                    ",phoneNumber='"+company.getPhoneNumber()+"',facebookID='"+company.getFacebookID()+"',googleID='"+company.getGoogleID()+"'");
+            try(PreparedStatement st = con.prepareStatement(update_STMT)) {
+                st.setString(1,company.getCompanyCode());
+                st.setString(2,company.getEmail());
+                st.setString(3,company.getPassword());
+                st.setString(4,company.getCompanyName());
+                st.setString(5,company.getPhoneNumber());
+                st.setString(6,company.getFacebookID());
+                st.setString(7,company.getGoogleID());
+                st.executeUpdate();
+            }
         }catch(SQLException e){
 
         }
