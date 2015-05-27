@@ -9,6 +9,11 @@ public class Location {
     private BigDecimal latitude;
     private BigDecimal longitute;
 
+    public Location(BigDecimal latitude, BigDecimal longitute) {
+        this.latitude = latitude;
+        this.longitute = longitute;
+    }
+
     public BigDecimal getLatitude() {
         return latitude;
     }
