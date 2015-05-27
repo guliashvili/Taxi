@@ -8,7 +8,7 @@ import ge.taxistgela.bean.Company;
 public class CompanyDao implements CompanyDaoAPI, OperationCodes {
 
     @Override
-    public Company loginCompany(String usernameOrEmail, String password) {
+    public Company loginCompany(String email, String password) {
         return null;
     }
 

@@ -21,7 +21,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     }
 
     @Override
-    public User loginUser(String usernameOrEmail, String password) {
+    public User loginUser(String email, String password) {
         return null;
     }
 

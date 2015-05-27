@@ -27,14 +27,14 @@ public interface UserDaoAPI {
     public List<User> getUsersByPreferences(DriverPreferences driverPreferences);
 
     /**
-     * Tries to login with the certain username/email and password.
+     * Tries to login with the certain email and password.
      * Returns null if no user exists.
      *
-     * @param usernameOrEmail
+     * @param email
      * @param password
      * @return Loggedin User.
      */
-    public User loginUser(String usernameOrEmail, String password);
+    public User loginUser(String email, String password);
 
     /**
      * Registers the certain user.
