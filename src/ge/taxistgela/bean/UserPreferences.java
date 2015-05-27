@@ -4,7 +4,7 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class UserPreferences {
-    private double rating;
+    private double minimumDriverRaiting;
     private boolean conditioning;
     private int carYear; // meti an toli gamoshvebis wliani manqanebi
     private int timeLimit; // maximum ra droshi(Call time idan) unda mimiyvanos danishnulebis punqtshi
@@ -19,12 +19,12 @@ public class UserPreferences {
         this.wantsAlone = wantsAlone;
     }
 
-    public double getRating() {
-        return rating;
+    public double getMinimumDriverRaiting() {
+        return minimumDriverRaiting;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setMinimumDriverRaiting(double minimumDriverRaiting) {
+        this.minimumDriverRaiting = minimumDriverRaiting;
     }
 
     public boolean isConditioning() {
