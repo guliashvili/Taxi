@@ -11,6 +11,7 @@ CREATE TABLE Cars (
   conditioning  BOOLEAN    NOT NULL,
   numPassengers TINYINT(2) NOT NULL
 );
+
 CREATE TABLE Companies (
   companyID   INT AUTO_INCREMENT PRIMARY KEY,
   companyCode VARCHAR(9) UNIQUE  NOT NULL,
@@ -27,6 +28,7 @@ CREATE TABLE DriverPreferences(
   minimumUserRating    DOUBLE NOT NULL,
   coefficientPer       DOUBLE NOT NULL
 );
+
 CREATE TABLE Drivers (
   driverID      INT AUTO_INCREMENT PRIMARY KEY,
   personalID    VARCHAR(11) UNIQUE NOT NULL,
@@ -49,6 +51,7 @@ CREATE TABLE Drivers (
   FOREIGN KEY (DriverPreferenceID) REFERENCES DriverPreferences (DriverPreferenceID),
   FOREIGN KEY (companyID) REFERENCES Companies (companyID)
 );
+
 CREATE TABLE UserPreferences (
   ID              INT AUTO_INCREMENT PRIMARY KEY,
   rating          DOUBLE     NOT NULL,
@@ -58,6 +61,7 @@ CREATE TABLE UserPreferences (
   wantsAlone      BOOLEAN    NOT NULL,
   timeLimit       INT        NOT NULL
 );
+
 CREATE TABLE Users (
   userID        INT AUTO_INCREMENT PRIMARY KEY,
   password      TEXT                   NOT NULL,
@@ -88,6 +92,7 @@ CREATE TABLE Orders (
   FOREIGN KEY (userID) REFERENCES Users (userID),
   FOREIGN KEY (driverID) REFERENCES Drivers (driverID)
 );
+
 CREATE TABLE Reviews (
   reviewID        INT AUTO_INCREMENT PRIMARY KEY,
   userID          INT     NOT NULL,

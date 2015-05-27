@@ -11,6 +11,18 @@ public class Company {
     private String companyName;
     private String phoneNumber;
     private String facebookID;
+
+    public Company(int companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID) {
+        this.companyID = companyID;
+        this.companyCode = companyCode;
+        this.email = email;
+        this.password = password;
+        this.companyName = companyName;
+        this.phoneNumber = phoneNumber;
+        this.facebookID = facebookID;
+        this.googleID = googleID;
+    }
+
     private String googleID;
 
     public int getCompanyID() {

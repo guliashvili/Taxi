@@ -13,7 +13,7 @@ public interface CompanyDaoAPI {
      *
      * @param email
      * @param password
-     * @return Loggedin user.
+     * @return Loggedin user/or null if no such company exists
      */
     public Company loginCompany(String email, String password);
 
