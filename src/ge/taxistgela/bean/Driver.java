@@ -6,7 +6,6 @@ package ge.taxistgela.bean;
 public class Driver {
     private int driverID;
     private String presonalID;
-    private String username;
     private String email;
     private String password;
     private int companyID;
@@ -43,14 +42,6 @@ public class Driver {
 
     public void setPresonalID(String presonalID) {
         this.presonalID = presonalID;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {

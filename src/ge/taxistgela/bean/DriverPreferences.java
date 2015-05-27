@@ -6,7 +6,15 @@ package ge.taxistgela.bean;
 public class DriverPreferences {
     private double rating;
     private int timeLimit; // maximum ra dros daxarjavs klienttan misvlaze
+    private double coefficientPer; //yovel wutze an mandzilze ra tarifi aqvs. amas mere shevxedevat riti gvirchevnia davtvalot
 
+    public double getCoefficientPer() {
+        return coefficientPer;
+    }
+
+    public void setCoefficientPer(double coefficientPer) {
+        this.coefficientPer = coefficientPer;
+    }
 
     public double getRating() {
         return rating;

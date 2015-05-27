@@ -6,7 +6,6 @@ package ge.taxistgela.bean;
 public class Company {
     private int companyID;
     private String companyCode;
-    private String username;
     private String email;
     private String password;
     private String companyName;
@@ -28,14 +27,6 @@ public class Company {
 
     public void setCompanyCode(String companyCode) {
         this.companyCode = companyCode;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
