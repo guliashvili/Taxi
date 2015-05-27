@@ -18,6 +18,19 @@ public class Order {
     private BigDecimal paymentAmount;
     private Date callTime;
 
+    public Order(int orderID, int userID, int driverID, int numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime, BigDecimal paymentAmount, Date callTime) {
+        this.orderID = orderID;
+        this.userID = userID;
+        this.driverID = driverID;
+        this.numPassengers = numPassengers;
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.paymentAmount = paymentAmount;
+        this.callTime = callTime;
+    }
+
     public Date getCallTime() {
         return callTime;
     }
