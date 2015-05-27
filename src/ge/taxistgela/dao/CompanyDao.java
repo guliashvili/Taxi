@@ -2,6 +2,7 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.db.DBConnectionProvider;
+import ge.taxistgela.helper.HashGenerator;
 
 import java.sql.*;
 
@@ -17,7 +18,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(login_STMT)) {
                 st.setString(1,email);
-                st.setString(2,password);//NEEDS HASH
+                st.setString(2, HashGenerator.getHash(password));//NEEDS HASH
                 ResultSet res = st.executeQuery();
                 return new Company(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8));
             }
@@ -33,7 +34,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             try(PreparedStatement st = con.prepareStatement(register_STMT,Statement.RETURN_GENERATED_KEYS)) {
                 st.setString(1,company.getCompanyCode());
                 st.setString(2,company.getEmail());
-                st.setString(3,company.getPassword());
+                st.setString(3,HashGenerator.getHash(company.getPassword()));
                 st.setString(4,company.getCompanyName());
                 st.setString(5,company.getPhoneNumber());
                 st.setString(6,company.getFacebookID());
@@ -55,7 +56,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             try(PreparedStatement st = con.prepareStatement(update_STMT)) {
                 st.setString(1,company.getCompanyCode());
                 st.setString(2,company.getEmail());
-                st.setString(3,company.getPassword());
+                st.setString(3,HashGenerator.getHash(company.getPassword()));
                 st.setString(4,company.getCompanyName());
                 st.setString(5,company.getPhoneNumber());
                 st.setString(6,company.getFacebookID());
