@@ -5,7 +5,7 @@ package ge.taxistgela.bean;
  */
 public class UserPreferences {
     private double minimumDriverRaiting;
-    private boolean conditioning;
+    private boolean conditioning; // true unda, false kidia
     private int carYear; // meti an toli gamoshvebis wliani manqanebi
     private int timeLimit; // maximum ra droshi(Call time idan) unda mimiyvanos danishnulebis punqtshi
     private int passengersCount; // ramdeni kaci midian

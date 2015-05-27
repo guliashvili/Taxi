@@ -4,6 +4,10 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class Driver {
+    private enum Gender{
+        MALE,FEMALE
+    }
+
     private int driverID;
     private String presonalID;
     private String email;
@@ -11,6 +15,7 @@ public class Driver {
     private int companyID;
     private String firstName;
     private String lastName;
+    private Gender gender;
     private String phoneNumber;
     private Car car;
     private String facebookID;
@@ -19,6 +24,22 @@ public class Driver {
     private double rating;
     private DriverPreferences preferences;
     private boolean isActive;
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getGoogleID() {
+        return googleID;
+    }
+
+    public void setGoogleID(String googleID) {
+        this.googleID = googleID;
+    }
 
     public boolean isActive() {
         return isActive;
@@ -106,14 +127,6 @@ public class Driver {
 
     public void setFacebookID(String facebookID) {
         this.facebookID = facebookID;
-    }
-
-    public String getGoogleIID() {
-        return googleID;
-    }
-
-    public void setGoogleIID(String googleIID) {
-        this.googleID = googleIID;
     }
 
     public Location getLocation() {
