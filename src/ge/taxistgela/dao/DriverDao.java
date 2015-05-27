@@ -21,7 +21,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public Driver loginDriver(String usernameOrEmail, String password) {
+    public Driver loginDriver(String email, String password) {
         return null;
     }
 

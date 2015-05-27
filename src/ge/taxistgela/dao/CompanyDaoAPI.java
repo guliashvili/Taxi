@@ -8,14 +8,14 @@ import ge.taxistgela.bean.Company;
 public interface CompanyDaoAPI {
 
     /**
-     * Tries to login with the certain username/email and password.
+     * Tries to login with the certain email and password.
      * Returns null if no company exists.
      *
-     * @param usernameOrEmail
+     * @param email
      * @param password
      * @return Loggedin user.
      */
-    public Company loginCompany(String usernameOrEmail, String password);
+    public Company loginCompany(String email, String password);
 
     /**
      * Registers the certain oompany.
