@@ -34,7 +34,7 @@ public abstract class UserManagerAPI {
     public abstract List<User> getUsersByPreferences(DriverPreferences driverPreferences);
 
     /**
-     * Tries to login with the certain username/email and password.
+     * Tries to login with the certain email and password.
      *
      * @param usernameOrEmail
      * @param password

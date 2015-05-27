@@ -7,8 +7,6 @@ import ge.taxistgela.dao.CompanyDaoAPI;
  */
 public abstract class CompanyManagerAPI {
     private CompanyDaoAPI companyDao;
-    public  CompanyManagerAPI(CompanyDaoAPI companyDao){
-        this.companyDao = companyDao;
-    }
+    public  CompanyManagerAPI(CompanyDaoAPI companyDao){this.companyDao = companyDao;}
 
 }
