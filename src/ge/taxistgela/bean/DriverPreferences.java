@@ -5,7 +5,6 @@ package ge.taxistgela.bean;
  */
 public class DriverPreferences {
     private double minimumUserRating;
-    private int timeLimit; // maximum ra dros daxarjavs klienttan misvlaze
     private double coefficientPer; //yovel wutze an mandzilze ra tarifi aqvs. amas mere shevxedevat riti gvirchevnia davtvalot
 
     public double getMinimumUserRating() {
@@ -23,13 +22,4 @@ public class DriverPreferences {
     public void setCoefficientPer(double coefficientPer) {
         this.coefficientPer = coefficientPer;
     }
-
-    public int getTimeLimit() {
-        return timeLimit;
-    }
-
-    public void setTimeLimit(int timeLimit) {
-        this.timeLimit = timeLimit;
-    }
-
 }
