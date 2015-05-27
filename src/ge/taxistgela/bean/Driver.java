@@ -4,12 +4,12 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class Driver {
-    private enum Gender{
+    public enum Gender{
         MALE,FEMALE
     }
 
     private int driverID;
-    private String presonalID;
+    private String personalID;
     private String email;
     private String password;
     private int companyID;
@@ -57,12 +57,12 @@ public class Driver {
         this.driverID = driverID;
     }
 
-    public String getPresonalID() {
-        return presonalID;
+    public String getpersonalID() {
+        return personalID;
     }
 
-    public void setPresonalID(String presonalID) {
-        this.presonalID = presonalID;
+    public void setpersonalID(String personalID) {
+        this.personalID = personalID;
     }
 
     public String getEmail() {
