@@ -30,7 +30,7 @@ public interface DriverDaoAPI {
      * Tries to login with the certain email and password
      * Returns null if no driver exists.
      *
-     * @param usernameOrEmail
+     * @param email
      * @param password
      * @return Loggedin Driver.
      */

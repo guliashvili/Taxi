@@ -10,12 +10,11 @@ import java.util.List;
  * Created by GIO on 5/25/2015.
  */
 public abstract class UserManagerAPI {
-    private UserDaoAPI userDao;
+    protected UserDaoAPI userDao;
 
     public  UserManagerAPI(UserDaoAPI userDao){
         this.userDao = userDao;
     }
-
 
     /**
      * Returns User selected by the certain userID.
@@ -27,7 +26,7 @@ public abstract class UserManagerAPI {
 
     /**
      * Returns Users selected by the driver preferences criteria.
-     *
+     *  Does not consider TimeLimit
      * @param driverPreferences
      * @return List of users generated from database.
      */
@@ -35,21 +34,30 @@ public abstract class UserManagerAPI {
 
     /**
      * Tries to login with the certain email and password.
+     * Returns null if no user exists.
      *
-     * @param usernameOrEmail
+     * @param email
      * @param password
-     * @return
+     * @return Loggedin User.
      */
-    public abstract User loginUser(String usernameOrEmail, String password);
+    public abstract User loginUser(String email, String password);
 
     /**
      * Registers the certain user.
      * Returns operation result.
      *
      * @param user
-     * @return errorCode
+     * @return operationCode
      */
     public abstract int registerUser(User user);
+
+    /**
+     * Updates the user order with the new data.
+     *
+     * @param user
+     * @return operationCode
+     */
+    public abstract int updateUser(User user);
 
 
 }
