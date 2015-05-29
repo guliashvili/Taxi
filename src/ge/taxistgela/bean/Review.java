@@ -6,8 +6,7 @@ package ge.taxistgela.bean;
 public class Review {
     private int orderID;
     private boolean orientationFlag; // if its true then User scored driver else driver scored user
-    private double timeRating;
-    private double comfortRating;
+    private double rating;
     private String description;
 
     public int getOrderID() {
@@ -34,20 +33,11 @@ public class Review {
         this.orientationFlag = orientationFlag;
     }
 
-    public double getTimeRating() {
-        return timeRating;
+    public double getRating() {
+        return rating;
     }
 
-    public void setTimeRating(double timeRating) {
-        this.timeRating = timeRating;
+    public void setRating(double rating) {
+        this.rating = rating;
     }
-
-    public double getComfortRating() {
-        return comfortRating;
-    }
-
-    public void setComfortRating(double comfortRating) {
-        this.comfortRating = comfortRating;
-    }
-
 }
