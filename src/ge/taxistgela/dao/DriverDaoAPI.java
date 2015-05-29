@@ -54,14 +54,6 @@ public interface DriverDaoAPI {
     public int updateDriver(Driver driver);
 
     /**
-     * Checks if the driver exists with the certain personalID.
-     *
-     * @param personalID
-     * @return true/false
-     */
-    public boolean checkPersonalID(String personalID);
-
-    /**
      * Checks if the driver exists with the certain email.
      *
      * @param email
@@ -76,4 +68,21 @@ public interface DriverDaoAPI {
      * @return true/false
      */
     public boolean checkPhoneNumber(String phoneNumber);
+
+    /**
+     * Check if the driver exists with the certain facebookID. null if he has not linked to profile.
+     *
+     * @param facebookID
+     * @return true/false
+     */
+    public boolean checkFacebookID(String facebookID);
+
+
+    /**
+     * Check if the driver exists with the certain googleID. null if he has not linked to profile.
+     *
+     * @param googleID
+     * @return true/false
+     */
+    public boolean checkGoogleID(String googleID);
 }
