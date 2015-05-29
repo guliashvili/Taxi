@@ -97,8 +97,7 @@ CREATE TABLE Reviews (
   reviewID        INT AUTO_INCREMENT PRIMARY KEY,
   orderID          INT     NOT NULL,
   orientationFlag BOOLEAN NOT NULL,
-  timeRating      DOUBLE  NOT NULL,
-  comfortRating   DOUBLE  NOT NULL,
+  rating      DOUBLE  NOT NULL,
   description     TEXT    NOT NULL,
   FOREIGN KEY (orderID) REFERENCES Orders (orderID)
 );
