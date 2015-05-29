@@ -23,10 +23,10 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
     private static final String GET_REVIEW_BY_ID = "SELECT * FROM Reviews WHERE reviewID = ?";
 
     private static final String GET_REVIEW_BY_USER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
-            "FROM Reviews r INNER JOIN Orders o on o.userID = ?";
+            "FROM Reviews r INNER JOIN Orders o ON o.userID = ?";
 
     private static final String GET_REVIEW_BY_DRIVER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
-            "FROM Reviews r INNER JOIN Orders o on o.driverID = ?";
+            "FROM Reviews r INNER JOIN Orders o ON o.driverID = ?";
 
     @Override
     public int addReview(Review review) {
@@ -121,7 +121,7 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
         List<Review> reviews = new ArrayList<>();
 
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(GET_REVIEW_BY_USER_ID)) {
+            try (PreparedStatement stmt = conn.prepareStatement(GET_REVIEW_BY_DRIVER_ID)) {
                 stmt.setInt(1, driverID);
 
                 System.out.println(stmt.toString());
