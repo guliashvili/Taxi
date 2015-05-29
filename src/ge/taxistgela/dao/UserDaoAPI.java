@@ -70,6 +70,21 @@ public interface UserDaoAPI {
     public boolean checkPhoneNumber(String phoneNumber);
 
 
+    /**
+     * Check if the user exists with the certain facebookID. null if he has not linked to profile.
+     *
+     * @param facebookID
+     * @return true/false
+     */
+    public boolean checkFacebookID(String facebookID);
 
+
+    /**
+     * Check if the user exists with the certain googleID. null if he has not linked to profile.
+     *
+     * @param googleID
+     * @return true/false
+     */
+    public boolean checkGoogleID(String googleID);
 
 }

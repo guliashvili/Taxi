@@ -119,6 +119,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
 
     @Override
     public boolean checkFacebookID(String facebookID) {
+        if(facebookID != null)
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  facebookID = ?")) {
                 st.setString(1,facebookID);
@@ -133,6 +134,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
 
     @Override
     public boolean checkGoogleID(String googleID) {
+        if(googleID != null)
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  googleID = ?")) {
                 st.setString(1,googleID);
