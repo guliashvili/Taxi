@@ -49,6 +49,8 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setBigDecimal(10, order.getPaymentAmount());
                 stmt.setString(11, simpleDateFormat.format(order.getCallTime()));
 
+                System.out.println(stmt.toString());
+
                 stmt.executeUpdate();
 
                 try (ResultSet rslt = stmt.getGeneratedKeys()) {
@@ -79,6 +81,8 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setString(11, simpleDateFormat.format(order.getCallTime()));
                 stmt.setInt(12, order.getOrderID());
 
+                System.out.println(stmt.toString());
+
                 stmt.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -94,6 +98,8 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         try (Connection conn = DBConnectionProvider.getConnection()) {
             try (PreparedStatement stmt = conn.prepareStatement(GET_ORDER_BY_ID)) {
                 stmt.setInt(1, orderID);
+
+                System.out.println(stmt.toString());
 
                 try (ResultSet rslt = stmt.executeQuery()) {
                     if (rslt.next())
@@ -117,6 +123,8 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
             try (PreparedStatement stmt = conn.prepareStatement(GET_ORDER_BY_USER_ID)) {
                 stmt.setInt(1, userID);
 
+                System.out.println(stmt.toString());
+
                 try (ResultSet rslt = stmt.executeQuery()) {
                     while (rslt.next())
                         orders.add(fetchOrder(rslt));
@@ -138,6 +146,8 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         try (Connection conn = DBConnectionProvider.getConnection()) {
             try (PreparedStatement stmt = conn.prepareStatement(GET_ORDER_BY_Driver_ID)) {
                 stmt.setInt(1, driverID);
+
+                System.out.println(stmt.toString());
 
                 try (ResultSet rslt = stmt.executeQuery()) {
                     while (rslt.next())
