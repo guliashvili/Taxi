@@ -10,7 +10,8 @@ import java.sql.*;
  * Created by Alex on 5/25/2015.
  */
 public class CompanyDao implements CompanyDaoAPI, OperationCodes {
-    final static String login_STMT="SELECT * FROM Companies WHERE email=? AND password=?";
+    final static  String base_select_STMT = " SELECT * FROM Companies ";
+    final static String login_STMT = base_select_STMT + "  WHERE email=? AND password=? ";
     final static String register_STMT="INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID) VALUES(?,?,?,?,?,?,?)";
     final static String update_STMT="UPDATE Companies SET companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?";
     @Override
@@ -31,48 +32,61 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         return null;
     }
 
+    /*
+    companyCode,email,password,companyName,phoneNumber,facebookID,googleID
+    sets strings with that order
+     */
+    private int setStrings(PreparedStatement st, Company company){
+        int errorCode = 0;
+        try {
+            st.setString(1, company.getCompanyCode());
+            st.setString(2, company.getEmail());
+            st.setString(3, HashGenerator.getSaltHash(company.getPassword()));
+            st.setString(4, company.getCompanyName());
+            st.setString(5, company.getPhoneNumber());
+            st.setString(6, company.getFacebookID());
+            st.setString(7, company.getGoogleID());
+        }catch (SQLException e){
+            errorCode = -1;
+        }
+        return  errorCode;
+    }
+
     @Override
     public int registerCompany(Company company) {
+        int errorCode = 0;
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(register_STMT,Statement.RETURN_GENERATED_KEYS)) {
-                st.setString(1,company.getCompanyCode());
-                st.setString(2,company.getEmail());
-                st.setString(3,HashGenerator.getSaltHash(company.getPassword()));
-                st.setString(4,company.getCompanyName());
-                st.setString(5,company.getPhoneNumber());
-                st.setString(6,company.getFacebookID());
-                st.setString(7,company.getGoogleID());
+                errorCode |= setStrings(st, company);
+
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
                 if(!res.next()){
-                    return 0;//TODO ERRORCODE
+                    errorCode = -1;//TODO ERRORCODE
+                }else {
+                    company.setCompanyID(res.getInt(1));
                 }
-                company.setCompanyID(res.getInt(1));
             }
         }catch(SQLException e){
-
+            //TODO
+            errorCode = -1;
         }
-        return 0;
+        return errorCode;
     }
 
     @Override
     public int updateCompany(Company company) {
+        int errorCode = 0;
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(update_STMT)) {
-                st.setString(1,company.getCompanyCode());
-                st.setString(2,company.getEmail());
-                st.setString(3,HashGenerator.getSaltHash(company.getPassword()));
-                st.setString(4,company.getCompanyName());
-                st.setString(5,company.getPhoneNumber());
-                st.setString(6,company.getFacebookID());
-                st.setString(7,company.getGoogleID());
+                errorCode |= setStrings(st, company);
                 st.executeUpdate();
-                return 0;//TODO success code
+
             }
         }catch(SQLException e){
-
+            errorCode = -1;//TODO
         }
-        return 0;
+        return errorCode;
     }
 
     @Override

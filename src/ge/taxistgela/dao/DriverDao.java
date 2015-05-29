@@ -106,11 +106,11 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(preferences_STMT)) {
 
-                st.setDouble(1,user.getPreference().getMinimumDriverRating());
+                st.setDouble(1, user.getPreference().getMinimumDriverRating());
                 st.setBoolean(2,user.getPreference().isConditioning());
                 st.setInt(3,user.getPreference().getCarYear());
                 st.setInt(4,user.getPreference().getPassengersCount());
-                st.setDouble(5,user.getRating());
+                st.setDouble(5, user.getRating());
 
                 System.out.println(st.toString());
                 ResultSet res = st.executeQuery();
@@ -176,7 +176,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     public int registerDriver(Driver driver) {
         int errorCode = 0;
         try(Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(register_STMT)) {
+            try (PreparedStatement st = con.prepareStatement(register_STMT,PreparedStatement.RETURN_GENERATED_KEYS)) {
                 System.out.println(st.toString());
 
                 errorCode |= setStrings(st,driver);
