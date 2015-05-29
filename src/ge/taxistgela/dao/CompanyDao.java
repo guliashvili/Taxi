@@ -116,4 +116,32 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         }
         return false;
     }
+
+    @Override
+    public boolean checkFacebookID(String facebookID) {
+        try(Connection con = DBConnectionProvider.getConnection()){
+            try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  facebookID = ?")) {
+                st.setString(1,facebookID);
+                ResultSet res = st.executeQuery();
+                return res.next();
+            }
+        }catch(SQLException e){
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkGoogleID(String googleID) {
+        try(Connection con = DBConnectionProvider.getConnection()){
+            try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  googleID = ?")) {
+                st.setString(1,googleID);
+                ResultSet res = st.executeQuery();
+                return res.next();
+            }
+        }catch(SQLException e){
+
+        }
+        return false;
+    }
 }

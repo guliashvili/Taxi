@@ -19,8 +19,8 @@ CREATE TABLE Companies (
   password    TEXT               NOT NULL,
   companyName VARCHAR(50) NOT NULL,
   phoneNumber VARCHAR(13) UNIQUE NOT NULL,
-  facebookID  TEXT, -- TODO trigger davadot uniquesi
-  googleID    TEXT -- TODO trigger davadot uniquesi
+  facebookID  VARCHAR(255) UNIQUE,
+  googleID   VARCHAR(255) UNIQUE
 );
 
 CREATE TABLE DriverPreferences(
@@ -39,9 +39,9 @@ CREATE TABLE Drivers (
   lastName      VARCHAR(20)               NOT NULL,
   gender        ENUM('MALE', 'FEMALE') NOT NULL,
   phoneNumber   VARCHAR(13) UNIQUE NOT NULL,
-  carID         VARCHAR(8)         NOT NULL,
-  facebookID    TEXT, -- TODO trigger davadot uniquesi
-  googleID      TEXT, -- TODO trigger davadot uniquesi
+  carID         VARCHAR(8)  UNIQUE     NOT NULL,
+  facebookID  VARCHAR(255) UNIQUE,
+  googleID   VARCHAR(255) UNIQUE,
   rating        DOUBLE             NOT NULL,
   DriverPreferenceID INT                NOT NULL,
   latitude      DECIMAL            NOT NULL,
@@ -70,8 +70,8 @@ CREATE TABLE Users (
   lastName      VARCHAR(20)                   NOT NULL,
   phoneNumber   VARCHAR(13) UNIQUE     NOT NULL,
   gender        ENUM('MALE', 'FEMALE') NOT NULL,
-  facebookID    TEXT,
-  googleID      TEXT,
+  facebookID  VARCHAR(255) UNIQUE,
+  googleID   VARCHAR(255) UNIQUE,
   userPreferenceID INT                    NOT NULL,
   FOREIGN KEY (userPreferenceID) REFERENCES UserPreferences (userPreferenceID)
 );
