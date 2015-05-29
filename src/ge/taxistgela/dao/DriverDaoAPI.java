@@ -52,4 +52,28 @@ public interface DriverDaoAPI {
      * @return operationCode
      */
     public int updateDriver(Driver driver);
+
+    /**
+     * Checks if the driver exists with the certain personalID.
+     *
+     * @param personalID
+     * @return true/false
+     */
+    public boolean checkPersonalID(String personalID);
+
+    /**
+     * Checks if the driver exists with the certain email.
+     *
+     * @param email
+     * @return true/false
+     */
+    public boolean checkEmail(String email);
+
+    /**
+     * Checks if the driver exists with the certain phoneNumber.
+     *
+     * @param phoneNumber
+     * @return true/false
+     */
+    public boolean checkPhoneNumber(String phoneNumber);
 }

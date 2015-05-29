@@ -33,4 +33,36 @@ public interface CompanyDaoAPI {
      * @return operationCode
      */
     public int updateCompany(Company company);
+
+    /**
+     * Checks if the company exists with the certain email.
+     *
+     * @param email
+     * @return true/false
+     */
+    public boolean checkEmail(String email);
+
+    /**
+     * Checks if the company exists with the certain phoneNumber.
+     *
+     * @param phoneNumber
+     * @return true/false
+     */
+    public boolean checkPhoneNumber(String phoneNumber);
+
+    /**
+     * Check if the company exists with the certain companyCode.
+     *
+     * @param companyCode
+     * @return true/false
+     */
+    public boolean checkCompanyCode(String companyCode);
+
+    /**
+     * Check if the company exists with the certain companyName.
+     *
+     * @param companyName
+     * @return true/false
+     */
+    public boolean checkCompanyName(String companyName);
 }
