@@ -99,6 +99,19 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         return 0;
     }
 
+    @Override
+    public boolean checkCarID(String carID) {
+        try(Connection con = DBConnectionProvider.getConnection()){
+            try(PreparedStatement st = con.prepareStatement("SELECT driverID FROM drivers WHERE  carID = ?")) {
+                st.setString(1,carID);
+                ResultSet res = st.executeQuery();
+                return res.next();
+            }
+        }catch(SQLException e){
+
+        }
+        return false;
+    }
 
     @Override
     public boolean checkEmail(String email) {

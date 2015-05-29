@@ -54,6 +54,14 @@ public interface DriverDaoAPI {
     public int updateDriver(Driver driver);
 
     /**
+     * Checks if the driver exists with the certain carID.
+     *
+     * @param carID
+     * @return true/false
+     */
+    public boolean checkCarID(String carID);
+
+    /**
      * Checks if the driver exists with the certain email.
      *
      * @param email
