@@ -14,9 +14,14 @@ import java.util.List;
  * Created by Alex on 5/25/2015.
  */
 public class UserDao implements UserDaoAPI, OperationCodes {
-
+    private final static String loginUser_STM = "SELECT * FROM users WHERE email = ? AND password = ?";
+    private final static String checkMail_STM = "SELECT userID FROM users WHERE  email = ?";
+    private final static String checkPhoneNumber_STM = "SELECT userID FROM users WHERE  phoneNumber = ?";
+    private final static String checkFacebook_STM="SELECT userID FROM users WHERE  googleID = ?";
+    private final static String checkGoogle_STM ="SELECT userID FROM users WHERE  googleID = ?";
     @Override
     public User getUserByID(int userID) {
+
         return null;
     }
 
@@ -27,6 +32,13 @@ public class UserDao implements UserDaoAPI, OperationCodes {
 
     @Override
     public User loginUser(String email, String password) {
+        try(Connection con = DBConnectionProvider.getConnection()){
+            try(PreparedStatement st = con.prepareStatement(loginUser_STM)){
+
+            }
+        }catch (SQLException e){
+
+        }
         return null;
     }
 
@@ -43,7 +55,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     @Override
     public boolean checkEmail(String email) {
         try(Connection con = DBConnectionProvider.getConnection()){
-            try(PreparedStatement st = con.prepareStatement("SELECT userID FROM users WHERE  email = ?")) {
+            try(PreparedStatement st = con.prepareStatement(checkMail_STM)) {
                 st.setString(1,email);
                 ResultSet res = st.executeQuery();
                 return res.next();
@@ -57,7 +69,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     @Override
     public boolean checkPhoneNumber(String phoneNumber) {
         try(Connection con = DBConnectionProvider.getConnection()){
-            try(PreparedStatement st = con.prepareStatement("SELECT userID FROM users WHERE  phoneNumber = ?")) {
+            try(PreparedStatement st = con.prepareStatement(checkPhoneNumber_STM)) {
                 st.setString(1,phoneNumber);
                 ResultSet res = st.executeQuery();
                 return res.next();
@@ -72,7 +84,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public boolean checkFacebookID(String facebookID) {
         if(facebookID != null)
             try(Connection con = DBConnectionProvider.getConnection()){
-                try(PreparedStatement st = con.prepareStatement("SELECT userID FROM users WHERE  googleID = ?")) {
+                try(PreparedStatement st = con.prepareStatement(checkFacebook_STM)) {
                     st.setString(1,facebookID);
                     ResultSet res = st.executeQuery();
                     return res.next();
@@ -88,7 +100,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public boolean checkGoogleID(String googleID) {
         if(googleID != null)
             try(Connection con = DBConnectionProvider.getConnection()){
-                try(PreparedStatement st = con.prepareStatement("SELECT userID FROM users WHERE  googleID = ?")) {
+                try(PreparedStatement st = con.prepareStatement(checkGoogle_STM)) {
                     st.setString(1,googleID);
                     ResultSet res = st.executeQuery();
                     return res.next();
