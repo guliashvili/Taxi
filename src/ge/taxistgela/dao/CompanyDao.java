@@ -20,6 +20,9 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 st.setString(1,email);
                 st.setString(2, HashGenerator.getHash(password));//NEEDS HASH
                 ResultSet res = st.executeQuery();
+                if(!res.next()){
+                    return null;
+                }
                 return new Company(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8));
             }
         }catch(SQLException e){
@@ -41,7 +44,9 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 st.setString(7,company.getGoogleID());
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
-                res.next();
+                if(!res.next()){
+                    return 0;//TODO ERRORCODE
+                }
                 company.setCompanyID(res.getInt(1));
             }
         }catch(SQLException e){
@@ -62,6 +67,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 st.setString(6,company.getFacebookID());
                 st.setString(7,company.getGoogleID());
                 st.executeUpdate();
+                return 0;//TODO success code
             }
         }catch(SQLException e){
 
