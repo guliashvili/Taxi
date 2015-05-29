@@ -37,6 +37,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
 
     @Override
     public boolean checkEmail(String email) {
+        
+
         return false;
     }
 
@@ -44,4 +46,5 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public boolean checkPhoneNumber(String phoneNumber) {
         return false;
     }
+
 }
