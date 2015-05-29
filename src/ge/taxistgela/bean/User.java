@@ -4,17 +4,13 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class User {
-    private enum Gender{
-        MALE,FEMALE
-    }
-
     private int userID;
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    Gender gender;
+    private Gender gender;
     private String facebookID;
     private String googleID;
     private UserPreferences prefences;

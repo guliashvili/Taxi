@@ -4,10 +4,6 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class Driver {
-    public enum Gender{
-        MALE,FEMALE
-    }
-
     private int driverID;
     private String personalID;
     private String email;
