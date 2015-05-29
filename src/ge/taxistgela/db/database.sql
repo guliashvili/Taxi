@@ -53,8 +53,8 @@ CREATE TABLE Drivers (
 );
 
 CREATE TABLE UserPreferences (
-  ID              INT AUTO_INCREMENT PRIMARY KEY,
-  rating          DOUBLE     NOT NULL,
+  userPreferenceID              INT AUTO_INCREMENT PRIMARY KEY,
+  minimumDriverRaiting          DOUBLE     NOT NULL,
   conditioning    BOOLEAN    NOT NULL,
   carYear         TINYINT(4) NOT NULL,
   passengersCount TINYINT(2) NOT NULL,
@@ -66,14 +66,14 @@ CREATE TABLE Users (
   userID        INT AUTO_INCREMENT PRIMARY KEY,
   password      TEXT                   NOT NULL,
   email         VARCHAR(50) UNIQUE     NOT NULL,
-  firstName     TEXT                   NOT NULL,
-  lastName      TEXT                   NOT NULL,
+  firstName     VARCHAR(20)                   NOT NULL,
+  lastName      VARCHAR(20)                   NOT NULL,
   phoneNumber   VARCHAR(13) UNIQUE     NOT NULL,
   gender        ENUM('MALE', 'FEMALE') NOT NULL,
   facebookID    TEXT,
   googleID      TEXT,
-  preferenceID INT                    NOT NULL,
-  FOREIGN KEY (preferenceID) REFERENCES UserPreferences (ID)
+  userPreferenceID INT                    NOT NULL,
+  FOREIGN KEY (userPreferenceID) REFERENCES UserPreferences (userPreferenceID)
 );
 
 CREATE TABLE Orders (
