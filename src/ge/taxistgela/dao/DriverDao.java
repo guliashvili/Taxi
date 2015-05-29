@@ -18,7 +18,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     final static String login_STMT = "SELECT * FROM Drivers WHERE email=? AND password=?";
     final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive)" +
             " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    final static String update_STMT = "UPDATE Drivers SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,DriverPreferenceID=?,latitude=?,longitude=?,isActive";
+    final static String update_STMT = "UPDATE Drivers SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,DriverPreferenceID=?,latitude=?,longitude=?,isActive=?";
     @Override
     public Driver getDriveByID(int driverID) {
 
@@ -45,9 +45,11 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 output.setCompanyID(res.getInt("companyID"));
                 output.setFirstName(res.getString("firstName"));
                 output.setLastName(res.getString("lastName"));
-                //if() TODO GENDER
+
+                output.setGender(Driver.Gender.valueOf(res.getString("gender")));
+
                 //TODO Car
-                //output.Gender.valueOf()
+
                 output.setPhoneNumber(res.getString("phoneNumber"));
                 output.setFacebookID(res.getString("facebookID"));
                 output.setGoogleID(res.getString("googleID"));
