@@ -151,18 +151,28 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         return orders;
     }
 
+    /**
+     * Factory method that generates Order object from ResultSet.
+     *
+     * @param rslt
+     * @return Generated Order.
+     * @throws SQLException
+     * @throws ParseException
+     */
     private static Order fetchOrder(ResultSet rslt) throws SQLException, ParseException {
-        return new Order(
-                rslt.getInt(1),
-                rslt.getInt(2),
-                rslt.getInt(3),
-                rslt.getInt(4),
-                new Location(rslt.getBigDecimal(5), rslt.getBigDecimal(6)),
-                new Location(rslt.getBigDecimal(7), rslt.getBigDecimal(8)),
-                simpleDateFormat.parse(rslt.getString(9)),
-                simpleDateFormat.parse(rslt.getString(10)),
-                rslt.getBigDecimal(11),
-                simpleDateFormat.parse(rslt.getString(12))
-        );
+        Order order = new Order();
+
+        order.setOrderID(rslt.getInt(1));
+        order.setUserID(rslt.getInt(2));
+        order.setDriverID(rslt.getInt(3));
+        order.setNumPassengers(rslt.getInt(4));
+        order.setStartLocation(new Location(rslt.getBigDecimal(6), rslt.getBigDecimal(5)));
+        order.setEndLocation(new Location(rslt.getBigDecimal(8), rslt.getBigDecimal(7)));
+        order.setStartTime(simpleDateFormat.parse(rslt.getString(9)));
+        order.setEndTime(simpleDateFormat.parse(rslt.getString(10)));
+        order.setPaymentAmount(rslt.getBigDecimal(11));
+        order.setCallTime(simpleDateFormat.parse(rslt.getString(12)));
+
+        return order;
     }
 }
