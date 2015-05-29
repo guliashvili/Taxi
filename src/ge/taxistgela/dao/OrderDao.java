@@ -4,10 +4,7 @@ import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.db.DBConnectionProvider;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
     @Override
     public int addOrder(Order order) throws ParseException {
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(ADD_ORDER)) {
+            try (PreparedStatement stmt = conn.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setInt(1, order.getUserID());
                 stmt.setInt(2, order.getDriverID());
                 stmt.setInt(3, order.getNumPassengers());
@@ -53,6 +50,11 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setString(11, simpleDateFormat.format(order.getCallTime()));
 
                 stmt.executeUpdate();
+
+                try (ResultSet rslt = stmt.getGeneratedKeys()) {
+                    if (rslt.next())
+                        order.setOrderID(rslt.getInt(1));
+                }
             }
         } catch (SQLException ex) {
 
@@ -151,18 +153,28 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         return orders;
     }
 
+    /**
+     * Factory method that generates Order object from ResultSet.
+     *
+     * @param rslt
+     * @return Generated Order.
+     * @throws SQLException
+     * @throws ParseException
+     */
     private static Order fetchOrder(ResultSet rslt) throws SQLException, ParseException {
-        return new Order(
-                rslt.getInt(1),
-                rslt.getInt(2),
-                rslt.getInt(3),
-                rslt.getInt(4),
-                new Location(rslt.getBigDecimal(5), rslt.getBigDecimal(6)),
-                new Location(rslt.getBigDecimal(7), rslt.getBigDecimal(8)),
-                simpleDateFormat.parse(rslt.getString(9)),
-                simpleDateFormat.parse(rslt.getString(10)),
-                rslt.getBigDecimal(11),
-                simpleDateFormat.parse(rslt.getString(12))
-        );
+        Order order = new Order();
+
+        order.setOrderID(rslt.getInt(1));
+        order.setUserID(rslt.getInt(2));
+        order.setDriverID(rslt.getInt(3));
+        order.setNumPassengers(rslt.getInt(4));
+        order.setStartLocation(new Location(rslt.getBigDecimal(6), rslt.getBigDecimal(5)));
+        order.setEndLocation(new Location(rslt.getBigDecimal(8), rslt.getBigDecimal(7)));
+        order.setStartTime(simpleDateFormat.parse(rslt.getString(9)));
+        order.setEndTime(simpleDateFormat.parse(rslt.getString(10)));
+        order.setPaymentAmount(rslt.getBigDecimal(11));
+        order.setCallTime(simpleDateFormat.parse(rslt.getString(12)));
+
+        return order;
     }
 }
