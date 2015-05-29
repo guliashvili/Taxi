@@ -25,7 +25,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public List<Driver> getDriverByPreferences(UserPreferences userPreferences) {
+    public List<Driver> getDriverByPreferences(UserPreference userPreference) {
         return null;
     }
 
@@ -60,7 +60,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 output.setFacebookID(res.getString("facebookID"));
                 output.setGoogleID(res.getString("googleID"));
                 output.setRating(res.getDouble("rating"));
-                DriverPreferences pref = new DriverPreferences();
+                DriverPreference pref = new DriverPreference();
                 pref.setCoefficientPer(res.getDouble("coefficientPer"));
                 pref.setMinimumUserRating(res.getDouble("minimumUserRating"));
                 output.setPreferences(pref);

@@ -3,7 +3,7 @@ package ge.taxistgela.bean;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class UserPreferences {
+public class UserPreference {
     private double minimumDriverRaiting;
     private boolean conditioning; // true unda, false kidia
     private int carYear; // meti an toli gamoshvebis wliani manqanebi

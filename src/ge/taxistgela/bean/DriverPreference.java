@@ -3,7 +3,7 @@ package ge.taxistgela.bean;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class DriverPreferences {
+public class DriverPreference {
     private int DriverPreferenceID;
     private double minimumUserRating;
     private double coefficientPer; //yovel wutze an mandzilze ra tarifi aqvs. amas mere shevxedevat riti gvirchevnia davtvalot

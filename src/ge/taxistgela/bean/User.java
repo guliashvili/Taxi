@@ -13,7 +13,7 @@ public class User {
     private Gender gender;
     private String facebookID;
     private String googleID;
-    private UserPreferences prefences;
+    private UserPreference prefences;
 
     public int getUserID() {
         return userID;
@@ -87,11 +87,11 @@ public class User {
         this.googleID = googleID;
     }
 
-    public UserPreferences getPrefences() {
+    public UserPreference getPrefences() {
         return prefences;
     }
 
-    public void setPrefences(UserPreferences prefences) {
+    public void setPrefences(UserPreference prefences) {
         this.prefences = prefences;
     }
 }

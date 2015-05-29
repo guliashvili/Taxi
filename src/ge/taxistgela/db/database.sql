@@ -24,7 +24,7 @@ CREATE TABLE Companies (
 );
 
 CREATE TABLE DriverPreferences(
-  DriverPreferenceID        INT AUTO_INCREMENT PRIMARY KEY,
+  driverPreferenceID        INT AUTO_INCREMENT PRIMARY KEY,
   minimumUserRating    DOUBLE NOT NULL,
   coefficientPer       DOUBLE NOT NULL
 );
@@ -35,8 +35,8 @@ CREATE TABLE Drivers (
   password      TEXT               NOT NULL,
   email         VARCHAR(50) UNIQUE NOT NULL,
   companyID     INT,
-  firstName     TEXT               NOT NULL,
-  lastName      TEXT               NOT NULL,
+  firstName     VARCHAR(20)               NOT NULL,
+  lastName      VARCHAR(20)               NOT NULL,
   gender        ENUM('MALE', 'FEMALE') NOT NULL,
   phoneNumber   VARCHAR(13) UNIQUE NOT NULL,
   carID         VARCHAR(8)         NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE Drivers (
   longitude     DECIMAL            NOT NULL,
   isActive      BOOLEAN            NOT NULL,
   FOREIGN KEY (carID) REFERENCES Cars (carID),
-  FOREIGN KEY (DriverPreferenceID) REFERENCES DriverPreferences (DriverPreferenceID),
+  FOREIGN KEY (driverPreferenceID) REFERENCES DriverPreferences (driverPreferenceID),
   FOREIGN KEY (companyID) REFERENCES Companies (companyID)
 );
 

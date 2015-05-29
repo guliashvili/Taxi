@@ -18,7 +18,7 @@ public class Driver {
     private String googleID;
     private Location location;
     private double rating;
-    private DriverPreferences preferences;
+    private DriverPreference preferences;
     private boolean isActive;
 
     public Gender getGender() {
@@ -141,11 +141,11 @@ public class Driver {
         this.rating = rating;
     }
 
-    public DriverPreferences getPreferences() {
+    public DriverPreference getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(DriverPreferences preferences) {
+    public void setPreferences(DriverPreference preferences) {
         this.preferences = preferences;
     }
 }

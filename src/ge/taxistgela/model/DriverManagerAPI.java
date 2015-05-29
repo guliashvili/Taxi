@@ -1,7 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.UserPreferences;
+import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.DriverDaoAPI;
 
 import java.util.List;
@@ -26,10 +26,10 @@ public abstract  class DriverManagerAPI {
     /**
      * Returns Drivers selected by the user preferences.
      * Does not consider TimeLimit
-     * @param userPreferences
+     * @param userPreference
      * @return List of drivers generated from database.
      */
-    public abstract List<Driver> getDriverByPreferences(UserPreferences userPreferences);
+    public abstract List<Driver> getDriverByPreferences(UserPreference userPreference);
 
     /**
      * Tries to login with the certain email and password

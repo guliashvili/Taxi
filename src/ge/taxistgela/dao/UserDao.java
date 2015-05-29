@@ -1,6 +1,6 @@
 package ge.taxistgela.dao;
 
-import ge.taxistgela.bean.DriverPreferences;
+import ge.taxistgela.bean.DriverPreference;
 import ge.taxistgela.bean.User;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     }
 
     @Override
-    public List<User> getUsersByPreferences(DriverPreferences driverPreferences) {
+    public List<User> getUsersByPreferences(DriverPreference driverPreference) {
         return null;
     }
 

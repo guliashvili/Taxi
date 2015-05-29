@@ -1,7 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.UserPreferences;
+import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.DriverDaoAPI;
 
 import java.util.List;
@@ -21,8 +21,8 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public List<Driver> getDriverByPreferences(UserPreferences userPreferences) {
-        return  driverDao.getDriverByPreferences(userPreferences);
+    public List<Driver> getDriverByPreferences(UserPreference userPreference) {
+        return  driverDao.getDriverByPreferences(userPreference);
     }
 
     @Override
