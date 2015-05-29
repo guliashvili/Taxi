@@ -43,7 +43,7 @@ CREATE TABLE Drivers (
   facebookID  VARCHAR(255) UNIQUE,
   googleID   VARCHAR(255) UNIQUE,
   rating        DOUBLE             NOT NULL,
-  DriverPreferenceID INT                NOT NULL,
+  driverPreferenceID INT                NOT NULL,
   latitude      DECIMAL            NOT NULL,
   longitude     DECIMAL            NOT NULL,
   isActive      BOOLEAN            NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE Drivers (
 
 CREATE TABLE UserPreferences (
   userPreferenceID              INT AUTO_INCREMENT PRIMARY KEY,
-  minimumDriverRaiting          DOUBLE     NOT NULL,
+  minimumDriverRating          DOUBLE     NOT NULL,
   conditioning    BOOLEAN    NOT NULL,
   carYear         TINYINT(4) NOT NULL,
   passengersCount TINYINT(2) NOT NULL,
@@ -70,6 +70,7 @@ CREATE TABLE Users (
   lastName      VARCHAR(20)                   NOT NULL,
   phoneNumber   VARCHAR(13) UNIQUE     NOT NULL,
   gender        ENUM('MALE', 'FEMALE') NOT NULL,
+  rating DOUBLE NOT NULL ,
   facebookID  VARCHAR(255) UNIQUE,
   googleID   VARCHAR(255) UNIQUE,
   userPreferenceID INT                    NOT NULL,

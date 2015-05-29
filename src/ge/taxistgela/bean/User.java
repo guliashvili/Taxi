@@ -13,7 +13,8 @@ public class User {
     private Gender gender;
     private String facebookID;
     private String googleID;
-    private UserPreference prefences;
+    private double rating;
+    private UserPreference preference;
 
     public int getUserID() {
         return userID;
@@ -63,12 +64,28 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Gender isGender() {
+    public Gender getGender() {
         return gender;
     }
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public UserPreference getPreference() {
+        return preference;
+    }
+
+    public void setPreference(UserPreference preference) {
+        this.preference = preference;
     }
 
     public String getFacebookID() {
@@ -87,11 +104,4 @@ public class User {
         this.googleID = googleID;
     }
 
-    public UserPreference getPrefences() {
-        return prefences;
-    }
-
-    public void setPrefences(UserPreference prefences) {
-        this.prefences = prefences;
-    }
 }
