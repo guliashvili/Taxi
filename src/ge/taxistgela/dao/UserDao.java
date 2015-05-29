@@ -34,4 +34,14 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public int updateUser(User user) {
         return 0;
     }
+
+    @Override
+    public boolean checkEmail(String email) {
+        return false;
+    }
+
+    @Override
+    public boolean checkPhoneNumber(String phoneNumber) {
+        return false;
+    }
 }
