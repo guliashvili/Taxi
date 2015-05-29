@@ -4,10 +4,19 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class Review {
+    private int reviewID;
     private int orderID;
     private boolean orientationFlag; // if its true then User scored driver else driver scored user
     private double rating;
     private String description;
+
+    public int getReviewID() {
+        return reviewID;
+    }
+
+    public void setReviewID(int reviewID) {
+        this.reviewID = reviewID;
+    }
 
     public int getOrderID() {
         return orderID;
