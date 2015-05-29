@@ -36,7 +36,7 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
     @Override
     public int addOrder(Order order) throws ParseException {
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(ADD_ORDER)) {
+            try (PreparedStatement stmt = conn.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setInt(1, order.getUserID());
                 stmt.setInt(2, order.getDriverID());
                 stmt.setInt(3, order.getNumPassengers());
@@ -50,6 +50,11 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setString(11, simpleDateFormat.format(order.getCallTime()));
 
                 stmt.executeUpdate();
+
+                try (ResultSet rslt = stmt.getGeneratedKeys()) {
+                    if (rslt.next())
+                        order.setOrderID(rslt.getInt(1));
+                }
             }
         } catch (SQLException ex) {
 
@@ -60,7 +65,7 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
     @Override
     public int updateOrder(Order order) {
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(UPDATE_ORDER, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement stmt = conn.prepareStatement(UPDATE_ORDER)) {
                 stmt.setInt(1, order.getUserID());
                 stmt.setInt(2, order.getDriverID());
                 stmt.setInt(3, order.getNumPassengers());
@@ -75,11 +80,6 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setInt(12, order.getOrderID());
 
                 stmt.executeUpdate();
-
-                try (ResultSet rslt = stmt.getGeneratedKeys()) {
-                    if (rslt.next())
-                        order.setOrderID(rslt.getInt(1));
-                }
             }
         } catch (SQLException ex) {
 
