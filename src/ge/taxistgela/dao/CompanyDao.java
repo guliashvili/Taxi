@@ -18,7 +18,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(login_STMT)) {
                 st.setString(1,email);
-                st.setString(2, HashGenerator.getHash(password));//NEEDS HASH
+                st.setString(2, HashGenerator.getSaltHash(password));
                 ResultSet res = st.executeQuery();
                 if(!res.next()){
                     return null;
@@ -37,7 +37,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             try(PreparedStatement st = con.prepareStatement(register_STMT,Statement.RETURN_GENERATED_KEYS)) {
                 st.setString(1,company.getCompanyCode());
                 st.setString(2,company.getEmail());
-                st.setString(3,HashGenerator.getHash(company.getPassword()));
+                st.setString(3,HashGenerator.getSaltHash(company.getPassword()));
                 st.setString(4,company.getCompanyName());
                 st.setString(5,company.getPhoneNumber());
                 st.setString(6,company.getFacebookID());
@@ -61,7 +61,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             try(PreparedStatement st = con.prepareStatement(update_STMT)) {
                 st.setString(1,company.getCompanyCode());
                 st.setString(2,company.getEmail());
-                st.setString(3,HashGenerator.getHash(company.getPassword()));
+                st.setString(3,HashGenerator.getSaltHash(company.getPassword()));
                 st.setString(4,company.getCompanyName());
                 st.setString(5,company.getPhoneNumber());
                 st.setString(6,company.getFacebookID());
@@ -73,5 +73,47 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
 
         }
         return 0;
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        try(Connection con = DBConnectionProvider.getConnection()){
+            try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  email = ?")) {
+                st.setString(1,email);
+                ResultSet res = st.executeQuery();
+                return res.next();
+            }
+        }catch(SQLException e){
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkPhoneNumber(String phoneNumber) {
+        try(Connection con = DBConnectionProvider.getConnection()){
+            try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  phoneNumber = ?")) {
+                st.setString(1,phoneNumber);
+                ResultSet res = st.executeQuery();
+                return res.next();
+            }
+        }catch(SQLException e){
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkCompanyCode(String companyCode) {
+        try(Connection con = DBConnectionProvider.getConnection()){
+            try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  companyCode = ?")) {
+                st.setString(1,companyCode);
+                ResultSet res = st.executeQuery();
+                return res.next();
+            }
+        }catch(SQLException e){
+
+        }
+        return false;
     }
 }

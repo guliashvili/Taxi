@@ -17,7 +17,7 @@ CREATE TABLE Companies (
   companyCode VARCHAR(9) UNIQUE  NOT NULL,
   email       VARCHAR(50) UNIQUE NOT NULL,
   password    TEXT               NOT NULL,
-  companyName VARCHAR(50) UNIQUE NOT NULL,
+  companyName VARCHAR(50) NOT NULL,
   phoneNumber VARCHAR(13) UNIQUE NOT NULL,
   facebookID  TEXT, -- TODO trigger davadot uniquesi
   googleID    TEXT -- TODO trigger davadot uniquesi

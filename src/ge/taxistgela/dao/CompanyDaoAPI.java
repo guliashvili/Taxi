@@ -57,12 +57,4 @@ public interface CompanyDaoAPI {
      * @return true/false
      */
     public boolean checkCompanyCode(String companyCode);
-
-    /**
-     * Check if the company exists with the certain companyName.
-     *
-     * @param companyName
-     * @return true/false
-     */
-    public boolean checkCompanyName(String companyName);
 }
