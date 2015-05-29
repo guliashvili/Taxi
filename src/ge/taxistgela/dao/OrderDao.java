@@ -4,10 +4,7 @@ import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.db.DBConnectionProvider;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,7 +60,7 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
     @Override
     public int updateOrder(Order order) {
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(UPDATE_ORDER)) {
+            try (PreparedStatement stmt = conn.prepareStatement(UPDATE_ORDER, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setInt(1, order.getUserID());
                 stmt.setInt(2, order.getDriverID());
                 stmt.setInt(3, order.getNumPassengers());
@@ -78,6 +75,11 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setInt(12, order.getOrderID());
 
                 stmt.executeUpdate();
+
+                try (ResultSet rslt = stmt.getGeneratedKeys()) {
+                    if (rslt.next())
+                        order.setOrderID(rslt.getInt(1));
+                }
             }
         } catch (SQLException ex) {
 
