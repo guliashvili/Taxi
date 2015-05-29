@@ -95,12 +95,10 @@ CREATE TABLE Orders (
 
 CREATE TABLE Reviews (
   reviewID        INT AUTO_INCREMENT PRIMARY KEY,
-  userID          INT     NOT NULL,
-  driverID        INT     NOT NULL,
+  orderID          INT     NOT NULL,
   orientationFlag BOOLEAN NOT NULL,
   timeRating      DOUBLE  NOT NULL,
   comfortRating   DOUBLE  NOT NULL,
   description     TEXT    NOT NULL,
-  FOREIGN KEY (userID) REFERENCES Users (userID),
-  FOREIGN KEY (driverID) REFERENCES Drivers (driverID)
+  FOREIGN KEY (orderID) REFERENCES Orders (orderID)
 );
