@@ -4,27 +4,26 @@ package ge.taxistgela.bean;
  * Created by Alex on 5/25/2015.
  */
 public class Review {
-    private int userID;
-    private int driverID;
+    private int orderID;
     private boolean orientationFlag; // if its true then User scored driver else driver scored user
     private double timeRating;
     private double comfortRating;
     private String description;
 
-    public int getUserID() {
-        return userID;
+    public int getOrderID() {
+        return orderID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
-    public int getDriverID() {
-        return driverID;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDriverID(int driverID) {
-        this.driverID = driverID;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isOrientationFlag() {
@@ -51,11 +50,4 @@ public class Review {
         this.comfortRating = comfortRating;
     }
 
-    public String getText() {
-        return description;
-    }
-
-    public void setText(String description) {
-        this.description = description;
-    }
 }
