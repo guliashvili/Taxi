@@ -52,4 +52,20 @@ public interface UserDaoAPI {
      * @return operationCode
      */
     public int updateUser(User user);
+
+    /**
+     * Checks if the user exists with the certain email.
+     *
+     * @param email
+     * @return true/false
+     */
+    public boolean checkEmail(String email);
+
+    /**
+     * Checks if the user exists with the certain phoneNumber.
+     *
+     * @param phoneNumber
+     * @return true/false
+     */
+    public boolean checkPhoneNumber(String phoneNumber);
 }
