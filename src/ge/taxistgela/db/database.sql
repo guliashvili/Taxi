@@ -6,7 +6,7 @@ USE taxistGela;
 
 CREATE TABLE Cars (
   carID         VARCHAR(8) PRIMARY KEY,
-  carDescrption TEXT,
+  carDescription TEXT,
   carYear       TINYINT(4) NOT NULL,
   conditioning  BOOLEAN    NOT NULL,
   numPassengers TINYINT(2) NOT NULL
