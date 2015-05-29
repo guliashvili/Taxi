@@ -27,6 +27,11 @@ public class HashGenerator {
             return null;
         }
     }
+    private static final String SALT = "rati1azo%giO(";
+    public static String getSaltHash(String word) {
+        word += SALT;
+        return getHash(word);
+    }
 
     /**
      * Given byte[] array, produces a hex String.

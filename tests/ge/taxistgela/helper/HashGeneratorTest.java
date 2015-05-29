@@ -21,5 +21,8 @@ public class HashGeneratorTest {
 
         s = "68e109f0f40ca72a15e05cc22786f8e6";
         assertEquals("22744961b84dc9c20cdd1c0e0f5e1a82", HashGenerator.getHash(s));
+
+        s = "traki";
+        assertEquals("98ccab148f07b22e761434aa4c552dad",HashGenerator.getSaltHash(s));
     }
 }
