@@ -27,7 +27,7 @@ public class EmailSender {
      * @param user user to verify email
      * @param key key to be sent
      */
-    public synchronized void verifyEmail(User user,String key){
+    public static synchronized void verifyEmail(User user,String key){
         Properties properties = System.getProperties();
         properties.setProperty(stmphost,host);
         Session session = Session.getDefaultInstance(properties);
