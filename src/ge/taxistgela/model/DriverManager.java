@@ -22,7 +22,8 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public List<Driver> getDriverByPreferences(UserPreference userPreference) {
-        return  driverDao.getDriverByPreferences(userPreference);
+        //return  driverDao.getDriverByPreferences(userPreference);
+        return null;
     }
 
     @Override
