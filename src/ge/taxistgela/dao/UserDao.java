@@ -20,16 +20,17 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     private final static String checkPhoneNumber_STM = "SELECT userID FROM Users WHERE  phoneNumber = ?";
     private final static String checkFacebook_STM = "SELECT userID FROM Users WHERE  googleID = ?";
     private final static String checkGoogle_STM = "SELECT userID FROM Users WHERE  googleID = ?";
-    private final static String base_select_STMT = "SELECT * FROM Users INNER JOIN UserPreferences ON " +
-            "UserPreferences.userPreferenceID=Users.userPreferenceID ";
 
+
+    private final static String base_select_STMT = "SELECT * FROM Users";
+    private final static String base_joined_select_STMT = "SELECT * FROM Users INNER JOIN UserPreferences ON " +"UserPreferences.userPreferenceID=Users.userPreferenceID ";
     private final static String login_STMT = base_select_STMT + " WHERE Users.email=? AND Users.password=?";
     private final static String userByID_STMT = base_select_STMT + " WHERE Users.userID = ?";
     private final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID) VALUES(?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Users SET password=?,email=?,firstName=?,lastName=?," +
             "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=? " +
             "WHERE Users.userID=?";
-    private final static String preferences_STMT = base_select_STMT +
+    private final static String preferences_STMT = base_joined_select_STMT +
             " WHERE " +
             "? >= UserPreferences.minimumDriverRating AND " +
             "(NOT UserPreferences.conditioning OR ?) AND " +
@@ -37,7 +38,13 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             "? >= UserPreferences.passengersCount AND " +
             "Users.rating >= ?";
 
-
+    private final static String preference_insert_STMT =
+            "INSERT INTO UserPreferences(minimumDriverRating,conditioning,carYear,passengersCount,wantsAlone,timeLimit) " +
+                    "VALUES(?,?,?,?,?,?)";
+    private final static String preference_update_STMT =
+            "UPDATE UserPreferences SET " +
+                    "userPreferenceID=?,minimumDriverRating=?,conditioning=?,carYear=?," +
+                    "passengersCount=?,wantsAlone=?,timeLimit=? WHERE userPreferenceID = ?";
     private UserPreference getUserPreference(ResultSet res) {
         UserPreference up = new UserPreference();
 
@@ -76,14 +83,69 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         return user;
     }
 
+    private int setStringsPreference(PreparedStatement st,UserPreference up,boolean update){
+        int errorCode = 0;
+        try {
+            st.setDouble(1,up.getMinimumDriverRating());
+            st.setBoolean(2,up.isConditioning());
+            st.setInt(3,up.getCarYear());
+            st.setInt(4,up.getPassengersCount());
+            st.setBoolean(5,up.isWantsAlone());
+            st.setInt(6,up.getTimeLimit());
+            if(update)
+                st.setInt(7,up.getUserPreferenceID());
+        }catch(SQLException e){
+            errorCode = -1;
+        }
+
+        return errorCode;
+    }
     @Override
     public int insertUserPreference(UserPreference userPreference) {
-        return 0;
+        int errorCode = 0;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement(preference_insert_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                System.out.println(st.toString());
+
+
+                errorCode |= setStringsPreference(st,userPreference,false);
+
+
+                st.executeUpdate();
+                ResultSet res = st.getGeneratedKeys();
+                if (res.next()) {
+                    userPreference.setUserPreferenceID(res.getInt("userPreferenceID"));
+                } else {
+                    errorCode = -1;
+                    //TODO ERRORCODE
+                }
+
+            }
+        } catch (SQLException e) {
+            errorCode = -1;
+            //TODO ERRORCODE
+
+        }
+        return errorCode;
+
     }
 
     @Override
     public int updateUserPreference(UserPreference userPreference) {
-        return 0;
+        int errorCode = 0;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement(preference_update_STMT)) {
+                errorCode |= setStringsPreference(st, userPreference, true);
+
+                System.out.println(st.toString());
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = -1;
+            //TODO error code
+
+        }
+        return errorCode;
     }
 
     private User getUser(ResultSet res) {

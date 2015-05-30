@@ -7,9 +7,9 @@ USE taxistGela;
 CREATE TABLE Cars (
   carID         VARCHAR(8) PRIMARY KEY,
   carDescription TEXT,
-  carYear       TINYINT(4) NOT NULL,
+  carYear       INT NOT NULL,
   conditioning  BOOLEAN    NOT NULL,
-  numPassengers TINYINT(2) NOT NULL
+  numPassengers INT NOT NULL
 );
 
 CREATE TABLE Companies (
@@ -56,8 +56,8 @@ CREATE TABLE UserPreferences (
   userPreferenceID              INT AUTO_INCREMENT PRIMARY KEY,
   minimumDriverRating          DOUBLE     NOT NULL,
   conditioning    BOOLEAN    NOT NULL,
-  carYear         TINYINT(4) NOT NULL,
-  passengersCount TINYINT(2) NOT NULL,
+  carYear         INT NOT NULL,
+  passengersCount INT NOT NULL,
   wantsAlone      BOOLEAN    NOT NULL,
   timeLimit       INT        NOT NULL
 );
