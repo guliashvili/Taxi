@@ -5,8 +5,8 @@ package ge.taxistgela.db;
  */
 public class DBInfo {
 
-    public static final String MYSQL_USERNAME = "";
-    public static final String MYSQL_PASSWORD = "";
-    public static final String MYSQL_DATABASE_SERVER = "";
-    public static final String MYSQL_DATABASE_NAME = "";
+    public static final String MYSQL_USERNAME = "root";
+    public static final String MYSQL_PASSWORD = "root";
+    public static final String MYSQL_DATABASE_SERVER = "localhost";
+    public static final String MYSQL_DATABASE_NAME = "taxistGela";
 }

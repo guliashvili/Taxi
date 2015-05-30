@@ -17,7 +17,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     private final static  String base_select_STMT = " SELECT * FROM Drivers INNER JOIN Cars ON Drivers.CarID=Cars.CarID INNER JOIN DriverPreferences ON " +
             "DriverPreferences.driverPreferenceID=Drivers.driverPreferenceID ";
     private final static String login_STMT = base_select_STMT + " WHERE email=? AND password=?";
-    private final static String driverById_STMT = base_select_STMT + "WHERE driverId = ?";
+    private final static String driverById_STMT = base_select_STMT + "WHERE driverID = ?";
 
     private final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive)" +
             " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";

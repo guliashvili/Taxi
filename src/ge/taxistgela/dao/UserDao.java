@@ -16,16 +16,16 @@ import java.util.List;
  * Created by Alex on 5/25/2015.
  */
 public class UserDao implements UserDaoAPI, OperationCodes {
-    private final static String checkMail_STM = "SELECT userID FROM users WHERE  email = ?";
-    private final static String checkPhoneNumber_STM = "SELECT userID FROM users WHERE  phoneNumber = ?";
-    private final static String checkFacebook_STM="SELECT userID FROM users WHERE  googleID = ?";
-    private final static String checkGoogle_STM ="SELECT userID FROM users WHERE  googleID = ?";
-    private final static  String base_select_STMT = " SELECT * FROM Users INNER JOIN UserPreferences ON " +
+    private final static String checkMail_STM = "SELECT userID FROM Users WHERE  email = ?";
+    private final static String checkPhoneNumber_STM = "SELECT userID FROM Users WHERE  phoneNumber = ?";
+    private final static String checkFacebook_STM="SELECT userID FROM Users WHERE  googleID = ?";
+    private final static String checkGoogle_STM ="SELECT userID FROM Users WHERE  googleID = ?";
+    private final static  String base_select_STMT = "SELECT * FROM Users INNER JOIN UserPreferences ON " +
             "UserPreferences.userPreferenceID=Users.userPreferenceID ";
 
     private final static  String login_STMT = base_select_STMT + " WHERE Users.email=? AND Users.password=?";
     private final static  String userByID_STMT = base_select_STMT + " WHERE Users.userID = ?";
-    private  final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID) values(?,?,?,?,?,?,?,?,?,?)";
+    private  final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID) VALUES(?,?,?,?,?,?,?,?,?,?)";
     private final static  String update_STMT = "UPDATE Users SET password=?,email=?,firstName=?,lastName=?," +
             "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=? "+
             "WHERE Users.userID=?";
@@ -35,7 +35,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             "(NOT UserPreferences.conditioning OR ?) AND " +
             "? >= UserPreferences.carYear AND " +
             "? >= UserPreferences.passengersCount AND " +
-            "User.rating >= ?";
+            "Users.rating >= ?";
 
     private  User getUser(ResultSet res){
         User ret = new User();
