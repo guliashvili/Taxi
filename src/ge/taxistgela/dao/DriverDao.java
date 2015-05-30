@@ -198,7 +198,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     public int insertDriverPreference(DriverPreference driverPreference) {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(insert_car_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement st = con.prepareStatement(insert_preference_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 System.out.println(st.toString());
 
 
@@ -228,7 +228,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     public int updateDriverPreference(DriverPreference driverPreference) {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(update_car_STMT)) {
+            try (PreparedStatement st = con.prepareStatement(update_preference_STMT)) {
                 errorCode |= setStringsPreference(st, driverPreference, true);
 
                 System.out.println(st.toString());
