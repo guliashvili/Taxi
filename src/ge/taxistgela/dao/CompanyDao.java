@@ -10,10 +10,10 @@ import java.sql.*;
  * Created by Alex on 5/25/2015.
  */
 public class CompanyDao implements CompanyDaoAPI, OperationCodes {
-    final static  String base_select_STMT = " SELECT * FROM Companies ";
-    final static String login_STMT = base_select_STMT + "  WHERE email=? AND password=? ";
-    final static String register_STMT="INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID) VALUES(?,?,?,?,?,?,?)";
-    final static String update_STMT="UPDATE Companies SET companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?";
+    private final static  String base_select_STMT = " SELECT * FROM Companies ";
+    private final static String login_STMT = base_select_STMT + "  WHERE email=? AND password=? ";
+    private final static String register_STMT="INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID) VALUES(?,?,?,?,?,?,?)";
+    private final static String update_STMT="UPDATE Companies SET companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?";
     @Override
     public Company loginCompany(String email, String password) {
         try(Connection con = DBConnectionProvider.getConnection()){

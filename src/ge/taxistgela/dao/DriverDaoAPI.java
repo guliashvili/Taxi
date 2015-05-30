@@ -22,12 +22,14 @@ public interface DriverDaoAPI {
     /**
      * Returns Drivers selected by the user preferences.
      * Does not consider TimeLimit
+     * returns null if problem
      * Considers
      *  User.minimumDriverRating
      *  User.conditioning
      *  User.carYear
      *  User.passengersCount
      *  Driver.minimumUserRating
+     *  TODO
      * @param user
      * @return List of drivers generated from database.
      */

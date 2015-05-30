@@ -53,11 +53,11 @@ public class Driver {
         this.driverID = driverID;
     }
 
-    public String getpersonalID() {
+    public String getPersonalID() {
         return personalID;
     }
 
-    public void setpersonalID(String personalID) {
+    public void setPersonalID(String personalID) {
         this.personalID = personalID;
     }
 

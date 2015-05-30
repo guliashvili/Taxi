@@ -1,5 +1,6 @@
 package ge.taxistgela.dao;
 
+import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.DriverPreference;
 import ge.taxistgela.bean.User;
 
@@ -19,12 +20,19 @@ public interface UserDaoAPI {
     public User getUserByID(int userID);
 
     /**
-     * Returns Users selected by the driver preferences criteria.
-     *  Does not consider TimeLimit
-     * @param driverPreference
+     * Returns Users selected by the driver  criteria.
+     * Does not consider TimeLimit
+     * returns null if problem
+     * Considers
+     *  User.minimumDriverRating
+     *  User.conditioning
+     *  User.carYear
+     *  User.passengersCount
+     *  Driver.minimumUserRating
+     * @param driver
      * @return List of users generated from database.
      */
-    public List<User> getUsersByPreferences(DriverPreference driverPreference);
+    public List<User> getUsersByPreferences(Driver driver);
 
     /**
      * Tries to login with the certain email and password.
