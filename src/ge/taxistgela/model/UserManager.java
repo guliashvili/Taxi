@@ -21,7 +21,8 @@ public class UserManager extends  UserManagerAPI{
 
     @Override
     public List<User> getUsersByPreferences(DriverPreference driverPreference) {
-        return userDao.getUsersByPreferences(driverPreference);
+        //return userDao.getUsersByPreferences(driverPreference);
+        return null;
     }
 
     @Override
