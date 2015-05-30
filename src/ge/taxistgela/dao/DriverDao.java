@@ -14,8 +14,9 @@ import java.util.List;
  * Created by Alex on 5/25/2015.
  */
 public class DriverDao implements DriverDaoAPI, OperationCodes {
-    private final static  String base_select_STMT = " SELECT * FROM Drivers INNER JOIN Cars ON Drivers.CarID=Cars.CarID INNER JOIN DriverPreferences ON " +
+    private final static  String base_join_select_STMT = " SELECT * FROM Drivers INNER JOIN Cars ON Drivers.CarID=Cars.CarID INNER JOIN DriverPreferences ON " +
             "DriverPreferences.driverPreferenceID=Drivers.driverPreferenceID ";
+    private final static  String base_select_STMT = "SELECT * FROM Drivers ";
     private final static String login_STMT = base_select_STMT + " WHERE email=? AND password=?";
     private final static String driverById_STMT = base_select_STMT + "WHERE driverID = ?";
 
@@ -25,13 +26,41 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             "SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?" +
             "WHERE driverID = ?";
 
-    private final static  String preferences_STMT = base_select_STMT +
+    private final static  String preferences_STMT = base_join_select_STMT +
             " WHERE " +
             "Drivers.rating >= ? AND " +
             "(NOT ? OR Cars.conditioning) AND " +
             "Cars.carYear >= ? AND " +
             "Cars.numPassengers >= ? AND " +
             "? >= DriverPreferences.minimumUserRating";
+
+    private final static String insert_car_STMT = "INSERT INTO Cars(carDescription,carYear,conditioning,numPassengers) " +
+            "VALUES (?,?,?,?)";
+    private final static  String update_car_STMT = "UPDATE Cars " +
+            "SET carDescription=?,carYear=?,conditioning=?,numPassengers=? " +
+            "WHERE carID=?";
+
+    private final  static String insert_preference_STMT = "INSERT INTO DriverPreferences(minimumUserRating,coefficientPer)" +
+            "VALUES (?,?)";
+    private final static String update_preference_STMT = "UPDATE DriverPreferences " +
+            "SET minimumUserRating=?,coefficientPer=?" +
+            "WHERE driverPreferenceID=?";
+
+    private int setStringsCar(PreparedStatement st,Car car,boolean update){
+        int errorCode = 0;
+
+        try{
+            st.setString(1,car.getCarDescription());
+            st.setInt(2,car.getCarYear());
+            st.setBoolean(3,car.hasConditioning());
+            st.setInt(4,car.getNumPassengers());
+            if(update)
+                st.setString(5, car.getCarID());
+        }catch (SQLException e){
+            errorCode = -1;
+        }
+        return  errorCode;
+    }
 
     private Car getCar(ResultSet res){
         Car car = new Car();
@@ -71,12 +100,51 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
     @Override
     public int insertCar(Car car) {
-        return 0;
+        int errorCode = 0;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement(insert_car_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                System.out.println(st.toString());
+
+
+                errorCode |= setStringsCar(st, car, false);
+
+
+                st.executeUpdate();
+                ResultSet res = st.getGeneratedKeys();
+                if (res.next()) {
+                    car.setCarID(res.getString("carID"));
+                } else {
+                    errorCode = -1;
+                    //TODO ERRORCODE
+                }
+
+            }
+        } catch (SQLException e) {
+            errorCode = -1;
+            //TODO ERRORCODE
+
+        }
+        return errorCode;
+
     }
 
     @Override
     public int updateCar(Car car) {
-        return 0;
+        int errorCode = 0;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement(update_car_STMT)) {
+                errorCode |= setStringsCar(st, car, true);
+
+                System.out.println(st.toString());
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = -1;
+            //TODO error code
+
+        }
+        return errorCode;
+
     }
 
 
@@ -113,14 +181,65 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         return output;
     }
 
+    private int setStringsPreference(PreparedStatement pt,DriverPreference dp,boolean update){
+        int errorCode = 0;
+        try{
+            pt.setDouble(1, dp.getMinimumUserRating());
+            pt.setDouble(2,dp.getCoefficientPer());
+            if(update)
+                pt.setInt(3,dp.getDriverPreferenceID());
+        }catch (SQLException e){
+            errorCode = -1;
+        }
+        return  errorCode;
+    }
+
     @Override
     public int insertDriverPreference(DriverPreference driverPreference) {
-        return 0;
+        int errorCode = 0;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement(insert_car_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                System.out.println(st.toString());
+
+
+                errorCode |= setStringsPreference(st, driverPreference, false);
+
+
+                st.executeUpdate();
+                ResultSet res = st.getGeneratedKeys();
+                if (res.next()) {
+                    driverPreference.setDriverPreferenceID(res.getInt("driverPreferenceID"));
+                } else {
+                    errorCode = -1;
+                    //TODO ERRORCODE
+                }
+
+            }
+        } catch (SQLException e) {
+            errorCode = -1;
+            //TODO ERRORCODE
+
+        }
+        return errorCode;
+
     }
 
     @Override
     public int updateDriverPreference(DriverPreference driverPreference) {
-        return 0;
+        int errorCode = 0;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement(update_car_STMT)) {
+                errorCode |= setStringsPreference(st, driverPreference, true);
+
+                System.out.println(st.toString());
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = -1;
+            //TODO error code
+
+        }
+        return errorCode;
     }
 
     private Driver getDriver(ResultSet res){
