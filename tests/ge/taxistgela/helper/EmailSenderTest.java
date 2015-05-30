@@ -13,10 +13,20 @@ public class EmailSenderTest {
 
     @Test
     public void testVerifyEmail() throws Exception {
-        User user = mock(User.class);
-        when(user.getEmail()).thenReturn("rmach13@freeuni.edu.ge").thenReturn("ratmach@yahoo.com");
-        when(user.getFirstName()).thenReturn("Rati").thenReturn("Ratmach");
-        EmailSender.verifyEmail(user,HashGenerator.getSaltHash("asdf"));
-        EmailSender.verifyEmail(user,HashGenerator.getSaltHash("asdfk"))
+       // User user = mock(User.class);
+        //when(user.getEmail()).thenReturn("rmach13@freeuni.edu.ge").thenReturn("ratmach@yahoo.com");
+        //when(user.getFirstName()).thenReturn("Rati").thenReturn("Ratmach");
+        try {
+            User user = new User();
+            user.setFirstName("Rmertochemo");
+            user.setEmail("vinmesmiti@gmail.com");
+            EmailSender.verifyEmail(user, HashGenerator.getSaltHash("asdf"));
+            user.setFirstName("Azo");
+            user.setEmail("alex.r.azizian@gmail.com");
+            EmailSender.verifyEmail(user, HashGenerator.getSaltHash("asdfk"));
+        }catch (Exception e){
+            System.out.println(e.toString());
+            assertTrue(false);
+        }
     }
 }
