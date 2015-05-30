@@ -1,8 +1,6 @@
 package ge.taxistgela.dao;
 
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.User;
-import ge.taxistgela.bean.UserPreference;
+import ge.taxistgela.bean.*;
 
 import java.util.List;
 
@@ -10,6 +8,58 @@ import java.util.List;
  * Created by Alex on 5/25/2015.
  */
 public interface DriverDaoAPI {
+    /**
+     * Returns car selected by the certain driverPreferenceID.
+     *
+     * @param carID
+     * @return Car generated from database.
+     */
+    public Car getCarByID(int carID);
+
+
+    /**
+     * Inserts the certain car.
+     * Returns operation result.
+     *
+     * @param car
+     * @return operationCode
+     */
+    public int insertCar(Car car);
+
+    /**
+     * Updates the Car with the new data.
+     *
+     * @param car
+     * @return operationCode
+     */
+    public int updateCar(Car car);
+
+
+    /**
+     * Returns DriverPreference selected by the certain driverPreferenceID.
+     *
+     * @param driverPreferenceID
+     * @return DriverPreference generated from database.
+     */
+    public DriverPreference getDriverPreferenceByID(int driverPreferenceID);
+
+
+    /**
+     * Inserts the certain driverPreference.
+     * Returns operation result.
+     *
+     * @param driverPreference
+     * @return operationCode
+     */
+    public int insertDriverPreference(DriverPreference driverPreference);
+
+    /**
+     * Updates the driverPreference with the new data.
+     *
+     * @param driverPreference
+     * @return operationCode
+     */
+    public int updateDriverPreference(DriverPreference driverPreference);
 
     /**
      * Returns Driver selected by the certain driverID.

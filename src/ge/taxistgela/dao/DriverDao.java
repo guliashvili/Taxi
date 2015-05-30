@@ -33,10 +33,98 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             "Cars.numPassengers >= ? AND " +
             "? >= DriverPreferences.minimumUserRating";
 
+    private Car getCar(ResultSet res){
+        Car car = new Car();
+        try{
+            car.setCarID(res.getString("Cars.CarID"));
+            car.setCarDescription(res.getString("Cars.carDescription"));
+            car.setCarYear(res.getInt("Cars.carYear"));
+            car.setConditioning(res.getBoolean("Cars.conditioning"));
+            car.setNumPassengers(res.getInt("Cars.numPassengers"));
 
+        }catch (SQLException e){
+            car = null;
+        }
+        return  car;
+    }
+
+    @Override
+    public Car getCarByID(int carID) {
+
+        Car output;
+        try(Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement("SELECT * FROM Cars WHERE Cars.carID = ?")) {
+
+                st.setInt(1, carID);
+
+                System.out.println(st.toString());
+                ResultSet res = st.executeQuery();
+
+                if(res.next()) output = getCar(res);
+                else output = null;
+            }
+        }catch (SQLException e){
+            output = null;
+        }
+        return output;
+    }
+
+    @Override
+    public int insertCar(Car car) {
+        return 0;
+    }
+
+    @Override
+    public int updateCar(Car car) {
+        return 0;
+    }
+
+
+    private DriverPreference getDriverPreference(ResultSet res){
+        DriverPreference pref = new DriverPreference();
+        try{
+            pref.setDriverPreferenceID(res.getInt("DriverPreferences.driverPreferenceID"));
+            pref.setCoefficientPer(res.getDouble("DriverPreferences.coefficientPer"));
+            pref.setMinimumUserRating(res.getDouble("DriverPreferences.minimumUserRating"));
+
+        }catch (SQLException e){
+            pref = null;
+        }
+        return  pref;
+    }
+
+    @Override
+    public DriverPreference getDriverPreferenceByID(int driverPreferenceID) {
+        DriverPreference output;
+        try(Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement("SELECT * FROM DriverPreferences WHERE DriverPreferences.driverPreferenceID = ?")) {
+
+                st.setInt(1, driverPreferenceID);
+
+                System.out.println(st.toString());
+                ResultSet res = st.executeQuery();
+
+                if(res.next()) output = getDriverPreference(res);
+                else output = null;
+            }
+        }catch (SQLException e){
+            output = null;
+        }
+        return output;
+    }
+
+    @Override
+    public int insertDriverPreference(DriverPreference driverPreference) {
+        return 0;
+    }
+
+    @Override
+    public int updateDriverPreference(DriverPreference driverPreference) {
+        return 0;
+    }
 
     private Driver getDriver(ResultSet res){
-        Car car = new Car();
+
         Driver output=new Driver();
 
         try {
@@ -51,24 +139,16 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 output.setPhoneNumber(res.getString("Drivers.phoneNumber"));
 
 
-
-                car.setCarID(res.getString("Cars.CarID"));
-                car.setCarDescription(res.getString("Cars.carDescription"));
-                car.setCarYear(res.getInt("Cars.carYear"));
-                car.setConditioning(res.getBoolean("Cars.conditioning"));
-                car.setNumPassengers(res.getInt("Cars.numPassengers"));
-
+                int carID = res.getInt("Drivers.carID");
+                Car car = getCarByID(carID);
                 output.setCar(car);
 
                 output.setFacebookID(res.getString("Drivers.facebookID"));
                 output.setGoogleID(res.getString("Drivers.googleID"));
                 output.setRating(res.getDouble("Drivers.rating"));
 
-                DriverPreference pref = new DriverPreference();
-                pref.setDriverPreferenceID(res.getInt("DriverPreferences.driverPreferenceID"));
-                pref.setCoefficientPer(res.getDouble("DriverPreferences.coefficientPer"));
-                pref.setMinimumUserRating(res.getDouble("DriverPreferences.minimumUserRating"));
-
+                int driverPreferenceID = res.getInt("Drivers.driverPreferenceID");
+                DriverPreference pref = getDriverPreferenceByID(driverPreferenceID);
                 output.setPreferences(pref);
 
                 output.setLocation(new Location(res.getBigDecimal("Drivers.latitude"), res.getBigDecimal("Drivers.longitude")));

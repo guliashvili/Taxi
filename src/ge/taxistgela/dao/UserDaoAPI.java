@@ -3,6 +3,7 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.DriverPreference;
 import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.UserPreference;
 
 import java.util.List;
 
@@ -10,6 +11,34 @@ import java.util.List;
  * Created by Alex on 5/25/2015.
  */
 public interface UserDaoAPI {
+
+    /**
+     * Returns UserPreference selected by the certain userPreferenceID.
+     *
+     * @param userPreferenceID
+     * @return UserPreference generated from database.
+     */
+    public UserPreference getUserPreferenceByID(int userPreferenceID);
+
+
+    /**
+     * Inserts the certain UserPreference.
+     * Returns operation result.
+     *
+     * @param userPreference
+     * @return operationCode
+     */
+    public int insertUserPreference(UserPreference userPreference);
+
+    /**
+     * Updates the userPreference with the new data.
+     *
+     * @param userPreference
+     * @return operationCode
+     */
+    public int updateUserPreference(UserPreference userPreference);
+
+
 
     /**
      * Returns User selected by the certain userID.
