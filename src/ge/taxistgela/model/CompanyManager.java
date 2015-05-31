@@ -23,4 +23,29 @@ public class CompanyManager extends   CompanyManagerAPI {
     public int updateCompany(Company company) {
         return companyDao.updateCompany(company);
     }
+
+    @Override
+    public boolean checkEmail(String email) {
+        return companyDao.checkEmail(email);
+    }
+
+    @Override
+    public boolean checkPhoneNumber(String phoneNumber) {
+        return companyDao.checkPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public boolean checkCompanyCode(String companyCode) {
+        return checkCompanyCode(companyCode);
+    }
+
+    @Override
+    public boolean checkFacebookID(String facebookID) {
+        return checkFacebookID(facebookID);
+    }
+
+    @Override
+    public boolean checkGoogleID(String googleID) {
+        return checkGoogleID(googleID);
+    }
 }
