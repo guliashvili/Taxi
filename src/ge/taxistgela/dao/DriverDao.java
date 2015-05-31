@@ -19,7 +19,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     private final static  String base_select_STMT = "SELECT * FROM Drivers ";
     private final static String login_STMT = base_select_STMT + " WHERE email=? AND password=?";
     private final static String driverById_STMT = base_select_STMT + "WHERE driverID = ?";
-
+    private  final static String driverByCompanyId_STMT = base_select_STMT + "WHERE companyID=?";
     private final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive)" +
             " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Drivers " +
@@ -115,7 +115,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                     car.setCarID(res.getString("carID"));
                 } else {
                     errorCode = -1;
-                    //TODO ERRORCODE
+
                 }
 
             }
@@ -211,7 +211,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                     driverPreference.setDriverPreferenceID(res.getInt("driverPreferenceID"));
                 } else {
                     errorCode = -1;
-                    //TODO ERRORCODE
+
                 }
 
             }
@@ -281,12 +281,31 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public Driver getDriveByID(int driverID) {
+    public Driver getDriverByID(int driverID) {
         Driver output;
         try(Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(driverById_STMT)) {
 
                 st.setInt(1,driverID);
+
+                System.out.println(st.toString());
+                ResultSet res = st.executeQuery();
+                if(res.next()) output = getDriver(res);
+                else output = null;
+            }
+        }catch (SQLException e){
+            output = null;
+        }
+        return output;
+    }
+
+    @Override
+    public Driver getDriverByCompanyID(int companyID) {
+        Driver output;
+        try(Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatement st = con.prepareStatement(driverByCompanyId_STMT)) {
+
+                st.setInt(1,companyID);
 
                 System.out.println(st.toString());
                 ResultSet res = st.executeQuery();
@@ -386,7 +405,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                     driver.setDriverID(res.getInt("driverID"));
                 }else{
                     errorCode = -1;
-                    //TODO ERRORCODE
+
                 }
 
             }

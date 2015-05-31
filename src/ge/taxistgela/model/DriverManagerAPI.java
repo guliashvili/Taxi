@@ -73,7 +73,16 @@ public abstract  class DriverManagerAPI {
      * @param driverID
      * @return Driver generated from database.
      */
-    public abstract Driver getDriveByID(int driverID);
+    public abstract Driver getDriverByID(int driverID);
+
+    /**
+     * Returns Driver selected by the certain companyID.
+     *
+     * @param companyID
+     * @return Driver generated from database.
+     */
+    public abstract Driver getDriverByCompanyID(int companyID);
+
 
     /**
      * Returns Drivers selected by the user preferences.

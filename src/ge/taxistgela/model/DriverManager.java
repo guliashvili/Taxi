@@ -15,8 +15,13 @@ public class DriverManager extends  DriverManagerAPI {
 
 
     @Override
-    public Driver getDriveByID(int driverID) {
-        return  driverDao.getDriveByID(driverID);
+    public Driver getDriverByID(int driverID) {
+        return  driverDao.getDriverByID(driverID);
+    }
+
+    @Override
+    public Driver getDriverByCompanyID(int companyID) {
+        return driverDao.getDriverByCompanyID(companyID);
     }
 
     @Override

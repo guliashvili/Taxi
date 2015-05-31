@@ -117,7 +117,6 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                     userPreference.setUserPreferenceID(res.getInt("userPreferenceID"));
                 } else {
                     errorCode = -1;
-                    //TODO ERRORCODE
                 }
 
             }
@@ -286,7 +285,6 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                     user.setUserID(res.getInt("userID"));
                 } else {
                     errorCode = -1;
-                    //TODO ERRORCODE
                 }
 
             }
