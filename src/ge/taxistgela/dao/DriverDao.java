@@ -32,7 +32,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             "(NOT ? OR Cars.conditioning) AND " +
             "Cars.carYear >= ? AND " +
             "Cars.numPassengers >= ? AND " +
-            "? >= DriverPreferences.minimumUserRating";
+            "? >= DriverPreferences.minimumUserRating AND " +
+            "Drivers.isActive";
 
     private final static String insert_car_STMT = "INSERT INTO Cars(carDescription,carYear,conditioning,numPassengers) " +
             "VALUES (?,?,?,?)";
