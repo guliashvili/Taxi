@@ -315,7 +315,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 }
             }
         }catch (SQLException e){
-            output.clear();
+            output = null;
         }
         return output;
     }
