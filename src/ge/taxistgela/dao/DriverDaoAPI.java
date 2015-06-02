@@ -73,7 +73,7 @@ public interface DriverDaoAPI {
      * Returns Drivers selected by the certain companyID.
      *
      * @param companyID
-     * @return Drivers generated from database.
+     * @return List of drivers generated from database.
      */
     public List<Driver> getDriverByCompanyID(int companyID);
 
