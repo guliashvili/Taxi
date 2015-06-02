@@ -23,7 +23,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     private final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive,isVerified)" +
             " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Drivers " +
-            "SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?" +
+            "SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?,isVerified=?" +
             "WHERE driverID = ?";
 
     private final static  String preferences_STMT = base_join_select_STMT +

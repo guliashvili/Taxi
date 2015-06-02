@@ -76,6 +76,7 @@ CREATE TABLE Users (
   facebookID  VARCHAR(255) UNIQUE,
   googleID   VARCHAR(255) UNIQUE,
   userPreferenceID INT                    NOT NULL,
+  isVerified BOOLEAN NOT NULL,
   FOREIGN KEY (userPreferenceID) REFERENCES UserPreferences (userPreferenceID)
 );
 

@@ -26,9 +26,10 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     private final static String base_joined_select_STMT = "SELECT * FROM Users INNER JOIN UserPreferences ON " +"UserPreferences.userPreferenceID=Users.userPreferenceID ";
     private final static String login_STMT = base_select_STMT + " WHERE Users.email=? AND Users.password=?";
     private final static String userByID_STMT = base_select_STMT + " WHERE Users.userID = ?";
-    private final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID) VALUES(?,?,?,?,?,?,?,?,?,?)";
+    private final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID,isVerified) " +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Users SET password=?,email=?,firstName=?,lastName=?," +
-            "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=? " +
+            "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=?,isVerified=? " +
             "WHERE Users.userID=?";
     private final static String preferences_STMT = base_joined_select_STMT +
             " WHERE " +
@@ -261,8 +262,9 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             st.setString(8, user.getFacebookID());
             st.setString(9, user.getGoogleID());
             st.setInt(10, user.getPreference().getUserPreferenceID());
+            st.setBoolean(11,user.isVerified());
             if (update)
-                st.setInt(11, user.getUserID());
+                st.setInt(12, user.getUserID());
 
         } catch (SQLException e) {
             errorCode = -1;// TODO
