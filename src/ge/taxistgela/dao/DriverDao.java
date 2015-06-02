@@ -301,8 +301,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public Driver getDriverByCompanyID(int companyID) {
-        Driver output;
+    public List<Driver> getDriverByCompanyID(int companyID) {
+        List<Driver> output = new ArrayList<>();
         try(Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(driverByCompanyId_STMT)) {
 
@@ -310,11 +310,12 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
                 System.out.println(st.toString());
                 ResultSet res = st.executeQuery();
-                if(res.next()) output = getDriver(res);
-                else output = null;
+                while (res.next()) {
+                    output.add(getDriver(res));
+                }
             }
         }catch (SQLException e){
-            output = null;
+            output.clear();
         }
         return output;
     }
