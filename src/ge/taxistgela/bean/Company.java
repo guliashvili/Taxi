@@ -11,8 +11,9 @@ public class Company {
     private String companyName;
     private String phoneNumber;
     private String facebookID;
+    private boolean isVerified;
 
-    public Company(int companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID) {
+    public Company(int companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID,boolean isVerified) {
         this.companyID = companyID;
         this.companyCode = companyCode;
         this.email = email;
@@ -21,6 +22,7 @@ public class Company {
         this.phoneNumber = phoneNumber;
         this.facebookID = facebookID;
         this.googleID = googleID;
+        this.isVerified = isVerified;
     }
 
     private String googleID;
@@ -87,5 +89,13 @@ public class Company {
 
     public void setGoogleID(String googleID) {
         this.googleID = googleID;
+    }
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(boolean isVerified) {
+        this.isVerified = isVerified;
     }
 }

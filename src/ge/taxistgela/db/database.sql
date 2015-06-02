@@ -20,7 +20,8 @@ CREATE TABLE Companies (
   companyName VARCHAR(50) NOT NULL,
   phoneNumber VARCHAR(13) UNIQUE NOT NULL,
   facebookID  VARCHAR(255) UNIQUE,
-  googleID   VARCHAR(255) UNIQUE
+  googleID   VARCHAR(255) UNIQUE,
+  isVerified BOOLEAN NOT NULL
 );
 
 CREATE TABLE DriverPreferences(

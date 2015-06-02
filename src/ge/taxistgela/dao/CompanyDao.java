@@ -12,10 +12,13 @@ import java.sql.*;
 public class CompanyDao implements CompanyDaoAPI, OperationCodes {
     private final static  String base_select_STMT = " SELECT * FROM Companies ";
     private final static String login_STMT = base_select_STMT + "  WHERE email=? AND password=? ";
-    private final static String register_STMT="INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID) VALUES(?,?,?,?,?,?,?)";
-    private final static String update_STMT="UPDATE Companies SET companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?";
+    private final static String register_STMT="INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID,isVerified) VALUES(?,?,?,?,?,?,?,?)";
+    private final static String update_STMT="UPDATE Companies SET " +
+            "companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?,isVerified=? " +
+            "WHERE companyID = ?";
     @Override
     public Company loginCompany(String email, String password) {
+        Company ret;
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(login_STMT)) {
                 st.setString(1,email);
@@ -24,19 +27,19 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 if(!res.next()){
                     return null;
                 }
-                return new Company(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8));
+                ret = new Company(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8),res.getBoolean(9));
             }
         }catch(SQLException e){
-            //NEEDS LOGGING
+            ret = null;
         }
-        return null;
+        return ret;
     }
 
     /*
     companyCode,email,password,companyName,phoneNumber,facebookID,googleID
     sets strings with that order
      */
-    private int setStrings(PreparedStatement st, Company company){
+    private int setStrings(PreparedStatement st, Company company,boolean update){
         int errorCode = 0;
         try {
             st.setString(1, company.getCompanyCode());
@@ -46,6 +49,10 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             st.setString(5, company.getPhoneNumber());
             st.setString(6, company.getFacebookID());
             st.setString(7, company.getGoogleID());
+            st.setBoolean(8,company.isVerified());
+
+            if(update)
+                st.setInt(9,company.getCompanyID());
         }catch (SQLException e){
             errorCode = -1;
         }
@@ -57,7 +64,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         int errorCode = 0;
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(register_STMT,Statement.RETURN_GENERATED_KEYS)) {
-                errorCode |= setStrings(st, company);
+                errorCode |= setStrings(st, company,false);
 
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
@@ -79,7 +86,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         int errorCode = 0;
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(update_STMT)) {
-                errorCode |= setStrings(st, company);
+                errorCode |= setStrings(st, company,true);
                 st.executeUpdate();
 
             }
