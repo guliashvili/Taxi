@@ -48,6 +48,7 @@ CREATE TABLE Drivers (
   latitude      DECIMAL            NOT NULL,
   longitude     DECIMAL            NOT NULL,
   isActive      BOOLEAN            NOT NULL,
+  isVerified BOOLEAN NOT NULL,
   FOREIGN KEY (carID) REFERENCES Cars (carID),
   FOREIGN KEY (driverPreferenceID) REFERENCES DriverPreferences (driverPreferenceID),
   FOREIGN KEY (companyID) REFERENCES Companies (companyID)
