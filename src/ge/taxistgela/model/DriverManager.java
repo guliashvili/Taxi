@@ -2,6 +2,7 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
+import ge.taxistgela.helper.ExternalAlgorithms;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public Driver getDriverByCompanyID(int companyID) {
+    public List<Driver> getDriverByCompanyID(int companyID) {
         return driverDao.getDriverByCompanyID(companyID);
     }
 
@@ -31,7 +32,12 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public int registerDriver(Driver driver) {
-        return driverDao.registerDriver(driver);
+        int ret;
+        if(!ExternalAlgorithms.isValidEmail(driver.getEmail()))
+            ret = -1;
+        else
+            ret = driverDao.registerDriver(driver);
+        return  ret;
     }
 
     @Override

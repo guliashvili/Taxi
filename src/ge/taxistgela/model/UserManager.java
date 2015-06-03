@@ -5,6 +5,7 @@ import ge.taxistgela.bean.DriverPreference;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;
+import ge.taxistgela.helper.ExternalAlgorithms;
 
 import java.util.List;
 
@@ -28,7 +29,12 @@ public class UserManager extends  UserManagerAPI{
 
     @Override
     public int registerUser(User user) {
-        return userDao.registerUser(user);
+        int ret;
+        if(!ExternalAlgorithms.isValidEmail(user.getEmail()))
+            ret = -1;
+        else
+            ret = userDao.registerUser(user);
+        return  ret;
     }
 
     @Override
