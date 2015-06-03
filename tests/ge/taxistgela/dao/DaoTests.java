@@ -61,6 +61,14 @@ public class DaoTests {
         assertTrue(dao.checkGoogleID("googleIDmock"));
         assertFalse(dao.checkGoogleID("asd"));
         assertFalse(dao.checkGoogleID("a"));
+        //CheckPhoneNumber
+        assertTrue(dao.checkPhoneNumber("+995558677895"));
+        assertFalse(dao.checkPhoneNumber("+995558677805"));
+        assertFalse(dao.checkPhoneNumber("+995558677815"));
+        //CheckCompanyID
+        assertTrue(dao.checkCompanyCode("1234567890a"));
+        assertFalse(dao.checkPhoneNumber("123a5a7890a"));
+        assertFalse(dao.checkPhoneNumber("12345678900"));
         //CheckFacebook
         assertTrue(dao.checkFacebookID("facebookIDmock"));
         assertFalse(dao.checkFacebookID("asd"));
@@ -96,6 +104,14 @@ public class DaoTests {
         assertFalse(dao.checkFacebookID("facebookIDmock"));
         assertTrue(dao.checkFacebookID("asd"));
         assertFalse(dao.checkFacebookID("afk"));
+        //CheckPhoneNumber
+        assertFalse(dao.checkPhoneNumber("+995558677815"));
+        assertTrue(dao.checkPhoneNumber("+995558677892"));
+        assertFalse(dao.checkPhoneNumber("+995558677895"));
+        //CheckCompanyID
+        assertFalse(dao.checkPhoneNumber("1234567890a"));
+        assertTrue(dao.checkCompanyCode("1234567890a1"));
+        assertFalse(dao.checkPhoneNumber("12345678900"));
     }
     @Test
     public void testUserDao(){
@@ -143,8 +159,10 @@ public class DaoTests {
         assertEquals(pref.isConditioning(),usrp.isConditioning());
         assertEquals(pref.isWantsAlone(),usrp.isWantsAlone());
         //CheckEmail
+        assertTrue(dao.checkEmail("rmach13@freeuni.edu.ge"));
         //CheckFacebookID
         //CheckGoogleID
+        //CheckPhoneNumber
     }
     @Test
     public void testDriverDao(){
