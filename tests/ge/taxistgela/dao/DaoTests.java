@@ -54,24 +54,33 @@ public class DaoTests {
         assertEquals(company.getPassword(),comp.getPassword());
         //CheckTests
         //CheckEmail
+        assertFalse(dao.checkEmail(""));
         assertTrue(dao.checkEmail("support@taxistgela.com"));
         assertFalse(dao.checkEmail("support1@taxistgela.com"));
         assertFalse(dao.checkEmail("support2@taxistgela.com"));
         //CheckGoogleID
+        assertFalse(dao.checkGoogleID(""));
         assertTrue(dao.checkGoogleID("googleIDmock"));
         assertFalse(dao.checkGoogleID("asd"));
+        assertTrue(dao.checkGoogleID("googleIDmock"));
         assertFalse(dao.checkGoogleID("a"));
         //CheckPhoneNumber
+        assertFalse(dao.checkPhoneNumber(""));
         assertTrue(dao.checkPhoneNumber("+995558677895"));
         assertFalse(dao.checkPhoneNumber("+995558677805"));
+        assertTrue(dao.checkPhoneNumber("+995558677895"));
         assertFalse(dao.checkPhoneNumber("+995558677815"));
         //CheckCompanyID
+        assertFalse(dao.checkCompanyCode(""));
         assertTrue(dao.checkCompanyCode("1234567890a"));
         assertFalse(dao.checkPhoneNumber("123a5a7890a"));
+        assertTrue(dao.checkCompanyCode("1234567890a"));
         assertFalse(dao.checkPhoneNumber("12345678900"));
         //CheckFacebook
+        assertFalse(dao.checkFacebookID(""));
         assertTrue(dao.checkFacebookID("facebookIDmock"));
         assertFalse(dao.checkFacebookID("asd"));
+        assertTrue(dao.checkFacebookID("facebookIDmock"));
         assertFalse(dao.checkFacebookID("afk"));
         //UpdateTest
         Company comp1 = mock(Company.class);
@@ -96,22 +105,31 @@ public class DaoTests {
         assertFalse(dao.checkEmail("support@taxistgela.com"));
         assertTrue(dao.checkEmail("support1@taxistgela.com"));
         assertFalse(dao.checkEmail("support2@taxistgela.com"));
+        assertTrue(dao.checkEmail("support1@taxistgela.com"));
         //CheckGoogleID
+        assertFalse(dao.checkGoogleID(""));
         assertFalse(dao.checkGoogleID("googleIDmock"));
-        assertFalse(dao.checkGoogleID("googleIDmock1"));
+        assertTrue(dao.checkGoogleID("googleIDmock1"));
         assertFalse(dao.checkGoogleID("a"));
+        assertTrue(dao.checkGoogleID("googleIDmock1"));
         //CheckFacebook
+        assertFalse(dao.checkFacebookID(""));
         assertFalse(dao.checkFacebookID("facebookIDmock"));
         assertTrue(dao.checkFacebookID("asd"));
         assertFalse(dao.checkFacebookID("afk"));
+        assertTrue(dao.checkFacebookID("asd"));
         //CheckPhoneNumber
+        assertFalse(dao.checkPhoneNumber(""));
         assertFalse(dao.checkPhoneNumber("+995558677815"));
         assertTrue(dao.checkPhoneNumber("+995558677892"));
         assertFalse(dao.checkPhoneNumber("+995558677895"));
+        assertTrue(dao.checkPhoneNumber("+995558677892"));
         //CheckCompanyID
+        assertFalse(dao.checkPhoneNumber(""));
         assertFalse(dao.checkPhoneNumber("1234567890a"));
         assertTrue(dao.checkCompanyCode("1234567890a1"));
-        assertFalse(dao.checkPhoneNumber("12345678900"));
+        assertFalse(dao.checkPhoneNumber("gg wp"));
+        assertTrue(dao.checkCompanyCode("1234567890a1"));
     }
     @Test
     public void testUserDao(){
@@ -127,11 +145,11 @@ public class DaoTests {
         User usr = mock(User.class);
         when(usr.getFirstName()).thenReturn("Rati");
         when(usr.getEmail()).thenReturn("rmach13@freeuni.edu.ge");
-        when(usr.getGoogleID()).thenReturn("");
-        when(usr.getPassword()).thenReturn("");
-        when(usr.getFacebookID()).thenReturn("");
-        when(usr.getPhoneNumber()).thenReturn("");
-        when(usr.getLastName()).thenReturn("");
+        when(usr.getGoogleID()).thenReturn("asdsdafrk");
+        when(usr.getPassword()).thenReturn("1234a");
+        when(usr.getFacebookID()).thenReturn("asdfa2d");
+        when(usr.getPhoneNumber()).thenReturn("+995558677895");
+        when(usr.getLastName()).thenReturn("Matchavariani");
         when(usr.getRating()).thenReturn(4.3);
         when(usr.getGender()).thenReturn(Gender.MALE);
         when(usr.getPreference()).thenReturn(usrp);
@@ -159,10 +177,30 @@ public class DaoTests {
         assertEquals(pref.isConditioning(),usrp.isConditioning());
         assertEquals(pref.isWantsAlone(),usrp.isWantsAlone());
         //CheckEmail
+        assertFalse(dao.checkEmail(""));
         assertTrue(dao.checkEmail("rmach13@freeuni.edu.ge"));
-        //CheckFacebookID
-        //CheckGoogleID
+        assertFalse(dao.checkEmail("rmach12@freeuni.edu.ge"));
+        assertTrue(dao.checkEmail("rmach13@freeuni.edu.ge"));
+        assertFalse(dao.checkEmail("rmach12@freeuni.edu.ge"));
         //CheckPhoneNumber
+        assertFalse(dao.checkPhoneNumber(""));
+        assertTrue(dao.checkPhoneNumber("+995558677895"));
+        assertFalse(dao.checkPhoneNumber("+992358677895"));
+        assertTrue(dao.checkPhoneNumber("+995558677895"));
+        assertFalse(dao.checkPhoneNumber("+992358677895"));
+        //CheckFacebookID
+        assertFalse(dao.checkFacebookID(""));
+        assertTrue(dao.checkFacebookID("asdfa2d"));
+        assertFalse(dao.checkFacebookID("asdfa2d"));
+        assertTrue(dao.checkFacebookID("asdfa2d"));
+        assertFalse(dao.checkFacebookID("asdfa2d"));
+        //CheckGoogleID
+        assertFalse(dao.checkGoogleID(""));
+        assertTrue(dao.checkGoogleID("asdsdafrk"));
+        assertFalse(dao.checkGoogleID("asdfa3d"));
+        assertTrue(dao.checkGoogleID("asdsdafrk"));
+        assertFalse(dao.checkGoogleID("asdfa3d"));
+        //Update
     }
     @Test
     public void testDriverDao(){
