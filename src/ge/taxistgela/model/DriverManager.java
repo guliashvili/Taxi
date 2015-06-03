@@ -1,7 +1,6 @@
 package ge.taxistgela.model;
 
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.UserPreference;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 
 import java.util.List;
@@ -16,14 +15,13 @@ public class DriverManager extends  DriverManagerAPI {
 
 
     @Override
-    public Driver getDriveByID(int driverID) {
-        return  driverDao.getDriveByID(driverID);
+    public Driver getDriverByID(int driverID) {
+        return  driverDao.getDriverByID(driverID);
     }
 
     @Override
-    public List<Driver> getDriverByPreferences(UserPreference userPreference) {
-        //return  driverDao.getDriverByPreferences(userPreference);
-        return null;
+    public Driver getDriverByCompanyID(int companyID) {
+        return driverDao.getDriverByCompanyID(companyID);
     }
 
     @Override
@@ -39,5 +37,68 @@ public class DriverManager extends  DriverManagerAPI {
     @Override
     public int updateDriver(Driver driver) {
         return 0;
+    }
+
+    @Override
+    public Car getCarByID(int carID) {
+        return driverDao.getCarByID(carID);
+    }
+
+    @Override
+    public int insertCar(Car car) {
+        return driverDao.insertCar(car);
+    }
+
+    @Override
+    public int updateCar(Car car) {
+        return driverDao.updateCar(car);
+    }
+
+    @Override
+    public DriverPreference getDriverPreferenceByID(int driverPreferenceID) {
+        return driverDao.getDriverPreferenceByID(driverPreferenceID);
+
+    }
+
+    @Override
+    public int insertDriverPreference(DriverPreference driverPreference) {
+        return driverDao.insertDriverPreference(driverPreference);
+    }
+
+    @Override
+    public int updateDriverPreference(DriverPreference driverPreference) {
+        return driverDao.updateDriverPreference(driverPreference);
+    }
+
+    @Override
+    public List<Driver> getDriverByPreferences(User user) {
+        List<Driver> ret = driverDao.getDriverByPreferences(user);
+        //TODO filter location
+        return  ret;
+    }
+
+    @Override
+    public boolean checkCarID(String carID) {
+        return driverDao.checkCarID(carID);
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        return driverDao.checkEmail(email);
+    }
+
+    @Override
+    public boolean checkPhoneNumber(String phoneNumber) {
+        return driverDao.checkPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public boolean checkFacebookID(String facebookID) {
+        return driverDao.checkFacebookID(facebookID);
+    }
+
+    @Override
+    public boolean checkGoogleID(String googleID) {
+        return driverDao.checkGoogleID(googleID);
     }
 }

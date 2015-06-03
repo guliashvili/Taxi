@@ -67,7 +67,15 @@ public interface DriverDaoAPI {
      * @param driverID
      * @return Driver generated from database.
      */
-    public Driver getDriveByID(int driverID);
+    public Driver getDriverByID(int driverID);
+
+    /**
+     * Returns Drivers selected by the certain companyID.
+     *
+     * @param companyID
+     * @return List of drivers generated from database.
+     */
+    public List<Driver> getDriverByCompanyID(int companyID);
 
     /**
      * Returns Drivers selected by the user preferences.
@@ -111,6 +119,7 @@ public interface DriverDaoAPI {
      * @return operationCode
      */
     public int updateDriver(Driver driver);
+
 
     /**
      * Checks if the driver exists with the certain carID.

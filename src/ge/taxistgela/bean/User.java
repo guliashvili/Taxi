@@ -15,6 +15,15 @@ public class User {
     private String googleID;
     private double rating;
     private UserPreference preference;
+    private  boolean isVerified;
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(boolean isVerified) {
+        this.isVerified = isVerified;
+    }
 
     public int getUserID() {
         return userID;

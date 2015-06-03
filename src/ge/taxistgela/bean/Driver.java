@@ -20,6 +20,15 @@ public class Driver {
     private double rating;
     private DriverPreference preferences;
     private boolean isActive;
+    private  boolean isVerified;
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(boolean isVerified) {
+        this.isVerified = isVerified;
+    }
 
     public Gender getGender() {
         return gender;

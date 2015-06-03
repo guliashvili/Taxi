@@ -20,7 +20,8 @@ CREATE TABLE Companies (
   companyName VARCHAR(50) NOT NULL,
   phoneNumber VARCHAR(13) UNIQUE NOT NULL,
   facebookID  VARCHAR(255) UNIQUE,
-  googleID   VARCHAR(255) UNIQUE
+  googleID   VARCHAR(255) UNIQUE,
+  isVerified BOOLEAN NOT NULL
 );
 
 CREATE TABLE DriverPreferences(
@@ -47,6 +48,7 @@ CREATE TABLE Drivers (
   latitude      DECIMAL            NOT NULL,
   longitude     DECIMAL            NOT NULL,
   isActive      BOOLEAN            NOT NULL,
+  isVerified BOOLEAN NOT NULL,
   FOREIGN KEY (carID) REFERENCES Cars (carID),
   FOREIGN KEY (driverPreferenceID) REFERENCES DriverPreferences (driverPreferenceID),
   FOREIGN KEY (companyID) REFERENCES Companies (companyID)
@@ -74,6 +76,7 @@ CREATE TABLE Users (
   facebookID  VARCHAR(255) UNIQUE,
   googleID   VARCHAR(255) UNIQUE,
   userPreferenceID INT                    NOT NULL,
+  isVerified BOOLEAN NOT NULL,
   FOREIGN KEY (userPreferenceID) REFERENCES UserPreferences (userPreferenceID)
 );
 
