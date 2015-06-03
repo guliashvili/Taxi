@@ -1,6 +1,9 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.Company;
+import ge.taxistgela.bean.Gender;
+import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.helper.AdminDatabase;
 import org.junit.After;
 import org.junit.Before;
@@ -96,7 +99,52 @@ public class DaoTests {
     }
     @Test
     public void testUserDao(){
-
+        UserDao dao = new UserDao();
+        UserPreference usrp = new UserPreference();
+        when(usrp.getCarYear()).thenReturn(2013);
+        when(usrp.getMinimumDriverRating()).thenReturn(2.3);
+        when(usrp.getPassengersCount()).thenReturn(2);
+        when(usrp.getTimeLimit()).thenReturn(30);
+        when(usrp.isConditioning()).thenReturn(true);
+        when(usrp.isWantsAlone()).thenReturn(false);
+        usrp = mock(UserPreference.class);
+        User usr = mock(User.class);
+        when(usr.getFirstName()).thenReturn("Rati");
+        when(usr.getEmail()).thenReturn("rmach13@freeuni.edu.ge");
+        when(usr.getGoogleID()).thenReturn("");
+        when(usr.getPassword()).thenReturn("");
+        when(usr.getFacebookID()).thenReturn("");
+        when(usr.getPhoneNumber()).thenReturn("");
+        when(usr.getLastName()).thenReturn("");
+        when(usr.getRating()).thenReturn(4.3);
+        when(usr.getGender()).thenReturn(Gender.MALE);
+        when(usr.getPreference()).thenReturn(usrp);
+        when(usr.getUserID()).thenReturn(-1);
+        //Register
+        dao.registerUser(usr);
+        //Login
+        User usr1 = dao.loginUser(usr.getEmail(),usr.getPassword());
+        Gender g = usr1.getGender();
+        UserPreference pref = usr1.getPreference();
+        assertEquals(usr1.getPassword(),usr.getPassword());
+        assertEquals(usr1.getEmail(),usr.getEmail());
+        assertEquals(usr1.getPhoneNumber(),usr.getPhoneNumber());
+        assertEquals(usr1.getFacebookID(),usr.getFacebookID());
+        assertEquals(usr1.getGoogleID(),usr.getGoogleID());
+        assertEquals(usr1.getFirstName(),usr.getFirstName());
+        assertEquals(usr1.getLastName(),usr.getLastName());
+        assertEquals(usr1.getUserID(),usr.getUserID());
+        assertEquals(usr1.getRating(), usr.getRating());
+        assertEquals(pref.getCarYear(),usrp.getCarYear());
+        assertEquals(pref.getMinimumDriverRating(),usrp.getMinimumDriverRating());
+        assertEquals(pref.getPassengersCount(),usrp.getPassengersCount());
+        assertEquals(pref.getTimeLimit(),usrp.getTimeLimit());
+        //assertEquals(pref.getUserPreferenceID(),usrp.getUserPreferenceID());
+        assertEquals(pref.isConditioning(),usrp.isConditioning());
+        assertEquals(pref.isWantsAlone(),usrp.isWantsAlone());
+        //CheckEmail
+        //CheckFacebookID
+        //CheckGoogleID
     }
     @Test
     public void testDriverDao(){
