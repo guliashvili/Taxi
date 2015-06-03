@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 /**
  * Created by Alex on 5/25/2015.
  */
@@ -11,7 +13,28 @@ public class Company {
     private String companyName;
     private String phoneNumber;
     private String facebookID;
+    private String googleID;
     private boolean isVerified;
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  Company)) return  false;
+        Company o = (Company)obj;
+        return  ExternalAlgorithms.equalsNull(getCompanyCode(),o.getCompanyCode()) &&
+                getCompanyID() == o.getCompanyID() &&
+                ExternalAlgorithms.equalsNull(getCompanyName(), o.getCompanyName()) &&
+                ExternalAlgorithms.equalsNull(getEmail(), o.getEmail()) &&
+                ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
+                ExternalAlgorithms.equalsNull(getGoogleID(),o.getGoogleID()) &&
+                ExternalAlgorithms.equalsNull(getPassword(),o.getPassword()) &&
+                ExternalAlgorithms.equalsNull(getPhoneNumber(),o.getPhoneNumber()) &&
+                isVerified() == o.isVerified;
+    }
+
+    @Override
+    public int hashCode() {
+        return getCompanyID();
+    }
 
     public Company(int companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID,boolean isVerified) {
         this.companyID = companyID;
@@ -25,7 +48,7 @@ public class Company {
         this.isVerified = isVerified;
     }
 
-    private String googleID;
+
 
     public int getCompanyID() {
         return companyID;

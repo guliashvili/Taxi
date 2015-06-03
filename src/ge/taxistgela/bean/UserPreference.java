@@ -12,6 +12,24 @@ public class UserPreference {
     private int passengersCount; // ramdeni kaci midian
     private boolean wantsAlone;
 
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  UserPreference)) return  false;
+        UserPreference o = (UserPreference)obj;
+        return  getUserPreferenceID() == o.getUserPreferenceID() &&
+                getMinimumDriverRating() == o.getMinimumDriverRating() &&
+                isConditioning() == o.isConditioning() &&
+                getCarYear() == o.getCarYear() &&
+                getTimeLimit() == o.getTimeLimit() &&
+                getPassengersCount() == o.getPassengersCount() &&
+                isWantsAlone() == o.isWantsAlone();
+    }
+
+    @Override
+    public int hashCode() {
+        return getUserPreferenceID();
+    }
+
     public int getUserPreferenceID() {
         return userPreferenceID;
     }

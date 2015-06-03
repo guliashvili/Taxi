@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 /**
  * Created by Alex on 5/25/2015.
  */
@@ -9,6 +11,23 @@ public class Review {
     private boolean orientationFlag; // if its true then User scored driver else driver scored user
     private double rating;
     private String description;
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  Review)) return  false;
+        Review o = (Review)obj;
+        return getReviewID() == o.getReviewID() &&
+                getOrderID() == o.getOrderID() &&
+                isOrientationFlag() == o.isOrientationFlag() &&
+                getRating() == o.getRating() &&
+                ExternalAlgorithms.equalsNull(getDescription(),o.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return getReviewID();
+    }
+
 
     public int getReviewID() {
         return reviewID;

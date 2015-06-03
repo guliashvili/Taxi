@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,11 +9,22 @@ import java.math.BigDecimal;
  */
 public class Location {
     private BigDecimal latitude;
-    private BigDecimal longitute;
+    private BigDecimal longitude;
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  Location)) return  false;
+        Location o = (Location)obj;
+        return  ExternalAlgorithms.equalsNull(getLatitude() , o.getLatitude()) &&
+                ExternalAlgorithms.equalsNull(getLongitude(), o.getLongitude());
+    }
 
-    public Location(BigDecimal latitude, BigDecimal longitute) {
+    @Override
+    public int hashCode() {
+        return getLatitude().multiply( getLongitude()).hashCode();
+    }
+    public Location(BigDecimal latitude, BigDecimal longitude) {
         this.latitude = latitude;
-        this.longitute = longitute;
+        this.longitude = longitude;
     }
 
     public BigDecimal getLatitude() {
@@ -22,11 +35,11 @@ public class Location {
         this.latitude = latitude;
     }
 
-    public BigDecimal getLongitute() {
-        return longitute;
+    public BigDecimal getLongitude() {
+        return longitude;
     }
 
-    public void setLongitute(BigDecimal longitute) {
-        this.longitute = longitute;
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
     }
 }

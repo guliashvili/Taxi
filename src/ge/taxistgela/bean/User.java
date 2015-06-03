@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 /**
  * Created by Alex on 5/25/2015.
  */
@@ -16,6 +18,33 @@ public class User {
     private double rating;
     private UserPreference preference;
     private  boolean isVerified;
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  User)) return  false;
+        User o = (User)obj;
+        return  getUserID() == o.getUserID() &&
+                ExternalAlgorithms.equalsNull(getEmail(), o.getEmail()) &&
+                ExternalAlgorithms.equalsNull(getPassword(),o.getPassword()) &&
+
+                ExternalAlgorithms.equalsNull(getFirstName(), o.getFirstName()) &&
+                ExternalAlgorithms.equalsNull(getLastName(),o.getLastName()) &&
+                ExternalAlgorithms.equalsNull(getPhoneNumber(),o.getPhoneNumber()) &&
+
+                ExternalAlgorithms.equalsNull(getGender(), o.getGender()) &&
+
+                ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
+                ExternalAlgorithms.equalsNull(getGoogleID(),o.getGoogleID()) &&
+                getRating() == o.getRating() &&
+                ExternalAlgorithms.equalsNull(getPreference(),o.getPreference()) &&
+                isVerified() == o.isVerified;
+    }
+
+    @Override
+    public int hashCode() {
+        return getUserID();
+    }
+
 
     public boolean isVerified() {
         return isVerified;

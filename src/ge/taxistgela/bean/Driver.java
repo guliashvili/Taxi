@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 /**
  * Created by Alex on 5/25/2015.
  */
@@ -21,6 +23,41 @@ public class Driver {
     private DriverPreference preferences;
     private boolean isActive;
     private  boolean isVerified;
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  Driver)) return  false;
+        Driver o = (Driver)obj;
+        return  getDriverID() == o.getDriverID() &&
+                ExternalAlgorithms.equalsNull(getPersonalID(),o.getPersonalID()) &&
+                ExternalAlgorithms.equalsNull(getEmail(), o.getEmail()) &&
+                ExternalAlgorithms.equalsNull(getPassword(),o.getPassword()) &&
+                getCompanyID() == o.getCompanyID() &&
+
+                ExternalAlgorithms.equalsNull(getFirstName(), o.getFirstName()) &&
+                ExternalAlgorithms.equalsNull(getLastName(),o.getLastName()) &&
+
+                ExternalAlgorithms.equalsNull(getGender(), o.getGender()) &&
+
+                ExternalAlgorithms.equalsNull(getPhoneNumber(), o.getPhoneNumber()) &&
+                ExternalAlgorithms.equalsNull(getCar(),o.getCar()) &&
+
+                ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
+                ExternalAlgorithms.equalsNull(getGoogleID(),o.getGoogleID()) &&
+
+                ExternalAlgorithms.equalsNull(getLocation(), o.getLocation()) &&
+                getRating() == o.getRating() &&
+                ExternalAlgorithms.equalsNull(getPreferences(),o.getPreferences()) &&
+                isActive == o.isActive &&
+                isVerified() == o.isVerified;
+    }
+
+    @Override
+    public int hashCode() {
+        return getDriverID();
+    }
+
 
     public boolean isVerified() {
         return isVerified;

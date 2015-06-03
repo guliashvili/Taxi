@@ -1,7 +1,10 @@
-package ge.taxistgela.helper;
+package ge.taxistgela.dao.helper;
 
 import ge.taxistgela.bean.User;
 import static org.mockito.Mockito.*;
+
+import ge.taxistgela.helper.EmailSender;
+import ge.taxistgela.helper.HashGenerator;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

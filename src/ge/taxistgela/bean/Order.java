@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,6 +19,27 @@ public class Order {
     private Date endTime;
     private BigDecimal paymentAmount;
     private Date callTime;
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  Order)) return  false;
+        Order o = (Order)obj;
+        return  getOrderID() == o.getOrderID() &&
+                getUserID() == o.getUserID() &&
+                getDriverID() == o.getDriverID() &&
+                getNumPassengers() == o.getNumPassengers() &&
+                ExternalAlgorithms.equalsNull(getStartLocation(),o.getStartLocation()) &&
+                ExternalAlgorithms.equalsNull(getEndLocation(),o.getEndLocation()) &&
+                ExternalAlgorithms.equalsNull(getStartLocation(),o.getStartLocation()) &&
+                ExternalAlgorithms.equalsNull(getEndTime(),o.getEndTime()) &&
+                ExternalAlgorithms.equalsNull(getPaymentAmount(),o.getPaymentAmount()) &&
+                ExternalAlgorithms.equalsNull(getCallTime(),o.getCallTime());
+    }
+
+    @Override
+    public int hashCode() {
+        return getOrderID();
+    }
 
     public Date getCallTime() {
         return callTime;

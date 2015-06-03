@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 /**
  * Created by Alex on 5/25/2015.
  */
@@ -9,6 +11,22 @@ public class Car {
     private int carYear;
     private boolean conditioning;
     private int numPassengers;
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof  Car)) return  false;
+        Car o = (Car)obj;
+        return  ExternalAlgorithms.equalsNull(getCarDescription(), o.getCarDescription()) &&
+                ExternalAlgorithms.equalsNull(getCarID(),o.getCarID()) &&
+                getCarYear() == o.getCarYear() &&
+                getNumPassengers() == o.getNumPassengers() &&
+                hasConditioning() == o.hasConditioning();
+    }
+
+    @Override
+    public int hashCode() {
+        return getCarID().hashCode();
+    }
 
     public String getCarID() {
         return carID;
