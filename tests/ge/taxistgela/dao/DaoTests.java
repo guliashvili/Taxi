@@ -134,7 +134,7 @@ public class DaoTests {
     @Test
     public void testUserDao(){
         UserDao dao = new UserDao();
-        UserPreference usrp = new UserPreference();
+        UserPreference usrp = mock(UserPreference.class);
         when(usrp.getCarYear()).thenReturn(2013);
         when(usrp.getMinimumDriverRating()).thenReturn(2.3);
         when(usrp.getPassengersCount()).thenReturn(2);
@@ -191,9 +191,9 @@ public class DaoTests {
         //CheckFacebookID
         assertFalse(dao.checkFacebookID(""));
         assertTrue(dao.checkFacebookID("asdfa2d"));
-        assertFalse(dao.checkFacebookID("asdfa2d"));
+        assertFalse(dao.checkFacebookID("asdfl2d"));
         assertTrue(dao.checkFacebookID("asdfa2d"));
-        assertFalse(dao.checkFacebookID("asdfa2d"));
+        assertFalse(dao.checkFacebookID("asdfl2d"));
         //CheckGoogleID
         assertFalse(dao.checkGoogleID(""));
         assertTrue(dao.checkGoogleID("asdsdafrk"));
@@ -201,6 +201,72 @@ public class DaoTests {
         assertTrue(dao.checkGoogleID("asdsdafrk"));
         assertFalse(dao.checkGoogleID("asdfa3d"));
         //Update
+        usrp = mock(UserPreference.class);
+        when(usrp.getCarYear()).thenReturn(2013);
+        when(usrp.getMinimumDriverRating()).thenReturn(2.3);
+        when(usrp.getPassengersCount()).thenReturn(2);
+        when(usrp.getTimeLimit()).thenReturn(30);
+        when(usrp.isConditioning()).thenReturn(true);
+        when(usrp.isWantsAlone()).thenReturn(false);
+        usrp = mock(UserPreference.class);
+        usr = mock(User.class);
+        when(usr.getFirstName()).thenReturn("raTi");
+        when(usr.getEmail()).thenReturn("rmach12@freeuni.edu.ge");
+        when(usr.getGoogleID()).thenReturn("asdfa3d");
+        when(usr.getPassword()).thenReturn("1234a");
+        when(usr.getFacebookID()).thenReturn("asdfl2d");
+        when(usr.getPhoneNumber()).thenReturn("+992358677895");
+        when(usr.getLastName()).thenReturn("MatchavariaNi");
+        when(usr.getRating()).thenReturn(4.2);
+        when(usr.getGender()).thenReturn(Gender.MALE);
+        when(usr.getPreference()).thenReturn(usrp);
+        when(usr.getUserID()).thenReturn(-1);
+
+        dao.updateUser(usr);
+        usr1 = dao.loginUser(usr.getEmail(),usr.getPassword());
+        g = usr1.getGender();
+        pref = usr1.getPreference();
+
+        assertEquals(usr1.getPassword(),usr.getPassword());
+        assertEquals(usr1.getEmail(),usr.getEmail());
+        assertEquals(usr1.getPhoneNumber(),usr.getPhoneNumber());
+        assertEquals(usr1.getFacebookID(),usr.getFacebookID());
+        assertEquals(usr1.getGoogleID(),usr.getGoogleID());
+        assertEquals(usr1.getFirstName(),usr.getFirstName());
+        assertEquals(usr1.getLastName(),usr.getLastName());
+        assertEquals(usr1.getUserID(),usr.getUserID());
+        assertTrue(usr1.getRating()==usr.getRating());//assertEquals(double,double) depricated
+        assertEquals(pref.getCarYear(),usrp.getCarYear());
+        assertTrue(pref.getMinimumDriverRating()==usrp.getMinimumDriverRating());
+        assertEquals(pref.getPassengersCount(),usrp.getPassengersCount());
+        assertEquals(pref.getTimeLimit(),usrp.getTimeLimit());
+        //assertEquals(pref.getUserPreferenceID(),usrp.getUserPreferenceID());
+        assertEquals(pref.isConditioning(),usrp.isConditioning());
+        assertEquals(pref.isWantsAlone(),usrp.isWantsAlone());
+
+        assertFalse(dao.checkEmail(""));
+        assertFalse(dao.checkEmail("rmach13@freeuni.edu.ge"));
+        assertTrue(dao.checkEmail("rmach12@freeuni.edu.ge"));
+        assertFalse(dao.checkEmail("rmach13@freeuni.edu.ge"));
+        assertTrue(dao.checkEmail("rmach12@freeuni.edu.ge"));
+        //CheckPhoneNumber
+        assertFalse(dao.checkPhoneNumber(""));
+        assertFalse(dao.checkPhoneNumber("+995558677895"));
+        assertTrue(dao.checkPhoneNumber("+992358677895"));
+        assertFalse(dao.checkPhoneNumber("+995558677895"));
+        assertTrue(dao.checkPhoneNumber("+992358677895"));
+        //CheckFacebookID
+        assertFalse(dao.checkFacebookID(""));
+        assertTrue(dao.checkFacebookID("asdfl2d"));
+        assertFalse(dao.checkFacebookID("asdfa2d"));
+        assertTrue(dao.checkFacebookID("asdfl2d"));
+        assertFalse(dao.checkFacebookID("asdfa2d"));
+        //CheckGoogleID
+        assertFalse(dao.checkGoogleID(""));
+        assertTrue(dao.checkGoogleID("asdfa3d"));
+        assertFalse(dao.checkGoogleID("asdsdafrk"));
+        assertTrue(dao.checkGoogleID("asdfa3d"));
+        assertFalse(dao.checkGoogleID("asdsdafrk"));
     }
     @Test
     public void testDriverDao(){
