@@ -134,9 +134,9 @@ public class DaoTests {
         assertEquals(usr1.getFirstName(),usr.getFirstName());
         assertEquals(usr1.getLastName(),usr.getLastName());
         assertEquals(usr1.getUserID(),usr.getUserID());
-        assertEquals(usr1.getRating(), usr.getRating());
+        assertTrue(usr1.getRating()==usr.getRating());//assertEquals(double,double) depricated
         assertEquals(pref.getCarYear(),usrp.getCarYear());
-        assertEquals(pref.getMinimumDriverRating(),usrp.getMinimumDriverRating());
+        assertTrue(pref.getMinimumDriverRating()==usrp.getMinimumDriverRating());
         assertEquals(pref.getPassengersCount(),usrp.getPassengersCount());
         assertEquals(pref.getTimeLimit(),usrp.getTimeLimit());
         //assertEquals(pref.getUserPreferenceID(),usrp.getUserPreferenceID());
