@@ -14,7 +14,7 @@ public interface DriverDaoAPI {
      * @param carID
      * @return Car generated from database.
      */
-    public Car getCarByID(int carID);
+    Car getCarByID(int carID);
 
 
     /**
@@ -24,7 +24,7 @@ public interface DriverDaoAPI {
      * @param car
      * @return operationCode
      */
-    public int insertCar(Car car);
+    int insertCar(Car car);
 
     /**
      * Updates the Car with the new data.
@@ -32,7 +32,7 @@ public interface DriverDaoAPI {
      * @param car
      * @return operationCode
      */
-    public int updateCar(Car car);
+    int updateCar(Car car);
 
 
     /**
@@ -41,7 +41,7 @@ public interface DriverDaoAPI {
      * @param driverPreferenceID
      * @return DriverPreference generated from database.
      */
-    public DriverPreference getDriverPreferenceByID(int driverPreferenceID);
+    DriverPreference getDriverPreferenceByID(int driverPreferenceID);
 
 
     /**
@@ -51,7 +51,7 @@ public interface DriverDaoAPI {
      * @param driverPreference
      * @return operationCode
      */
-    public int insertDriverPreference(DriverPreference driverPreference);
+    int insertDriverPreference(DriverPreference driverPreference);
 
     /**
      * Updates the driverPreference with the new data.
@@ -59,7 +59,7 @@ public interface DriverDaoAPI {
      * @param driverPreference
      * @return operationCode
      */
-    public int updateDriverPreference(DriverPreference driverPreference);
+    int updateDriverPreference(DriverPreference driverPreference);
 
     /**
      * Returns Driver selected by the certain driverID.
@@ -67,7 +67,7 @@ public interface DriverDaoAPI {
      * @param driverID
      * @return Driver generated from database.
      */
-    public Driver getDriverByID(int driverID);
+    Driver getDriverByID(int driverID);
 
     /**
      * Returns Drivers selected by the certain companyID.
@@ -75,7 +75,7 @@ public interface DriverDaoAPI {
      * @param companyID
      * @return List of drivers generated from database.
      */
-    public List<Driver> getDriverByCompanyID(int companyID);
+    List<Driver> getDriverByCompanyID(int companyID);
 
     /**
      * Returns Drivers selected by the user preferences.
@@ -91,7 +91,7 @@ public interface DriverDaoAPI {
      * @param user
      * @return List of drivers generated from database.
      */
-    public List<Driver> getDriverByPreferences(User user);
+    List<Driver> getDriverByPreferences(User user);
 
     /**
      * Tries to login with the certain email and password
@@ -101,7 +101,7 @@ public interface DriverDaoAPI {
      * @param password
      * @return Loggedin Driver.
      */
-    public Driver loginDriver(String email, String password);
+    Driver loginDriver(String email, String password);
 
     /**
      * Registers the certain driver.
@@ -110,7 +110,7 @@ public interface DriverDaoAPI {
      * @param driver
      * @return operationCode
      */
-    public int registerDriver(Driver driver);
+    int registerDriver(Driver driver);
 
     /**
      * Updates the certain driver with the new data.
@@ -118,7 +118,7 @@ public interface DriverDaoAPI {
      * @param driver
      * @return operationCode
      */
-    public int updateDriver(Driver driver);
+    int updateDriver(Driver driver);
 
 
     /**
@@ -127,7 +127,7 @@ public interface DriverDaoAPI {
      * @param carID
      * @return true/false
      */
-    public boolean checkCarID(String carID);
+    boolean checkCarID(String carID);
 
     /**
      * Checks if the driver exists with the certain email.
@@ -135,7 +135,7 @@ public interface DriverDaoAPI {
      * @param email
      * @return true/false
      */
-    public boolean checkEmail(String email);
+    boolean checkEmail(String email);
 
     /**
      * Checks if the driver exists with the certain phoneNumber.
@@ -143,7 +143,7 @@ public interface DriverDaoAPI {
      * @param phoneNumber
      * @return true/false
      */
-    public boolean checkPhoneNumber(String phoneNumber);
+    boolean checkPhoneNumber(String phoneNumber);
 
     /**
      * Check if the driver exists with the certain facebookID. null if he has not linked to profile.
@@ -151,7 +151,7 @@ public interface DriverDaoAPI {
      * @param facebookID
      * @return true/false
      */
-    public boolean checkFacebookID(String facebookID);
+    boolean checkFacebookID(String facebookID);
 
 
     /**
@@ -160,5 +160,5 @@ public interface DriverDaoAPI {
      * @param googleID
      * @return true/false
      */
-    public boolean checkGoogleID(String googleID);
+    boolean checkGoogleID(String googleID);
 }

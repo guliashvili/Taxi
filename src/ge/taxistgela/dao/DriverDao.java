@@ -384,7 +384,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             st.setDouble(12, driver.getRating());
             st.setInt(13, driver.getPreferences().getDriverPreferenceID());
             st.setBigDecimal(14, driver.getLocation().getLatitude());
-            st.setBigDecimal(15, driver.getLocation().getLongitute());
+            st.setBigDecimal(15, driver.getLocation().getLongitude());
             st.setBoolean(16, driver.isActive());
             st.setBoolean(17,driver.isVerified());
             if(update)

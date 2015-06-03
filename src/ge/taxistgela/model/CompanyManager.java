@@ -42,16 +42,16 @@ public class CompanyManager extends   CompanyManagerAPI {
 
     @Override
     public boolean checkCompanyCode(String companyCode) {
-        return checkCompanyCode(companyCode);
+        return companyDao.checkCompanyCode(companyCode);
     }
 
     @Override
     public boolean checkFacebookID(String facebookID) {
-        return checkFacebookID(facebookID);
+        return companyDao.checkFacebookID(facebookID);
     }
 
     @Override
     public boolean checkGoogleID(String googleID) {
-        return checkGoogleID(googleID);
+        return companyDao.checkGoogleID(googleID);
     }
 }

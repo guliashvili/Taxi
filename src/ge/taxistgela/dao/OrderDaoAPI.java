@@ -16,7 +16,7 @@ public interface OrderDaoAPI {
      * @param order
      * @return operationCode
      */
-    public int addOrder(Order order) throws ParseException;
+    int addOrder(Order order) throws ParseException;
 
     /**
      * Updates the certain order with the new data. (status active).
@@ -24,7 +24,7 @@ public interface OrderDaoAPI {
      * @param order
      * @return operationCode
      */
-    public int updateOrder(Order order);
+    int updateOrder(Order order);
 
     /**
      * Returns Order selected by the certain orderID.
@@ -32,7 +32,7 @@ public interface OrderDaoAPI {
      * @param orderID
      * @return Order generated from database.
      */
-    public Order getOrderByID(int orderID);
+    Order getOrderByID(int orderID);
 
     /**
      * Returns list of order selected by the certain userID.
@@ -40,7 +40,7 @@ public interface OrderDaoAPI {
      * @param userID
      * @return List of orders.
      */
-    public List<Order> getOrderByUserID(int userID);
+    List<Order> getOrderByUserID(int userID);
 
     /**
      * Returns list of orders selected by the certain driverID.
@@ -48,5 +48,5 @@ public interface OrderDaoAPI {
      * @param driverID
      * @return List of orders.
      */
-    public List<Order> getOrdersByDriverID(int driverID);
+    List<Order> getOrdersByDriverID(int driverID);
 }

@@ -1,7 +1,6 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.DriverPreference;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 
@@ -18,7 +17,7 @@ public interface UserDaoAPI {
      * @param userPreferenceID
      * @return UserPreference generated from database.
      */
-    public UserPreference getUserPreferenceByID(int userPreferenceID);
+    UserPreference getUserPreferenceByID(int userPreferenceID);
 
 
     /**
@@ -28,7 +27,7 @@ public interface UserDaoAPI {
      * @param userPreference
      * @return operationCode
      */
-    public int insertUserPreference(UserPreference userPreference);
+    int insertUserPreference(UserPreference userPreference);
 
     /**
      * Updates the userPreference with the new data.
@@ -36,7 +35,7 @@ public interface UserDaoAPI {
      * @param userPreference
      * @return operationCode
      */
-    public int updateUserPreference(UserPreference userPreference);
+    int updateUserPreference(UserPreference userPreference);
 
 
 
@@ -46,7 +45,7 @@ public interface UserDaoAPI {
      * @param userID
      * @return User generated from database.
      */
-    public User getUserByID(int userID);
+    User getUserByID(int userID);
 
     /**
      * Returns Users selected by the driver  criteria.
@@ -61,7 +60,7 @@ public interface UserDaoAPI {
      * @param driver
      * @return List of users generated from database.
      */
-    public List<User> getUsersByPreferences(Driver driver);
+    List<User> getUsersByPreferences(Driver driver);
 
     /**
      * Tries to login with the certain email and password.
@@ -71,7 +70,7 @@ public interface UserDaoAPI {
      * @param password
      * @return Loggedin User.
      */
-    public User loginUser(String email, String password);
+    User loginUser(String email, String password);
 
     /**
      * Registers the certain user.
@@ -80,7 +79,7 @@ public interface UserDaoAPI {
      * @param user
      * @return operationCode
      */
-    public int registerUser(User user);
+    int registerUser(User user);
 
     /**
      * Updates the user order with the new data.
@@ -88,7 +87,7 @@ public interface UserDaoAPI {
      * @param user
      * @return operationCode
      */
-    public int updateUser(User user);
+    int updateUser(User user);
 
     /**
      * Checks if the user exists with the certain email.
@@ -96,7 +95,7 @@ public interface UserDaoAPI {
      * @param email
      * @return true/false
      */
-    public boolean checkEmail(String email);
+    boolean checkEmail(String email);
 
     /**
      * Checks if the user exists with the certain phoneNumber.
@@ -104,7 +103,7 @@ public interface UserDaoAPI {
      * @param phoneNumber
      * @return true/false
      */
-    public boolean checkPhoneNumber(String phoneNumber);
+    boolean checkPhoneNumber(String phoneNumber);
 
 
     /**
@@ -113,7 +112,7 @@ public interface UserDaoAPI {
      * @param facebookID
      * @return true/false
      */
-    public boolean checkFacebookID(String facebookID);
+    boolean checkFacebookID(String facebookID);
 
 
     /**
@@ -122,6 +121,6 @@ public interface UserDaoAPI {
      * @param googleID
      * @return true/false
      */
-    public boolean checkGoogleID(String googleID);
+    boolean checkGoogleID(String googleID);
 
 }

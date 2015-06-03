@@ -1,7 +1,6 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.DriverPreference;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;

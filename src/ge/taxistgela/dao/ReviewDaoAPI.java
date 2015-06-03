@@ -15,7 +15,7 @@ public interface ReviewDaoAPI {
      * @param review
      * @return operationCode
      */
-    public int addReview(Review review);
+    int addReview(Review review);
 
     /**
      * Updates the certain review with the new data.
@@ -23,7 +23,7 @@ public interface ReviewDaoAPI {
      * @param review
      * @return operationCode
      */
-    public int updateReview(Review review);
+    int updateReview(Review review);
 
     /**
      * Returns Review selected by the certain reviewID.
@@ -31,7 +31,7 @@ public interface ReviewDaoAPI {
      * @param reviewID
      * @return
      */
-    public Review getReviewByID(int reviewID);
+    Review getReviewByID(int reviewID);
 
     /**
      * Returns list of reviews selected by the certain userID.
@@ -39,7 +39,7 @@ public interface ReviewDaoAPI {
      * @param userID
      * @return List of reviews.
      */
-    public List<Review> getReviewByUserID(int userID);
+    List<Review> getReviewByUserID(int userID);
 
     /**
      * Returns list of reviews selected by the certain driverID.
@@ -47,5 +47,5 @@ public interface ReviewDaoAPI {
      * @param driverID
      * @return List of reviews.
      */
-    public List<Review> getReviewByDriverID(int driverID);
+    List<Review> getReviewByDriverID(int driverID);
 }

@@ -4,8 +4,6 @@ import ge.taxistgela.helper.HashGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashSet;
-
 import static org.junit.Assert.*;
 
 /**

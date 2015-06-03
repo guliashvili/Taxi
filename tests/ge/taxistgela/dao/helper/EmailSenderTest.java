@@ -1,7 +1,6 @@
 package ge.taxistgela.dao.helper;
 
 import ge.taxistgela.bean.User;
-import static org.mockito.Mockito.*;
 
 import ge.taxistgela.helper.EmailSender;
 import ge.taxistgela.helper.HashGenerator;

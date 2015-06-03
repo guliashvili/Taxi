@@ -4,7 +4,6 @@ import ge.taxistgela.bean.*;
 import ge.taxistgela.db.DBConnectionProvider;
 import ge.taxistgela.helper.HashGenerator;
 
-import javax.activation.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

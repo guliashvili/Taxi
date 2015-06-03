@@ -13,9 +13,9 @@ public interface CompanyDaoAPI {
      *
      * @param email
      * @param password
-     * @return Loggedin user/or null if no such company exists
+     * @return Logged in user/or null if no such company exists
      */
-    public Company loginCompany(String email, String password);
+    Company loginCompany(String email, String password);
 
     /**
      * Registers the certain oompany.
@@ -24,7 +24,7 @@ public interface CompanyDaoAPI {
      * @param company
      * @return operationCode
      */
-    public int registerCompany(Company company);
+    int registerCompany(Company company);
 
     /**
      * Updates the certain company with the new data.
@@ -32,7 +32,7 @@ public interface CompanyDaoAPI {
      * @param company
      * @return operationCode
      */
-    public int updateCompany(Company company);
+    int updateCompany(Company company);
 
     /**
      * Checks if the company exists with the certain email.
@@ -40,7 +40,7 @@ public interface CompanyDaoAPI {
      * @param email
      * @return true/false
      */
-    public boolean checkEmail(String email);
+    boolean checkEmail(String email);
 
     /**
      * Checks if the company exists with the certain phoneNumber.
@@ -48,7 +48,7 @@ public interface CompanyDaoAPI {
      * @param phoneNumber
      * @return true/false
      */
-    public boolean checkPhoneNumber(String phoneNumber);
+    boolean checkPhoneNumber(String phoneNumber);
 
     /**
      * Check if the company exists with the certain companyCode.
@@ -56,7 +56,7 @@ public interface CompanyDaoAPI {
      * @param companyCode
      * @return true/false
      */
-    public boolean checkCompanyCode(String companyCode);
+    boolean checkCompanyCode(String companyCode);
 
     /**
      * Check if the company exists with the certain facebookID. null if he has not linked to profile.
@@ -64,7 +64,7 @@ public interface CompanyDaoAPI {
      * @param facebookID
      * @return true/false
      */
-    public boolean checkFacebookID(String facebookID);
+    boolean checkFacebookID(String facebookID);
 
 
     /**
@@ -73,5 +73,5 @@ public interface CompanyDaoAPI {
      * @param googleID
      * @return true/false
      */
-    public boolean checkGoogleID(String googleID);
+    boolean checkGoogleID(String googleID);
 }

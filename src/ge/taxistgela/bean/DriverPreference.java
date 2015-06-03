@@ -1,7 +1,5 @@
 package ge.taxistgela.bean;
 
-import ge.taxistgela.helper.ExternalAlgorithms;
-
 /**
  * Created by Alex on 5/25/2015.
  */

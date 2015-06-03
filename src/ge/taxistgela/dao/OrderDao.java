@@ -40,9 +40,9 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setInt(1, order.getUserID());
                 stmt.setInt(2, order.getDriverID());
                 stmt.setInt(3, order.getNumPassengers());
-                stmt.setBigDecimal(4, order.getStartLocation().getLongitute());
+                stmt.setBigDecimal(4, order.getStartLocation().getLongitude());
                 stmt.setBigDecimal(5, order.getStartLocation().getLatitude());
-                stmt.setBigDecimal(6, order.getEndLocation().getLongitute());
+                stmt.setBigDecimal(6, order.getEndLocation().getLongitude());
                 stmt.setBigDecimal(7, order.getEndLocation().getLatitude());
                 stmt.setString(8, simpleDateFormat.format(order.getStartTime()));
                 stmt.setString(9, simpleDateFormat.format(order.getEndTime()));
@@ -71,9 +71,9 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 stmt.setInt(1, order.getUserID());
                 stmt.setInt(2, order.getDriverID());
                 stmt.setInt(3, order.getNumPassengers());
-                stmt.setBigDecimal(4, order.getStartLocation().getLongitute());
+                stmt.setBigDecimal(4, order.getStartLocation().getLongitude());
                 stmt.setBigDecimal(5, order.getStartLocation().getLatitude());
-                stmt.setBigDecimal(6, order.getEndLocation().getLongitute());
+                stmt.setBigDecimal(6, order.getEndLocation().getLongitude());
                 stmt.setBigDecimal(7, order.getEndLocation().getLatitude());
                 stmt.setString(8, simpleDateFormat.format(order.getStartTime()));
                 stmt.setString(9, simpleDateFormat.format(order.getEndTime()));
@@ -108,7 +108,8 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
             }
         } catch (SQLException ex) {
 
-        } catch (ParseException ex) {
+        }
+        catch (ParseException ex) {
 
         }
 
