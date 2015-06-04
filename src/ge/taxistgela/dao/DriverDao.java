@@ -122,7 +122,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO ERRORCODE
+            e.printStackTrace();
 
         }
         return errorCode;
@@ -141,7 +141,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO error code
+            e.printStackTrace();
 
         }
         return errorCode;
@@ -218,7 +218,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO ERRORCODE
+            e.printStackTrace();
 
         }
         return errorCode;
@@ -237,7 +237,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO error code
+            e.printStackTrace();
 
         }
         return errorCode;
@@ -276,7 +276,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 output.setIsVerified(res.getBoolean("Driver.isVerified"));
         }catch (SQLException e){
             output = null;
-            //TODO log
+            e.printStackTrace();
         }
         return  output;
     }
@@ -390,7 +390,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             if(update)
                 st.setInt(18,driver.getDriverID());
         }catch (SQLException e){
-            errorCode = -1;// TODO
+            errorCode = -1;
+            e.printStackTrace();;
         }
         return  errorCode;
     }
@@ -416,7 +417,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         }catch (SQLException e){
             errorCode = -1;
-            //TODO ERRORCODE
+            e.printStackTrace();
 
         }
         return errorCode;
@@ -435,7 +436,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         }catch (SQLException e){
             errorCode = -1;
-            //TODO error code
+            e.printStackTrace();
 
         }
         return errorCode;

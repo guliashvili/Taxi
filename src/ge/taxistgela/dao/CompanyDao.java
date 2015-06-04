@@ -73,13 +73,13 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
                 if(!res.next()){
-                    errorCode = -1;//TODO ERRORCODE
+                    errorCode = -1;
                 }else {
                     company.setCompanyID(res.getInt(1));
                 }
             }
         }catch(SQLException e){
-            //TODO
+
             e.printStackTrace();
             errorCode = -1;
         }
@@ -96,7 +96,8 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
 
             }
         }catch(SQLException e){
-            errorCode = -1;//TODO
+            errorCode = -1;
+            e.printStackTrace();
         }
         return errorCode;
     }

@@ -122,8 +122,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO ERRORCODE
-
+            e.printStackTrace();
         }
         return errorCode;
 
@@ -141,7 +140,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO error code
+            e.printStackTrace();
 
         }
         return errorCode;
@@ -266,7 +265,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.setInt(12, user.getUserID());
 
         } catch (SQLException e) {
-            errorCode = -1;// TODO
+            errorCode = -1;
+            e.printStackTrace();
         }
         return errorCode;
     }
@@ -291,7 +291,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO ERRORCODE
+            e.printStackTrace();
 
         }
         return errorCode;
@@ -310,7 +310,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            //TODO error code
+            e.printStackTrace();
 
         }
         return errorCode;
