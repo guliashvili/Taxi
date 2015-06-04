@@ -292,7 +292,54 @@ public class DaoTests {
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
         compareDrivers(driver,driver1);
-
+        //Update
+        when(driver.getFirstName()).thenReturn("gelusi");
+        when(driver.getRating()).thenReturn(1.3);
+        when(driver.getLastName()).thenReturn("maghaltadze");
+        when(driver.getPhoneNumber()).thenReturn("+995696991");
+        when(driver.getCompanyID()).thenReturn(0);
+        when(driver.getDriverID()).thenReturn(-1);
+        when(driver.getEmail()).thenReturn("gela95@taxistgela.ge");
+        when(driver.getFacebookID()).thenReturn("gelandara95");
+        when(driver.getGoogleID()).thenReturn("bozandara");
+        when(driver.getPassword()).thenReturn("Madridista!");//rom gaigo rom paroli vicodit mere amaze gadaaketa
+        when(driver.getPersonalID()).thenReturn("01010101012");//gelam piradobis nomeri sheicvala B-)
+        when(driver.getRating()).thenReturn(2.3);
+        when(driver.isActive()).thenReturn(false);
+        when(driver.isVerified()).thenReturn(false);
+        when(driver.getLocation()).thenReturn(l);
+        //Register + login test
+        when(driver.getCar()).thenReturn(car);
+        when(car.getCarYear()).thenReturn(1996);//sabutebi gaayalba manqanis uket gasasageblad
+        when(car.getCarDescription()).thenReturn("???? :3");
+        when(car.getCarID()).thenReturn("95dota69");//manqanis nomerbi shecvala
+        when(car.getNumPassengers()).thenReturn(3);//adgili daasvarka
+        gend=Gender.FEMALE;//wonders of today's surgeons
+        when(driver.getGender()).thenReturn(gend);
+        when(driver.getPreferences()).thenReturn(pref);
+        when(pref.getCoefficientPer()).thenReturn(0.70);//gelam standartebi awia
+        //when(pref.getDriverPreferenceID()).thenReturn(-1);
+        when(pref.getMinimumUserRating()).thenReturn(0.1);//gela standartebi awia tqo
+        man.updateDriver(driver);
+        man.updateCar(car);
+        man.updateDriverPreference(pref);
+        //Login
+        driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
+        compareDrivers(driver,driver1);
+        //man.getCarByID(car.getCarID());
+    }
+    private void compareCars(Car car1,Car car2){
+        //car comparison
+        assertEquals(car1.getCarDescription(),car2.getCarDescription());
+        assertEquals(car1.getCarID(),car2.getCarID());
+        assertEquals(car1.getCarYear(), car2.getCarYear());
+        assertEquals(car1.getNumPassengers(),car2.getNumPassengers());
+    }
+    private void comparePrefernces(DriverPreference dp1,DriverPreference dp2){
+        //preference comparison
+        assertTrue(dp1.getCoefficientPer() == dp2.getCoefficientPer());
+        assertEquals(dp1.getDriverPreferenceID(),dp2.getDriverPreferenceID());
+        assertTrue(dp1.getMinimumUserRating() == dp2.getMinimumUserRating());
     }
     private void compareDrivers(Driver driver,Driver driver1){
         Car car = driver.getCar();
@@ -313,15 +360,8 @@ public class DaoTests {
         assertEquals(driver1.isVerified(),driver.isVerified());
         Car c = driver1.getCar();
         DriverPreference p = driver1.getPreferences();
-        //car comparison
-        assertEquals(c.getCarDescription(),car.getCarDescription());
-        assertEquals(c.getCarID(),car.getCarID());
-        assertEquals(c.getCarYear(),car.getCarYear());
-        assertEquals(c.getNumPassengers(),car.getNumPassengers());
-        //preference comparison
-        assertTrue(p.getCoefficientPer() == pref.getCoefficientPer());
-        assertEquals(p.getDriverPreferenceID(),pref.getDriverPreferenceID());
-        assertTrue(p.getMinimumUserRating() == pref.getMinimumUserRating());
+        compareCars(c,car);
+        comparePrefernces(p,pref);
     }
     @Test
     public void testOrderDao(){
