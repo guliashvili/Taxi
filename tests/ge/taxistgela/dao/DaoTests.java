@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -292,41 +293,70 @@ public class DaoTests {
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
         compareDrivers(driver,driver1);
-        //Update
-        when(driver.getFirstName()).thenReturn("gelusi");
-        when(driver.getRating()).thenReturn(1.3);
-        when(driver.getLastName()).thenReturn("maghaltadze");
-        when(driver.getPhoneNumber()).thenReturn("+995696991");
-        when(driver.getCompanyID()).thenReturn(0);
-        when(driver.getDriverID()).thenReturn(-1);
-        when(driver.getEmail()).thenReturn("gela95@taxistgela.ge");
-        when(driver.getFacebookID()).thenReturn("gelandara95");
-        when(driver.getGoogleID()).thenReturn("bozandara");
-        when(driver.getPassword()).thenReturn("Madridista!");//rom gaigo rom paroli vicodit mere amaze gadaaketa
-        when(driver.getPersonalID()).thenReturn("01010101012");//gelam piradobis nomeri sheicvala B-)
-        when(driver.getRating()).thenReturn(2.3);
-        when(driver.isActive()).thenReturn(false);
-        when(driver.isVerified()).thenReturn(false);
-        when(driver.getLocation()).thenReturn(l);
         //Register + login test
-        when(driver.getCar()).thenReturn(car);
+        comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
+        /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
+        //Update
+        Driver driver2=Mockito.mock(Driver.class);
+        when(driver2.getFirstName()).thenReturn("gelusi");
+        when(driver2.getRating()).thenReturn(1.3);
+        when(driver2.getLastName()).thenReturn("maghaltadze");
+        when(driver2.getPhoneNumber()).thenReturn("+995696991");
+        when(driver2.getCompanyID()).thenReturn(0);
+        when(driver2.getDriverID()).thenReturn(-1);
+        when(driver2.getEmail()).thenReturn("gela95@taxistgela.ge");
+        when(driver2.getFacebookID()).thenReturn("gelandara95");
+        when(driver2.getGoogleID()).thenReturn("bozandara");
+        when(driver2.getPassword()).thenReturn("Madridista!");//rom gaigo rom paroli vicodit mere amaze gadaaketa
+        when(driver2.getPersonalID()).thenReturn("01010101012");//gelam piradobis nomeri sheicvala B-)
+        when(driver2.getRating()).thenReturn(2.3);
+        when(driver2.isActive()).thenReturn(false);
+        when(driver2.isVerified()).thenReturn(false);
+        when(driver2.getLocation()).thenReturn(l);
+        when(driver2.getCar()).thenReturn(car);
         when(car.getCarYear()).thenReturn(1996);//sabutebi gaayalba manqanis uket gasasageblad
         when(car.getCarDescription()).thenReturn("???? :3");
         when(car.getCarID()).thenReturn("95dota69");//manqanis nomerbi shecvala
         when(car.getNumPassengers()).thenReturn(3);//adgili daasvarka
         gend=Gender.FEMALE;//wonders of today's surgeons
-        when(driver.getGender()).thenReturn(gend);
-        when(driver.getPreferences()).thenReturn(pref);
+        when(driver2.getGender()).thenReturn(gend);
+        when(driver2.getPreferences()).thenReturn(pref);
         when(pref.getCoefficientPer()).thenReturn(0.70);//gelam standartebi awia
         //when(pref.getDriverPreferenceID()).thenReturn(-1);
         when(pref.getMinimumUserRating()).thenReturn(0.1);//gela standartebi awia tqo
-        man.updateDriver(driver);
+        man.updateDriver(driver2);
         man.updateCar(car);
         man.updateDriverPreference(pref);
         //Login
-        driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
-        compareDrivers(driver,driver1);
-        //man.getCarByID(car.getCarID());
+        driver1=man.loginDriver(driver2.getEmail(),driver2.getPassword());
+        compareDrivers(driver2,driver1);
+        /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
+        DriverPreference pref1 = man.getDriverPreferenceByID(pref.getDriverPreferenceID());
+        comparePrefernces(pref,pref1);
+
+        //license plate check
+        assertTrue(man.checkCarID(car.getCarID()));
+        assertFalse(man.checkCarID("00aaaa00"));
+        assertFalse(man.checkCarID("01aaaa10"));
+        //email check
+        assertFalse(man.checkEmail(driver.getEmail()));
+        assertTrue(man.checkEmail(driver2.getEmail()));
+        //facebook id check
+        assertTrue(man.checkFacebookID(driver2.getFacebookID()));
+        assertFalse(man.checkFacebookID(driver.getFacebookID()));
+        //google id check
+        assertTrue(man.checkFacebookID(driver2.getGoogleID()));
+        assertFalse(man.checkFacebookID(driver.getGoogleID()));
+        //phone number check
+        assertTrue(man.checkPhoneNumber(driver2.getGoogleID()));
+        assertFalse(man.checkPhoneNumber(driver.getGoogleID()));
+        //get driver by company
+        List<Driver> drivers =man.getDriverByCompanyID(driver2.getCompanyID());
+        for(Driver d:drivers){
+            if(d.getDriverID()==driver2.getDriverID())
+                compareDrivers(d,driver2);
+        }
+        comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
     }
     private void compareCars(Car car1,Car car2){
         //car comparison
