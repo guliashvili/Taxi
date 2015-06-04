@@ -43,8 +43,9 @@ public class DaoTests {
         when(comp.getPhoneNumber()).thenReturn("+995558677895");
         when(comp.getPassword()).thenReturn("1234qwerTy");
         when(comp.getCompanyID()).thenReturn(-1);
-        dao.registerCompany(comp);
-        dao.registerCompany(comp);
+        when(comp.getCompanyCode()).thenReturn("fuckCode");
+        assertEquals(0,dao.registerCompany(comp));
+        assertEquals(-1,dao.registerCompany(comp));
         //LoginTests
         Company company = dao.loginCompany(comp.getEmail(),comp.getPassword());
         compareCompanies(comp,company);

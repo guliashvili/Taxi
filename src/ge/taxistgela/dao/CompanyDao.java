@@ -63,8 +63,12 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
     public int registerCompany(Company company) {
         int errorCode = 0;
         try(Connection con = DBConnectionProvider.getConnection()){
+
             try(PreparedStatement st = con.prepareStatement(register_STMT,Statement.RETURN_GENERATED_KEYS)) {
+
                 errorCode |= setStrings(st, company,false);
+
+                System.out.println(st.toString());
 
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
@@ -76,6 +80,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             }
         }catch(SQLException e){
             //TODO
+            e.printStackTrace();
             errorCode = -1;
         }
         return errorCode;
