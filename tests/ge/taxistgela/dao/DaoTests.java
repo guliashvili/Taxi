@@ -1,13 +1,11 @@
 package ge.taxistgela.dao;
 
-import ge.taxistgela.bean.Company;
-import ge.taxistgela.bean.Gender;
-import ge.taxistgela.bean.User;
-import ge.taxistgela.bean.UserPreference;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.AdminDatabase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -19,19 +17,19 @@ import static org.mockito.Mockito.when;
 public class DaoTests {
     @Before
     public void setup(){
-        AdminDatabase db = new AdminDatabase();
+        /*AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
         }catch(Exception e){
             System.out.println(e.toString());
             assertTrue(false);
-        }
+        }*/
     }
     @Test
     public void testCompanyDao(){
         //RegistrationTests
         CompanyDao dao = new CompanyDao();
-        Company comp = mock(Company.class);
+        Company comp = Mockito.mock(Company.class);
         when(comp.getCompanyName()).thenReturn("taxistGela");
         when(comp.getEmail()).thenReturn("support@taxistgela.com");
         when(comp.getCompanyCode()).thenReturn("1234567890a");
@@ -83,7 +81,7 @@ public class DaoTests {
         assertTrue(dao.checkFacebookID("facebookIDmock"));
         assertFalse(dao.checkFacebookID("afk"));
         //UpdateTest
-        Company comp1 = mock(Company.class);
+        Company comp1 = Mockito.mock(Company.class);
         when(comp1.getCompanyName()).thenReturn("taxistGela1");
         when(comp1.getEmail()).thenReturn("support1@taxistgela.com");
         when(comp1.getCompanyCode()).thenReturn("1234567890a1");
@@ -134,15 +132,15 @@ public class DaoTests {
     @Test
     public void testUserDao(){
         UserDao dao = new UserDao();
-        UserPreference usrp = mock(UserPreference.class);
+        UserPreference usrp = Mockito.mock(UserPreference.class);
         when(usrp.getCarYear()).thenReturn(2013);
         when(usrp.getMinimumDriverRating()).thenReturn(2.3);
         when(usrp.getPassengersCount()).thenReturn(2);
         when(usrp.getTimeLimit()).thenReturn(30);
         when(usrp.isConditioning()).thenReturn(true);
         when(usrp.isWantsAlone()).thenReturn(false);
-        usrp = mock(UserPreference.class);
-        User usr = mock(User.class);
+        usrp = Mockito.mock(UserPreference.class);
+        User usr = Mockito.mock(User.class);
         when(usr.getFirstName()).thenReturn("Rati");
         when(usr.getEmail()).thenReturn("rmach13@freeuni.edu.ge");
         when(usr.getGoogleID()).thenReturn("asdsdafrk");
@@ -201,15 +199,15 @@ public class DaoTests {
         assertTrue(dao.checkGoogleID("asdsdafrk"));
         assertFalse(dao.checkGoogleID("asdfa3d"));
         //Update
-        usrp = mock(UserPreference.class);
+        usrp = Mockito.mock(UserPreference.class);
         when(usrp.getCarYear()).thenReturn(2013);
         when(usrp.getMinimumDriverRating()).thenReturn(2.3);
         when(usrp.getPassengersCount()).thenReturn(2);
         when(usrp.getTimeLimit()).thenReturn(30);
         when(usrp.isConditioning()).thenReturn(true);
         when(usrp.isWantsAlone()).thenReturn(false);
-        usrp = mock(UserPreference.class);
-        usr = mock(User.class);
+        usrp = Mockito.mock(UserPreference.class);
+        usr = Mockito.mock(User.class);
         when(usr.getFirstName()).thenReturn("raTi");
         when(usr.getEmail()).thenReturn("rmach12@freeuni.edu.ge");
         when(usr.getGoogleID()).thenReturn("asdfa3d");
@@ -270,7 +268,10 @@ public class DaoTests {
     }
     @Test
     public void testDriverDao(){
-
+        DriverDao dao = new DriverDao();
+        Driver driver = Mockito.mock(Driver.class);
+        Car car = Mockito.mock(Car.class);
+        DriverPreference driverPreference = Mockito.mock(DriverPreference.class);
     }
     @Test
     public void testOrderDao(){
@@ -282,12 +283,12 @@ public class DaoTests {
     }
     @After
     public void cleanup(){
-        AdminDatabase db = new AdminDatabase();
+        /*AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
         }catch(Exception e){
             System.out.println(e.toString());
             assertTrue(false);
-        }
+        }*/
     }
 }
