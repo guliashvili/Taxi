@@ -256,7 +256,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             st.setString(3, user.getFirstName());
             st.setString(4, user.getLastName());
             st.setString(5, user.getPhoneNumber());
-            st.setString(6, user.getGender().toString());
+            st.setString(6, user.getGender().name());
             st.setDouble(7, user.getRating());
             st.setString(8, user.getFacebookID());
             st.setString(9, user.getGoogleID());

@@ -376,7 +376,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             st.setInt(4, driver.getCompanyID());
             st.setString(5, driver.getFirstName());
             st.setString(6, driver.getLastName());
-            st.setString(7, driver.getGender().toString());
+            st.setString(7, driver.getGender().name());
             st.setString(8, driver.getPhoneNumber());
             st.setString(9, driver.getCar().getCarID());
             st.setString(10, driver.getFacebookID());
