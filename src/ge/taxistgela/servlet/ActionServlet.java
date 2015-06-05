@@ -22,7 +22,7 @@ public abstract class ActionServlet extends HttpServlet {
 
     /**
      * Invokes the certain method depending on the certain action.
-     * Example: action-hello => hello(request, response)
+     * Example: action=hello => hello(request, response)
      *
      * @param request
      * @param response
