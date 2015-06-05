@@ -35,7 +35,7 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
-    public int addOrder(Order order) throws ParseException {
+    public int addOrder(Order order) {
         try (Connection conn = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = conn.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
                 st.setInt(1, order.getUserID());
@@ -60,9 +60,9 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 }
             }
         } catch (SQLException e) {
-
             ExternalAlgorithms.debugPrint(e);
         }
+
         return 0;
     }
 

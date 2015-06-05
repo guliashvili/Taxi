@@ -1,22 +1,26 @@
-package ge.taxistgela.dao;
+package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Order;
+import ge.taxistgela.dao.OrderDaoAPI;
 
 import java.text.ParseException;
 import java.util.List;
 
 /**
- * Created by Alex on 5/25/2015.
+ * Created by GIO on 6/5/2015.
  */
-public interface OrderDaoAPI {
-
+public abstract class OrderManagerAPI {
+    OrderDaoAPI orderDaoAPI;
+    public OrderManagerAPI(OrderDaoAPI orderDaoAPI){
+        this.orderDaoAPI = orderDaoAPI;
+    }
     /**
      * Adds new order into database (still pending status).
      *
      * @param order
      * @return operationCode
      */
-    int addOrder(Order order);
+    public abstract int addOrder(Order order);
 
     /**
      * Updates the certain order with the new data. (status active).
@@ -24,7 +28,7 @@ public interface OrderDaoAPI {
      * @param order
      * @return operationCode
      */
-    int updateOrder(Order order);
+    public abstract int updateOrder(Order order);
 
     /**
      * Returns Order selected by the certain orderID.
@@ -32,7 +36,7 @@ public interface OrderDaoAPI {
      * @param orderID
      * @return Order generated from database.
      */
-    Order getOrderByID(int orderID);
+    public abstract Order getOrderByID(int orderID);
 
     /**
      * Returns list of order selected by the certain userID.
@@ -40,7 +44,7 @@ public interface OrderDaoAPI {
      * @param userID
      * @return List of orders.
      */
-    List<Order> getOrderByUserID(int userID);
+    public abstract List<Order> getOrderByUserID(int userID);
 
     /**
      * Returns list of orders selected by the certain driverID.
@@ -48,5 +52,6 @@ public interface OrderDaoAPI {
      * @param driverID
      * @return List of orders.
      */
-    List<Order> getOrdersByDriverID(int driverID);
+    public abstract  List<Order> getOrdersByDriverID(int driverID);
+
 }
