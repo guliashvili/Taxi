@@ -191,18 +191,18 @@ public class DaoTests {
         assertTrue(man.checkPhoneNumber("+992358677895"));
         assertFalse(man.checkPhoneNumber("558677895"));
         assertTrue(man.checkPhoneNumber("+992358677895"));
-        //CheckFacebookID
-        assertFalse(man.checkFacebookID(""));
-        assertTrue(man.checkFacebookID("asdfl2d"));
-        assertFalse(man.checkFacebookID("asdfa2d"));
-        assertTrue(man.checkFacebookID("asdfl2d"));
-        assertFalse(man.checkFacebookID("asdfa2d"));
         //CheckGoogleID
         assertFalse(man.checkGoogleID(""));
-        assertTrue(man.checkGoogleID("asdfa3d"));
-        assertFalse(man.checkGoogleID("asdsdafrk"));
-        assertTrue(man.checkGoogleID("asdfa3d"));
-        assertFalse(man.checkGoogleID("asdsdafrk"));
+        assertTrue(man.checkGoogleID("asdfl2d"));
+        assertFalse(man.checkGoogleID("asdfa2d"));
+        assertTrue(man.checkGoogleID("asdfl2d"));
+        assertFalse(man.checkGoogleID("asdfa2d"));
+        //CheckFacebookID
+        assertFalse(man.checkFacebookID(""));
+        assertTrue(man.checkFacebookID("asdfa3d"));
+        assertFalse(man.checkFacebookID("asdsdafrk"));
+        assertTrue(man.checkFacebookID("asdfa3d"));
+        assertFalse(man.checkFacebookID("asdsdafrk"));
     }
     private void compareUsers(User user,User user1){
         Gender g = user.getGender();
