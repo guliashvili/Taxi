@@ -24,6 +24,28 @@ public class Driver implements GeneralCheckableInformation{
     private boolean isActive;
     private  boolean isVerified;
 
+    public Driver(int driverID, String personalID, String email, String password, int companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, double rating, DriverPreference preferences, boolean isActive, boolean isVerified) {
+        setDriverID(driverID);
+        setPersonalID(personalID);
+        setEmail(email);
+        setPassword(password);
+        setCompanyID(companyID);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setGender(gender);
+        setPhoneNumber(phoneNumber);
+        setCar(car);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setLocation(location);
+        setRating(rating);
+        setPreferences(preferences);
+        setIsActive(isActive);
+        setIsVerified(isVerified);
+    }
+
+    public  Driver(){}
+
 
     @Override
     public boolean equals(Object obj) {

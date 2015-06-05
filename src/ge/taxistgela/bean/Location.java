@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 public class Location {
     private BigDecimal latitude;
     private BigDecimal longitude;
+
+
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  Location)) return  false;
@@ -23,9 +26,10 @@ public class Location {
         return getLatitude().multiply( getLongitude()).hashCode();
     }
     public Location(BigDecimal latitude, BigDecimal longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+        setLatitude(latitude);
+        setLongitude(longitude);
     }
+    public  Location(){}
 
     public BigDecimal getLatitude() {
         return latitude;

@@ -12,6 +12,17 @@ public class UserPreference {
     private int passengersCount; // ramdeni kaci midian
     private boolean wantsAlone;
 
+    public UserPreference(int userPreferenceID, double minimumDriverRating, boolean conditioning, int carYear, int timeLimit, int passengersCount, boolean wantsAlone) {
+        setUserPreferenceID(userPreferenceID);
+        setMinimumDriverRating(minimumDriverRating);
+        setConditioning(conditioning);
+        setCarYear(carYear);
+        setTimeLimit(timeLimit);
+        setPassengersCount(passengersCount);
+        setWantsAlone(wantsAlone);
+    }
+    public UserPreference(){}
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  UserPreference)) return  false;
