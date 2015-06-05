@@ -44,7 +44,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                     "VALUES(?,?,?,?,?,?)";
     private final static String preference_update_STMT =
             "UPDATE UserPreferences SET " +
-                    "userPreferenceID=?,minimumDriverRating=?,conditioning=?,carYear=?," +
+                    "minimumDriverRating=?,conditioning=?,carYear=?," +
                     "passengersCount=?,wantsAlone=?,timeLimit=? WHERE userPreferenceID = ?";
     private UserPreference getUserPreference(ResultSet res) {
         UserPreference up = new UserPreference();

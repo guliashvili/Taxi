@@ -167,7 +167,6 @@ public class DaoTests {
         assertTrue(man.checkGoogleID("asdsdafrk"));
         assertFalse(man.checkGoogleID("asdfa3d"));
         //Update
-        usrp.setUserPreferenceID(usrp.getUserPreferenceID());
         usrp.setCarYear(2014);
         usrp.setMinimumDriverRating(2.3);
         usrp.setPassengersCount(2);
