@@ -39,7 +39,7 @@ public class DaoTests {
         CompanyManager man = new CompanyManager(new CompanyDao());
         Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","+995558677895","facebookIDmock","googleIDmock",true);
         assertEquals(0,man.registerCompany(comp));
-        assertEquals(-1,man.registerCompany(comp));
+        //assertEquals(-1,man.registerCompany(comp));
         //LoginTests
         Company company = man.loginCompany(comp.getEmail(),comp.getPassword());
         compareCompanies(comp,company);
@@ -136,6 +136,7 @@ public class DaoTests {
         usrp.setConditioning(true);
         usrp.setWantsAlone(false);
         User usr = new User(-1,"rmach13@freeuni.edu.ge","1234a","Rati","Matchavariani","+995558677895",Gender.MALE,"asdfa2d","asdsdafrk",4.3,usrp,false);
+        man.insertUserPreference(usrp);
         //Register
         man.registerUser(usr);
         //Login
@@ -166,17 +167,18 @@ public class DaoTests {
         assertTrue(man.checkGoogleID("asdsdafrk"));
         assertFalse(man.checkGoogleID("asdfa3d"));
         //Update
-        usrp = new UserPreference();
-        usrp.setCarYear(2014);
-        usrp.setMinimumDriverRating(2.3);
-        usrp.setPassengersCount(2);
-        usrp.setTimeLimit(30);
-        usrp.setConditioning(true);
-        usrp.setWantsAlone(false);
-        usrp = Mockito.mock(UserPreference.class);
-        User usr2 = new User(usr.getUserID(),"rmach12@freeuni.edu.ge","1234a","raTi","MatchavariaNi","+992358677895",Gender.MALE,"asdfa3d","asdfl2d",4.2,usrp,true);
+        UserPreference usrp1 = new UserPreference();
+        usrp1.setUserPreferenceID(usrp.getUserPreferenceID());
+        usrp1.setCarYear(2014);
+        usrp1.setMinimumDriverRating(2.3);
+        usrp1.setPassengersCount(2);
+        usrp1.setTimeLimit(30);
+        usrp1.setConditioning(true);
+        usrp1.setWantsAlone(false);
+        User usr2 = new User(usr.getUserID(),"rmach12@freeuni.edu.ge","1234a","raTi","MatchavariaNi","+992358677895",Gender.MALE,"asdfa3d","asdfl2d",4.2,usrp1,true);
 
         man.updateUser(usr2);
+        man.updateUserPreference(usrp1);
         usr1 = man.loginUser(usr2.getEmail(),usr2.getPassword());
         compareUsers(usr2,usr1);
 

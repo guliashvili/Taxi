@@ -119,7 +119,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
                 if (res.next()) {
-                    userPreference.setUserPreferenceID(res.getInt("userPreferenceID"));
+                    userPreference.setUserPreferenceID(res.getInt(1));
                 } else {
                     errorCode = -1;
                 }
