@@ -3,6 +3,7 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.db.DBConnectionProvider;
 import ge.taxistgela.helper.HashGenerator;
+import ge.taxistgela.helper.ExternalAlgorithms;
 
 import java.sql.*;
 
@@ -23,6 +24,10 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             try(PreparedStatement st = con.prepareStatement(login_STMT)) {
                 st.setString(1,email);
                 st.setString(2, HashGenerator.getSaltHash(password));
+
+
+                ExternalAlgorithms.debugPrintSelect("Login Company \n" + st.toString());
+
                 ResultSet res = st.executeQuery();
                 if(!res.next()){
                     return null;
@@ -31,6 +36,8 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             }
         }catch(SQLException e){
             ret = null;
+            ExternalAlgorithms.debugPrint(e);
+
         }
         return ret;
     }
@@ -55,6 +62,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 st.setInt(9,company.getCompanyID());
         }catch (SQLException e){
             errorCode = -1;
+            ExternalAlgorithms.debugPrint(e);
         }
         return  errorCode;
     }
@@ -68,7 +76,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
 
                 errorCode |= setStrings(st, company,false);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("Register Company\n" + st.toString());
 
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
@@ -80,7 +88,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             }
         }catch(SQLException e){
 
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
             errorCode = -1;
         }
         return errorCode;
@@ -92,12 +100,15 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(update_STMT)) {
                 errorCode |= setStrings(st, company,true);
-                st.executeUpdate();
 
+
+                ExternalAlgorithms.debugPrintSelect("Update Company\n" + st.toString());
+
+                st.executeUpdate();
             }
         }catch(SQLException e){
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
     }
@@ -107,11 +118,14 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  email = ?")) {
                 st.setString(1,email);
+
+                ExternalAlgorithms.debugPrintSelect("check Email Company\n" + st.toString());
+
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
-
+            ExternalAlgorithms.debugPrint(e);
         }
         return false;
     }
@@ -121,11 +135,14 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  phoneNumber = ?")) {
                 st.setString(1,phoneNumber);
+
+                ExternalAlgorithms.debugPrintSelect("Check Phone Number Company\n" + st.toString());
+
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
-
+            ExternalAlgorithms.debugPrint(e);
         }
         return false;
     }
@@ -135,11 +152,14 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  companyCode = ?")) {
                 st.setString(1,companyCode);
+
+                ExternalAlgorithms.debugPrintSelect("check company code \n" + st.toString());
+
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
-
+            ExternalAlgorithms.debugPrint(e);
         }
         return false;
     }
@@ -150,11 +170,16 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  facebookID = ?")) {
                 st.setString(1,facebookID);
+
+                ExternalAlgorithms.debugPrintSelect("check FacebookID company\n" + st.toString());
+
+
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
 
+            ExternalAlgorithms.debugPrint(e);
         }
         return false;
     }
@@ -165,11 +190,14 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT companyID FROM companies WHERE  googleID = ?")) {
                 st.setString(1,googleID);
+
+                ExternalAlgorithms.debugPrintSelect("Check GoogleID company\n" +  st.toString());
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
 
+            ExternalAlgorithms.debugPrint(e);
         }
         return false;
     }

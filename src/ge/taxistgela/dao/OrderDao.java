@@ -3,6 +3,7 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.db.DBConnectionProvider;
+import ge.taxistgela.helper.ExternalAlgorithms;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -36,30 +37,31 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
     @Override
     public int addOrder(Order order) throws ParseException {
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
-                stmt.setInt(1, order.getUserID());
-                stmt.setInt(2, order.getDriverID());
-                stmt.setInt(3, order.getNumPassengers());
-                stmt.setBigDecimal(4, order.getStartLocation().getLongitude());
-                stmt.setBigDecimal(5, order.getStartLocation().getLatitude());
-                stmt.setBigDecimal(6, order.getEndLocation().getLongitude());
-                stmt.setBigDecimal(7, order.getEndLocation().getLatitude());
-                stmt.setString(8, simpleDateFormat.format(order.getStartTime()));
-                stmt.setString(9, simpleDateFormat.format(order.getEndTime()));
-                stmt.setBigDecimal(10, order.getPaymentAmount());
-                stmt.setString(11, simpleDateFormat.format(order.getCallTime()));
+            try (PreparedStatement st = conn.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
+                st.setInt(1, order.getUserID());
+                st.setInt(2, order.getDriverID());
+                st.setInt(3, order.getNumPassengers());
+                st.setBigDecimal(4, order.getStartLocation().getLongitude());
+                st.setBigDecimal(5, order.getStartLocation().getLatitude());
+                st.setBigDecimal(6, order.getEndLocation().getLongitude());
+                st.setBigDecimal(7, order.getEndLocation().getLatitude());
+                st.setString(8, simpleDateFormat.format(order.getStartTime()));
+                st.setString(9, simpleDateFormat.format(order.getEndTime()));
+                st.setBigDecimal(10, order.getPaymentAmount());
+                st.setString(11, simpleDateFormat.format(order.getCallTime()));
 
-                System.out.println(stmt.toString());
+                ExternalAlgorithms.debugPrintSelect("addOrder \n" + st.toString());
 
-                stmt.executeUpdate();
+                st.executeUpdate();
 
-                try (ResultSet rslt = stmt.getGeneratedKeys()) {
+                try (ResultSet rslt = st.getGeneratedKeys()) {
                     if (rslt.next())
                         order.setOrderID(rslt.getInt(1));
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 
+            ExternalAlgorithms.debugPrint(e);
         }
         return 0;
     }
@@ -67,26 +69,27 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
     @Override
     public int updateOrder(Order order) {
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(UPDATE_ORDER)) {
-                stmt.setInt(1, order.getUserID());
-                stmt.setInt(2, order.getDriverID());
-                stmt.setInt(3, order.getNumPassengers());
-                stmt.setBigDecimal(4, order.getStartLocation().getLongitude());
-                stmt.setBigDecimal(5, order.getStartLocation().getLatitude());
-                stmt.setBigDecimal(6, order.getEndLocation().getLongitude());
-                stmt.setBigDecimal(7, order.getEndLocation().getLatitude());
-                stmt.setString(8, simpleDateFormat.format(order.getStartTime()));
-                stmt.setString(9, simpleDateFormat.format(order.getEndTime()));
-                stmt.setBigDecimal(10, order.getPaymentAmount());
-                stmt.setString(11, simpleDateFormat.format(order.getCallTime()));
-                stmt.setInt(12, order.getOrderID());
+            try (PreparedStatement st = conn.prepareStatement(UPDATE_ORDER)) {
+                st.setInt(1, order.getUserID());
+                st.setInt(2, order.getDriverID());
+                st.setInt(3, order.getNumPassengers());
+                st.setBigDecimal(4, order.getStartLocation().getLongitude());
+                st.setBigDecimal(5, order.getStartLocation().getLatitude());
+                st.setBigDecimal(6, order.getEndLocation().getLongitude());
+                st.setBigDecimal(7, order.getEndLocation().getLatitude());
+                st.setString(8, simpleDateFormat.format(order.getStartTime()));
+                st.setString(9, simpleDateFormat.format(order.getEndTime()));
+                st.setBigDecimal(10, order.getPaymentAmount());
+                st.setString(11, simpleDateFormat.format(order.getCallTime()));
+                st.setInt(12, order.getOrderID());
 
-                System.out.println(stmt.toString());
+                ExternalAlgorithms.debugPrintSelect("updateOrder \n" + st.toString());
 
-                stmt.executeUpdate();
+                st.executeUpdate();
             }
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 
+            ExternalAlgorithms.debugPrint(e);
         }
         return 0;
     }
@@ -96,21 +99,23 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         Order order = null;
 
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(GET_ORDER_BY_ID)) {
-                stmt.setInt(1, orderID);
+            try (PreparedStatement st = conn.prepareStatement(GET_ORDER_BY_ID)) {
+                st.setInt(1, orderID);
 
-                System.out.println(stmt.toString());
+                ExternalAlgorithms.debugPrintSelect("getOrderByID \n" + st.toString());
 
-                try (ResultSet rslt = stmt.executeQuery()) {
+                try (ResultSet rslt = st.executeQuery()) {
                     if (rslt.next())
                         order = fetchOrder(rslt);
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 
+            ExternalAlgorithms.debugPrint(e);
         }
-        catch (ParseException ex) {
+        catch (ParseException e) {
 
+            ExternalAlgorithms.debugPrint(e);
         }
 
         return order;
@@ -121,20 +126,22 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         List<Order> orders = new ArrayList<>();
 
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(GET_ORDER_BY_USER_ID)) {
-                stmt.setInt(1, userID);
+            try (PreparedStatement st = conn.prepareStatement(GET_ORDER_BY_USER_ID)) {
+                st.setInt(1, userID);
 
-                System.out.println(stmt.toString());
+                ExternalAlgorithms.debugPrintSelect("getOrderByUserID \n" + st.toString());
 
-                try (ResultSet rslt = stmt.executeQuery()) {
+                try (ResultSet rslt = st.executeQuery()) {
                     while (rslt.next())
                         orders.add(fetchOrder(rslt));
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 
-        } catch (ParseException ex) {
+            ExternalAlgorithms.debugPrint(e);
+        } catch (ParseException e) {
 
+            ExternalAlgorithms.debugPrint(e);
         }
 
         return orders;
@@ -145,20 +152,22 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         List<Order> orders = new ArrayList<>();
 
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(GET_ORDER_BY_Driver_ID)) {
-                stmt.setInt(1, driverID);
+            try (PreparedStatement st = conn.prepareStatement(GET_ORDER_BY_Driver_ID)) {
+                st.setInt(1, driverID);
 
-                System.out.println(stmt.toString());
+                ExternalAlgorithms.debugPrintSelect("getOrdersByDriverID \n" + st.toString());
 
-                try (ResultSet rslt = stmt.executeQuery()) {
+                try (ResultSet rslt = st.executeQuery()) {
                     while (rslt.next())
                         orders.add(fetchOrder(rslt));
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
 
-        } catch (ParseException ex) {
+            ExternalAlgorithms.debugPrint(e);
+        } catch (ParseException e) {
 
+            ExternalAlgorithms.debugPrint(e);
         }
 
         return orders;

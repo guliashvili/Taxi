@@ -2,6 +2,7 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.db.DBConnectionProvider;
+import ge.taxistgela.helper.ExternalAlgorithms;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,6 +60,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.setString(5, car.getCarID());
         }catch (SQLException e){
             errorCode = -1;
+            ExternalAlgorithms.debugPrint(e);
         }
         return  errorCode;
     }
@@ -74,6 +76,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
         }catch (SQLException e){
             car = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return  car;
     }
@@ -87,7 +90,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
                 st.setInt(1, carID);
 
-                System.out.println(st.toString());
+
+                ExternalAlgorithms.debugPrintSelect("get car by id \n"+ st.toString());
                 ResultSet res = st.executeQuery();
 
                 if(res.next()) output = getCar(res);
@@ -95,6 +99,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         }catch (SQLException e){
             output = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return output;
     }
@@ -104,10 +109,9 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(insert_car_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                System.out.println(st.toString());
-
 
                 errorCode |= setStringsCar(st, car, false);
+                ExternalAlgorithms.debugPrintSelect("insert car \n" + st.toString());
 
 
                 st.executeUpdate();
@@ -122,7 +126,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -136,12 +140,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             try (PreparedStatement st = con.prepareStatement(update_car_STMT)) {
                 errorCode |= setStringsCar(st, car, true);
 
-                System.out.println(st.toString());
+
+                ExternalAlgorithms.debugPrintSelect("update car \n" + st.toString());
                 st.executeUpdate();
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -158,6 +163,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
         }catch (SQLException e){
             pref = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return  pref;
     }
@@ -170,7 +176,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
                 st.setInt(1, driverPreferenceID);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("get DriverPreference by id \n" + st.toString());
                 ResultSet res = st.executeQuery();
 
                 if(res.next()) output = getDriverPreference(res);
@@ -178,6 +184,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         }catch (SQLException e){
             output = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return output;
     }
@@ -191,6 +198,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 pt.setInt(3,dp.getDriverPreferenceID());
         }catch (SQLException e){
             errorCode = -1;
+            ExternalAlgorithms.debugPrint(e);
         }
         return  errorCode;
     }
@@ -200,11 +208,10 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(insert_preference_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                System.out.println(st.toString());
-
 
                 errorCode |= setStringsPreference(st, driverPreference, false);
 
+                ExternalAlgorithms.debugPrintSelect("insertDriverPreference \n"+ st.toString());
 
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
@@ -218,7 +225,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -232,12 +239,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             try (PreparedStatement st = con.prepareStatement(update_preference_STMT)) {
                 errorCode |= setStringsPreference(st, driverPreference, true);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("update Driver Preference \n"+ st.toString());
+
                 st.executeUpdate();
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -276,7 +284,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 output.setIsVerified(res.getBoolean("Driver.isVerified"));
         }catch (SQLException e){
             output = null;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
         }
         return  output;
     }
@@ -289,13 +297,14 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
                 st.setInt(1,driverID);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("get Driver by ID \n" + st.toString());
                 ResultSet res = st.executeQuery();
                 if(res.next()) output = getDriver(res);
                 else output = null;
             }
         }catch (SQLException e){
             output = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return output;
     }
@@ -308,7 +317,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
                 st.setInt(1,companyID);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("getDriverByCompanyID \n" + st.toString());
                 ResultSet res = st.executeQuery();
                 while (res.next()) {
                     output.add(getDriver(res));
@@ -316,6 +325,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         }catch (SQLException e){
             output = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return output;
     }
@@ -332,13 +342,15 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.setInt(4,user.getPreference().getPassengersCount());
                 st.setDouble(5, user.getRating());
 
-                System.out.println(st.toString());
+
+                ExternalAlgorithms.debugPrintSelect("getDriverByPreferences \n" + st.toString());
                 ResultSet res = st.executeQuery();
                 while (res.next())
                     output.add(getDriver(res));
             }
         }catch (SQLException e){
             output = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return output;
     }
@@ -352,7 +364,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.setString(1,email);
                 st.setString(2,password);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("loginDriver \n" + st.toString());
                 ResultSet res = st.executeQuery();
 
                 if(res.next()) output = getDriver(res);
@@ -360,6 +372,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         }catch (SQLException e){
             output = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return output;
     }
@@ -391,7 +404,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.setInt(18,driver.getDriverID());
         }catch (SQLException e){
             errorCode = -1;
-            e.printStackTrace();;
+            ExternalAlgorithms.debugPrint(e);
         }
         return  errorCode;
     }
@@ -405,6 +418,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
                 errorCode |= setStrings(st,driver,false);
 
+                ExternalAlgorithms.debugPrintSelect("registerDriver \n"+ st.toString());
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
                 if(res.next()){
@@ -417,7 +431,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             }
         }catch (SQLException e){
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -431,12 +445,12 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             try (PreparedStatement st = con.prepareStatement(update_STMT)) {
                 errorCode |= setStrings(st,driver,true);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("updateDriver \n" + st.toString());
                 st.executeUpdate();
             }
         }catch (SQLException e){
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -447,10 +461,14 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT driverID FROM drivers WHERE  carID = ?")) {
                 st.setString(1,carID);
+
+                ExternalAlgorithms.debugPrintSelect("checkCarID \n"+ st.toString());
+
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return false;
@@ -461,10 +479,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT driverID FROM drivers WHERE  email = ?")) {
                 st.setString(1,email);
+
+                ExternalAlgorithms.debugPrintSelect("check email \n"+ st.toString());
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return false;
@@ -475,10 +496,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT driverID FROM drivers WHERE  phoneNumber = ?")) {
                 st.setString(1,phoneNumber);
+
+                ExternalAlgorithms.debugPrintSelect("checkPhoneNumber \n"+ st.toString());
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return false;
@@ -490,10 +514,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT driverID FROM drivers WHERE  facebookID = ?")) {
                 st.setString(1,facebookID);
+
+                ExternalAlgorithms.debugPrintSelect("checkFacebookID \n"+ st.toString());
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return false;
@@ -505,10 +532,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement("SELECT driverID FROM drivers WHERE  googleID = ?")) {
                 st.setString(1,googleID);
+
+                ExternalAlgorithms.debugPrintSelect("checkGoogleID \n"+ st.toString());
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         }catch(SQLException e){
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return false;
