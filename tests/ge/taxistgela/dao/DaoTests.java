@@ -203,6 +203,7 @@ public class DaoTests {
         assertFalse(man.checkFacebookID("asdsdafrk"));
         assertTrue(man.checkFacebookID("asdfa3d"));
         assertFalse(man.checkFacebookID("asdsdafrk"));
+        compareUsers(man.getUserByID(usr.getUserID()),usr);
     }
     private void compareUsers(User user,User user1){
         Gender g = user.getGender();
