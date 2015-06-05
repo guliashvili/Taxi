@@ -27,7 +27,7 @@ public class RegistrationHelper {
     }
     static  public  boolean isValidPassword(String password){
         boolean ret = true;
-        ret &= password.length() >= 5;
+        ret &= password.length() >= 1;
 
         return ret;
     }

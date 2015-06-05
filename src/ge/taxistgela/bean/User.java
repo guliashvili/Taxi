@@ -1,6 +1,7 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.helper.HashGenerator;
 
 /**
  * Created by Alex on 5/25/2015.

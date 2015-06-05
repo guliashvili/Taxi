@@ -1,6 +1,7 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.helper.HashGenerator;
 
 /**
  * Created by Alex on 5/25/2015.
@@ -45,6 +46,7 @@ public class Company implements GeneralCheckableInformation {
         setEmail(email);
         setPassword(password);
         setCompanyName(companyName);
+        setPhoneNumber(phoneNumber);
         setFacebookID(facebookID);
         setGoogleID(googleID);
         setIsVerified(isVerified);

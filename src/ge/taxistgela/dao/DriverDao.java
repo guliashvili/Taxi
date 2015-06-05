@@ -1,14 +1,12 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
+import ge.taxistgela.bean.Driver;
 import ge.taxistgela.db.DBConnectionProvider;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.HashGenerator;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -263,6 +261,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 output.setPassword(res.getString("Drivers.password"));
                 output.setEmail(res.getString("Drivers.email"));
                 output.setCompanyID(res.getInt("Drivers.companyID"));
+                if(res.wasNull()) output.setCompanyID(null);
                 output.setFirstName(res.getString("Drivers.firstName"));
                 output.setLastName(res.getString("Drivers.lastName"));
                 output.setGender(Gender.valueOf(res.getString("Drivers.gender")));
@@ -283,7 +282,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
                 output.setLocation(new Location(res.getBigDecimal("Drivers.latitude"), res.getBigDecimal("Drivers.longitude")));
                 output.setIsActive(res.getBoolean("Drivers.isActive"));
-                output.setIsVerified(res.getBoolean("Driver.isVerified"));
+                output.setIsVerified(res.getBoolean("Drivers.isVerified"));
         }catch (SQLException e){
             output = null;
             ExternalAlgorithms.debugPrint(e);
@@ -388,7 +387,10 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             st.setString(1, driver.getPersonalID());
             st.setString(2, HashGenerator.getSaltHash(driver.getPassword()));
             st.setString(3, driver.getEmail());
-            st.setInt(4, driver.getCompanyID());
+            if(driver.getCompanyID() == null)
+                st.setNull(4, Types.INTEGER);
+            else
+                st.setInt(4, driver.getCompanyID());
             st.setString(5, driver.getFirstName());
             st.setString(6, driver.getLastName());
             st.setString(7, driver.getGender().name());
@@ -416,15 +418,15 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         int errorCode = 0;
         try(Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(register_STMT,PreparedStatement.RETURN_GENERATED_KEYS)) {
-                System.out.println(st.toString());
+
 
                 errorCode |= setStrings(st,driver,false);
 
-                ExternalAlgorithms.debugPrintSelect("registerDriver \n"+ st.toString());
+                ExternalAlgorithms.debugPrintSelect("register driver\n"+st.toString());
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
                 if(res.next()){
-                    driver.setDriverID(res.getInt("driverID"));
+                    driver.setDriverID(res.getInt(1));
                 }else{
                     errorCode = -1;
 

@@ -19,11 +19,12 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             "WHERE companyID = ?";
     @Override
     public Company loginCompany(String email, String password) {
+        password = HashGenerator.getSaltHash(password);
         Company ret;
         try(Connection con = DBConnectionProvider.getConnection()){
             try(PreparedStatement st = con.prepareStatement(login_STMT)) {
                 st.setString(1,email);
-                st.setString(2, HashGenerator.getSaltHash(password));
+                st.setString(2, password);
 
 
                 ExternalAlgorithms.debugPrintSelect("Login Company \n" + st.toString());
@@ -70,6 +71,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
     @Override
     public int registerCompany(Company company) {
         int errorCode = 0;
+
         try(Connection con = DBConnectionProvider.getConnection()){
 
             try(PreparedStatement st = con.prepareStatement(register_STMT,Statement.RETURN_GENERATED_KEYS)) {

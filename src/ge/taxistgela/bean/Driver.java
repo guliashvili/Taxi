@@ -1,6 +1,7 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.helper.HashGenerator;
 
 /**
  * Created by Alex on 5/25/2015.
@@ -10,7 +11,7 @@ public class Driver implements GeneralCheckableInformation{
     private String personalID;
     private String email;
     private String password;
-    private int companyID;
+    private Integer companyID;
     private String firstName;
     private String lastName;
     private Gender gender;
@@ -24,7 +25,7 @@ public class Driver implements GeneralCheckableInformation{
     private boolean isActive;
     private  boolean isVerified;
 
-    public Driver(int driverID, String personalID, String email, String password, int companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, double rating, DriverPreference preferences, boolean isActive, boolean isVerified) {
+    public Driver(int driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, double rating, DriverPreference preferences, boolean isActive, boolean isVerified) {
         setDriverID(driverID);
         setPersonalID(personalID);
         setEmail(email);
@@ -145,11 +146,11 @@ public class Driver implements GeneralCheckableInformation{
         this.password = password;
     }
 
-    public int getCompanyID() {
+    public Integer getCompanyID() {
         return companyID;
     }
 
-    public void setCompanyID(int companyID) {
+    public void setCompanyID(Integer companyID) {
         this.companyID = companyID;
     }
 
