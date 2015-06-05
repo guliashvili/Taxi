@@ -2,6 +2,7 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.db.DBConnectionProvider;
+import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.HashGenerator;
 
 import java.sql.Connection;
@@ -58,6 +59,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             up.setTimeLimit(res.getInt("UserPreferences.timeLimit"));
         } catch (SQLException e) {
             up = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return up;
     }
@@ -68,7 +70,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement("SELECT * FROM UserPreferences WHERE userpreferences.userPreferenceID = ?")) {
                 st.setInt(1, userPreferenceID);
-                System.out.println(st.toString());
+
+                ExternalAlgorithms.debugPrintSelect("getUserPreferenceByID \n" + st.toString());
 
 
                 ResultSet res = st.executeQuery();
@@ -79,6 +82,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             user = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return user;
     }
@@ -96,6 +100,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.setInt(7,up.getUserPreferenceID());
         }catch(SQLException e){
             errorCode = -1;
+            ExternalAlgorithms.debugPrint(e);
         }
 
         return errorCode;
@@ -105,11 +110,11 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(preference_insert_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                System.out.println(st.toString());
-
 
                 errorCode |= setStringsPreference(st,userPreference,false);
 
+
+                ExternalAlgorithms.debugPrintSelect("insertUserPreferene \n" + st.toString());
 
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
@@ -122,7 +127,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
 
@@ -135,12 +140,12 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             try (PreparedStatement st = con.prepareStatement(preference_update_STMT)) {
                 errorCode |= setStringsPreference(st, userPreference, true);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("updateUserPreference \n" + st.toString());
                 st.executeUpdate();
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -168,6 +173,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
 
         } catch (SQLException e) {
             ret = null;
+            ExternalAlgorithms.debugPrint(e);
         }
 
 
@@ -180,7 +186,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(userByID_STMT)) {
                 st.setInt(1, userID);
-                System.out.println(st.toString());
+
+                ExternalAlgorithms.debugPrintSelect("getUserByID \n" + st.toString());
 
 
                 ResultSet res = st.executeQuery();
@@ -191,6 +198,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             user = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return user;
     }
@@ -207,13 +215,14 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.setInt(4, driver.getCar().getNumPassengers());
                 st.setDouble(5, driver.getPreferences().getMinimumUserRating());
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("getUserByPreferences \n" + st.toString());
                 ResultSet res = st.executeQuery();
                 while (res.next())
                     output.add(getUser(res));
             }
         } catch (SQLException e) {
             output = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return output;
 
@@ -228,7 +237,9 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.setString(1, email);
                 st.setString(2, HashGenerator.getSaltHash(password));
 
-                System.out.println(st.toString());
+
+                ExternalAlgorithms.debugPrintSelect("loginUser \n" + st.toString());
+
 
 
                 ResultSet res = st.executeQuery();
@@ -239,6 +250,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             user = null;
+            ExternalAlgorithms.debugPrint(e);
         }
         return user;
     }
@@ -266,7 +278,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
 
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
     }
@@ -276,9 +288,10 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(register_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                System.out.println(st.toString());
 
                 errorCode |= setStrings(st, user, false);
+
+                ExternalAlgorithms.debugPrintSelect("registerUser \n" + st.toString());
 
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
@@ -291,7 +304,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -305,12 +318,13 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             try (PreparedStatement st = con.prepareStatement(update_STMT)) {
                 errorCode |= setStrings(st, user, true);
 
-                System.out.println(st.toString());
+                ExternalAlgorithms.debugPrintSelect("updateUser \n" + st.toString());
+
                 st.executeUpdate();
             }
         } catch (SQLException e) {
             errorCode = -1;
-            e.printStackTrace();
+            ExternalAlgorithms.debugPrint(e);
 
         }
         return errorCode;
@@ -321,11 +335,14 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(checkMail_STM)) {
                 st.setString(1, email);
+
+                ExternalAlgorithms.debugPrintSelect("checkEmail User \n" + st.toString());
+
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         } catch (SQLException e) {
-
+            ExternalAlgorithms.debugPrint(e);
         }
         return false;
     }
@@ -335,11 +352,15 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatement st = con.prepareStatement(checkPhoneNumber_STM)) {
                 st.setString(1, phoneNumber);
+
+                ExternalAlgorithms.debugPrintSelect("checkPhoneNumber User \n" + st.toString());
+
                 ResultSet res = st.executeQuery();
                 return res.next();
             }
         } catch (SQLException e) {
 
+            ExternalAlgorithms.debugPrint(e);
         }
         return false;
     }
@@ -350,11 +371,15 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             try (Connection con = DBConnectionProvider.getConnection()) {
                 try (PreparedStatement st = con.prepareStatement(checkFacebook_STM)) {
                     st.setString(1, facebookID);
+
+                    ExternalAlgorithms.debugPrintSelect("checkFacebookID User \n" + st.toString());
+
                     ResultSet res = st.executeQuery();
                     return res.next();
                 }
             } catch (SQLException e) {
 
+                ExternalAlgorithms.debugPrint(e);
             }
         return false;
     }
@@ -366,11 +391,15 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             try (Connection con = DBConnectionProvider.getConnection()) {
                 try (PreparedStatement st = con.prepareStatement(checkGoogle_STM)) {
                     st.setString(1, googleID);
+
+                    ExternalAlgorithms.debugPrintSelect("checkGoogleID user \n" + st.toString());
+
                     ResultSet res = st.executeQuery();
                     return res.next();
                 }
             } catch (SQLException e) {
 
+                ExternalAlgorithms.debugPrint(e);
             }
         return false;
     }

@@ -8,6 +8,7 @@ import javax.mail.internet.InternetAddress;
  * Created by GIO on 6/3/2015.
  */
 public class ExternalAlgorithms {
+
     /**
      * returns true if a and b are both null or equal(and non null(both))
      *
@@ -31,5 +32,19 @@ public class ExternalAlgorithms {
         }
         return result;
     }
+    public  static  boolean DEBUG = true;
+    public  static  boolean DEBUGSelects = true;
 
+    static public void debugPrintSelect(String s){
+        if(DEBUGSelects)
+            debugPrint(s);
+    }
+    static public void debugPrint(String s){
+        if(DEBUG)
+          System.err.println(s);
+    }
+    static public void debugPrint(Exception e){
+       if(DEBUG)
+         e.printStackTrace();
+    }
 }
