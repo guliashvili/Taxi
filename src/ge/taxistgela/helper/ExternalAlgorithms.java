@@ -22,16 +22,6 @@ public class ExternalAlgorithms {
         return  a.equals(b);
     }
 
-    static  public  boolean isValidEmail(String email){
-        boolean result = true;
-        try {
-            InternetAddress emailAddress = new InternetAddress(email);
-            emailAddress.validate();
-        } catch (AddressException ex) {
-            result = false;
-        }
-        return result;
-    }
     public  static  boolean DEBUG = true;
     public  static  boolean DEBUGSelects = true;
 

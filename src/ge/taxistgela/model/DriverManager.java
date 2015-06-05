@@ -3,6 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.helper.RegistrationHelper;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class DriverManager extends  DriverManagerAPI {
     @Override
     public int registerDriver(Driver driver) {
         int ret;
-        if(!ExternalAlgorithms.isValidEmail(driver.getEmail()))
+        if(!RegistrationHelper.isValid(driver))
             ret = -1;
         else
             ret = driverDao.registerDriver(driver);

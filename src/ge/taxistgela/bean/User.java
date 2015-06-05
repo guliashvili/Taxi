@@ -5,7 +5,7 @@ import ge.taxistgela.helper.ExternalAlgorithms;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class User {
+public class User implements GeneralCheckableInformation{
     private int userID;
     private String email;
     private String password;
