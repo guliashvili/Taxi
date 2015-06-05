@@ -167,18 +167,17 @@ public class DaoTests {
         assertTrue(man.checkGoogleID("asdsdafrk"));
         assertFalse(man.checkGoogleID("asdfa3d"));
         //Update
-        UserPreference usrp1 = new UserPreference();
-        usrp1.setUserPreferenceID(usrp.getUserPreferenceID());
-        usrp1.setCarYear(2014);
-        usrp1.setMinimumDriverRating(2.3);
-        usrp1.setPassengersCount(2);
-        usrp1.setTimeLimit(30);
-        usrp1.setConditioning(true);
-        usrp1.setWantsAlone(false);
-        User usr2 = new User(usr.getUserID(),"rmach12@freeuni.edu.ge","1234a","raTi","MatchavariaNi","+992358677895",Gender.MALE,"asdfa3d","asdfl2d",4.2,usrp1,true);
+        usrp.setUserPreferenceID(usrp.getUserPreferenceID());
+        usrp.setCarYear(2014);
+        usrp.setMinimumDriverRating(2.3);
+        usrp.setPassengersCount(2);
+        usrp.setTimeLimit(30);
+        usrp.setConditioning(true);
+        usrp.setWantsAlone(false);
+        User usr2 = new User(usr.getUserID(),"rmach12@freeuni.edu.ge","1234a","raTi","MatchavariaNi","+992358677895",Gender.MALE,"asdfa3d","asdfl2d",4.2,usrp,true);
 
         man.updateUser(usr2);
-        man.updateUserPreference(usrp1);
+        man.updateUserPreference(usrp);
         usr1 = man.loginUser(usr2.getEmail(),usr2.getPassword());
         compareUsers(usr2,usr1);
 
