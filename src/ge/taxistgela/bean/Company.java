@@ -16,6 +16,7 @@ public class Company implements GeneralCheckableInformation {
     private String googleID;
     private boolean isVerified;
 
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  Company)) return  false;
@@ -36,16 +37,17 @@ public class Company implements GeneralCheckableInformation {
         return getCompanyID();
     }
 
+    public Company(){}
+
     public Company(int companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID,boolean isVerified) {
-        this.companyID = companyID;
-        this.companyCode = companyCode;
-        this.email = email;
-        this.password = password;
-        this.companyName = companyName;
-        this.phoneNumber = phoneNumber;
-        this.facebookID = facebookID;
-        this.googleID = googleID;
-        this.isVerified = isVerified;
+        setCompanyID(companyID);
+        setCompanyCode(companyCode);
+        setEmail(email);
+        setPassword(password);
+        setCompanyName(companyName);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setIsVerified(isVerified);
     }
 
 

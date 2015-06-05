@@ -126,19 +126,18 @@ public class User implements GeneralCheckableInformation{
     }
 
     public User(int userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, double rating, UserPreference preference, boolean isVerified) {
-        this.userID = userID;
-
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-        this.facebookID = facebookID;
-        this.googleID = googleID;
-        this.rating = rating;
-        this.preference = preference;
-        this.isVerified = isVerified;
+        setUserID(userID);
+        setEmail(email);
+        setPassword(password);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPhoneNumber(phoneNumber);
+        setGender(gender);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setRating(rating);
+        setPreference(preference);
+        setIsVerified(isVerified);
     }
 
     public void setPreference(UserPreference preference) {

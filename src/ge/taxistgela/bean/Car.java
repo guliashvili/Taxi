@@ -12,6 +12,17 @@ public class Car {
     private boolean conditioning;
     private int numPassengers;
 
+    public Car(){
+    }
+
+    public Car(String carID,String carDescription,int carYear,boolean conditioning,int numPassengers){
+        setCarID(carID);
+        setCarDescription(carDescription);
+        setCarYear(carYear);
+        setConditioning(conditioning);
+        setNumPassengers(numPassengers);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  Car)) return  false;

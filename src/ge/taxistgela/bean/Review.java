@@ -12,6 +12,14 @@ public class Review {
     private double rating;
     private String description;
 
+    public Review(int reviewID, int orderID, boolean orientationFlag, double rating, String description) {
+        setReviewID(reviewID);
+        setOrderID(orderID);
+        setOrientationFlag(orientationFlag);
+        setRating(rating);
+        setDescription(description);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  Review)) return  false;

@@ -20,6 +20,21 @@ public class Order {
     private BigDecimal paymentAmount;
     private Date callTime;
 
+
+    public Order(int orderID, int userID, int driverID, int numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime, BigDecimal paymentAmount, Date callTime) {
+        setOrderID(orderID);
+        setUserID(userID);
+        setDriverID(driverID);
+        setNumPassengers(numPassengers);
+        setStartLocation(startLocation);
+        setEndLocation(endLocation);
+        setStartTime(startTime);
+        setEndTime(endTime);
+        setPaymentAmount(paymentAmount);
+        setCallTime(callTime);
+    }
+    public Order(){}
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  Order)) return  false;
