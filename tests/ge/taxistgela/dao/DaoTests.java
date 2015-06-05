@@ -2,6 +2,8 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.AdminDatabase;
+import ge.taxistgela.helper.HashGenerator;
+import ge.taxistgela.model.CompanyManager;
 import ge.taxistgela.model.DriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -33,93 +35,83 @@ public class DaoTests {
     @Test
     public void testCompanyDao(){
         //RegistrationTests
-        CompanyDao dao = new CompanyDao();
-        Company comp = Mockito.mock(Company.class);
-        when(comp.getCompanyName()).thenReturn("taxistGela");
-        when(comp.getEmail()).thenReturn("support@taxistgela.com");
-        when(comp.getCompanyCode()).thenReturn("1234567890a");
-        when(comp.getFacebookID()).thenReturn("facebookIDmock");
-        when(comp.getGoogleID()).thenReturn("googleIDmock");
-        when(comp.getPhoneNumber()).thenReturn("+995558677895");
-        when(comp.getPassword()).thenReturn("1234qwerTy");
-        when(comp.getCompanyID()).thenReturn(-1);
-        when(comp.getCompanyCode()).thenReturn("fuckCode");
-        assertEquals(0,dao.registerCompany(comp));
-        assertEquals(-1,dao.registerCompany(comp));
+        CompanyManager man = new CompanyManager(new CompanyDao());
+        Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","+995558677895","facebookIDmock","googleIDmock",true);
+        assertEquals(0,man.registerCompany(comp));
+        assertEquals(-1,man.registerCompany(comp));
         //LoginTests
-        Company company = dao.loginCompany(comp.getEmail(),comp.getPassword());
+        Company company = man.loginCompany(comp.getEmail(),comp.getPassword());
         compareCompanies(comp,company);
         //CheckTests
         //CheckEmail
-        assertFalse(dao.checkEmail(""));
-        assertTrue(dao.checkEmail("support@taxistgela.com"));
-        assertFalse(dao.checkEmail("support1@taxistgela.com"));
-        assertFalse(dao.checkEmail("support2@taxistgela.com"));
+        assertFalse(man.checkEmail(""));
+        assertTrue(man.checkEmail("support@taxistgela.com"));
+        assertFalse(man.checkEmail("support1@taxistgela.com"));
+        assertFalse(man.checkEmail("support2@taxistgela.com"));
         //CheckGoogleID
-        assertFalse(dao.checkGoogleID(""));
-        assertTrue(dao.checkGoogleID("googleIDmock"));
-        assertFalse(dao.checkGoogleID("asd"));
-        assertTrue(dao.checkGoogleID("googleIDmock"));
-        assertFalse(dao.checkGoogleID("a"));
+        assertFalse(man.checkGoogleID(""));
+        assertTrue(man.checkGoogleID("googleIDmock"));
+        assertFalse(man.checkGoogleID("asd"));
+        assertTrue(man.checkGoogleID("googleIDmock"));
+        assertFalse(man.checkGoogleID("a"));
         //CheckPhoneNumber
-        assertFalse(dao.checkPhoneNumber(""));
-        assertTrue(dao.checkPhoneNumber("+995558677895"));
-        assertFalse(dao.checkPhoneNumber("+995558677805"));
-        assertTrue(dao.checkPhoneNumber("+995558677895"));
-        assertFalse(dao.checkPhoneNumber("+995558677815"));
+        assertFalse(man.checkPhoneNumber(""));
+        assertTrue(man.checkPhoneNumber("+995558677895"));
+        assertFalse(man.checkPhoneNumber("+995558677805"));
+        assertTrue(man.checkPhoneNumber("+995558677895"));
+        assertFalse(man.checkPhoneNumber("+995558677815"));
         //CheckCompanyID
-        assertFalse(dao.checkCompanyCode(""));
-        assertTrue(dao.checkCompanyCode("1234567890a"));
-        assertFalse(dao.checkPhoneNumber("123a5a7890a"));
-        assertTrue(dao.checkCompanyCode("1234567890a"));
-        assertFalse(dao.checkPhoneNumber("12345678900"));
+        assertFalse(man.checkCompanyCode(""));
+        assertTrue(man.checkCompanyCode("123456789"));
+        assertFalse(man.checkPhoneNumber("123a5a78a"));
+        assertTrue(man.checkCompanyCode("123456789"));
+        assertFalse(man.checkPhoneNumber("123456780"));
         //CheckFacebook
-        assertFalse(dao.checkFacebookID(""));
-        assertTrue(dao.checkFacebookID("facebookIDmock"));
-        assertFalse(dao.checkFacebookID("asd"));
-        assertTrue(dao.checkFacebookID("facebookIDmock"));
-        assertFalse(dao.checkFacebookID("afk"));
+        assertFalse(man.checkFacebookID(""));
+        assertTrue(man.checkFacebookID("facebookIDmock"));
+        assertFalse(man.checkFacebookID("asd"));
+        assertTrue(man.checkFacebookID("facebookIDmock"));
+        assertFalse(man.checkFacebookID("afk"));
         //UpdateTest
-        Company comp1 = Mockito.mock(Company.class);
-        when(comp1.getCompanyName()).thenReturn("taxistGela1");
-        when(comp1.getEmail()).thenReturn("support1@taxistgela.com");
-        when(comp1.getCompanyCode()).thenReturn("1234567890a1");
-        when(comp1.getFacebookID()).thenReturn("asd");
-        when(comp1.getGoogleID()).thenReturn("googleIDmock1");
-        when(comp1.getPhoneNumber()).thenReturn("+995558677892");
-        when(comp1.getPassword()).thenReturn("1234qwerTy3");
-        dao.updateCompany(comp1);
+        comp.setCompanyName("taxistGela1");
+        comp.setEmail("support1@taxistgela.com");
+        comp.setCompanyCode("12345678a");
+        comp.setFacebookID("asd");
+        comp.setGoogleID("googleIDmock1");
+        comp.setPhoneNumber("+995558677892");
+        comp.setPassword("1234qwerTy3");
+        man.updateCompany(comp);
         //LOGIN
-        company = dao.loginCompany(comp1.getEmail(),comp.getPassword());
+        company = man.loginCompany(comp.getEmail(),comp.getPassword());
         compareCompanies(comp,company);
-        assertFalse(dao.checkEmail("support@taxistgela.com"));
-        assertTrue(dao.checkEmail("support1@taxistgela.com"));
-        assertFalse(dao.checkEmail("support2@taxistgela.com"));
-        assertTrue(dao.checkEmail("support1@taxistgela.com"));
+        assertFalse(man.checkEmail("support@taxistgela.com"));
+        assertTrue(man.checkEmail("support1@taxistgela.com"));
+        assertFalse(man.checkEmail("support2@taxistgela.com"));
+        assertTrue(man.checkEmail("support1@taxistgela.com"));
         //CheckGoogleID
-        assertFalse(dao.checkGoogleID(""));
-        assertFalse(dao.checkGoogleID("googleIDmock"));
-        assertTrue(dao.checkGoogleID("googleIDmock1"));
-        assertFalse(dao.checkGoogleID("a"));
-        assertTrue(dao.checkGoogleID("googleIDmock1"));
+        assertFalse(man.checkGoogleID(""));
+        assertFalse(man.checkGoogleID("googleIDmock"));
+        assertTrue(man.checkGoogleID("googleIDmock1"));
+        assertFalse(man.checkGoogleID("a"));
+        assertTrue(man.checkGoogleID("googleIDmock1"));
         //CheckFacebook
-        assertFalse(dao.checkFacebookID(""));
-        assertFalse(dao.checkFacebookID("facebookIDmock"));
-        assertTrue(dao.checkFacebookID("asd"));
-        assertFalse(dao.checkFacebookID("afk"));
-        assertTrue(dao.checkFacebookID("asd"));
+        assertFalse(man.checkFacebookID(""));
+        assertFalse(man.checkFacebookID("facebookIDmock"));
+        assertTrue(man.checkFacebookID("asd"));
+        assertFalse(man.checkFacebookID("afk"));
+        assertTrue(man.checkFacebookID("asd"));
         //CheckPhoneNumber
-        assertFalse(dao.checkPhoneNumber(""));
-        assertFalse(dao.checkPhoneNumber("+995558677815"));
-        assertTrue(dao.checkPhoneNumber("+995558677892"));
-        assertFalse(dao.checkPhoneNumber("+995558677895"));
-        assertTrue(dao.checkPhoneNumber("+995558677892"));
+        assertFalse(man.checkPhoneNumber(""));
+        assertFalse(man.checkPhoneNumber("+995558677815"));
+        assertTrue(man.checkPhoneNumber("+995558677892"));
+        assertFalse(man.checkPhoneNumber("+995558677895"));
+        assertTrue(man.checkPhoneNumber("+995558677892"));
         //CheckCompanyID
-        assertFalse(dao.checkPhoneNumber(""));
-        assertFalse(dao.checkPhoneNumber("1234567890a"));
-        assertTrue(dao.checkCompanyCode("1234567890a1"));
-        assertFalse(dao.checkPhoneNumber("gg wp"));
-        assertTrue(dao.checkCompanyCode("1234567890a1"));
+        assertFalse(man.checkPhoneNumber(""));
+        assertFalse(man.checkPhoneNumber("1234567890a"));
+        assertTrue(man.checkCompanyCode("12345678a"));
+        assertFalse(man.checkPhoneNumber("gg wp"));
+        assertTrue(man.checkCompanyCode("12345678a"));
     }
     private void compareCompanies(Company comp,Company comp1){
         assertEquals(comp.getCompanyCode(),comp1.getCompanyCode());
@@ -129,7 +121,8 @@ public class DaoTests {
         assertEquals(comp.getFacebookID(),comp1.getFacebookID());
         assertEquals(comp.getGoogleID(),comp1.getGoogleID());
         assertEquals(comp.getPhoneNumber(),comp1.getPhoneNumber());
-        assertEquals(comp.getPassword(),comp1.getPassword());
+        assertEquals(HashGenerator.getSaltHash(comp.getPassword()), comp1.getPassword());
+        //assertEquals();
     }
     @Test
     public void testUserDao(){
@@ -286,11 +279,13 @@ public class DaoTests {
         when(car.getCarDescription()).thenReturn("????");
         when(car.getCarID()).thenReturn("69dota95");
         when(car.getNumPassengers()).thenReturn(2);
+        man.insertCar(car);
         when(driver.getGender()).thenReturn(gend);
         when(driver.getPreferences()).thenReturn(pref);
         when(pref.getCoefficientPer()).thenReturn(0.69);
         when(pref.getDriverPreferenceID()).thenReturn(-1);
         when(pref.getMinimumUserRating()).thenReturn(0.0);//gela bizatkaznia
+        man.insertDriverPreference(pref);
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
         compareDrivers(driver,driver1);
@@ -319,12 +314,14 @@ public class DaoTests {
         when(car.getCarDescription()).thenReturn("???? :3");
         when(car.getCarID()).thenReturn("95dota69");//manqanis nomerbi shecvala
         when(car.getNumPassengers()).thenReturn(3);//adgili daasvarka
+        man.updateCar(car);
         gend=Gender.FEMALE;//wonders of today's surgeons
         when(driver2.getGender()).thenReturn(gend);
         when(driver2.getPreferences()).thenReturn(pref);
         when(pref.getCoefficientPer()).thenReturn(0.70);//gelam standartebi awia
         //when(pref.getDriverPreferenceID()).thenReturn(-1);
         when(pref.getMinimumUserRating()).thenReturn(0.1);//gela standartebi awia tqo
+        man.updateDriverPreference(pref);
         man.updateDriver(driver2);
         man.updateCar(car);
         man.updateDriverPreference(pref);
