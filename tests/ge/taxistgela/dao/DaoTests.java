@@ -127,15 +127,15 @@ public class DaoTests {
     @Test
     public void testUserDao(){
         UserDao dao = new UserDao();
-        UserPreference usrp = Mockito.mock(UserPreference.class);
-        when(usrp.getCarYear()).thenReturn(2013);
-        when(usrp.getMinimumDriverRating()).thenReturn(2.3);
-        when(usrp.getPassengersCount()).thenReturn(2);
-        when(usrp.getTimeLimit()).thenReturn(30);
-        when(usrp.isConditioning()).thenReturn(true);
-        when(usrp.isWantsAlone()).thenReturn(false);
-        usrp = Mockito.mock(UserPreference.class);
-        User usr = Mockito.mock(User.class);
+        UserPreference usrp = new UserPreference();
+        usrp.setCarYear(2013);
+        usrp.setMinimumDriverRating(2.3);
+        usrp.setPassengersCount(2);
+        usrp.setTimeLimit(30);
+        usrp.setConditioning(true);
+        usrp.setWantsAlone(false);
+
+        User usr = new User();
         when(usr.getFirstName()).thenReturn("Rati");
         when(usr.getEmail()).thenReturn("rmach13@freeuni.edu.ge");
         when(usr.getGoogleID()).thenReturn("asdsdafrk");
