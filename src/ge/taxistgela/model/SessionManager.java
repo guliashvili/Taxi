@@ -30,6 +30,14 @@ public class SessionManager implements SessionManagerAPI {
     }
 
     @Override
+    public void sendToUser(String token, String message) {
+        Session session = userSessions.get(token);
+
+        if (session != null)
+            session.getAsyncRemote().sendText(message);
+    }
+
+    @Override
     public void addDriverSession(String token, Session session) {
         driverSessions.put(token, session);
     }
@@ -37,5 +45,13 @@ public class SessionManager implements SessionManagerAPI {
     @Override
     public void removeDriverSession(String token) {
         driverSessions.remove(token);
+    }
+
+    @Override
+    public void sendToDriver(String token, String message) {
+        Session session = driverSessions.get(token);
+
+        if (session != null)
+            session.getAsyncRemote().sendText(message);
     }
 }

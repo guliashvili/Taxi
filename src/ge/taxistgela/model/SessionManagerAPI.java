@@ -22,6 +22,13 @@ public interface SessionManagerAPI {
      */
     void removeUserSession(String token);
 
+    /**
+     * Send the certain message to the certain user.
+     *
+     * @param token
+     * @param message
+     */
+    void sendToUser(String token, String message);
 
     /**
      * Saves driver and open connection session.
@@ -37,4 +44,12 @@ public interface SessionManagerAPI {
      * @param token
      */
     void removeDriverSession(String token);
+
+    /**
+     * Send the certain message to the certain driver.
+     *
+     * @param token
+     * @param message
+     */
+    void sendToDriver(String token, String message);
 }
