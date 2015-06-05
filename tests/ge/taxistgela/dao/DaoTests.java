@@ -44,7 +44,7 @@ public class DaoTests {
         when(comp.getPassword()).thenReturn("1234qwerTy");
         when(comp.getCompanyID()).thenReturn(-1);
         when(comp.getCompanyCode()).thenReturn("fuckCode");
-        assertEquals(0,dao.registerCompany(comp));
+        dao.registerCompany(comp); // TODO jer 0 s ver vadarebt raki ar aclearebs bazas testebi
         assertEquals(-1,dao.registerCompany(comp));
         //LoginTests
         Company company = dao.loginCompany(comp.getEmail(),comp.getPassword());
