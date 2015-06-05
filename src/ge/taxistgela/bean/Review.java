@@ -22,7 +22,6 @@ public class Review {
         setRating(rating);
         setDescription(description);
     }
-    public  Review(){}
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  Review)) return  false;

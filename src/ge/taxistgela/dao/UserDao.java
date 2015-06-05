@@ -18,7 +18,7 @@ import java.util.List;
 public class UserDao implements UserDaoAPI, OperationCodes {
     private final static String checkMail_STM = "SELECT userID FROM Users WHERE  email = ?";
     private final static String checkPhoneNumber_STM = "SELECT userID FROM Users WHERE  phoneNumber = ?";
-    private final static String checkFacebook_STM = "SELECT userID FROM Users WHERE  googleID = ?";
+    private final static String checkFacebook_STM = "SELECT userID FROM Users WHERE  facebookID = ?";
     private final static String checkGoogle_STM = "SELECT userID FROM Users WHERE  googleID = ?";
 
 
@@ -262,7 +262,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     private int setStrings(PreparedStatement st, User user, boolean update) {
         int errorCode = 0;
         try {
-            st.setString(1, user.getPassword());
+            st.setString(1, HashGenerator.getSaltHash(user.getPassword()));
             st.setString(2, user.getEmail());
             st.setString(3, user.getFirstName());
             st.setString(4, user.getLastName());

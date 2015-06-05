@@ -211,7 +211,7 @@ public class DaoTests {
         Gender g1 = user1.getGender();
         UserPreference pref = user.getPreference();
         UserPreference pref1 = user1.getPreference();
-        assertEquals(user.getPassword(),user1.getPassword());
+        assertEquals(HashGenerator.getSaltHash(user.getPassword()),user1.getPassword());
         assertEquals(user.getEmail(),user1.getEmail());
         assertEquals(user.getPhoneNumber(),user1.getPhoneNumber());
         assertEquals(user.getFacebookID(),user1.getFacebookID());
