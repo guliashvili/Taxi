@@ -37,7 +37,7 @@ public class DaoTests {
     public void testCompanyDao(){
         //RegistrationTests
         CompanyManager man = new CompanyManager(new CompanyDao());
-        Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","+995558677895","facebookIDmock","googleIDmock",true);
+        Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","558677895","facebookIDmock","googleIDmock",true);
         assertEquals(0,man.registerCompany(comp));
         //assertEquals(-1,man.registerCompany(comp));
         //LoginTests
@@ -57,10 +57,10 @@ public class DaoTests {
         assertFalse(man.checkGoogleID("a"));
         //CheckPhoneNumber
         assertFalse(man.checkPhoneNumber(""));
-        assertTrue(man.checkPhoneNumber("+995558677895"));
-        assertFalse(man.checkPhoneNumber("+995558677805"));
-        assertTrue(man.checkPhoneNumber("+995558677895"));
-        assertFalse(man.checkPhoneNumber("+995558677815"));
+        assertTrue(man.checkPhoneNumber("558677895"));
+        assertFalse(man.checkPhoneNumber("558677805"));
+        assertTrue(man.checkPhoneNumber("558677895"));
+        assertFalse(man.checkPhoneNumber("558677815"));
         //CheckCompanyID
         assertFalse(man.checkCompanyCode(""));
         assertTrue(man.checkCompanyCode("123456789"));
@@ -79,7 +79,7 @@ public class DaoTests {
         comp.setCompanyCode("12345678a");
         comp.setFacebookID("asd");
         comp.setGoogleID("googleIDmock1");
-        comp.setPhoneNumber("+995558677892");
+        comp.setPhoneNumber("558677892");
         comp.setPassword("1234qwerTy3");
         man.updateCompany(comp);
         //LOGIN
@@ -103,10 +103,10 @@ public class DaoTests {
         assertTrue(man.checkFacebookID("asd"));
         //CheckPhoneNumber
         assertFalse(man.checkPhoneNumber(""));
-        assertFalse(man.checkPhoneNumber("+995558677815"));
-        assertTrue(man.checkPhoneNumber("+995558677892"));
-        assertFalse(man.checkPhoneNumber("+995558677895"));
-        assertTrue(man.checkPhoneNumber("+995558677892"));
+        assertFalse(man.checkPhoneNumber("558677815"));
+        assertTrue(man.checkPhoneNumber("558677892"));
+        assertFalse(man.checkPhoneNumber("558677895"));
+        assertTrue(man.checkPhoneNumber("558677892"));
         //CheckCompanyID
         assertFalse(man.checkPhoneNumber(""));
         assertFalse(man.checkPhoneNumber("1234567890a"));
@@ -135,7 +135,7 @@ public class DaoTests {
         usrp.setTimeLimit(30);
         usrp.setConditioning(true);
         usrp.setWantsAlone(false);
-        User usr = new User(-1,"rmach13@freeuni.edu.ge","1234a","Rati","Matchavariani","+995558677895",Gender.MALE,"asdfa2d","asdsdafrk",4.3,usrp,false);
+        User usr = new User(-1,"rmach13@freeuni.edu.ge","1234a","Rati","Matchavariani","558677895",Gender.MALE,"asdfa2d","asdsdafrk",4.3,usrp,false);
         man.insertUserPreference(usrp);
         //Register
         man.registerUser(usr);
@@ -150,9 +150,9 @@ public class DaoTests {
         assertFalse(man.checkEmail("rmach12@freeuni.edu.ge"));
         //CheckPhoneNumber
         assertFalse(man.checkPhoneNumber(""));
-        assertTrue(man.checkPhoneNumber("+995558677895"));
+        assertTrue(man.checkPhoneNumber("558677895"));
         assertFalse(man.checkPhoneNumber("+992358677895"));
-        assertTrue(man.checkPhoneNumber("+995558677895"));
+        assertTrue(man.checkPhoneNumber("558677895"));
         assertFalse(man.checkPhoneNumber("+992358677895"));
         //CheckFacebookID
         assertFalse(man.checkFacebookID(""));
@@ -189,9 +189,9 @@ public class DaoTests {
         assertTrue(man.checkEmail("rmach12@freeuni.edu.ge"));
         //CheckPhoneNumber
         assertFalse(man.checkPhoneNumber(""));
-        assertFalse(man.checkPhoneNumber("+995558677895"));
+        assertFalse(man.checkPhoneNumber("558677895"));
         assertTrue(man.checkPhoneNumber("+992358677895"));
-        assertFalse(man.checkPhoneNumber("+995558677895"));
+        assertFalse(man.checkPhoneNumber("558677895"));
         assertTrue(man.checkPhoneNumber("+992358677895"));
         //CheckFacebookID
         assertFalse(man.checkFacebookID(""));
@@ -241,7 +241,7 @@ public class DaoTests {
         when(driver.getFirstName()).thenReturn("gela");
         when(driver.getRating()).thenReturn(1.2);
         when(driver.getLastName()).thenReturn("magaltadze");
-        when(driver.getPhoneNumber()).thenReturn("+995696996");
+        when(driver.getPhoneNumber()).thenReturn("696996");
         when(driver.getCompanyID()).thenReturn(0);
         when(driver.getDriverID()).thenReturn(-1);
         when(driver.getEmail()).thenReturn("gela@taxistgela.ge");
@@ -277,7 +277,7 @@ public class DaoTests {
         when(driver2.getFirstName()).thenReturn("gelusi");
         when(driver2.getRating()).thenReturn(1.3);
         when(driver2.getLastName()).thenReturn("maghaltadze");
-        when(driver2.getPhoneNumber()).thenReturn("+995696991");
+        when(driver2.getPhoneNumber()).thenReturn("696991");
         when(driver2.getCompanyID()).thenReturn(0);
         when(driver2.getDriverID()).thenReturn(-1);
         when(driver2.getEmail()).thenReturn("gela95@taxistgela.ge");

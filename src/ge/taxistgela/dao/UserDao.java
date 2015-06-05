@@ -296,7 +296,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
                 if (res.next()) {
-                    user.setUserID(res.getInt("userID"));
+                    user.setUserID(res.getInt(1));
                 } else {
                     errorCode = -1;
                 }

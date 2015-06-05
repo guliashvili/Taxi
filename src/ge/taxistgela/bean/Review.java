@@ -12,6 +12,9 @@ public class Review {
     private double rating;
     private String description;
 
+    public Review() {
+    }
+
     public Review(int reviewID, int orderID, boolean orientationFlag, double rating, String description) {
         setReviewID(reviewID);
         setOrderID(orderID);
