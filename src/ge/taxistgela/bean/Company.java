@@ -5,7 +5,7 @@ import ge.taxistgela.helper.ExternalAlgorithms;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Company {
+public class Company implements GeneralCheckableInformation {
     private int companyID;
     private String companyCode;
     private String email;

@@ -5,7 +5,7 @@ import ge.taxistgela.helper.ExternalAlgorithms;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Driver {
+public class Driver implements GeneralCheckableInformation{
     private int driverID;
     private String personalID;
     private String email;
