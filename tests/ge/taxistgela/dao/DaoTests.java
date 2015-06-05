@@ -5,6 +5,7 @@ import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
 import ge.taxistgela.model.CompanyManager;
 import ge.taxistgela.model.DriverManager;
+import ge.taxistgela.model.UserManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -126,7 +127,7 @@ public class DaoTests {
     }
     @Test
     public void testUserDao(){
-        UserDao dao = new UserDao();
+        UserManager man = new UserManager(new UserDao());
         UserPreference usrp = new UserPreference();
         usrp.setCarYear(2013);
         usrp.setMinimumDriverRating(2.3);
@@ -134,97 +135,74 @@ public class DaoTests {
         usrp.setTimeLimit(30);
         usrp.setConditioning(true);
         usrp.setWantsAlone(false);
-
-        User usr = new User();
-        when(usr.getFirstName()).thenReturn("Rati");
-        when(usr.getEmail()).thenReturn("rmach13@freeuni.edu.ge");
-        when(usr.getGoogleID()).thenReturn("asdsdafrk");
-        when(usr.getPassword()).thenReturn("1234a");
-        when(usr.getFacebookID()).thenReturn("asdfa2d");
-        when(usr.getPhoneNumber()).thenReturn("+995558677895");
-        when(usr.getLastName()).thenReturn("Matchavariani");
-        when(usr.getRating()).thenReturn(4.3);
-        when(usr.getGender()).thenReturn(Gender.MALE);
-        when(usr.getPreference()).thenReturn(usrp);
-        when(usr.getUserID()).thenReturn(-1);
+        User usr = new User(-1,"rmach13@freeuni.edu.ge","1234a","Rati","Matchavariani","+995558677895",Gender.MALE,"asdfa2d","asdsdafrk",4.3,usrp,false);
         //Register
-        dao.registerUser(usr);
+        man.registerUser(usr);
         //Login
-        User usr1 = dao.loginUser(usr.getEmail(),usr.getPassword());
+        User usr1 = man.loginUser(usr.getEmail(),usr.getPassword());
         compareUsers(usr,usr1);
         //CheckEmail
-        assertFalse(dao.checkEmail(""));
-        assertTrue(dao.checkEmail("rmach13@freeuni.edu.ge"));
-        assertFalse(dao.checkEmail("rmach12@freeuni.edu.ge"));
-        assertTrue(dao.checkEmail("rmach13@freeuni.edu.ge"));
-        assertFalse(dao.checkEmail("rmach12@freeuni.edu.ge"));
+        assertFalse(man.checkEmail(""));
+        assertTrue(man.checkEmail("rmach13@freeuni.edu.ge"));
+        assertFalse(man.checkEmail("rmach12@freeuni.edu.ge"));
+        assertTrue(man.checkEmail("rmach13@freeuni.edu.ge"));
+        assertFalse(man.checkEmail("rmach12@freeuni.edu.ge"));
         //CheckPhoneNumber
-        assertFalse(dao.checkPhoneNumber(""));
-        assertTrue(dao.checkPhoneNumber("+995558677895"));
-        assertFalse(dao.checkPhoneNumber("+992358677895"));
-        assertTrue(dao.checkPhoneNumber("+995558677895"));
-        assertFalse(dao.checkPhoneNumber("+992358677895"));
+        assertFalse(man.checkPhoneNumber(""));
+        assertTrue(man.checkPhoneNumber("+995558677895"));
+        assertFalse(man.checkPhoneNumber("+992358677895"));
+        assertTrue(man.checkPhoneNumber("+995558677895"));
+        assertFalse(man.checkPhoneNumber("+992358677895"));
         //CheckFacebookID
-        assertFalse(dao.checkFacebookID(""));
-        assertTrue(dao.checkFacebookID("asdfa2d"));
-        assertFalse(dao.checkFacebookID("asdfl2d"));
-        assertTrue(dao.checkFacebookID("asdfa2d"));
-        assertFalse(dao.checkFacebookID("asdfl2d"));
+        assertFalse(man.checkFacebookID(""));
+        assertTrue(man.checkFacebookID("asdfa2d"));
+        assertFalse(man.checkFacebookID("asdfl2d"));
+        assertTrue(man.checkFacebookID("asdfa2d"));
+        assertFalse(man.checkFacebookID("asdfl2d"));
         //CheckGoogleID
-        assertFalse(dao.checkGoogleID(""));
-        assertTrue(dao.checkGoogleID("asdsdafrk"));
-        assertFalse(dao.checkGoogleID("asdfa3d"));
-        assertTrue(dao.checkGoogleID("asdsdafrk"));
-        assertFalse(dao.checkGoogleID("asdfa3d"));
+        assertFalse(man.checkGoogleID(""));
+        assertTrue(man.checkGoogleID("asdsdafrk"));
+        assertFalse(man.checkGoogleID("asdfa3d"));
+        assertTrue(man.checkGoogleID("asdsdafrk"));
+        assertFalse(man.checkGoogleID("asdfa3d"));
         //Update
+        usrp = new UserPreference();
+        usrp.setCarYear(2014);
+        usrp.setMinimumDriverRating(2.3);
+        usrp.setPassengersCount(2);
+        usrp.setTimeLimit(30);
+        usrp.setConditioning(true);
+        usrp.setWantsAlone(false);
         usrp = Mockito.mock(UserPreference.class);
-        when(usrp.getCarYear()).thenReturn(2013);
-        when(usrp.getMinimumDriverRating()).thenReturn(2.3);
-        when(usrp.getPassengersCount()).thenReturn(2);
-        when(usrp.getTimeLimit()).thenReturn(30);
-        when(usrp.isConditioning()).thenReturn(true);
-        when(usrp.isWantsAlone()).thenReturn(false);
-        usrp = Mockito.mock(UserPreference.class);
-        usr = Mockito.mock(User.class);
-        when(usr.getFirstName()).thenReturn("raTi");
-        when(usr.getEmail()).thenReturn("rmach12@freeuni.edu.ge");
-        when(usr.getGoogleID()).thenReturn("asdfa3d");
-        when(usr.getPassword()).thenReturn("1234a");
-        when(usr.getFacebookID()).thenReturn("asdfl2d");
-        when(usr.getPhoneNumber()).thenReturn("+992358677895");
-        when(usr.getLastName()).thenReturn("MatchavariaNi");
-        when(usr.getRating()).thenReturn(4.2);
-        when(usr.getGender()).thenReturn(Gender.MALE);
-        when(usr.getPreference()).thenReturn(usrp);
-        when(usr.getUserID()).thenReturn(-1);
+        User usr2 = new User(usr.getUserID(),"rmach12@freeuni.edu.ge","1234a","raTi","MatchavariaNi","+992358677895",Gender.MALE,"asdfa3d","asdfl2d",4.2,usrp,true);
 
-        dao.updateUser(usr);
-        usr1 = dao.loginUser(usr.getEmail(),usr.getPassword());
-        compareUsers(usr,usr1);
+        man.updateUser(usr2);
+        usr1 = man.loginUser(usr2.getEmail(),usr2.getPassword());
+        compareUsers(usr2,usr1);
 
-        assertFalse(dao.checkEmail(""));
-        assertFalse(dao.checkEmail("rmach13@freeuni.edu.ge"));
-        assertTrue(dao.checkEmail("rmach12@freeuni.edu.ge"));
-        assertFalse(dao.checkEmail("rmach13@freeuni.edu.ge"));
-        assertTrue(dao.checkEmail("rmach12@freeuni.edu.ge"));
+        assertFalse(man.checkEmail(""));
+        assertFalse(man.checkEmail("rmach13@freeuni.edu.ge"));
+        assertTrue(man.checkEmail("rmach12@freeuni.edu.ge"));
+        assertFalse(man.checkEmail("rmach13@freeuni.edu.ge"));
+        assertTrue(man.checkEmail("rmach12@freeuni.edu.ge"));
         //CheckPhoneNumber
-        assertFalse(dao.checkPhoneNumber(""));
-        assertFalse(dao.checkPhoneNumber("+995558677895"));
-        assertTrue(dao.checkPhoneNumber("+992358677895"));
-        assertFalse(dao.checkPhoneNumber("+995558677895"));
-        assertTrue(dao.checkPhoneNumber("+992358677895"));
+        assertFalse(man.checkPhoneNumber(""));
+        assertFalse(man.checkPhoneNumber("+995558677895"));
+        assertTrue(man.checkPhoneNumber("+992358677895"));
+        assertFalse(man.checkPhoneNumber("+995558677895"));
+        assertTrue(man.checkPhoneNumber("+992358677895"));
         //CheckFacebookID
-        assertFalse(dao.checkFacebookID(""));
-        assertTrue(dao.checkFacebookID("asdfl2d"));
-        assertFalse(dao.checkFacebookID("asdfa2d"));
-        assertTrue(dao.checkFacebookID("asdfl2d"));
-        assertFalse(dao.checkFacebookID("asdfa2d"));
+        assertFalse(man.checkFacebookID(""));
+        assertTrue(man.checkFacebookID("asdfl2d"));
+        assertFalse(man.checkFacebookID("asdfa2d"));
+        assertTrue(man.checkFacebookID("asdfl2d"));
+        assertFalse(man.checkFacebookID("asdfa2d"));
         //CheckGoogleID
-        assertFalse(dao.checkGoogleID(""));
-        assertTrue(dao.checkGoogleID("asdfa3d"));
-        assertFalse(dao.checkGoogleID("asdsdafrk"));
-        assertTrue(dao.checkGoogleID("asdfa3d"));
-        assertFalse(dao.checkGoogleID("asdsdafrk"));
+        assertFalse(man.checkGoogleID(""));
+        assertTrue(man.checkGoogleID("asdfa3d"));
+        assertFalse(man.checkGoogleID("asdsdafrk"));
+        assertTrue(man.checkGoogleID("asdfa3d"));
+        assertFalse(man.checkGoogleID("asdsdafrk"));
     }
     private void compareUsers(User user,User user1){
         Gender g = user.getGender();

@@ -122,8 +122,12 @@ public class User implements GeneralCheckableInformation{
         return preference;
     }
 
+    public User() {
+    }
+
     public User(int userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, double rating, UserPreference preference, boolean isVerified) {
         this.userID = userID;
+
         this.email = email;
         this.password = password;
         this.firstName = firstName;
