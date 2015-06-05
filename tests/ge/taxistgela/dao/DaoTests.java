@@ -230,40 +230,23 @@ public class DaoTests {
     @Test
     public void testDriverDao(){
         DriverManager man = new DriverManager(new DriverDao());
-        Driver driver = Mockito.mock(Driver.class);
-        Car car = Mockito.mock(Car.class);
-        DriverPreference pref = Mockito.mock(DriverPreference.class);
-        Location l = new Location(new BigDecimal(2.234),new BigDecimal(3.1245));
+        Car car = new Car();
+        DriverPreference pref = new DriverPreference();
 
-        Gender gend = Gender.MALE;//mgoni
-        when(driver.getFirstName()).thenReturn("gela");
-        when(driver.getRating()).thenReturn(1.2);
-        when(driver.getLastName()).thenReturn("magaltadze");
-        when(driver.getPhoneNumber()).thenReturn("696996");
-        when(driver.getCompanyID()).thenReturn(0);
-        when(driver.getDriverID()).thenReturn(-1);
-        when(driver.getEmail()).thenReturn("gela@taxistgela.ge");
-        when(driver.getFacebookID()).thenReturn("gelandara95");
-        when(driver.getGoogleID()).thenReturn("bozandara");
-        when(driver.getPassword()).thenReturn("Madridista1");//actually gela-s parolia fbze(iyo adre :D)
-        when(driver.getPersonalID()).thenReturn("01010101011");
-        when(driver.getRating()).thenReturn(2.2);
-        when(driver.isActive()).thenReturn(true);
-        when(driver.isVerified()).thenReturn(true);
-        when(driver.getLocation()).thenReturn(l);
-        //Register + login test
-        when(driver.getCar()).thenReturn(car);
-        when(car.getCarYear()).thenReturn(1995);
-        when(car.getCarDescription()).thenReturn("????");
-        when(car.getCarID()).thenReturn("69dota95");
-        when(car.getNumPassengers()).thenReturn(2);
+        car.setCarYear(1995);
+        car.setCarDescription("junk");
+        car.setCarID("69dota95");
+        car.setNumPassengers(2);
         man.insertCar(car);
-        when(driver.getGender()).thenReturn(gend);
-        when(driver.getPreferences()).thenReturn(pref);
-        when(pref.getCoefficientPer()).thenReturn(0.69);
-        when(pref.getDriverPreferenceID()).thenReturn(-1);
-        when(pref.getMinimumUserRating()).thenReturn(0.0);//gela bizatkaznia
+
+        pref.setCoefficientPer(0.69);
+        pref.setDriverPreferenceID(-1);
+        pref.setMinimumUserRating(0.0);//gela bizatkaznia
         man.insertDriverPreference(pref);
+
+        Location l = new Location(new BigDecimal(2.234),new BigDecimal(3.1245));
+        Driver driver = new Driver(-1,"01010101011","gela@taxistgela.ge","Madridista1",0,"gela","magaltadze",Gender.MALE,"696996",car,"gelandara95","bozandara",l,2.2,pref,true,true);
+
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
         compareDrivers(driver,driver1);
@@ -271,38 +254,19 @@ public class DaoTests {
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
         //Update
-        Driver driver2=Mockito.mock(Driver.class);
-        when(driver2.getFirstName()).thenReturn("gelusi");
-        when(driver2.getRating()).thenReturn(1.3);
-        when(driver2.getLastName()).thenReturn("maghaltadze");
-        when(driver2.getPhoneNumber()).thenReturn("696991");
-        when(driver2.getCompanyID()).thenReturn(0);
-        when(driver2.getDriverID()).thenReturn(-1);
-        when(driver2.getEmail()).thenReturn("gela95@taxistgela.ge");
-        when(driver2.getFacebookID()).thenReturn("gelandara95");
-        when(driver2.getGoogleID()).thenReturn("bozandara");
-        when(driver2.getPassword()).thenReturn("Madridista!");//rom gaigo rom paroli vicodit mere amaze gadaaketa
-        when(driver2.getPersonalID()).thenReturn("01010101012");//gelam piradobis nomeri sheicvala B-)
-        when(driver2.getRating()).thenReturn(2.3);
-        when(driver2.isActive()).thenReturn(false);
-        when(driver2.isVerified()).thenReturn(false);
-        when(driver2.getLocation()).thenReturn(l);
-        when(driver2.getCar()).thenReturn(car);
-        when(car.getCarYear()).thenReturn(1996);//sabutebi gaayalba manqanis uket gasasageblad
-        when(car.getCarDescription()).thenReturn("???? :3");
-        when(car.getCarID()).thenReturn("95dota69");//manqanis nomerbi shecvala
-        when(car.getNumPassengers()).thenReturn(3);//adgili daasvarka
+
+        Driver driver2 = new Driver(-1,"01010101012","gelusi@taxistgela.ge","Madridista!",0,"Gela","Magaltadze",Gender.FEMALE,"706996",car,"gelusi7","bozandara99",l,2.3,pref,false,false);
+        car.setCarYear(1996);
+        car.setCarDescription("trash");
+        car.setCarID("69dota95");
+        car.setNumPassengers(3);//adgili miasvarka
         man.updateCar(car);
-        gend=Gender.FEMALE;//wonders of today's surgeons
-        when(driver2.getGender()).thenReturn(gend);
-        when(driver2.getPreferences()).thenReturn(pref);
-        when(pref.getCoefficientPer()).thenReturn(0.70);//gelam standartebi awia
-        //when(pref.getDriverPreferenceID()).thenReturn(-1);
-        when(pref.getMinimumUserRating()).thenReturn(0.1);//gela standartebi awia tqo
+
+        pref.setCoefficientPer(0.70);
+        pref.setMinimumUserRating(0.1);//gelam standartebi awia
         man.updateDriverPreference(pref);
+
         man.updateDriver(driver2);
-        man.updateCar(car);
-        man.updateDriverPreference(pref);
         //Login
         driver1=man.loginDriver(driver2.getEmail(),driver2.getPassword());
         compareDrivers(driver2,driver1);
@@ -359,7 +323,7 @@ public class DaoTests {
         assertEquals(driver1.getLastName(),driver.getLastName());
         assertEquals(driver1.getGender().toString(),driver.getGender().toString());
         assertEquals(driver1.getGoogleID(),driver.getGoogleID());
-        assertEquals(driver1.getPassword(),driver.getPassword());
+        assertEquals(HashGenerator.getSaltHash(driver1.getPassword()),driver.getPassword());
         assertEquals(driver1.getPersonalID(),driver.getPersonalID());
         assertEquals(driver1.getPhoneNumber(),driver.getPhoneNumber());
         assertEquals(driver1.isActive(),driver.isActive());

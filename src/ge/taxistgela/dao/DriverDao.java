@@ -3,6 +3,7 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.db.DBConnectionProvider;
 import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.helper.HashGenerator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,8 +37,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             "? >= DriverPreferences.minimumUserRating AND " +
             "Drivers.isActive";
 
-    private final static String insert_car_STMT = "INSERT INTO Cars(carDescription,carYear,conditioning,numPassengers) " +
-            "VALUES (?,?,?,?)";
+    private final static String insert_car_STMT = "INSERT INTO Cars(carID,carDescription,carYear,conditioning,numPassengers) " +
+            "VALUES (?,?,?,?,?)";
     private final static  String update_car_STMT = "UPDATE Cars " +
             "SET carDescription=?,carYear=?,conditioning=?,numPassengers=? " +
             "WHERE carID=?";
@@ -52,10 +53,11 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         int errorCode = 0;
 
         try{
-            st.setString(1,car.getCarDescription());
-            st.setInt(2,car.getCarYear());
-            st.setBoolean(3,car.hasConditioning());
-            st.setInt(4,car.getNumPassengers());
+            st.setString(1,car.getCarID());
+            st.setString(2,car.getCarDescription());
+            st.setInt(3,car.getCarYear());
+            st.setBoolean(4,car.hasConditioning());
+            st.setInt(5,car.getNumPassengers());
             if(update)
                 st.setString(5, car.getCarID());
         }catch (SQLException e){
@@ -216,7 +218,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.executeUpdate();
                 ResultSet res = st.getGeneratedKeys();
                 if (res.next()) {
-                    driverPreference.setDriverPreferenceID(res.getInt("driverPreferenceID"));
+                    driverPreference.setDriverPreferenceID(res.getInt(1));
                 } else {
                     errorCode = -1;
 
@@ -362,7 +364,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             try (PreparedStatement st = con.prepareStatement(login_STMT)) {
 
                 st.setString(1,email);
-                st.setString(2,password);
+                st.setString(2,HashGenerator.getSaltHash(password));
 
                 ExternalAlgorithms.debugPrintSelect("loginDriver \n" + st.toString());
                 ResultSet res = st.executeQuery();
@@ -384,7 +386,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         int errorCode = 0;
         try {
             st.setString(1, driver.getPersonalID());
-            st.setString(2, driver.getPassword());
+            st.setString(2, HashGenerator.getSaltHash(driver.getPassword()));
             st.setString(3, driver.getEmail());
             st.setInt(4, driver.getCompanyID());
             st.setString(5, driver.getFirstName());
