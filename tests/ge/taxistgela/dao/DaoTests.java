@@ -250,7 +250,7 @@ public class DaoTests {
 
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
-        compareDrivers(driver,driver1);
+        compareDrivers(driver1,driver);
         //Register + login test
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
