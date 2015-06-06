@@ -5,6 +5,7 @@ import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
 import ge.taxistgela.model.CompanyManager;
 import ge.taxistgela.model.DriverManager;
+import ge.taxistgela.model.ReviewManager;
 import ge.taxistgela.model.UserManager;
 import org.junit.After;
 import org.junit.Before;
@@ -340,7 +341,16 @@ public class DaoTests {
     }
     @Test
     public void testReviewDao(){
-
+        /*ReviewManager man = new ReviewManager(new ReviewDao());
+        Review rev = new Review()
+        man.addReview();
+        man.getReviewByDriverID();
+        man.getReviewByUserID();
+        man.getReviewByID();
+        man.updateReview();
+        man.getReviewByDriverID();
+        man.getReviewByUserID();
+        man.getReviewByID();*/
     }
     @After
     public void cleanup(){
