@@ -11,7 +11,7 @@
             $("#connectBtn").click(function () {
                 var token = $("#token").val();
 
-                socket = new WebSocket("ws://" + window.location.host + "/wsapp/user/" + token);
+                socket = new WebSocket("ws://" + window.location.host + "/wsapp/1/" + token);
 
                 socket.onopen = function (arg) {
                     console.log("success", "connected");
@@ -66,7 +66,8 @@
 
 <div>
     <span>Example for testing: {"orderID":1,"userID":1,"driverID":1,"numPassengers":3,"paymentAmount":100}</span>
-    <label for="driverToken">Driver Token:</label>
+    <br/>
+    <label for="driverToken">User Token:</label>
     <input type="text" id="driverToken"/>
     <label for="message">Message:</label>
     <input type="text" id="message"/>

@@ -4,15 +4,16 @@ package ge.taxistgela.listener; /**
 
 import ge.taxistgela.dispatcher.OrderDispatcher;
 import ge.taxistgela.model.SessionManager;
+import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
+import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import javax.servlet.http.HttpSessionBindingEvent;
 
 @WebListener()
 public class ContextListener implements ServletContextListener,
@@ -31,7 +32,7 @@ public class ContextListener implements ServletContextListener,
          You can initialize servlet context related data here.
       */
         ServletContext sc = sce.getServletContext();
-        sc.setAttribute(SessionManager.class.getName(), new SessionManager());
+        sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager());
 
         OrderDispatcher orderDispatcher = new OrderDispatcher(sc);
         sc.setAttribute(OrderDispatcher.class.getName(), orderDispatcher);
@@ -43,7 +44,7 @@ public class ContextListener implements ServletContextListener,
          (the Web application) is undeployed or 
          Application Server shuts down.
       */
-        sce.getServletContext().removeAttribute(SessionManager.class.getName());
+        sce.getServletContext().removeAttribute(SessionManagerAPI.class.getName());
 
         OrderDispatcher orderDispatcher = (OrderDispatcher) sce.getServletContext().getAttribute(OrderDispatcher.class.getName());
         orderDispatcher.cancel();

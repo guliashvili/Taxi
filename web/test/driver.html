@@ -11,7 +11,7 @@
             $("#connectBtn").click(function () {
                 var token = $("#token").val();
 
-                socket = new WebSocket("ws://" + window.location.host + "/wsapp/driver/" + token);
+                socket = new WebSocket("ws://" + window.location.host + "/wsapp/2/" + token);
 
                 socket.onopen = function (arg) {
                     console.log("success", "connected");

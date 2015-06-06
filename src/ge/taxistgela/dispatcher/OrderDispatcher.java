@@ -3,8 +3,10 @@ package ge.taxistgela.dispatcher;
 import com.google.gson.Gson;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.model.SessionManager;
+import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.ServletContext;
+import javax.websocket.Session;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -42,14 +44,19 @@ public class OrderDispatcher extends Thread {
 
             // TODO replace with real implementation.
 
-            final SessionManager sessionManager = (SessionManager) sc.getAttribute(SessionManager.class.getName());
+            final SessionManagerAPI sessionManager = (SessionManagerAPI) sc.getAttribute(SessionManagerAPI.class.getName());
 
             if (order != null) {
-                sessionManager.sendToDriver(Integer.toString(order.getDriverID()), new Gson().toJson(order));
+                sessionManager.sendMessage(SessionManager.DRIVER_SESSION, Integer.toString(order.getDriverID()), new Gson().toJson(order));
             }
         }
     }
 
+    /**
+     * Add order into dispatcher queue.
+     *
+     * @param order
+     */
     public void addToQueue(Order order) {
         System.out.println("Waiting to put order...");
         try {
@@ -61,6 +68,9 @@ public class OrderDispatcher extends Thread {
         System.out.println("Put order...");
     }
 
+    /**
+     * Stop dispatcher.
+     */
     public void cancel() {
         state = false;
     }
