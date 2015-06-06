@@ -33,6 +33,8 @@ public class SessionManager implements SessionManagerAPI {
     public void sendToUser(String token, String message) {
         Session session = userSessions.get(token);
 
+        System.out.println(token + " " + session.toString());
+
         if (session != null)
             session.getAsyncRemote().sendText(message);
     }
@@ -50,6 +52,8 @@ public class SessionManager implements SessionManagerAPI {
     @Override
     public void sendToDriver(String token, String message) {
         Session session = driverSessions.get(token);
+
+        System.out.println(token + " " + session.toString());
 
         if (session != null)
             session.getAsyncRemote().sendText(message);

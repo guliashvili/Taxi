@@ -28,11 +28,14 @@ public abstract class ActionServlet extends HttpServlet {
      * @param response
      */
     private void process(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("process");
         String action = request.getParameter("action");
-
+        System.out.println(action);
+        
         try {
-            Method method = this.getClass().getMethod(action, HttpServletRequest.class, HttpServletResponse.class);
-            method.invoke(request, response);
+            Method method = this.getClass().getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
+            method.setAccessible(true);
+            method.invoke(this, request, response);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
