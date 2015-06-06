@@ -10,6 +10,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> </style>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -54,7 +57,7 @@
 							Text goes<br />
 							Here
 							<ul class="actions">
-								<li><a href="#" class="button special">Sign in</a></li>
+								<li><a href="#" class="button special" onlick="$('#login').modal('show');">Sign in</a></li>
 								<li><a href="#" class="button special">Register</a></li>
 							</ul>
 						</div>
@@ -77,7 +80,20 @@
 							</ul>
 						</div>
 					</section>
-
+				<div id = "login_d" style="z-index:-1">
+					asdasdasdddddasdasd
+					asdasdasdddddasdasdasd
+					asdasdasdddddasdasdasdd
+					asdasdasdddddasdasdasdd
+					asdasdasdddddasdasdasdas
+					datasd
+					asdasdasdddddasdasdasddas
+					das
+					dass
+				</div>
+				<script>
+					//$("#login_d").modal().toggle();
+				</script>
 				<!-- Two -->
 					<section id="two" class="wrapper alt style2">
 						<section class="spotlight">
