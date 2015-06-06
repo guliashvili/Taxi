@@ -82,7 +82,6 @@ public class DaoRandomTests extends TestCase {
     @Test
     public void randomReviewTests(){
         ReviewManager man = new ReviewManager(new ReviewDao());
-
     }
 
 }
