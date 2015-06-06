@@ -19,7 +19,7 @@ public class DaoRandomTests extends TestCase {
     String[] surenames={"matchavariani","aziziani","guliashvili","mandzulashvili","magaltadze","magradze","kunchulia","gobejishvili","tchanturia","dogonadze","shalikashvili"};
     String[] emails={"@freeuni.edu.ge","@gmail.com","@yahoo.com","@mail.ru"};
 
-    String[] companyNames={};
+    String[] companyNames={"Rostomi & CO","taqsi minda shchma","sapatriarqos jipi gamodzaxebit","2 diplomianebi","rac ar gergeba","sad iyo da sad ara"};
 
     ArrayList<User> users = new ArrayList<>();
     ArrayList<Driver> drivers = new ArrayList<>();
