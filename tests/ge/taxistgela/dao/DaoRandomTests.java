@@ -58,9 +58,23 @@ public class DaoRandomTests extends TestCase {
     }
     @Test
     public void randomCompanyTests(){
-        CompanyManager man = new CompanyManager(new CompanyDao());
+        CompanyDao dao = new CompanyDao();
+        Random rnd = new Random();
         for(int i=0;i<250;++i){
-
+            String companyCode = generateRandomString(9,true,false);
+            String email = "";
+            while(email.equals("") || dao.checkEmail(email)){
+                email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
+            }
+            String password = generateRandomString(10,true,false);
+            String companyName = companyNames[rnd.nextInt(companyNames.length)];
+            String phoneNumber = generateRandomString(9,true,true);
+            String facebookID = generateRandomString(30,true,false);
+            String googleID = generateRandomString(30,true,false);
+            Company company = new Company(-1,companyCode,email,password,companyName,phoneNumber,facebookID,googleID,rnd.nextBoolean());
+            dao.registerCompany(company);
+            assertTrue(company.equals(dao.loginCompany(company.getEmail(),company.getPassword())));
+            companies.add(company);
         }
     }
     @Test
@@ -101,6 +115,7 @@ public class DaoRandomTests extends TestCase {
             Driver driver = new Driver(-1,personalID,email,password,companyID,name,surename,gend,phoneNumber,car,facebookID,googleID,loc,rnd.nextDouble()*5,driverPreference,rnd.nextBoolean(),rnd.nextBoolean());
             dao.registerDriver(driver);
             assertTrue(driver.equals(dao.loginDriver(driver.getEmail(),driver.getPassword())));
+            drivers.add(driver);
         }
     }
     /**
