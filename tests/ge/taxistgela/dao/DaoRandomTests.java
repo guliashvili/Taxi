@@ -5,6 +5,7 @@ import ge.taxistgela.model.*;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -51,13 +52,55 @@ public class DaoRandomTests extends TestCase {
             dao.insertUserPreference(usrp);
             User usr = new User(-1,email,password,name,surename,phoneNumber,gend,facebookID,googleID,rating,usrp,rnd.nextBoolean());
             dao.registerUser(usr);
+            assertTrue(usr.equals(dao.loginUser(usr.getEmail(), usr.getPassword())));
+            users.add(usr);
+        }
+    }
+    @Test
+    public void randomCompanyTests(){
+        CompanyManager man = new CompanyManager(new CompanyDao());
+        for(int i=0;i<250;++i){
+
         }
     }
     @Test
     public void randomDriverTests(){
-        DriverManager man = new DriverManager(new DriverDao());
+        DriverDao dao = new DriverDao();
+        Random rnd = new Random();
         for(int i=0;i<250;++i){
-
+            String personalID = generateRandomString(11,true,true);
+            String email = "";
+            while(email.equals("") || dao.checkEmail(email)){
+                email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
+            }
+            String password = generateRandomString(10,true,false);
+            Integer companyID = companies.get(rnd.nextInt(companies.size())).getCompanyID();
+            String name = names[rnd.nextInt(names.length)];
+            String surename = surenames[rnd.nextInt(surenames.length)];
+            String phoneNumber = generateRandomString(9,true,true);
+            Gender gend=Gender.MALE;
+            if(rnd.nextBoolean()) gend=Gender.FEMALE;
+            String facebookID = generateRandomString(30,true,false);
+            String googleID = generateRandomString(30,true,false);
+            Car car = new Car();
+            String carID="";
+            while(carID.equals("") || dao.checkCarID(carID)){
+                carID = generateRandomPlate();
+            }
+            car.setConditioning(rnd.nextBoolean());
+            car.setCarYear(1990+rnd.nextInt(25));
+            car.setCarDescription(generateRandomString(200,false,false));
+            car.setNumPassengers(rnd.nextInt(8));
+            dao.insertCar(car);
+            DriverPreference driverPreference = new DriverPreference();
+            driverPreference.setCoefficientPer(rnd.nextDouble()*8);
+            driverPreference.setDriverPreferenceID(-1);
+            driverPreference.setMinimumUserRating(rnd.nextDouble()*5);
+            dao.insertDriverPreference(driverPreference);
+            Location loc = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
+            Driver driver = new Driver(-1,personalID,email,password,companyID,name,surename,gend,phoneNumber,car,facebookID,googleID,loc,rnd.nextDouble()*5,driverPreference,rnd.nextBoolean(),rnd.nextBoolean());
+            dao.registerDriver(driver);
+            assertTrue(driver.equals(dao.loginDriver(driver.getEmail(),driver.getPassword())));
         }
     }
     /**
@@ -89,13 +132,6 @@ public class DaoRandomTests extends TestCase {
     private String generateRandomPlate(){
         Random rnd = new Random();
         return ""+ ('0'+rnd.nextInt(9)) + ('0'+rnd.nextInt(9)) + ('a'+rnd.nextInt(26)) + ('a'+rnd.nextInt(26)) + ('a'+rnd.nextInt(26)) + ('0'+rnd.nextInt(9)) +('0'+rnd.nextInt(9));
-    }
-    @Test
-    public void randomCompanyTests(){
-        CompanyManager man = new CompanyManager(new CompanyDao());
-        for(int i=0;i<250;++i){
-
-        }
     }
     @Test
     public void randomOrderTests(){
