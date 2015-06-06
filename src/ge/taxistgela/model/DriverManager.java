@@ -43,7 +43,7 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public int updateDriver(Driver driver) {
-        return 0;
+        return driverDao.updateDriver(driver);
     }
 
     @Override

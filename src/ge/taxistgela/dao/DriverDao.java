@@ -49,15 +49,16 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
 
     private int setStringsCar(PreparedStatement st,Car car,boolean update){
         int errorCode = 0;
-
+        int x = 1;
         try{
-            st.setString(1,car.getCarID());
-            st.setString(2,car.getCarDescription());
-            st.setInt(3,car.getCarYear());
-            st.setBoolean(4,car.hasConditioning());
-            st.setInt(5,car.getNumPassengers());
+            if(!update)
+                st.setString(x++,car.getCarID());
+            st.setString(x++,car.getCarDescription());
+            st.setInt(x++,car.getCarYear());
+            st.setBoolean(x++,car.hasConditioning());
+            st.setInt(x++,car.getNumPassengers());
             if(update)
-                st.setString(5, car.getCarID());
+                st.setString(x++, car.getCarID());
         }catch (SQLException e){
             errorCode = -1;
             ExternalAlgorithms.debugPrint(e);

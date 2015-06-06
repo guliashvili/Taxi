@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>User Panel</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var socket;
+
+            $("#connectBtn").click(function () {
+                var token = $("#token").val();
+
+                socket = new WebSocket("ws://" + window.location.host + "/wsapp/1/" + token);
+
+                socket.onopen = function (arg) {
+                    console.log("success", "connected");
+                }
+
+                socket.onmessage = function (arg) {
+                    console.log("success", arg.data);
+
+                    var $notifications = $("#notifications");
+
+                    $notifications.append("<li>" + arg.data + "</li>");
+                }
+
+                socket.onclose = function (arg) {
+                    console.log("success", "disconnected");
+                }
+
+                socket.error = function (arg) {
+                    console.error(arg.data);
+                }
+            });
+
+            $("#disconnectBtn").click(function () {
+                socket.close();
+            });
+
+            $("#sendBtn").click(function () {
+                var token = $("#driverToken").val();
+                var msg = $("#message").val();
+
+                $.get("/send", {"action": "sendToDriver", "token": token, "message": msg})
+                        .done(function () {
+                            console.log("success", "Message Sent");
+                        })
+                        .fail(function (arg) {
+                            console.error(srg.data);
+                        });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div>
+    <label for="token">Token</label>
+    <input type="text" id="token"/>
+    <button id="connectBtn">Connect</button>
+    <button id="disconnectBtn">Disconnect</button>
+</div>
+
+<br/>
+
+<div>
+    <span>Example for testing: {"orderID":1,"userID":1,"driverID":1,"numPassengers":3,"paymentAmount":100}</span>
+    <br/>
+    <label for="driverToken">User Token:</label>
+    <input type="text" id="driverToken"/>
+    <label for="message">Message:</label>
+    <input type="text" id="message"/>
+    <button id="sendBtn">Send Message</button>
+</div>
+
+<br/>
+
+<div>
+    <ul id="notifications">
+
+    </ul>
+</div>
+
+</body>
+</html>

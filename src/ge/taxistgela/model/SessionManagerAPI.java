@@ -8,48 +8,27 @@ import javax.websocket.Session;
 public interface SessionManagerAPI {
 
     /**
-     * Saves user and open connection session.
+     * Saves the session depending on the session type and token.
      *
+     * @param sessionType
      * @param token
      * @param session
      */
-    void addUserSession(String token, Session session);
+    void addSession(int sessionType, String token, Session session);
 
     /**
-     * Removes the certain session dependent on the user.
+     * Removes the session depending on the session type and token.
      *
+     * @param sessionType
      * @param token
      */
-    void removeUserSession(String token);
+    void removeSession(int sessionType, String token);
 
     /**
-     * Send the certain message to the certain user.
+     * Sends the message to session endpoint depending on the session type and token.
      *
-     * @param token
+     * @param sessionType
      * @param message
      */
-    void sendToUser(String token, String message);
-
-    /**
-     * Saves driver and open connection session.
-     *
-     * @param token
-     * @param session
-     */
-    void addDriverSession(String token, Session session);
-
-    /**
-     * Removes the certain session dependent on the driver.
-     *
-     * @param token
-     */
-    void removeDriverSession(String token);
-
-    /**
-     * Send the certain message to the certain driver.
-     *
-     * @param token
-     * @param message
-     */
-    void sendToDriver(String token, String message);
+    void sendMessage(int sessionType, String token, String message);
 }
