@@ -3,10 +3,12 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.model.*;
 import junit.framework.TestCase;
+import org.hamcrest.number.BigDecimalCloseTo;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -22,6 +24,7 @@ public class DaoRandomTests extends TestCase {
     ArrayList<User> users = new ArrayList<>();
     ArrayList<Driver> drivers = new ArrayList<>();
     ArrayList<Company> companies = new ArrayList<>();
+    ArrayList<Order> orders = new ArrayList<>();
 
     UserPreference[] preferences={};
     @Test
@@ -124,7 +127,7 @@ public class DaoRandomTests extends TestCase {
      * @param forceLength the output string should be exactly given size
      * @return
      */
-    private String generateRandomString(int len,boolean forceLength,boolean numbersOnly){
+    private String generateRandomString(int len,boolean forceLength,boolean numbersOnly){ // needs some utf and symbols
         Random rnd = new Random();
         String output="";
         for(int i=0;i<len;++i){
@@ -150,11 +153,32 @@ public class DaoRandomTests extends TestCase {
     }
     @Test
     public void randomOrderTests(){
-        OrderManager man = new OrderManager(new OrderDao());
+        OrderDao dao = new OrderDao();
+        Random rnd = new Random();
+        int userID = users.get(rnd.nextInt(users.size())).getUserID();
+        int driverID = drivers.get(rnd.nextInt(drivers.size())).getDriverID();
+        int numPassengers = rnd.nextInt(8);
+        Location loc = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
+        Location loc1 = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
+        Date startDate = new Date();
+        Date endDate = new Date();
+        Date callTime = new Date();
+        startDate.setTime(rnd.nextLong());
+        while(endDate.after(startDate) && endDate.after(callTime) && callTime.after(startDate)){
+            startDate.setTime(rnd.nextLong());
+            callTime.setTime(rnd.nextLong());
+        }
+        BigDecimal paymentAmount = new BigDecimal(rnd.nextDouble()*220);
+        Order ord = new Order(-1,userID,driverID,numPassengers,loc,loc1,startDate,endDate,paymentAmount,callTime);
+        dao.addOrder(ord);
+        assertTrue(dao.getOrderByID(ord.getOrderID()).equals(ord));
+        orders.add(ord);
     }
     @Test
     public void randomReviewTests(){
-        ReviewManager man = new ReviewManager(new ReviewDao());
+        ReviewDao dao =new ReviewDao();
+        Random rnd = new Random();
+        Review rev = new Review(-1,orders.get(rnd.nextInt(orders.size())).getOrderID(),rnd.nextBoolean(),rnd.nextDouble()*5,generateRandomString(120,false,false));
     }
 
 }
