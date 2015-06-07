@@ -1,7 +1,9 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
+import junit.extensions.ActiveTestSuite;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -362,7 +364,7 @@ public class DaoRandomTests {
                 orders.add(ord);
             }else{
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(100);
                 }catch(Exception e){
 
                 }
@@ -392,7 +394,7 @@ public class DaoRandomTests {
                 }
             }else{
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(100);
                 }catch(Exception e){
 
                 }
