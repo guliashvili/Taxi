@@ -288,7 +288,7 @@ public class DaoTests {
         List<Driver> drivers =man.getDriverByCompanyID(driver2.getCompanyID());
         for(Driver d:drivers){
             if(d.getDriverID().equals(driver2.getDriverID()))
-                compareDrivers(d,driver2);
+                compareDrivers(driver2,d);
         }
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
     }
