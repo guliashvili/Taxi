@@ -22,8 +22,8 @@ public class ExternalAlgorithms {
         return  a.equals(b);
     }
 
-    public  static  boolean DEBUG = false;
-    public  static  boolean DEBUGSelects = true;
+    public  static  boolean DEBUG = true;
+    public  static  boolean DEBUGSelects = false;
 
     static public void debugPrintSelect(String s){
         if(DEBUGSelects)

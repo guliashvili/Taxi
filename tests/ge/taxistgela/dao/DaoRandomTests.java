@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import java.math.BigDecimal;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -350,17 +351,29 @@ public class DaoRandomTests {
                 Location loc = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
                 Location loc1 = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
                 Date startDate = new Date();
-                Date endDate = new Date();
                 Date callTime = new Date();
-                startDate.setTime(rnd.nextLong());
+                Date endDate = new Date();
+                System.out.println(endDate.getTime()+" current time");
+                /*startDate.setTime(rnd.nextLong());
                 while (endDate.after(startDate) && endDate.after(callTime) && callTime.after(startDate)) {
-                    startDate.setTime(rnd.nextLong());
-                    callTime.setTime(rnd.nextLong());
-                }
+                    startDate.setTime(Long.parseLong("143369056000"));
+                    callTime.setTime(Long.parseLong("1433690560348"));
+                }*/
                 BigDecimal paymentAmount = new BigDecimal(rnd.nextDouble() * 220);
                 Order ord = new Order(-1, userID, driverID, numPassengers, loc, loc1, startDate, endDate, paymentAmount, callTime);
                 dao.addOrder(ord);
-                assertTrue(dao.getOrderByID(ord.getOrderID()).equals(ord));
+                Order ord1=dao.getOrderByID(ord.getOrderID());
+                assertEquals(ord.getOrderID(), ord1.getOrderID());
+                assertEquals(ord.getNumPassengers(), ord1.getNumPassengers());
+                assertEquals(ord.getCallTime().toString(), ord1.getCallTime().toString());
+                assertEquals(ord.getDriverID(), ord1.getDriverID());
+                assertEquals(ord.getEndLocation(), ord1.getEndLocation());
+                assertEquals(ord.getPaymentAmount(), ord1.getPaymentAmount());
+                assertEquals(ord.getUserID(), ord1.getUserID());
+                assertEquals(ord.getStartLocation(), ord1.getStartLocation());
+                assertEquals(ord.getOrderID(), ord1.getOrderID());
+                assertEquals(ord.getEndTime(), ord1.getEndTime());
+                assertTrue(ord1.equals(ord));
                 orders.add(ord);
             }else{
                 try {
