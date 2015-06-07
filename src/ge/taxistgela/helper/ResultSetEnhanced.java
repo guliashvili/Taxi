@@ -1,6 +1,5 @@
 package ge.taxistgela.helper;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -85,7 +84,7 @@ public class ResultSetEnhanced implements AutoCloseable {
         return ret;
     }
 
-
+/*
     public BigDecimal getBigDecimal(int parameterIndex) throws SQLException {
         BigDecimal ret = resultSet.getBigDecimal(parameterIndex);
         if (resultSet.wasNull()) ret = null;
@@ -98,7 +97,7 @@ public class ResultSetEnhanced implements AutoCloseable {
         if (resultSet.wasNull()) ret = null;
 
         return ret;
-    }
+    }*/
 
 
 }

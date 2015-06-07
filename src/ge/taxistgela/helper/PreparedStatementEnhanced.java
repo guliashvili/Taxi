@@ -1,7 +1,6 @@
 package ge.taxistgela.helper;
 
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -48,12 +47,13 @@ public class PreparedStatementEnhanced implements AutoCloseable {
             st.setString(parameterIndex,x);
     }
 
-    public void setBigDecimal(int parameterIndex, BigDecimal x) throws SQLException{
-        if(x == null)
-            st.setNull(parameterIndex, Types.DECIMAL);
-        else
-            st.setBigDecimal(parameterIndex, x);
-    }
+    /*
+        public void setBigDecimal(int parameterIndex, BigDecimal x) throws SQLException{
+            if(x == null)
+                st.setNull(parameterIndex, Types.DECIMAL);
+            else
+                st.setBigDecimal(parameterIndex, x);
+        }*/
     public void setBoolean(int parameterIndex, Boolean x)throws SQLException{
         if(x == null)
             st.setNull(parameterIndex, Types.BOOLEAN);

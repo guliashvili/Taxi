@@ -2,7 +2,6 @@ package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -17,10 +16,11 @@ public class Order {
     private Location endLocation;
     private Date startTime;
     private Date endTime;
-    private BigDecimal paymentAmount;
+    private Double paymentAmount;
     private Date callTime;
 
-    public Order(Integer orderID, Integer userID, Integer driverID, Integer numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime, BigDecimal paymentAmount, Date callTime) {        setOrderID(orderID);
+    public Order(Integer orderID, Integer userID, Integer driverID, Integer numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime, Double paymentAmount, Date callTime) {
+        setOrderID(orderID);
         setUserID(userID);
         setDriverID(driverID);
         setNumPassengers(numPassengers);
@@ -120,11 +120,11 @@ public class Order {
         this.endTime = endTime;
     }
 
-    public BigDecimal getPaymentAmount() {
+    public Double getPaymentAmount() {
         return paymentAmount;
     }
 
-    public void setPaymentAmount(BigDecimal paymentAmount) {
+    public void setPaymentAmount(Double paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
 
