@@ -1,10 +1,9 @@
-package ge.taxistgela.dao.helper;
+package ge.taxistgela.helper;
 
-import ge.taxistgela.helper.HashGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Alex on 5/29/2015.
