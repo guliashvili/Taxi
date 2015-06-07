@@ -1,8 +1,12 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
-import ge.taxistgela.helper.ExternalAlgorithms;
+import junit.extensions.ActiveTestSuite;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -167,7 +171,7 @@ public class DaoRandomTests {
             String phoneNumber = "";
             while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
                 phoneNumber = generateRandomString(9,true,true);
-            }
+            };
             if(rnd.nextBoolean()) company.setPhoneNumber(phoneNumber);
             String facebookID = "";
             while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
@@ -364,7 +368,7 @@ public class DaoRandomTests {
                 assertEquals(ord.getCallTime().toString(), ord1.getCallTime().toString());
                 assertEquals(ord.getDriverID(), ord1.getDriverID());
                 assertEquals(ord.getEndLocation(), ord1.getEndLocation());
-                assertTrue(ExternalAlgorithms.equalsNull(ord.getPaymentAmount(), ord1.getPaymentAmount()));
+                assertEquals(ord.getPaymentAmount(), ord1.getPaymentAmount());
                 assertEquals(ord.getUserID(), ord1.getUserID());
                 assertEquals(ord.getStartLocation(), ord1.getStartLocation());
                 assertEquals(ord.getOrderID(), ord1.getOrderID());

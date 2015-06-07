@@ -4,8 +4,6 @@ import com.google.maps.model.DistanceMatrixElement;
 import ge.taxistgela.bean.Location;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -18,12 +16,12 @@ public class GoogleMapUtilsTest {
     public void testGetRoadEqualOriginDestionation() throws Exception {
         // 41.69973, 44.80398
         Location origin = new Location();
-        origin.setLatitude(new BigDecimal("41.69973"));
-        origin.setLongitude(new BigDecimal("44.80398"));
+        origin.setLatitude(new Double("41.69973"));
+        origin.setLongitude(new Double("44.80398"));
 
         Location destination = new Location();
-        destination.setLatitude(new BigDecimal("41.69973"));
-        destination.setLongitude(new BigDecimal("44.80398"));
+        destination.setLatitude(new Double("41.69973"));
+        destination.setLongitude(new Double("44.80398"));
 
         DistanceMatrixElement road = GoogleMapUtils.getRoad(origin, destination);
 
@@ -37,12 +35,12 @@ public class GoogleMapUtilsTest {
         // 41.7008, 44.80191000000001
         // 41.69973, 44.80398
         Location origin = new Location();
-        origin.setLatitude(new BigDecimal("41.7008"));
-        origin.setLongitude(new BigDecimal("44.80191000000001"));
+        origin.setLatitude(new Double("41.7008"));
+        origin.setLongitude(new Double("44.80191000000001"));
 
         Location destination = new Location();
-        destination.setLatitude(new BigDecimal("41.69973"));
-        destination.setLongitude(new BigDecimal("44.80398"));
+        destination.setLatitude(new Double("41.69973"));
+        destination.setLongitude(new Double("44.80398"));
 
         DistanceMatrixElement road = GoogleMapUtils.getRoad(origin, destination);
 
