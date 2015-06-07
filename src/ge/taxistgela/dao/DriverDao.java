@@ -86,13 +86,13 @@ public class DriverDao implements DriverDaoAPI {
     }
 
     @Override
-    public Car getCarByID(int carID) {
+    public Car getCarByID(String carID) {
 
         Car output;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM Cars WHERE Cars.carID = ?"))) {
 
-                st.setInt(1, carID);
+                st.setString(1, carID);
 
 
                 ExternalAlgorithms.debugPrintSelect("get car by id \n" + st.toString());
@@ -268,7 +268,7 @@ public class DriverDao implements DriverDaoAPI {
             output.setPhoneNumber(res.getString("Drivers.phoneNumber"));
 
 
-            int carID = res.getInt("Drivers.carID");
+            String carID = res.getString("Drivers.carID");
             Car car = getCarByID(carID);
             output.setCar(car);
 
@@ -280,7 +280,7 @@ public class DriverDao implements DriverDaoAPI {
             DriverPreference pref = getDriverPreferenceByID(driverPreferenceID);
             output.setPreferences(pref);
 
-            output.setLocation(new Location(res.getBigDecimal("Drivers.latitude"), res.getBigDecimal("Drivers.longitude")));
+            output.setLocation(new Location(res.getDouble("Drivers.latitude"), res.getDouble("Drivers.longitude")));
             output.setIsActive(res.getBoolean("Drivers.isActive"));
             output.setIsVerified(res.getBoolean("Drivers.isVerified"));
         } catch (SQLException e) {
@@ -397,8 +397,8 @@ public class DriverDao implements DriverDaoAPI {
             st.setString(11, driver.getGoogleID());
             st.setDouble(12, driver.getRating());
             st.setInt(13, driver.getPreferences().getDriverPreferenceID());
-            st.setBigDecimal(14, driver.getLocation().getLatitude());
-            st.setBigDecimal(15, driver.getLocation().getLongitude());
+            st.setDouble(14, driver.getLocation().getLatitude());
+            st.setDouble(15, driver.getLocation().getLongitude());
             st.setBoolean(16, driver.isActive());
             st.setBoolean(17, driver.isVerified());
             if (update)

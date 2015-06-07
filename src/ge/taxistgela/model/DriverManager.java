@@ -17,6 +17,7 @@ public class DriverManager extends  DriverManagerAPI {
         super(driverDao);
     }
 
+
     @Override
     public Driver getDriverByID(int driverID) {
         return  driverDao.getDriverByID(driverID);
@@ -36,7 +37,7 @@ public class DriverManager extends  DriverManagerAPI {
     public boolean registerDriver(Driver driver) {
         boolean ret;
         if(!RegistrationHelper.isValid(driver))
-            ret = true; // TODO aq true unda daabruno tu false??
+            ret = true;
         else
             ret = driverDao.registerDriver(driver);
         return  ret;

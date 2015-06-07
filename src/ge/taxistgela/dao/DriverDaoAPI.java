@@ -17,7 +17,7 @@ public interface DriverDaoAPI {
      * @param carID
      * @return Car generated from database.
      */
-    Car getCarByID(int carID);
+    Car getCarByID(String carID);
 
 
     /**

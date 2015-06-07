@@ -1,12 +1,11 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
-import ge.taxistgela.helper.HashGenerator;
 
 /**
  * Created by Alex on 5/25/2015.
  */
-public class User implements GeneralCheckableInformation {
+public class User extends GeneralCheckableInformation {
     private Integer userID;
     private String email;
     private String password;
@@ -19,6 +18,24 @@ public class User implements GeneralCheckableInformation {
     private Double rating;
     private UserPreference preference;
     private Boolean isVerified;
+
+    public User() {
+    }
+
+    public User(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerified) {
+        setUserID(userID);
+        setEmail(email);
+        setPassword(password);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPhoneNumber(phoneNumber);
+        setGender(gender);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setRating(rating);
+        setPreference(preference);
+        setIsVerified(isVerified);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -44,24 +61,6 @@ public class User implements GeneralCheckableInformation {
     @Override
     public int hashCode() {
         return getUserID();
-    }
-
-
-    public User() {
-    }
-
-    public User(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerified) {        setUserID(userID);
-        setEmail(email);
-        setPassword(password);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setPhoneNumber(phoneNumber);
-        setGender(gender);
-        setFacebookID(facebookID);
-        setGoogleID(googleID);
-        setRating(rating);
-        setPreference(preference);
-        setIsVerified(isVerified);
     }
 
     public Integer getUserID() {

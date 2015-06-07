@@ -53,11 +53,11 @@ public class OrderDao implements OrderDaoAPI {
             order.setUserID(rslt.getInt(2));
             order.setDriverID(rslt.getInt(3));
             order.setNumPassengers(rslt.getInt(4));
-            order.setStartLocation(new Location(rslt.getBigDecimal(6), rslt.getBigDecimal(5)));
-            order.setEndLocation(new Location(rslt.getBigDecimal(8), rslt.getBigDecimal(7)));
+            order.setStartLocation(new Location(rslt.getDouble(6), rslt.getDouble(5)));
+            order.setEndLocation(new Location(rslt.getDouble(8), rslt.getDouble(7)));
             order.setStartTime(simpleDateFormat.parse(rslt.getString(9)));
             order.setEndTime(simpleDateFormat.parse(rslt.getString(10)));
-            order.setPaymentAmount(rslt.getBigDecimal(11));
+            order.setPaymentAmount(rslt.getDouble(11));
             order.setCallTime(simpleDateFormat.parse(rslt.getString(12)));
         } catch (SQLException e) {
             order = null;
@@ -75,13 +75,13 @@ public class OrderDao implements OrderDaoAPI {
             st.setInt(1, order.getUserID());
             st.setInt(2, order.getDriverID());
             st.setInt(3, order.getNumPassengers());
-            st.setBigDecimal(4, order.getStartLocation().getLongitude());
-            st.setBigDecimal(5, order.getStartLocation().getLatitude());
-            st.setBigDecimal(6, order.getEndLocation().getLongitude());
-            st.setBigDecimal(7, order.getEndLocation().getLatitude());
+            st.setDouble(4, order.getStartLocation().getLongitude());
+            st.setDouble(5, order.getStartLocation().getLatitude());
+            st.setDouble(6, order.getEndLocation().getLongitude());
+            st.setDouble(7, order.getEndLocation().getLatitude());
             st.setString(8, simpleDateFormat.format(order.getStartTime()));
             st.setString(9, simpleDateFormat.format(order.getEndTime()));
-            st.setBigDecimal(10, order.getPaymentAmount());
+            st.setDouble(10, order.getPaymentAmount());
             st.setString(11, simpleDateFormat.format(order.getCallTime()));
             if (update)
                 st.setInt(12, order.getOrderID());

@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -238,12 +237,12 @@ public class DaoTests {
         pref.setMinimumUserRating(0.0);//gela bizatkaznia
         man.insertDriverPreference(pref);
 
-        Location l = new Location(new BigDecimal(2.234),new BigDecimal(3.1245));
+        Location l = new Location(new Double(2.234), new Double(3.1245));
         Driver driver = new Driver(-1,"01010101011","gela@taxistgela.ge","Madridista1",1,"gela","magaltadze",Gender.MALE,"555696996",car,"gelandara95","bozandara",l,2.2,pref,true,true);
 
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
-        compareDrivers(driver1,driver);
+        compareDrivers(driver,driver1);
         //Register + login test
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
@@ -262,7 +261,7 @@ public class DaoTests {
         man.updateDriver(driver2);
         //Login
         driver1=man.loginDriver(driver2.getEmail(),driver2.getPassword());
-        compareDrivers(driver1,driver2);
+        compareDrivers(driver2,driver1);
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
         DriverPreference pref1 = man.getDriverPreferenceByID(pref.getDriverPreferenceID());
         comparePrefernces(pref,pref1);
@@ -288,7 +287,7 @@ public class DaoTests {
         List<Driver> drivers =man.getDriverByCompanyID(driver2.getCompanyID());
         for(Driver d:drivers){
             if(d.getDriverID().equals(driver2.getDriverID()))
-                compareDrivers(d,driver2);
+                compareDrivers(driver2,d);
         }
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
     }
