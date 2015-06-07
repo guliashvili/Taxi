@@ -20,6 +20,7 @@ public class ExternalAlgorithms {
         if(a == null && b == null) return  true;
         else if(a == null || b == null) return  false;
         return  a.equals(b);
+        // TODO assertEquals isgan riti gansxvavdeba?
     }
 
     public  static  boolean DEBUG = true;
