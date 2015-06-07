@@ -8,14 +8,15 @@ import ge.taxistgela.helper.ExternalAlgorithms;
 public class Car {
     private String carID;
     private String carDescription;
-    private int carYear;
-    private boolean conditioning;
-    private int numPassengers;
+    private Integer carYear;
+    private Boolean conditioning;
+    private Integer numPassengers;
 
-    public Car(){
+    public Car() {
     }
 
-    public Car(String carID,String carDescription,int carYear,boolean conditioning,int numPassengers){
+
+    public Car(String carID, String carDescription, Integer carYear, Boolean conditioning, Integer numPassengers) {
         setCarID(carID);
         setCarDescription(carDescription);
         setCarYear(carYear);
@@ -25,13 +26,13 @@ public class Car {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof  Car)) return  false;
-        Car o = (Car)obj;
-        return  ExternalAlgorithms.equalsNull(getCarDescription(), o.getCarDescription()) &&
-                ExternalAlgorithms.equalsNull(getCarID(),o.getCarID()) &&
-                getCarYear() == o.getCarYear() &&
-                getNumPassengers() == o.getNumPassengers() &&
-                hasConditioning() == o.hasConditioning();
+        if (!(obj instanceof Car)) return false;
+        Car o = (Car) obj;
+        return ExternalAlgorithms.equalsNull(getCarDescription(), o.getCarDescription()) &&
+                ExternalAlgorithms.equalsNull(getCarID(), o.getCarID()) &&
+                ExternalAlgorithms.equalsNull(getCarYear() , o.getCarYear()) &&
+                ExternalAlgorithms.equalsNull(getNumPassengers(), o.getNumPassengers()) &&
+                ExternalAlgorithms.equalsNull(hasConditioning(), o.hasConditioning());
     }
 
     @Override
@@ -55,30 +56,27 @@ public class Car {
         this.carDescription = carDescription;
     }
 
-    public int getCarYear() {
+    public Integer getCarYear() {
         return carYear;
     }
 
-    public void setCarYear(int carYear) {
+    public void setCarYear(Integer carYear) {
         this.carYear = carYear;
     }
 
-    public boolean hasConditioning() {
+    public Boolean hasConditioning() {
         return conditioning;
     }
 
-    public void setConditioning(boolean conditioning) {
+    public void setConditioning(Boolean conditioning) {
         this.conditioning = conditioning;
     }
 
-    public int getNumPassengers() {
+    public Integer getNumPassengers() {
         return numPassengers;
     }
 
-    public void setNumPassengers(int numPassengers) {
+    public void setNumPassengers(Integer numPassengers) {
         this.numPassengers = numPassengers;
     }
-
-
-
 }

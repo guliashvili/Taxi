@@ -9,10 +9,10 @@ import java.util.Date;
  * Created by Alex on 5/25/2015.
  */
 public class Order {
-    private int orderID;
-    private int userID;
-    private int driverID;
-    private int numPassengers;
+    private Integer orderID;
+    private Integer userID;
+    private Integer driverID;
+    private Integer numPassengers;
     private Location startLocation;
     private Location endLocation;
     private Date startTime;
@@ -20,9 +20,7 @@ public class Order {
     private BigDecimal paymentAmount;
     private Date callTime;
 
-
-    public Order(int orderID, int userID, int driverID, int numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime, BigDecimal paymentAmount, Date callTime) {
-        setOrderID(orderID);
+    public Order(Integer orderID, Integer userID, Integer driverID, Integer numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime, BigDecimal paymentAmount, Date callTime) {        setOrderID(orderID);
         setUserID(userID);
         setDriverID(driverID);
         setNumPassengers(numPassengers);
@@ -33,22 +31,24 @@ public class Order {
         setPaymentAmount(paymentAmount);
         setCallTime(callTime);
     }
-    public Order(){}
+
+    public Order() {
+    }
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof  Order)) return  false;
-        Order o = (Order)obj;
-        return  getOrderID() == o.getOrderID() &&
-                getUserID() == o.getUserID() &&
-                getDriverID() == o.getDriverID() &&
-                getNumPassengers() == o.getNumPassengers() &&
-                ExternalAlgorithms.equalsNull(getStartLocation(),o.getStartLocation()) &&
-                ExternalAlgorithms.equalsNull(getEndLocation(),o.getEndLocation()) &&
-                ExternalAlgorithms.equalsNull(getStartLocation(),o.getStartLocation()) &&
-                ExternalAlgorithms.equalsNull(getEndTime(),o.getEndTime()) &&
-                ExternalAlgorithms.equalsNull(getPaymentAmount(),o.getPaymentAmount()) &&
-                ExternalAlgorithms.equalsNull(getCallTime(),o.getCallTime());
+        if (!(obj instanceof Order)) return false;
+        Order o = (Order) obj;
+        return ExternalAlgorithms.equalsNull(getOrderID(), o.getOrderID()) &&
+                ExternalAlgorithms.equalsNull(getUserID(), o.getUserID()) &&
+                ExternalAlgorithms.equalsNull(getDriverID(), o.getDriverID()) &&
+                ExternalAlgorithms.equalsNull(getNumPassengers(), o.getNumPassengers()) &&
+                ExternalAlgorithms.equalsNull(getStartLocation(), o.getStartLocation()) &&
+                ExternalAlgorithms.equalsNull(getEndLocation(), o.getEndLocation()) &&
+                ExternalAlgorithms.equalsNull(getStartLocation(), o.getStartLocation()) &&
+                ExternalAlgorithms.equalsNull(getEndTime(), o.getEndTime()) &&
+                ExternalAlgorithms.equalsNull(getPaymentAmount(), o.getPaymentAmount()) &&
+                ExternalAlgorithms.equalsNull(getCallTime(), o.getCallTime());
     }
 
     @Override
@@ -56,43 +56,35 @@ public class Order {
         return getOrderID();
     }
 
-    public Date getCallTime() {
-        return callTime;
-    }
-
-    public void setCallTime(Date callTime) {
-        this.callTime = callTime;
-    }
-
-    public int getOrderID() {
+    public Integer getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(Integer orderID) {
         this.orderID = orderID;
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
-    public int getDriverID() {
+    public Integer getDriverID() {
         return driverID;
     }
 
-    public void setDriverID(int driverID) {
+    public void setDriverID(Integer driverID) {
         this.driverID = driverID;
     }
 
-    public int getNumPassengers() {
+    public Integer getNumPassengers() {
         return numPassengers;
     }
 
-    public void setNumPassengers(int numPassengers) {
+    public void setNumPassengers(Integer numPassengers) {
         this.numPassengers = numPassengers;
     }
 
@@ -134,5 +126,13 @@ public class Order {
 
     public void setPaymentAmount(BigDecimal paymentAmount) {
         this.paymentAmount = paymentAmount;
+    }
+
+    public Date getCallTime() {
+        return callTime;
+    }
+
+    public void setCallTime(Date callTime) {
+        this.callTime = callTime;
     }
 }

@@ -7,7 +7,7 @@ import ge.taxistgela.helper.HashGenerator;
  * Created by Alex on 5/25/2015.
  */
 public class Company implements GeneralCheckableInformation {
-    private int companyID;
+    private Integer companyID;
     private String companyCode;
     private String email;
     private String password;
@@ -15,7 +15,7 @@ public class Company implements GeneralCheckableInformation {
     private String phoneNumber;
     private String facebookID;
     private String googleID;
-    private boolean isVerified;
+    private Boolean isVerified;
 
 
     @Override
@@ -23,14 +23,14 @@ public class Company implements GeneralCheckableInformation {
         if(!(obj instanceof  Company)) return  false;
         Company o = (Company)obj;
         return  ExternalAlgorithms.equalsNull(getCompanyCode(),o.getCompanyCode()) &&
-                getCompanyID() == o.getCompanyID() &&
+                ExternalAlgorithms.equalsNull(getCompanyID() , o.getCompanyID()) &&
                 ExternalAlgorithms.equalsNull(getCompanyName(), o.getCompanyName()) &&
                 ExternalAlgorithms.equalsNull(getEmail(), o.getEmail()) &&
                 ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
                 ExternalAlgorithms.equalsNull(getGoogleID(),o.getGoogleID()) &&
                 ExternalAlgorithms.equalsNull(getPassword(),o.getPassword()) &&
                 ExternalAlgorithms.equalsNull(getPhoneNumber(),o.getPhoneNumber()) &&
-                isVerified() == o.isVerified;
+                ExternalAlgorithms.equalsNull(isVerified() , o.isVerified());
     }
 
     @Override
@@ -40,8 +40,8 @@ public class Company implements GeneralCheckableInformation {
 
     public Company(){}
 
-    public Company(int companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID,boolean isVerified) {
-        setCompanyID(companyID);
+
+    public Company(Integer companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID, Boolean isVerified) {        setCompanyID(companyID);
         setCompanyCode(companyCode);
         setEmail(email);
         setPassword(password);
@@ -53,12 +53,11 @@ public class Company implements GeneralCheckableInformation {
     }
 
 
-
-    public int getCompanyID() {
+    public Integer getCompanyID() {
         return companyID;
     }
 
-    public void setCompanyID(int companyID) {
+    public void setCompanyID(Integer companyID) {
         this.companyID = companyID;
     }
 
@@ -70,6 +69,7 @@ public class Company implements GeneralCheckableInformation {
         this.companyCode = companyCode;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -78,6 +78,7 @@ public class Company implements GeneralCheckableInformation {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -94,6 +95,7 @@ public class Company implements GeneralCheckableInformation {
         this.companyName = companyName;
     }
 
+    @Override
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -118,11 +120,11 @@ public class Company implements GeneralCheckableInformation {
         this.googleID = googleID;
     }
 
-    public boolean isVerified() {
+    public Boolean isVerified() {
         return isVerified;
     }
 
-    public void setIsVerified(boolean isVerified) {
+    public void setIsVerified(Boolean isVerified) {
         this.isVerified = isVerified;
     }
 }

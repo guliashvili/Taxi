@@ -26,13 +26,13 @@ import static org.mockito.Mockito.when;
 public class DaoTests {
     @Before
     public void setup(){
-        AdminDatabase db = new AdminDatabase();
+        /*AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
         }catch(Exception e){
             System.out.println(e.toString());
             assertTrue(false);
-        }
+        }*/
     }
     @Test
     public void testCompanyDao(){
@@ -219,9 +219,9 @@ public class DaoTests {
         assertEquals(user.getFirstName(),user1.getFirstName());
         assertEquals(user.getLastName(),user1.getLastName());
         assertEquals(user.getUserID(),user1.getUserID());
-        assertTrue(user.getRating()==user1.getRating());//assertEquals(double,double) depricated
+        assertEquals(user.getRating() , user1.getRating());//assertEquals(double,double) depricated
         assertEquals(pref.getCarYear(),pref1.getCarYear());
-        assertTrue(pref.getMinimumDriverRating()==pref1.getMinimumDriverRating());
+        assertEquals(pref.getMinimumDriverRating(), pref1.getMinimumDriverRating());
         assertEquals(pref.getPassengersCount(),pref1.getPassengersCount());
         assertEquals(pref.getTimeLimit(),pref1.getTimeLimit());
         //assertEquals(pref.getUserPreferenceID(),usrp.getUserPreferenceID());
@@ -295,7 +295,7 @@ public class DaoTests {
         //get driver by company
         List<Driver> drivers =man.getDriverByCompanyID(driver2.getCompanyID());
         for(Driver d:drivers){
-            if(d.getDriverID()==driver2.getDriverID())
+            if(d.getDriverID().equals(driver2.getDriverID()))
                 compareDrivers(d,driver2);
         }
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
@@ -309,14 +309,14 @@ public class DaoTests {
     }
     private void comparePrefernces(DriverPreference dp1,DriverPreference dp2){
         //preference comparison
-        assertTrue(dp1.getCoefficientPer() == dp2.getCoefficientPer());
+        assertEquals(dp1.getCoefficientPer(), dp2.getCoefficientPer());
         assertEquals(dp1.getDriverPreferenceID(),dp2.getDriverPreferenceID());
-        assertTrue(dp1.getMinimumUserRating() == dp2.getMinimumUserRating());
+        assertEquals(dp1.getMinimumUserRating(), dp2.getMinimumUserRating());
     }
     private void compareDrivers(Driver driver,Driver driver1){
         Car car = driver.getCar();
         DriverPreference pref = driver.getPreferences();
-        assertTrue(driver1.getRating() == driver.getRating());
+        assertEquals(driver1.getRating() , driver.getRating());
         assertEquals(driver1.getDriverID(),driver.getDriverID());
         assertEquals(driver1.getCompanyID(),driver.getCompanyID());
         assertEquals(driver1.getEmail(),driver.getEmail());
@@ -353,13 +353,13 @@ public class DaoTests {
         man.getReviewByID();*/
     }
     @After
-    public void cleanup(){
+    public void cleanup(){/*
         AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
         }catch(Exception e){
             System.out.println(e.toString());
             assertTrue(false);
-        }
+        }*/
     }
 }

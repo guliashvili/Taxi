@@ -6,31 +6,31 @@ import ge.taxistgela.helper.ExternalAlgorithms;
  * Created by Alex on 5/25/2015.
  */
 public class Review {
-    private int reviewID;
-    private int orderID;
-    private boolean orientationFlag; // if its true then User scored driver else driver scored user
-    private double rating;
+    private Integer reviewID;
+    private Integer orderID;
+    private Boolean orientationFlag; // if its true then User scored driver else driver scored user
+    private Double rating;
     private String description;
 
     public Review() {
     }
 
-    public Review(int reviewID, int orderID, boolean orientationFlag, double rating, String description) {
-        setReviewID(reviewID);
+    public Review(Integer reviewID, Integer orderID, Boolean orientationFlag, Double rating, String description) {        setReviewID(reviewID);
         setOrderID(orderID);
         setOrientationFlag(orientationFlag);
         setRating(rating);
         setDescription(description);
     }
+
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof  Review)) return  false;
-        Review o = (Review)obj;
-        return getReviewID() == o.getReviewID() &&
-                getOrderID() == o.getOrderID() &&
-                isOrientationFlag() == o.isOrientationFlag() &&
-                getRating() == o.getRating() &&
-                ExternalAlgorithms.equalsNull(getDescription(),o.getDescription());
+        if (!(obj instanceof Review)) return false;
+        Review o = (Review) obj;
+        return ExternalAlgorithms.equalsNull(getReviewID(), o.getReviewID()) &&
+                ExternalAlgorithms.equalsNull(getOrderID(), o.getOrderID()) &&
+                ExternalAlgorithms.equalsNull(isOrientationFlag(), o.isOrientationFlag()) &&
+                ExternalAlgorithms.equalsNull(getRating(), o.getRating()) &&
+                ExternalAlgorithms.equalsNull(getDescription(), o.getDescription());
     }
 
     @Override
@@ -38,21 +38,36 @@ public class Review {
         return getReviewID();
     }
 
-
-    public int getReviewID() {
+    public Integer getReviewID() {
         return reviewID;
     }
 
-    public void setReviewID(int reviewID) {
+    public void setReviewID(Integer reviewID) {
         this.reviewID = reviewID;
     }
 
-    public int getOrderID() {
+    public Integer getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(Integer orderID) {
         this.orderID = orderID;
+    }
+
+    public Boolean isOrientationFlag() {
+        return orientationFlag;
+    }
+
+    public void setOrientationFlag(Boolean orientationFlag) {
+        this.orientationFlag = orientationFlag;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
     public String getDescription() {
@@ -61,21 +76,5 @@ public class Review {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isOrientationFlag() {
-        return orientationFlag;
-    }
-
-    public void setOrientationFlag(boolean orientationFlag) {
-        this.orientationFlag = orientationFlag;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 }

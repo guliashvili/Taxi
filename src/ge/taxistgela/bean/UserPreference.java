@@ -1,19 +1,20 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 /**
  * Created by Alex on 5/25/2015.
  */
 public class UserPreference {
-    private int userPreferenceID;
-    private double minimumDriverRating;
-    private boolean conditioning; // true unda, false kidia
-    private int carYear; // meti an toli gamoshvebis wliani manqanebi
-    private int timeLimit; // maximum ra droshi(Call time idan) unda mimiyvanos danishnulebis punqtshi
-    private int passengersCount; // ramdeni kaci midian
-    private boolean wantsAlone;
+    private Integer userPreferenceID;
+    private Double minimumDriverRating;
+    private Boolean conditioning; // true unda, false kidia
+    private Integer carYear; // meti an toli gamoshvebis wliani manqanebi
+    private Integer timeLimit; // maximum ra droshi(Call time idan) unda mimiyvanos danishnulebis punqtshi
+    private Integer passengersCount; // ramdeni kaci midian
+    private Boolean wantsAlone;
 
-    public UserPreference(int userPreferenceID, double minimumDriverRating, boolean conditioning, int carYear, int timeLimit, int passengersCount, boolean wantsAlone) {
-        setUserPreferenceID(userPreferenceID);
+    public UserPreference(Integer userPreferenceID, Double minimumDriverRating, Boolean conditioning, Integer carYear, Integer timeLimit, Integer passengersCount, Boolean wantsAlone) {        setUserPreferenceID(userPreferenceID);
         setMinimumDriverRating(minimumDriverRating);
         setConditioning(conditioning);
         setCarYear(carYear);
@@ -21,19 +22,21 @@ public class UserPreference {
         setPassengersCount(passengersCount);
         setWantsAlone(wantsAlone);
     }
-    public UserPreference(){}
+
+    public UserPreference() {
+    }
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof  UserPreference)) return  false;
-        UserPreference o = (UserPreference)obj;
-        return  getUserPreferenceID() == o.getUserPreferenceID() &&
-                getMinimumDriverRating() == o.getMinimumDriverRating() &&
-                isConditioning() == o.isConditioning() &&
-                getCarYear() == o.getCarYear() &&
-                getTimeLimit() == o.getTimeLimit() &&
-                getPassengersCount() == o.getPassengersCount() &&
-                isWantsAlone() == o.isWantsAlone();
+        if (!(obj instanceof UserPreference)) return false;
+        UserPreference o = (UserPreference) obj;
+        return ExternalAlgorithms.equalsNull(getUserPreferenceID(), o.getUserPreferenceID()) &&
+                ExternalAlgorithms.equalsNull(getMinimumDriverRating(), o.getMinimumDriverRating()) &&
+                ExternalAlgorithms.equalsNull(isConditioning(), o.isConditioning()) &&
+                ExternalAlgorithms.equalsNull(getCarYear(), o.getCarYear()) &&
+                ExternalAlgorithms.equalsNull(getTimeLimit(), o.getTimeLimit()) &&
+                ExternalAlgorithms.equalsNull(getPassengersCount(), o.getPassengersCount()) &&
+                ExternalAlgorithms.equalsNull(isWantsAlone(), o.isWantsAlone());
     }
 
     @Override
@@ -41,59 +44,59 @@ public class UserPreference {
         return getUserPreferenceID();
     }
 
-    public int getUserPreferenceID() {
+    public Integer getUserPreferenceID() {
         return userPreferenceID;
     }
 
-    public void setUserPreferenceID(int userPreferenceID) {
+    public void setUserPreferenceID(Integer userPreferenceID) {
         this.userPreferenceID = userPreferenceID;
     }
 
-    public boolean isWantsAlone() {
-        return wantsAlone;
-    }
-
-    public void setWantsAlone(boolean wantsAlone) {
-        this.wantsAlone = wantsAlone;
-    }
-
-    public double getMinimumDriverRating() {
+    public Double getMinimumDriverRating() {
         return minimumDriverRating;
     }
 
-    public void setMinimumDriverRating(double minimumDriverRating) {
+    public void setMinimumDriverRating(Double minimumDriverRating) {
         this.minimumDriverRating = minimumDriverRating;
     }
 
-    public boolean isConditioning() {
+    public Boolean isConditioning() {
         return conditioning;
     }
 
-    public void setConditioning(boolean conditioning) {
+    public void setConditioning(Boolean conditioning) {
         this.conditioning = conditioning;
     }
 
-    public int getCarYear() {
+    public Integer getCarYear() {
         return carYear;
     }
 
-    public void setCarYear(int carYear) {
+    public void setCarYear(Integer carYear) {
         this.carYear = carYear;
     }
 
-    public int getTimeLimit() {
+    public Integer getTimeLimit() {
         return timeLimit;
     }
 
-    public void setTimeLimit(int timeLimit) {
+    public void setTimeLimit(Integer timeLimit) {
         this.timeLimit = timeLimit;
     }
 
-    public int getPassengersCount() {
+    public Integer getPassengersCount() {
         return passengersCount;
     }
 
-    public void setPassengersCount(int passengersCount) {
+    public void setPassengersCount(Integer passengersCount) {
         this.passengersCount = passengersCount;
+    }
+
+    public Boolean isWantsAlone() {
+        return wantsAlone;
+    }
+
+    public void setWantsAlone(Boolean wantsAlone) {
+        this.wantsAlone = wantsAlone;
     }
 }

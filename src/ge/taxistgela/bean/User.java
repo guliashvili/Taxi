@@ -6,8 +6,8 @@ import ge.taxistgela.helper.HashGenerator;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class User implements GeneralCheckableInformation{
-    private int userID;
+public class User implements GeneralCheckableInformation {
+    private Integer userID;
     private String email;
     private String password;
     private String firstName;
@@ -16,29 +16,29 @@ public class User implements GeneralCheckableInformation{
     private Gender gender;
     private String facebookID;
     private String googleID;
-    private double rating;
+    private Double rating;
     private UserPreference preference;
-    private  boolean isVerified;
+    private Boolean isVerified;
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof  User)) return  false;
-        User o = (User)obj;
-        return  getUserID() == o.getUserID() &&
+        if (!(obj instanceof User)) return false;
+        User o = (User) obj;
+        return ExternalAlgorithms.equalsNull(getUserID(), o.getUserID()) &&
                 ExternalAlgorithms.equalsNull(getEmail(), o.getEmail()) &&
-                ExternalAlgorithms.equalsNull(getPassword(),o.getPassword()) &&
+                ExternalAlgorithms.equalsNull(getPassword(), o.getPassword()) &&
 
                 ExternalAlgorithms.equalsNull(getFirstName(), o.getFirstName()) &&
-                ExternalAlgorithms.equalsNull(getLastName(),o.getLastName()) &&
-                ExternalAlgorithms.equalsNull(getPhoneNumber(),o.getPhoneNumber()) &&
+                ExternalAlgorithms.equalsNull(getLastName(), o.getLastName()) &&
+                ExternalAlgorithms.equalsNull(getPhoneNumber(), o.getPhoneNumber()) &&
 
                 ExternalAlgorithms.equalsNull(getGender(), o.getGender()) &&
 
                 ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
-                ExternalAlgorithms.equalsNull(getGoogleID(),o.getGoogleID()) &&
-                getRating() == o.getRating() &&
-                ExternalAlgorithms.equalsNull(getPreference(),o.getPreference()) &&
-                isVerified() == o.isVerified;
+                ExternalAlgorithms.equalsNull(getGoogleID(), o.getGoogleID()) &&
+                ExternalAlgorithms.equalsNull(getRating(), o.getRating()) &&
+                ExternalAlgorithms.equalsNull(getPreference(), o.getPreference()) &&
+                ExternalAlgorithms.equalsNull(isVerified(), o.isVerified());
     }
 
     @Override
@@ -47,22 +47,32 @@ public class User implements GeneralCheckableInformation{
     }
 
 
-    public boolean isVerified() {
-        return isVerified;
+    public User() {
     }
 
-    public void setIsVerified(boolean isVerified) {
-        this.isVerified = isVerified;
+    public User(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerified) {        setUserID(userID);
+        setEmail(email);
+        setPassword(password);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPhoneNumber(phoneNumber);
+        setGender(gender);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setRating(rating);
+        setPreference(preference);
+        setIsVerified(isVerified);
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -71,6 +81,7 @@ public class User implements GeneralCheckableInformation{
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -95,6 +106,7 @@ public class User implements GeneralCheckableInformation{
         this.lastName = lastName;
     }
 
+    @Override
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -109,40 +121,6 @@ public class User implements GeneralCheckableInformation{
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public UserPreference getPreference() {
-        return preference;
-    }
-
-    public User() {
-    }
-
-    public User(int userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, double rating, UserPreference preference, boolean isVerified) {
-        setUserID(userID);
-        setEmail(email);
-        setPassword(password);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setPhoneNumber(phoneNumber);
-        setGender(gender);
-        setFacebookID(facebookID);
-        setGoogleID(googleID);
-        setRating(rating);
-        setPreference(preference);
-        setIsVerified(isVerified);
-    }
-
-    public void setPreference(UserPreference preference) {
-        this.preference = preference;
     }
 
     public String getFacebookID() {
@@ -161,4 +139,27 @@ public class User implements GeneralCheckableInformation{
         this.googleID = googleID;
     }
 
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public UserPreference getPreference() {
+        return preference;
+    }
+
+    public void setPreference(UserPreference preference) {
+        this.preference = preference;
+    }
+
+    public Boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
+    }
 }

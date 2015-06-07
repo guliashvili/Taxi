@@ -6,8 +6,8 @@ import ge.taxistgela.helper.HashGenerator;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Driver implements GeneralCheckableInformation{
-    private int driverID;
+public class Driver implements GeneralCheckableInformation {
+    private Integer driverID;
     private String personalID;
     private String email;
     private String password;
@@ -20,13 +20,12 @@ public class Driver implements GeneralCheckableInformation{
     private String facebookID;
     private String googleID;
     private Location location;
-    private double rating;
+    private Double rating;
     private DriverPreference preferences;
-    private boolean isActive;
-    private  boolean isVerified;
+    private Boolean isActive;
+    private Boolean isVerified;
 
-    public Driver(int driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, double rating, DriverPreference preferences, boolean isActive, boolean isVerified) {
-        setDriverID(driverID);
+    public Driver(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerified) {        setDriverID(driverID);
         setPersonalID(personalID);
         setEmail(email);
         setPassword(password);
@@ -45,35 +44,36 @@ public class Driver implements GeneralCheckableInformation{
         setIsVerified(isVerified);
     }
 
-    public  Driver(){}
+    public Driver() {
+    }
 
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof  Driver)) return  false;
-        Driver o = (Driver)obj;
-        return  getDriverID() == o.getDriverID() &&
-                ExternalAlgorithms.equalsNull(getPersonalID(),o.getPersonalID()) &&
+        if (!(obj instanceof Driver)) return false;
+        Driver o = (Driver) obj;
+        return ExternalAlgorithms.equalsNull(getDriverID(), o.getDriverID()) &&
+                ExternalAlgorithms.equalsNull(getPersonalID(), o.getPersonalID()) &&
                 ExternalAlgorithms.equalsNull(getEmail(), o.getEmail()) &&
-                ExternalAlgorithms.equalsNull(getPassword(),o.getPassword()) &&
-                getCompanyID() == o.getCompanyID() &&
+                ExternalAlgorithms.equalsNull(getPassword(), o.getPassword()) &&
+                ExternalAlgorithms.equalsNull(getCompanyID(), o.getCompanyID()) &&
 
                 ExternalAlgorithms.equalsNull(getFirstName(), o.getFirstName()) &&
-                ExternalAlgorithms.equalsNull(getLastName(),o.getLastName()) &&
+                ExternalAlgorithms.equalsNull(getLastName(), o.getLastName()) &&
 
                 ExternalAlgorithms.equalsNull(getGender(), o.getGender()) &&
 
                 ExternalAlgorithms.equalsNull(getPhoneNumber(), o.getPhoneNumber()) &&
-                ExternalAlgorithms.equalsNull(getCar(),o.getCar()) &&
+                ExternalAlgorithms.equalsNull(getCar(), o.getCar()) &&
 
                 ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
-                ExternalAlgorithms.equalsNull(getGoogleID(),o.getGoogleID()) &&
+                ExternalAlgorithms.equalsNull(getGoogleID(), o.getGoogleID()) &&
 
                 ExternalAlgorithms.equalsNull(getLocation(), o.getLocation()) &&
-                getRating() == o.getRating() &&
-                ExternalAlgorithms.equalsNull(getPreferences(),o.getPreferences()) &&
-                isActive == o.isActive &&
-                isVerified() == o.isVerified;
+                ExternalAlgorithms.equalsNull(getRating(), o.getRating()) &&
+                ExternalAlgorithms.equalsNull(getPreferences(), o.getPreferences()) &&
+                ExternalAlgorithms.equalsNull(isActive(), o.isActive()) &&
+                ExternalAlgorithms.equalsNull(isVerified(), o.isVerified());
     }
 
     @Override
@@ -81,44 +81,11 @@ public class Driver implements GeneralCheckableInformation{
         return getDriverID();
     }
 
-
-    public boolean isVerified() {
-        return isVerified;
-    }
-
-    public void setIsVerified(boolean isVerified) {
-        this.isVerified = isVerified;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public String getGoogleID() {
-        return googleID;
-    }
-
-    public void setGoogleID(String googleID) {
-        this.googleID = googleID;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public int getDriverID() {
+    public Integer getDriverID() {
         return driverID;
     }
 
-    public void setDriverID(int driverID) {
+    public void setDriverID(Integer driverID) {
         this.driverID = driverID;
     }
 
@@ -130,6 +97,7 @@ public class Driver implements GeneralCheckableInformation{
         this.personalID = personalID;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -138,6 +106,7 @@ public class Driver implements GeneralCheckableInformation{
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -170,6 +139,15 @@ public class Driver implements GeneralCheckableInformation{
         this.lastName = lastName;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    @Override
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -194,6 +172,14 @@ public class Driver implements GeneralCheckableInformation{
         this.facebookID = facebookID;
     }
 
+    public String getGoogleID() {
+        return googleID;
+    }
+
+    public void setGoogleID(String googleID) {
+        this.googleID = googleID;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -202,11 +188,11 @@ public class Driver implements GeneralCheckableInformation{
         this.location = location;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -216,5 +202,21 @@ public class Driver implements GeneralCheckableInformation{
 
     public void setPreferences(DriverPreference preferences) {
         this.preferences = preferences;
+    }
+
+    public Boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
     }
 }
