@@ -78,6 +78,52 @@ public class ManagerTests extends TestCase {
     public void driverManagerTests(){
         DriverDao dao = Mockito.mock(DriverDao.class);
         DriverManager man = new DriverManager(dao);
+        //Email
+        when(dao.checkEmail("asd@asd.com")).thenReturn(true);
+        when(dao.checkEmail("gelaasd@gela.ge")).thenReturn(true);
+        when(dao.checkEmail("asdfkj@kasdasd.cz")).thenReturn(false);
+        when(dao.checkEmail("123456777@gmail.com")).thenReturn(true);
+        assertTrue(man.checkEmail("asd@asd.com"));
+        assertTrue(man.checkEmail("gelaasd@gela.ge"));
+        assertFalse(man.checkEmail("asdfkj@kasdasd.cz"));
+        assertTrue(man.checkEmail("123456777@gmail.com"));
+        //FaceBookID
+        when(dao.checkFacebookID("asd@asd.com")).thenReturn(true);
+        when(dao.checkFacebookID("gelaasd@gela.ge")).thenReturn(true);
+        when(dao.checkFacebookID("asdfkj@kasdasd.cz")).thenReturn(false);
+        when(dao.checkFacebookID("123456777@gmail.com")).thenReturn(true);
+        assertTrue(man.checkFacebookID("asd@asd.com"));
+        assertTrue(man.checkFacebookID("gelaasd@gela.ge"));
+        assertFalse(man.checkFacebookID("asdfkj@kasdasd.cz"));
+        assertTrue(man.checkFacebookID("123456777@gmail.com"));
+        //googleID
+        when(dao.checkGoogleID("asd@asd.com")).thenReturn(true);
+        when(dao.checkGoogleID("gelaasd@gela.ge")).thenReturn(true);
+        when(dao.checkGoogleID("asdfkj@kasdasd.cz")).thenReturn(false);
+        when(dao.checkGoogleID("123456777@gmail.com")).thenReturn(true);
+        assertTrue(man.checkGoogleID("asd@asd.com"));
+        assertTrue(man.checkGoogleID("gelaasd@gela.ge"));
+        assertFalse(man.checkGoogleID("asdfkj@kasdasd.cz"));
+        assertTrue(man.checkGoogleID("123456777@gmail.com"));
+        //CheckPhoneNumber
+        when(dao.checkPhoneNumber("123456789")).thenReturn(true);
+        when(dao.checkPhoneNumber("123456790")).thenReturn(true);
+        when(dao.checkPhoneNumber("123456791")).thenReturn(false);
+        when(dao.checkPhoneNumber("123456777")).thenReturn(true);
+        assertTrue(man.checkPhoneNumber("123456789"));
+        assertTrue(man.checkPhoneNumber("123456790"));
+        assertFalse(man.checkPhoneNumber("123456791"));
+        assertTrue(man.checkPhoneNumber("123456777"));
+        //Car plate check
+        when(dao.checkCarID("aaa000aaa")).thenReturn(true);
+        when(dao.checkCarID("aaa010aaa")).thenReturn(true);
+        when(dao.checkCarID("aaa020aaa")).thenReturn(false);
+        when(dao.checkCarID("aaa030aaa")).thenReturn(true);
+        assertTrue(man.checkCarID("aaa000aaa"));
+        assertTrue(man.checkCarID("aaa010aaa"));
+        assertFalse(man.checkCarID("aaa020aaa"));
+        assertTrue(man.checkCarID("aaa030aaa"));
+
     }
     @Test
     public void orderManagerTests(){
