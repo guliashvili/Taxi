@@ -23,7 +23,7 @@ public abstract  class DriverManagerAPI {
      * @param carID
      * @return Car generated from database.
      */
-    public abstract Car getCarByID(int carID);
+    public abstract Car getCarByID(String carID);
 
 
     /**

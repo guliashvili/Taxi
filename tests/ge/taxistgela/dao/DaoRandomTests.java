@@ -27,11 +27,11 @@ public class DaoRandomTests {
     ArrayList<Order> orders = new ArrayList<>();
     ArrayList<Review> reviews = new ArrayList<>();
 
+    DaoTests dt = new DaoTests();
     @Test
     public void randomUserTests(){
         UserDao dao = new UserDao();
         Random rnd = new Random();
-        DaoTests dt = new DaoTests();
         for(int i=0;i<250;++i){
             String email = "";
             while(email.equals("") || dao.checkEmail(email)){
@@ -146,7 +146,7 @@ public class DaoRandomTests {
             }
             Company company = new Company(-1,companyCode,email,password,companyName,phoneNumber,facebookID,googleID,rnd.nextBoolean());
             dao.registerCompany(company);
-            assertTrue(company.equals(dao.loginCompany(company.getEmail(),company.getPassword())));
+            dt.compareCompanies(company, dao.loginCompany(company.getEmail(), company.getPassword()));
             companies.add(company);
         }
         for(Company company:companies){
@@ -181,13 +181,14 @@ public class DaoRandomTests {
             }
             if(rnd.nextBoolean()) company.setGoogleID(googleID);
             dao.updateCompany(company);
-            assertTrue(company.equals(dao.loginCompany(company.getEmail(),company.getPassword())));
+            dt.compareCompanies(company, dao.loginCompany(company.getEmail(), company.getPassword()));
         }
     }
     @Test
     public void randomDriverTests(){
         DriverDao dao = new DriverDao();
         Random rnd = new Random();
+
         for(int i=0;i<250;++i){
             String personalID = generateRandomString(11,true,true); // TODO DriverDao needs personal ID checks
             String email = "";
@@ -195,7 +196,9 @@ public class DaoRandomTests {
                 email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
             }
             String password = generateRandomString(10,true,false);
-            Integer companyID = companies.get(rnd.nextInt(companies.size())).getCompanyID();
+            Integer companyID=null;
+            if(!companies.isEmpty())
+             companyID = companies.get(rnd.nextInt(companies.size())).getCompanyID();
             String name = names[rnd.nextInt(names.length)];
             String surename = surenames[rnd.nextInt(surenames.length)];
             String phoneNumber = "";
@@ -217,6 +220,7 @@ public class DaoRandomTests {
             while(carID.equals("") || dao.checkCarID(carID)){
                 carID = generateRandomPlate();
             }
+            car.setCarID(carID);
             car.setConditioning(rnd.nextBoolean());
             car.setCarYear(1990+rnd.nextInt(25));
             car.setCarDescription(generateRandomString(200, false, false));
@@ -230,7 +234,7 @@ public class DaoRandomTests {
             Location loc = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
             Driver driver = new Driver(-1,personalID,email,password,companyID,name,surename,gend,phoneNumber,car,facebookID,googleID,loc,rnd.nextDouble()*5,driverPreference,rnd.nextBoolean(),rnd.nextBoolean());
             dao.registerDriver(driver);
-            assertTrue(driver.equals(dao.loginDriver(driver.getEmail(), driver.getPassword())));
+            dt.compareDrivers(driver,dao.loginDriver(driver.getEmail(), driver.getPassword()));
             drivers.add(driver);
         }
         for(Driver driver:drivers){
@@ -243,7 +247,8 @@ public class DaoRandomTests {
             if(rnd.nextBoolean()) driver.setEmail(email);
             String password = generateRandomString(10,true,false);
             if(rnd.nextBoolean()) driver.setPassword(password);
-            Integer companyID = companies.get(rnd.nextInt(companies.size())).getCompanyID();
+            Integer companyID=null;
+            if(!companies.isEmpty()) companyID = companies.get(rnd.nextInt(companies.size())).getCompanyID();
             if(rnd.nextBoolean()) driver.setCompanyID(companyID);
             String name = names[rnd.nextInt(names.length)];
             if(rnd.nextBoolean()) driver.setFirstName(name);
@@ -289,7 +294,7 @@ public class DaoRandomTests {
             Location loc = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
             if(rnd.nextBoolean()) driver.setLocation(loc);
             dao.updateDriver(driver);
-            assertTrue(driver.equals(dao.loginDriver(driver.getEmail(), driver.getPassword())));
+            dt.compareDrivers(driver, dao.loginDriver(driver.getEmail(), driver.getPassword()));
         }
     }
     /**
@@ -329,12 +334,13 @@ public class DaoRandomTests {
      */
     private String generateRandomPlate(){
         Random rnd = new Random();
-        return ""+ ('0'+rnd.nextInt(9)) + ('0'+rnd.nextInt(9)) + ('a'+rnd.nextInt(26)) + ('a'+rnd.nextInt(26)) + ('a'+rnd.nextInt(26)) + ('0'+rnd.nextInt(9)) +('0'+rnd.nextInt(9));
+        return ""+ (char)('0'+rnd.nextInt(9)) +(char) ('0'+rnd.nextInt(9)) + (char)('a'+rnd.nextInt(26)) + (char)('a'+rnd.nextInt(26)) + (char)('a'+rnd.nextInt(26)) + (char)('0'+rnd.nextInt(9)) +(char)('0'+rnd.nextInt(9));
     }
     @Test
     public void randomOrderTests(){
         OrderDao dao = new OrderDao();
         Random rnd = new Random();
+
         int userID = users.get(rnd.nextInt(users.size())).getUserID();
         int driverID = drivers.get(rnd.nextInt(drivers.size())).getDriverID();
         int numPassengers = rnd.nextInt(8);
@@ -366,12 +372,16 @@ public class DaoRandomTests {
     public void randomReviewTests(){
         ReviewDao dao =new ReviewDao();
         Random rnd = new Random();
-        Review rev = new Review(-1,orders.get(rnd.nextInt(orders.size())).getOrderID(),rnd.nextBoolean(),rnd.nextDouble()*5,generateRandomString(120,false,false));
-        reviews.add(rev);
-        if(rnd.nextBoolean()) {
-            rev = new Review(rev.getReviewID(),orders.get(rnd.nextInt(orders.size())).getOrderID(),rnd.nextBoolean(),rnd.nextDouble()*5,generateRandomString(120,false,false));
-            dao.updateReview(rev);
-            assertTrue(rev.equals(dao.getReviewByID(rev.getReviewID())));
+        while(true) {
+            if (!orders.isEmpty()) {
+                Review rev = new Review(-1, orders.get(rnd.nextInt(orders.size())).getOrderID(), rnd.nextBoolean(), rnd.nextDouble() * 5, generateRandomString(120, false, false));
+                reviews.add(rev);
+                if (rnd.nextBoolean()) {
+                    rev = new Review(rev.getReviewID(), orders.get(rnd.nextInt(orders.size())).getOrderID(), rnd.nextBoolean(), rnd.nextDouble() * 5, generateRandomString(120, false, false));
+                    dao.updateReview(rev);
+                    assertTrue(rev.equals(dao.getReviewByID(rev.getReviewID())));
+                }
+            }
         }
     }
 

@@ -49,7 +49,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public Car getCarByID(int carID) {
+    public Car getCarByID(String carID) {
         return driverDao.getCarByID(carID);
     }
 

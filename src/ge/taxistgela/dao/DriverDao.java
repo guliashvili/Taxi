@@ -86,13 +86,13 @@ public class DriverDao implements DriverDaoAPI {
     }
 
     @Override
-    public Car getCarByID(int carID) {
+    public Car getCarByID(String carID) {
 
         Car output;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM Cars WHERE Cars.carID = ?"))) {
 
-                st.setInt(1, carID);
+                st.setString(1, carID);
 
 
                 ExternalAlgorithms.debugPrintSelect("get car by id \n" + st.toString());
@@ -268,7 +268,7 @@ public class DriverDao implements DriverDaoAPI {
             output.setPhoneNumber(res.getString("Drivers.phoneNumber"));
 
 
-            int carID = res.getInt("Drivers.carID");
+            String carID = res.getString("Drivers.carID");
             Car car = getCarByID(carID);
             output.setCar(car);
 
