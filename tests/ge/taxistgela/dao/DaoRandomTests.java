@@ -2,12 +2,12 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,11 +21,11 @@ public class DaoRandomTests {
 
     String[] companyNames={"Rostomi & CO","taqsi minda shchma","sapatriarqos jipi gamodzaxebit","2 diplomianebi","rac ar gergeba","sad iyo da sad ara"};
 
-    ArrayList<User> users = new ArrayList<>();
-    ArrayList<Driver> drivers = new ArrayList<>();
-    ArrayList<Company> companies = new ArrayList<>();
-    ArrayList<Order> orders = new ArrayList<>();
-    ArrayList<Review> reviews = new ArrayList<>();
+    List<User> users = Collections.synchronizedList(new ArrayList<>());
+    List<Driver> drivers = Collections.synchronizedList(new ArrayList<>());
+    List<Company> companies = Collections.synchronizedList(new ArrayList<>());
+    List<Order> orders = Collections.synchronizedList(new ArrayList<>());
+    List<Review> reviews = Collections.synchronizedList(new ArrayList<>());
 
     DaoTests dt = new DaoTests();
     @Test
@@ -340,25 +340,34 @@ public class DaoRandomTests {
     public void randomOrderTests(){
         OrderDao dao = new OrderDao();
         Random rnd = new Random();
+        for(int i=0;i<250;++i){
+            if(!users.isEmpty() && !drivers.isEmpty()) {
+                int userID = users.get(rnd.nextInt(users.size())).getUserID();
+                int driverID = drivers.get(rnd.nextInt(drivers.size())).getDriverID();
+                int numPassengers = rnd.nextInt(8);
+                Location loc = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
+                Location loc1 = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
+                Date startDate = new Date();
+                Date endDate = new Date();
+                Date callTime = new Date();
+                startDate.setTime(rnd.nextLong());
+                while (endDate.after(startDate) && endDate.after(callTime) && callTime.after(startDate)) {
+                    startDate.setTime(rnd.nextLong());
+                    callTime.setTime(rnd.nextLong());
+                }
+                BigDecimal paymentAmount = new BigDecimal(rnd.nextDouble() * 220);
+                Order ord = new Order(-1, userID, driverID, numPassengers, loc, loc1, startDate, endDate, paymentAmount, callTime);
+                dao.addOrder(ord);
+                assertTrue(dao.getOrderByID(ord.getOrderID()).equals(ord));
+                orders.add(ord);
+            }else{
+                try {
+                    Thread.sleep(4000);
+                }catch(Exception e){
 
-        int userID = users.get(rnd.nextInt(users.size())).getUserID();
-        int driverID = drivers.get(rnd.nextInt(drivers.size())).getDriverID();
-        int numPassengers = rnd.nextInt(8);
-        Location loc = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
-        Location loc1 = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
-        Date startDate = new Date();
-        Date endDate = new Date();
-        Date callTime = new Date();
-        startDate.setTime(rnd.nextLong());
-        while(endDate.after(startDate) && endDate.after(callTime) && callTime.after(startDate)){
-            startDate.setTime(rnd.nextLong());
-            callTime.setTime(rnd.nextLong());
+                }
+            }
         }
-        BigDecimal paymentAmount = new BigDecimal(rnd.nextDouble()*220);
-        Order ord = new Order(-1,userID,driverID,numPassengers,loc,loc1,startDate,endDate,paymentAmount,callTime);
-        dao.addOrder(ord);
-        assertTrue(dao.getOrderByID(ord.getOrderID()).equals(ord));
-        orders.add(ord);
     }
 
     /**
@@ -372,7 +381,7 @@ public class DaoRandomTests {
     public void randomReviewTests(){
         ReviewDao dao =new ReviewDao();
         Random rnd = new Random();
-        while(true) {
+        for(int i=0;i<250;++i){
             if (!orders.isEmpty()) {
                 Review rev = new Review(-1, orders.get(rnd.nextInt(orders.size())).getOrderID(), rnd.nextBoolean(), rnd.nextDouble() * 5, generateRandomString(120, false, false));
                 reviews.add(rev);
@@ -380,6 +389,12 @@ public class DaoRandomTests {
                     rev = new Review(rev.getReviewID(), orders.get(rnd.nextInt(orders.size())).getOrderID(), rnd.nextBoolean(), rnd.nextDouble() * 5, generateRandomString(120, false, false));
                     dao.updateReview(rev);
                     assertTrue(rev.equals(dao.getReviewByID(rev.getReviewID())));
+                }
+            }else{
+                try {
+                    Thread.sleep(4000);
+                }catch(Exception e){
+
                 }
             }
         }
