@@ -25,8 +25,8 @@ public class DaoRandomTests extends TestCase {
     ArrayList<Driver> drivers = new ArrayList<>();
     ArrayList<Company> companies = new ArrayList<>();
     ArrayList<Order> orders = new ArrayList<>();
+    ArrayList<Review> reviews = new ArrayList<>();
 
-    UserPreference[] preferences={};
     @Test
     public void randomUserTests(){
         UserDao dao = new UserDao();
@@ -179,7 +179,6 @@ public class DaoRandomTests extends TestCase {
             if(rnd.nextBoolean()) company.setGoogleID(googleID);
             dao.updateCompany(company);
             assertTrue(company.equals(dao.loginCompany(company.getEmail(),company.getPassword())));
-            companies.add(company);
         }
     }
     @Test
@@ -187,7 +186,7 @@ public class DaoRandomTests extends TestCase {
         DriverDao dao = new DriverDao();
         Random rnd = new Random();
         for(int i=0;i<250;++i){
-            String personalID = generateRandomString(11,true,true);
+            String personalID = generateRandomString(11,true,true); // TODO DriverDao needs personal ID checks
             String email = "";
             while(email.equals("") || dao.checkEmail(email)){
                 email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
@@ -232,7 +231,62 @@ public class DaoRandomTests extends TestCase {
             drivers.add(driver);
         }
         for(Driver driver:drivers){
-
+            String personalID = generateRandomString(11,true,true); // TODO DriverDao needs personal ID checks
+            if(rnd.nextBoolean()) driver.setPersonalID(personalID);
+            String email = "";
+            while(email.equals("") || dao.checkEmail(email)){
+                email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
+            }
+            if(rnd.nextBoolean()) driver.setEmail(email);
+            String password = generateRandomString(10,true,false);
+            if(rnd.nextBoolean()) driver.setPassword(password);
+            Integer companyID = companies.get(rnd.nextInt(companies.size())).getCompanyID();
+            if(rnd.nextBoolean()) driver.setCompanyID(companyID);
+            String name = names[rnd.nextInt(names.length)];
+            if(rnd.nextBoolean()) driver.setFirstName(name);
+            String surename = surenames[rnd.nextInt(surenames.length)];
+            if(rnd.nextBoolean()) driver.setLastName(surename);
+            String phoneNumber = "";
+            while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
+                phoneNumber = generateRandomString(9,true,true);
+            }
+            if(rnd.nextBoolean()) driver.setPhoneNumber(phoneNumber);
+            Gender gend=Gender.MALE;
+            if(rnd.nextBoolean()) gend=Gender.FEMALE;
+            if(rnd.nextBoolean()) driver.setGender(gend);
+            String facebookID = "";
+            while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
+                facebookID=generateRandomString(30,true,false);
+            }
+            if(rnd.nextBoolean()) driver.setFacebookID(facebookID);
+            String googleID ="";
+            while(googleID.equals("") || dao.checkGoogleID(googleID)){
+                googleID=generateRandomString(30,true,false);
+            }
+            if(rnd.nextBoolean()) driver.setGoogleID(googleID);
+            if(rnd.nextBoolean()) {
+                Car car = driver.getCar();
+                String carID = "";
+                while (carID.equals("") || dao.checkCarID(carID)) {
+                    carID = generateRandomPlate();
+                }
+                car.setConditioning(rnd.nextBoolean());
+                car.setCarYear(1990 + rnd.nextInt(25));
+                car.setCarDescription(generateRandomString(200, false, false));
+                car.setNumPassengers(rnd.nextInt(8));
+                dao.updateCar(car);
+            }
+            if(rnd.nextBoolean()) {
+                DriverPreference driverPreference = new DriverPreference();
+                driverPreference.setCoefficientPer(rnd.nextDouble() * 8);
+                driverPreference.setDriverPreferenceID(-1);
+                driverPreference.setMinimumUserRating(rnd.nextDouble() * 5);
+                dao.updateDriverPreference(driverPreference);
+            }
+            Location loc = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
+            if(rnd.nextBoolean()) driver.setLocation(loc);
+            dao.updateDriver(driver);
+            assertTrue(driver.equals(dao.loginDriver(driver.getEmail(), driver.getPassword())));
         }
     }
     /**
@@ -287,6 +341,14 @@ public class DaoRandomTests extends TestCase {
         dao.addOrder(ord);
         assertTrue(dao.getOrderByID(ord.getOrderID()).equals(ord));
         orders.add(ord);
+    }
+
+    /**
+     * returns location near/in tbilisi
+     * @return
+     */
+    private Location getValidLocation(){
+        return null;
     }
     @Test
     public void randomReviewTests(){
