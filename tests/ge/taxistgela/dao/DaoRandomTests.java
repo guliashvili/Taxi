@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Created by Ratmach on 6/6/15.
  */
-public class DaoRandomTests extends TestCase {
+public class DaoRandomTests {
     String[] names={"rati","azo","gela","gulo","mandzu","aleqsandre","tornike","giorgi","givi","nodari","sandro","ana","nino","nunu","ekko","yasuo","vi","volibear","tinker","revazi","vlad","roshan","seer"};
     String[] surenames={"matchavariani","aziziani","guliashvili","mandzulashvili","magaltadze","magradze","kunchulia","gobejishvili","tchanturia","dogonadze","shalikashvili"};
     String[] emails={"@freeuni.edu.ge","@gmail.com","@yahoo.com","@mail.ru"};
@@ -29,6 +31,7 @@ public class DaoRandomTests extends TestCase {
     public void randomUserTests(){
         UserDao dao = new UserDao();
         Random rnd = new Random();
+        DaoTests dt = new DaoTests();
         for(int i=0;i<250;++i){
             String email = "";
             while(email.equals("") || dao.checkEmail(email)){
@@ -41,6 +44,7 @@ public class DaoRandomTests extends TestCase {
             while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
                 phoneNumber = generateRandomString(9,true,true);
             }
+            System.out.println(phoneNumber);
             Gender gend=Gender.MALE;
             if(rnd.nextBoolean()) gend=Gender.FEMALE;
             String facebookID = "";
@@ -59,10 +63,11 @@ public class DaoRandomTests extends TestCase {
             usrp.setMinimumDriverRating(rnd.nextDouble()*5);
             usrp.setTimeLimit(rnd.nextInt(2500));
             usrp.setWantsAlone(rnd.nextBoolean());
+            usrp.setPassengersCount(rnd.nextInt(9));
             dao.insertUserPreference(usrp);
             User usr = new User(-1,email,password,name,surename,phoneNumber,gend,facebookID,googleID,rating,usrp,rnd.nextBoolean());
             dao.registerUser(usr);
-            assertTrue(usr.equals(dao.loginUser(usr.getEmail(), usr.getPassword())));
+            dt.compareUsers(usr,dao.loginUser(usr.getEmail(), usr.getPassword()));
             users.add(usr);
         }
         for(User user : users){
@@ -108,7 +113,7 @@ public class DaoRandomTests extends TestCase {
                     dao.updateUserPreference(usrp);
                 }
                 dao.updateUser(user);
-                assertTrue(user.equals(dao.loginUser(user.getEmail(),user.getPassword())));
+                dt.compareUsers(user,dao.loginUser(user.getEmail(), user.getPassword()));
             }
         }
     }
@@ -297,16 +302,24 @@ public class DaoRandomTests extends TestCase {
     private String generateRandomString(int len,boolean forceLength,boolean numbersOnly){ // needs some utf and symbols
         Random rnd = new Random();
         String output="";
-        for(int i=0;i<len;++i){
-            if(rnd.nextBoolean() || numbersOnly)
-                output += '0' + rnd.nextInt(9);
-            else
-            if(rnd.nextBoolean() || forceLength)
-                if(rnd.nextBoolean())
-                    output += 'a' + rnd.nextInt(26);
-                else
-                    output += '0' + rnd.nextInt(9);
-
+        if(!numbersOnly) {
+            for (int i = 0; i < len; ++i) {
+                if (rnd.nextBoolean() || forceLength) {
+                    if (rnd.nextBoolean()) {
+                        output += (char)('a' + rnd.nextInt(26));
+                    } else {
+                        output += (char)('0' + rnd.nextInt(9));
+                    }
+                }
+            }
+        }else{
+            for (int i = 0; i < len; ++i) {
+                if (rnd.nextBoolean() || forceLength) {
+                    if (rnd.nextBoolean() || forceLength) {
+                        output += (char)('0' + rnd.nextInt(9));
+                    }
+                }
+            }
         }
         return output;
     }

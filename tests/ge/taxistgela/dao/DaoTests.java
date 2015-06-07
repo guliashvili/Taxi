@@ -1,7 +1,6 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
-import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -107,7 +106,7 @@ public class DaoTests {
         assertFalse(man.checkPhoneNumber("gg wp"));
         assertTrue(man.checkCompanyCode("12345678a"));
     }
-    private void compareCompanies(Company comp,Company comp1){
+    public void compareCompanies(Company comp,Company comp1){
         assertEquals(comp.getCompanyCode(),comp1.getCompanyCode());
         assertEquals(comp.getCompanyID(),comp1.getCompanyID());
         assertEquals(comp.getCompanyName(),comp1.getCompanyName());
@@ -198,7 +197,7 @@ public class DaoTests {
         assertFalse(man.checkFacebookID("asdsdafrk"));
         //compareUsers(usr,man.getUserByID(usr.getUserID())); THATS NOT GOOD COMPARE
     }
-    private void compareUsers(User user,User user1){
+    public void compareUsers(User user,User user1){
         Gender g = user.getGender();
         Gender g1 = user1.getGender();
         UserPreference pref = user.getPreference();
@@ -293,20 +292,20 @@ public class DaoTests {
         }
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
     }
-    private void compareCars(Car car1,Car car2){
+    public void compareCars(Car car1,Car car2){
         //car comparison
         assertEquals(car1.getCarDescription(),car2.getCarDescription());
         assertEquals(car1.getCarID(),car2.getCarID());
         assertEquals(car1.getCarYear(), car2.getCarYear());
         assertEquals(car1.getNumPassengers(),car2.getNumPassengers());
     }
-    private void comparePrefernces(DriverPreference dp1,DriverPreference dp2){
+    public void comparePrefernces(DriverPreference dp1,DriverPreference dp2){
         //preference comparison
         assertEquals(dp1.getCoefficientPer(), dp2.getCoefficientPer());
         assertEquals(dp1.getDriverPreferenceID(),dp2.getDriverPreferenceID());
         assertEquals(dp1.getMinimumUserRating(), dp2.getMinimumUserRating());
     }
-    private void compareDrivers(Driver driver,Driver driver1){
+    public void compareDrivers(Driver driver1,Driver driver){
         Car car = driver.getCar();
         DriverPreference pref = driver.getPreferences();
         assertEquals(driver1.getRating(), driver.getRating());
