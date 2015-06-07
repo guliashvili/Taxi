@@ -12,12 +12,12 @@ public class ReviewManager extends  ReviewManagerAPI {
     public ReviewManager(ReviewDaoAPI reviewDaoAPI){super(reviewDaoAPI);}
 
     @Override
-    public int addReview(Review review) {
+    public boolean addReview(Review review) {
         return reviewDaoAPI.addReview(review);
     }
 
     @Override
-    public int updateReview(Review review) {
+    public boolean updateReview(Review review) {
         return reviewDaoAPI.updateReview(review);
     }
 

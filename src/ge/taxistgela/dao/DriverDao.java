@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class DriverDao implements DriverDaoAPI, OperationCodes {
+public class DriverDao implements DriverDaoAPI {
     private final static String base_join_select_STMT = " SELECT * FROM Drivers INNER JOIN Cars ON Drivers.CarID=Cars.CarID INNER JOIN DriverPreferences ON " +
             "DriverPreferences.driverPreferenceID=Drivers.driverPreferenceID ";
     private final static String base_select_STMT = "SELECT * FROM Drivers ";
@@ -50,8 +50,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             "SET minimumUserRating=?,coefficientPer=?" +
             "WHERE driverPreferenceID=?";
 
-    private int setStringsCar(PreparedStatementEnhanced st, Car car, boolean update) {
-        int errorCode = 0;
+    private boolean setStringsCar(PreparedStatementEnhanced st, Car car, boolean update) {
+        boolean errorCode = false;
         int x = 1;
         try {
             if (!update)
@@ -63,7 +63,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             if (update)
                 st.setString(x++, car.getCarID());
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
@@ -109,8 +109,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public int insertCar(Car car) {
-        int errorCode = 0;
+    public boolean insertCar(Car car) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(insert_car_STMT, PreparedStatement.RETURN_GENERATED_KEYS))) {
 
@@ -123,13 +123,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 if (res.next()) {
                     car.setCarID(res.getString("carID"));
                 } else {
-                    errorCode = -1;
+                    errorCode = true;
 
                 }
 
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }
@@ -138,8 +138,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public int updateCar(Car car) {
-        int errorCode = 0;
+    public boolean updateCar(Car car) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(update_car_STMT))) {
 
@@ -150,7 +150,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }
@@ -194,23 +194,23 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
         return output;
     }
 
-    private int setStringsPreference(PreparedStatementEnhanced pt, DriverPreference dp, boolean update) {
-        int errorCode = 0;
+    private boolean setStringsPreference(PreparedStatementEnhanced pt, DriverPreference dp, boolean update) {
+        boolean errorCode = false;
         try {
             pt.setDouble(1, dp.getMinimumUserRating());
             pt.setDouble(2, dp.getCoefficientPer());
             if (update)
                 pt.setInt(3, dp.getDriverPreferenceID());
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
     }
 
     @Override
-    public int insertDriverPreference(DriverPreference driverPreference) {
-        int errorCode = 0;
+    public boolean insertDriverPreference(DriverPreference driverPreference) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(insert_preference_STMT, PreparedStatement.RETURN_GENERATED_KEYS))) {
 
@@ -223,13 +223,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 if (res.next()) {
                     driverPreference.setDriverPreferenceID(res.getInt(1));
                 } else {
-                    errorCode = -1;
+                    errorCode = true;
 
                 }
 
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }
@@ -238,8 +238,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public int updateDriverPreference(DriverPreference driverPreference) {
-        int errorCode = 0;
+    public boolean updateDriverPreference(DriverPreference driverPreference) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(update_preference_STMT))) {
 
@@ -250,7 +250,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }
@@ -386,8 +386,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     /*(personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,driverPreferenceID,latitude,longitude,isActive)
         sets strings with that order
     */
-    private int setStrings(PreparedStatementEnhanced st, Driver driver, boolean update) {
-        int errorCode = 0;
+    private boolean setStrings(PreparedStatementEnhanced st, Driver driver, boolean update) {
+        boolean errorCode = false;
         try {
             st.setString(1, driver.getPersonalID());
             st.setString(2, HashGenerator.getSaltHash(driver.getPassword()));
@@ -409,15 +409,15 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
             if (update)
                 st.setInt(18, driver.getDriverID());
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
     }
 
     @Override
-    public int registerDriver(Driver driver) {
-        int errorCode = 0;
+    public boolean registerDriver(Driver driver) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(register_STMT, PreparedStatement.RETURN_GENERATED_KEYS))) {
 
@@ -430,13 +430,13 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 if (res.next()) {
                     driver.setDriverID(res.getInt(1));
                 } else {
-                    errorCode = -1;
+                    errorCode = true;
 
                 }
 
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }
@@ -445,8 +445,8 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
     }
 
     @Override
-    public int updateDriver(Driver driver) {
-        int errorCode = 0;
+    public boolean updateDriver(Driver driver) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(update_STMT))) {
 
@@ -456,7 +456,7 @@ public class DriverDao implements DriverDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }

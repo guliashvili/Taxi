@@ -1,6 +1,9 @@
 package ge.taxistgela.model;
 
-import ge.taxistgela.bean.*;
+import ge.taxistgela.bean.Car;
+import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.DriverPreference;
+import ge.taxistgela.bean.User;
 import ge.taxistgela.dao.DriverDaoAPI;
 
 import java.util.List;
@@ -30,7 +33,7 @@ public abstract  class DriverManagerAPI {
      * @param car
      * @return operationCode
      */
-    public abstract int insertCar(Car car);
+    public abstract boolean insertCar(Car car);
 
     /**
      * Updates the Car with the new data.
@@ -38,7 +41,7 @@ public abstract  class DriverManagerAPI {
      * @param car
      * @return operationCode
      */
-    public abstract int updateCar(Car car);
+    public abstract boolean updateCar(Car car);
 
 
     /**
@@ -57,7 +60,7 @@ public abstract  class DriverManagerAPI {
      * @param driverPreference
      * @return operationCode
      */
-    public abstract int insertDriverPreference(DriverPreference driverPreference);
+    public abstract boolean insertDriverPreference(DriverPreference driverPreference);
 
     /**
      * Updates the driverPreference with the new data.
@@ -65,7 +68,7 @@ public abstract  class DriverManagerAPI {
      * @param driverPreference
      * @return operationCode
      */
-    public abstract int updateDriverPreference(DriverPreference driverPreference);
+    public abstract boolean updateDriverPreference(DriverPreference driverPreference);
 
     /**
      * Returns Driver selected by the certain driverID.
@@ -117,7 +120,7 @@ public abstract  class DriverManagerAPI {
      * @param driver
      * @return operationCode
      */
-    public abstract int registerDriver(Driver driver);
+    public abstract boolean registerDriver(Driver driver);
 
     /**
      * Updates the certain driver with the new data.
@@ -125,7 +128,7 @@ public abstract  class DriverManagerAPI {
      * @param driver
      * @return operationCode
      */
-    public abstract int updateDriver(Driver driver);
+    public abstract boolean updateDriver(Driver driver);
 
     /**
      * Checks if the driver exists with the certain carID.

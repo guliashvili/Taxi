@@ -17,7 +17,7 @@ public abstract class ReviewManagerAPI {
      * @param review
      * @return operationCode
      */
-    public  abstract int  addReview(Review review);
+    public abstract boolean addReview(Review review);
 
     /**
      * Updates the certain review with the new data.
@@ -25,7 +25,7 @@ public abstract class ReviewManagerAPI {
      * @param review
      * @return operationCode
      */
-    public  abstract int  updateReview(Review review);
+    public abstract boolean updateReview(Review review);
 
     /**
      * Returns Review selected by the certain reviewID.

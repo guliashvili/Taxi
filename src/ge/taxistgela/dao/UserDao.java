@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class UserDao implements UserDaoAPI, OperationCodes {
+public class UserDao implements UserDaoAPI {
     private final static String checkMail_STM = "SELECT userID FROM Users WHERE  email = ?";
     private final static String checkPhoneNumber_STM = "SELECT userID FROM Users WHERE  phoneNumber = ?";
     private final static String checkFacebook_STM = "SELECT userID FROM Users WHERE  facebookID = ?";
@@ -94,8 +94,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         return user;
     }
 
-    private int setStringsPreference(PreparedStatementEnhanced st, UserPreference up, boolean update) {
-        int errorCode = 0;
+    private boolean setStringsPreference(PreparedStatementEnhanced st, UserPreference up, boolean update) {
+        boolean errorCode = false;
         try {
             st.setDouble(1,up.getMinimumDriverRating());
             st.setBoolean(2,up.isConditioning());
@@ -106,15 +106,15 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             if(update)
                 st.setInt(7,up.getUserPreferenceID());
         }catch(SQLException e){
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
 
         return errorCode;
     }
     @Override
-    public int insertUserPreference(UserPreference userPreference) {
-        int errorCode = 0;
+    public boolean insertUserPreference(UserPreference userPreference) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st =
                          new PreparedStatementEnhanced(con.prepareStatement(preference_insert_STMT, PreparedStatement.RETURN_GENERATED_KEYS))) {
@@ -129,12 +129,12 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 if (res.next()) {
                     userPreference.setUserPreferenceID(res.getInt(1));
                 } else {
-                    errorCode = -1;
+                    errorCode = true;
                 }
 
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
@@ -142,8 +142,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     }
 
     @Override
-    public int updateUserPreference(UserPreference userPreference) {
-        int errorCode = 0;
+    public boolean updateUserPreference(UserPreference userPreference) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(preference_update_STMT))) {
                 
@@ -153,7 +153,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }
@@ -270,8 +270,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID
     sets string with that order
      */
-    private int setStrings(PreparedStatementEnhanced st, User user, boolean update) {
-        int errorCode = 0;
+    private boolean setStrings(PreparedStatementEnhanced st, User user, boolean update) {
+        boolean errorCode = false;
         try {
             st.setString(1, HashGenerator.getSaltHash(user.getPassword()));
             st.setString(2, user.getEmail());
@@ -288,15 +288,15 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.setInt(12, user.getUserID());
 
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
     }
 
     @Override
-    public int registerUser(User user) {
-        int errorCode = 0;
+    public boolean registerUser(User user) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st =
                          new PreparedStatementEnhanced(con.prepareStatement(register_STMT, PreparedStatement.RETURN_GENERATED_KEYS))) {
@@ -310,12 +310,12 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 if (res.next()) {
                     user.setUserID(res.getInt(1));
                 } else {
-                    errorCode = -1;
+                    errorCode = true;
                 }
 
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }
@@ -324,8 +324,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     }
 
     @Override
-    public int updateUser(User user) {
-        int errorCode = 0;
+    public boolean updateUser(User user) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(update_STMT))) {
                 
@@ -336,7 +336,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
 
         }

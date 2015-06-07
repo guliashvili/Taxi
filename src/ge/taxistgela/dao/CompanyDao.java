@@ -14,7 +14,7 @@ import java.sql.Statement;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class CompanyDao implements CompanyDaoAPI, OperationCodes {
+public class CompanyDao implements CompanyDaoAPI {
     private final static String base_select_STMT = " SELECT * FROM Companies ";
     private final static String login_STMT = base_select_STMT + "  WHERE email=? AND password=? ";
     private final static String register_STMT = "INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID,isVerified) VALUES(?,?,?,?,?,?,?,?)";
@@ -53,8 +53,8 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
     companyCode,email,password,companyName,phoneNumber,facebookID,googleID
     sets strings with that order
      */
-    private int setStrings(PreparedStatementEnhanced st, Company company, boolean update) {
-        int errorCode = 0;
+    private boolean setStrings(PreparedStatementEnhanced st, Company company, boolean update) {
+        boolean errorCode = false;
         try {
             st.setString(1, company.getCompanyCode());
             st.setString(2, company.getEmail());
@@ -68,15 +68,15 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
             if (update)
                 st.setInt(9, company.getCompanyID());
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
     }
 
     @Override
-    public int registerCompany(Company company) {
-        int errorCode = 0;
+    public boolean registerCompany(Company company) {
+        boolean errorCode = false;
 
         try (Connection con = DBConnectionProvider.getConnection()) {
 
@@ -89,22 +89,21 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 st.executeUpdate();
                 ResultSetEnhanced res = st.getGeneratedKeys();
                 if (!res.next()) {
-                    errorCode = -1;
+                    errorCode = true;
                 } else {
                     company.setCompanyID(res.getInt(1));
                 }
             }
         } catch (SQLException e) {
-
             ExternalAlgorithms.debugPrint(e);
-            errorCode = -1;
+            errorCode = true;
         }
         return errorCode;
     }
 
     @Override
-    public int updateCompany(Company company) {
-        int errorCode = 0;
+    public boolean updateCompany(Company company) {
+        boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(update_STMT))) {
 
@@ -116,7 +115,7 @@ public class CompanyDao implements CompanyDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;

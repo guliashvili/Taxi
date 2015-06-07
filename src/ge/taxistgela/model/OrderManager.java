@@ -11,12 +11,12 @@ import java.util.List;
 public class OrderManager extends OrderManagerAPI {
     public OrderManager(OrderDaoAPI orderDaoAPI){super(orderDaoAPI);}
     @Override
-    public int addOrder(Order order) {
+    public boolean addOrder(Order order) {
         return orderDaoAPI.addOrder(order);
     }
 
     @Override
-    public int updateOrder(Order order) {
+    public boolean updateOrder(Order order) {
         return orderDaoAPI.updateOrder(order);
     }
 

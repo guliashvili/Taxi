@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class OrderDao implements OrderDaoAPI, OperationCodes {
+public class OrderDao implements OrderDaoAPI {
 
     private static final String ADD_ORDER = "INSERT INTO Orders " +
             "(userID, driverID, numPassengers, startLocation_long, startLocation_lat, endLocation_long, " +
@@ -69,8 +69,8 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
         return order;
     }
 
-    private int setStrings(PreparedStatementEnhanced st, Order order, boolean update) {
-        int errorCode = 0;
+    private boolean setStrings(PreparedStatementEnhanced st, Order order, boolean update) {
+        boolean errorCode = false;
         try {
             st.setInt(1, order.getUserID());
             st.setInt(2, order.getDriverID());
@@ -87,14 +87,14 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 st.setInt(12, order.getOrderID());
         } catch (SQLException e) {
             ExternalAlgorithms.debugPrint(e);
-            errorCode = -1;
+            errorCode = true;
         }
         return errorCode;
     }
 
     @Override
-    public int addOrder(Order order) {
-        int errorCode = 0;
+    public boolean addOrder(Order order) {
+        boolean errorCode = false;
         try (Connection conn = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS))) {
                 errorCode |= setStrings(st, order, false);
@@ -110,15 +110,15 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
             }
         } catch (SQLException e) {
             ExternalAlgorithms.debugPrint(e);
-            errorCode = -1;
+            errorCode = true;
         }
 
         return errorCode;
     }
 
     @Override
-    public int updateOrder(Order order) {
-        int errorCode = 0;
+    public boolean updateOrder(Order order) {
+        boolean errorCode = false;
         try (Connection conn = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(UPDATE_ORDER))) {
                 errorCode |= setStrings(st, order, true);
@@ -128,7 +128,7 @@ public class OrderDao implements OrderDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;

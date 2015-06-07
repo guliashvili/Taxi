@@ -1,6 +1,9 @@
 package ge.taxistgela.dao;
 
-import ge.taxistgela.bean.*;
+import ge.taxistgela.bean.Car;
+import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.DriverPreference;
+import ge.taxistgela.bean.User;
 
 import java.util.List;
 
@@ -24,7 +27,7 @@ public interface DriverDaoAPI {
      * @param car
      * @return operationCode
      */
-    int insertCar(Car car);
+    boolean insertCar(Car car);
 
     /**
      * Updates the Car with the new data.
@@ -32,7 +35,7 @@ public interface DriverDaoAPI {
      * @param car
      * @return operationCode
      */
-    int updateCar(Car car);
+    boolean updateCar(Car car);
 
 
     /**
@@ -51,7 +54,7 @@ public interface DriverDaoAPI {
      * @param driverPreference
      * @return operationCode
      */
-    int insertDriverPreference(DriverPreference driverPreference);
+    boolean insertDriverPreference(DriverPreference driverPreference);
 
     /**
      * Updates the driverPreference with the new data.
@@ -59,7 +62,7 @@ public interface DriverDaoAPI {
      * @param driverPreference
      * @return operationCode
      */
-    int updateDriverPreference(DriverPreference driverPreference);
+    boolean updateDriverPreference(DriverPreference driverPreference);
 
     /**
      * Returns Driver selected by the certain driverID.
@@ -110,7 +113,7 @@ public interface DriverDaoAPI {
      * @param driver
      * @return operationCode
      */
-    int registerDriver(Driver driver);
+    boolean registerDriver(Driver driver);
 
     /**
      * Updates the certain driver with the new data.
@@ -118,7 +121,7 @@ public interface DriverDaoAPI {
      * @param driver
      * @return operationCode
      */
-    int updateDriver(Driver driver);
+    boolean updateDriver(Driver driver);
 
 
     /**

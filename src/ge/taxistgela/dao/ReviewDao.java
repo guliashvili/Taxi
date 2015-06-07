@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class ReviewDao implements ReviewDaoAPI, OperationCodes {
+public class ReviewDao implements ReviewDaoAPI {
 
     private static final String ADD_REVIEW = "INSERT INTO Reviews " +
             "(orderID, orientationFlag, rating, description)" +
@@ -34,8 +34,8 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
             "FROM Reviews r INNER JOIN Orders o ON o.driverID = ?";
 
 
-    private int setStrings(PreparedStatementEnhanced st, Review review, boolean update) {
-        int errorCode = 0;
+    private boolean setStrings(PreparedStatementEnhanced st, Review review, boolean update) {
+        boolean errorCode = false;
         try {
             st.setInt(1, review.getOrderID());
 
@@ -45,14 +45,14 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
             if (update)
                 st.setInt(5, review.getReviewID());
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
         }
         return errorCode;
     }
 
     @Override
-    public int addReview(Review review) {
-        int errorCode = 0;
+    public boolean addReview(Review review) {
+        boolean errorCode = false;
         try (Connection conn = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st =
                          new PreparedStatementEnhanced(conn.prepareStatement(ADD_REVIEW, Statement.RETURN_GENERATED_KEYS))) {
@@ -69,15 +69,15 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
                 }
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;
     }
 
     @Override
-    public int updateReview(Review review) {
-        int errorCode = 0;
+    public boolean updateReview(Review review) {
+        boolean errorCode = false;
         try (Connection conn = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(UPDATE_REVIEW))) {
 
@@ -89,7 +89,7 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-            errorCode = -1;
+            errorCode = true;
             ExternalAlgorithms.debugPrint(e);
         }
         return errorCode;

@@ -24,7 +24,7 @@ public interface CompanyDaoAPI {
      * @param company
      * @return operationCode
      */
-    int registerCompany(Company company);
+    boolean registerCompany(Company company);
 
     /**
      * Updates the certain company with the new data.
@@ -32,7 +32,7 @@ public interface CompanyDaoAPI {
      * @param company
      * @return operationCode
      */
-    int updateCompany(Company company);
+    boolean updateCompany(Company company);
 
     /**
      * Checks if the company exists with the certain email.

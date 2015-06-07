@@ -15,7 +15,7 @@ public interface ReviewDaoAPI {
      * @param review
      * @return operationCode
      */
-    int addReview(Review review);
+    boolean addReview(Review review);
 
     /**
      * Updates the certain review with the new data.
@@ -23,7 +23,7 @@ public interface ReviewDaoAPI {
      * @param review
      * @return operationCode
      */
-    int updateReview(Review review);
+    boolean updateReview(Review review);
 
     /**
      * Returns Review selected by the certain reviewID.

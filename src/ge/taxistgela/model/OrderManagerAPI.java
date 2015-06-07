@@ -3,7 +3,6 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.dao.OrderDaoAPI;
 
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ public abstract class OrderManagerAPI {
      * @param order
      * @return operationCode
      */
-    public abstract int addOrder(Order order);
+    public abstract boolean addOrder(Order order);
 
     /**
      * Updates the certain order with the new data. (status active).
@@ -28,7 +27,7 @@ public abstract class OrderManagerAPI {
      * @param order
      * @return operationCode
      */
-    public abstract int updateOrder(Order order);
+    public abstract boolean updateOrder(Order order);
 
     /**
      * Returns Order selected by the certain orderID.

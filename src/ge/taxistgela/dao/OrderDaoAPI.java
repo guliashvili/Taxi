@@ -2,7 +2,6 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.Order;
 
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public interface OrderDaoAPI {
      * @param order
      * @return operationCode
      */
-    int addOrder(Order order);
+    boolean addOrder(Order order);
 
     /**
      * Updates the certain order with the new data. (status active).
@@ -24,7 +23,7 @@ public interface OrderDaoAPI {
      * @param order
      * @return operationCode
      */
-    int updateOrder(Order order);
+    boolean updateOrder(Order order);
 
     /**
      * Returns Order selected by the certain orderID.

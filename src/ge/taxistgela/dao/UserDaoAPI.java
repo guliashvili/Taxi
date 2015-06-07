@@ -27,7 +27,7 @@ public interface UserDaoAPI {
      * @param userPreference
      * @return operationCode
      */
-    int insertUserPreference(UserPreference userPreference);
+    boolean insertUserPreference(UserPreference userPreference);
 
     /**
      * Updates the userPreference with the new data.
@@ -35,7 +35,7 @@ public interface UserDaoAPI {
      * @param userPreference
      * @return operationCode
      */
-    int updateUserPreference(UserPreference userPreference);
+    boolean updateUserPreference(UserPreference userPreference);
 
 
 
@@ -79,7 +79,7 @@ public interface UserDaoAPI {
      * @param user
      * @return operationCode
      */
-    int registerUser(User user);
+    boolean registerUser(User user);
 
     /**
      * Updates the user order with the new data.
@@ -87,7 +87,7 @@ public interface UserDaoAPI {
      * @param user
      * @return operationCode
      */
-    int updateUser(User user);
+    boolean updateUser(User user);
 
     /**
      * Checks if the user exists with the certain email.

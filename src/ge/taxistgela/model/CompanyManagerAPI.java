@@ -28,7 +28,7 @@ public abstract class CompanyManagerAPI {
      * @param company
      * @return operationCode
      */
-    public abstract int registerCompany(Company company);
+    public abstract boolean registerCompany(Company company);
 
     /**
      * Updates the certain company with the new data.
@@ -36,7 +36,7 @@ public abstract class CompanyManagerAPI {
      * @param company
      * @return operationCode
      */
-    public abstract int updateCompany(Company company);
+    public abstract boolean updateCompany(Company company);
 
     /**
      * Checks if the company exists with the certain email.

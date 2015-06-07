@@ -1,8 +1,10 @@
 package ge.taxistgela.model;
 
-import ge.taxistgela.bean.*;
+import ge.taxistgela.bean.Car;
+import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.DriverPreference;
+import ge.taxistgela.bean.User;
 import ge.taxistgela.dao.DriverDaoAPI;
-import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.RegistrationHelper;
 
 import java.util.List;
@@ -32,17 +34,17 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public int registerDriver(Driver driver) {
-        int ret;
+    public boolean registerDriver(Driver driver) {
+        boolean ret;
         if(!RegistrationHelper.isValid(driver))
-            ret = -1;
+            ret = true;
         else
             ret = driverDao.registerDriver(driver);
         return  ret;
     }
 
     @Override
-    public int updateDriver(Driver driver) {
+    public boolean updateDriver(Driver driver) {
         return driverDao.updateDriver(driver);
     }
 
@@ -52,12 +54,12 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public int insertCar(Car car) {
+    public boolean insertCar(Car car) {
         return driverDao.insertCar(car);
     }
 
     @Override
-    public int updateCar(Car car) {
+    public boolean updateCar(Car car) {
         return driverDao.updateCar(car);
     }
 
@@ -68,12 +70,12 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public int insertDriverPreference(DriverPreference driverPreference) {
+    public boolean insertDriverPreference(DriverPreference driverPreference) {
         return driverDao.insertDriverPreference(driverPreference);
     }
 
     @Override
-    public int updateDriverPreference(DriverPreference driverPreference) {
+    public boolean updateDriverPreference(DriverPreference driverPreference) {
         return driverDao.updateDriverPreference(driverPreference);
     }
 

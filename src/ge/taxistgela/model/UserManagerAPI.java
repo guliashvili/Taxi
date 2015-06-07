@@ -33,7 +33,7 @@ public abstract class UserManagerAPI {
      * @param userPreference
      * @return operationCode
      */
-    public abstract int insertUserPreference(UserPreference userPreference);
+    public abstract boolean insertUserPreference(UserPreference userPreference);
 
     /**
      * Updates the userPreference with the new data.
@@ -41,7 +41,7 @@ public abstract class UserManagerAPI {
      * @param userPreference
      * @return operationCode
      */
-    public abstract int updateUserPreference(UserPreference userPreference);
+    public abstract boolean updateUserPreference(UserPreference userPreference);
 
 
 
@@ -85,7 +85,7 @@ public abstract class UserManagerAPI {
      * @param user
      * @return operationCode
      */
-    public abstract int registerUser(User user);
+    public abstract boolean registerUser(User user);
 
     /**
      * Updates the user order with the new data.
@@ -93,7 +93,7 @@ public abstract class UserManagerAPI {
      * @param user
      * @return operationCode
      */
-    public abstract int updateUser(User user);
+    public abstract boolean updateUser(User user);
 
     /**
      * Checks if the user exists with the certain email.
