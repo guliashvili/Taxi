@@ -5,7 +5,6 @@ import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.DriverPreference;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.dao.DriverDaoAPI;
-import ge.taxistgela.helper.RegistrationHelper;
 
 import java.util.List;
 
@@ -35,17 +34,23 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public boolean registerDriver(Driver driver) {
-        boolean ret;
-        if(!RegistrationHelper.isValid(driver))
-            ret = true;
+        boolean errorCode;
+        if (!driver.isValid())
+            errorCode = true;
         else
-            ret = driverDao.registerDriver(driver);
-        return  ret;
+            errorCode = driverDao.registerDriver(driver);
+        return errorCode;
     }
 
     @Override
     public boolean updateDriver(Driver driver) {
-        return driverDao.updateDriver(driver);
+
+        boolean errorCode;
+        if (!driver.isValid())
+            errorCode = true;
+        else
+            errorCode = driverDao.updateDriver(driver);
+        return errorCode;
     }
 
     @Override

@@ -4,7 +4,6 @@ import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;
-import ge.taxistgela.helper.RegistrationHelper;
 
 import java.util.List;
 
@@ -28,18 +27,25 @@ public class UserManager extends  UserManagerAPI{
 
     @Override
     public boolean registerUser(User user) {
-        boolean ret;
+        boolean errorCode;
 
-        if(!RegistrationHelper.isValid(user))
-            ret = true;
+        if (!user.isValid())
+            errorCode = true;
         else
-            ret = userDao.registerUser(user);
-        return  ret;
+            errorCode = userDao.registerUser(user);
+        return errorCode;
     }
 
     @Override
     public boolean updateUser(User user) {
-        return userDao.updateUser(user);
+
+        boolean errorCode;
+
+        if (!user.isValid())
+            errorCode = true;
+        else
+            errorCode = userDao.updateUser(user);
+        return errorCode;
     }
 
     @Override

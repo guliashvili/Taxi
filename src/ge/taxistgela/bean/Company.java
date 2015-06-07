@@ -1,12 +1,11 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
-import ge.taxistgela.helper.HashGenerator;
 
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Company implements GeneralCheckableInformation {
+public class Company extends GeneralCheckableInformation {
     private Integer companyID;
     private String companyCode;
     private String email;
@@ -17,6 +16,21 @@ public class Company implements GeneralCheckableInformation {
     private String googleID;
     private Boolean isVerified;
 
+
+    public Company() {
+    }
+
+    public Company(Integer companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID, Boolean isVerified) {
+        setCompanyID(companyID);
+        setCompanyCode(companyCode);
+        setEmail(email);
+        setPassword(password);
+        setCompanyName(companyName);
+        setPhoneNumber(phoneNumber);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setIsVerified(isVerified);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -37,21 +51,6 @@ public class Company implements GeneralCheckableInformation {
     public int hashCode() {
         return getCompanyID();
     }
-
-    public Company(){}
-
-
-    public Company(Integer companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID, Boolean isVerified) {        setCompanyID(companyID);
-        setCompanyCode(companyCode);
-        setEmail(email);
-        setPassword(password);
-        setCompanyName(companyName);
-        setPhoneNumber(phoneNumber);
-        setFacebookID(facebookID);
-        setGoogleID(googleID);
-        setIsVerified(isVerified);
-    }
-
 
     public Integer getCompanyID() {
         return companyID;
