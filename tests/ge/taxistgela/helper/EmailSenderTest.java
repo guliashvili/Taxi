@@ -1,12 +1,9 @@
-package ge.taxistgela.dao.helper;
+package ge.taxistgela.helper;
 
 import ge.taxistgela.bean.User;
-
-import ge.taxistgela.helper.EmailSender;
-import ge.taxistgela.helper.HashGenerator;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Ratmach on 30/5/15.
