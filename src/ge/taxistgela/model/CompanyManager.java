@@ -2,7 +2,6 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.dao.CompanyDaoAPI;
-import ge.taxistgela.helper.RegistrationHelper;
 
 /**
  * Created by GIO on 5/25/2015.
@@ -17,17 +16,23 @@ public class CompanyManager extends   CompanyManagerAPI {
 
     @Override
     public boolean registerCompany(Company company) {
-        boolean ret;
-        if(!RegistrationHelper.isValid(company))
-            ret = true;
+        boolean errorCode;
+        if (!company.isValid())
+            errorCode = true;
         else
-            ret = companyDao.registerCompany(company);
-        return  ret;
+            errorCode = companyDao.registerCompany(company);
+        return errorCode;
     }
 
     @Override
     public boolean updateCompany(Company company) {
-        return companyDao.updateCompany(company);
+        boolean errorCode;
+        if (!company.isValid())
+            errorCode = true;
+        else
+            errorCode = companyDao.updateCompany(company);
+
+        return errorCode;
     }
 
     @Override

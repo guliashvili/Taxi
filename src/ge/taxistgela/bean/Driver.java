@@ -1,12 +1,11 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
-import ge.taxistgela.helper.HashGenerator;
 
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Driver implements GeneralCheckableInformation {
+public class Driver extends GeneralCheckableInformation {
     private Integer driverID;
     private String personalID;
     private String email;
