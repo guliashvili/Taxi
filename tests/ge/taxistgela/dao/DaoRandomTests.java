@@ -1,9 +1,7 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
-import ge.taxistgela.model.*;
 import junit.framework.TestCase;
-import org.hamcrest.number.BigDecimalCloseTo;
 import org.junit.Test;
 
 import java.math.BigDecimal;

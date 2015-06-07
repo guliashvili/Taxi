@@ -1,6 +1,7 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
+import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -210,7 +211,7 @@ public class DaoTests {
         assertEquals(user.getFirstName(),user1.getFirstName());
         assertEquals(user.getLastName(),user1.getLastName());
         assertEquals(user.getUserID(),user1.getUserID());
-        assertEquals(user.getRating() , user1.getRating());//assertEquals(double,double) depricated
+        assertEquals(user.getRating(), user1.getRating());//assertEquals(double,double) depricated
         assertEquals(pref.getCarYear(),pref1.getCarYear());
         assertEquals(pref.getMinimumDriverRating(), pref1.getMinimumDriverRating());
         assertEquals(pref.getPassengersCount(),pref1.getPassengersCount());
@@ -239,7 +240,7 @@ public class DaoTests {
         man.insertDriverPreference(pref);
 
         Location l = new Location(new BigDecimal(2.234),new BigDecimal(3.1245));
-        Driver driver = new Driver(-1,"01010101011","gela@taxistgela.ge","Madridista1",null,"gela","magaltadze",Gender.MALE,"555696996",car,"gelandara95","bozandara",l,2.2,pref,true,true);
+        Driver driver = new Driver(-1,"01010101011","gela@taxistgela.ge","Madridista1",1,"gela","magaltadze",Gender.MALE,"555696996",car,"gelandara95","bozandara",l,2.2,pref,true,true);
 
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
@@ -249,7 +250,7 @@ public class DaoTests {
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
         //Update
 
-        Driver driver2 = new Driver(-1,"01010101012","gelusi@taxistgela.ge","Madridista!",null,"Gela","Magaltadze",Gender.FEMALE,"555696997",car,"gelusi7","bozandara99",l,2.3,pref,false,false);
+        Driver driver2 = new Driver(driver.getDriverID(),"01010101012","gelusi@taxistgela.ge","Madridista!",1,"Gela","Magaltadze",Gender.FEMALE,"555696997",car,"gelusi7","bozandara99",l,2.3,pref,false,false);
         car.setCarYear(1996);
         car.setCarDescription("trash");
         car.setCarID("69dota95");
@@ -259,12 +260,10 @@ public class DaoTests {
         pref.setCoefficientPer(0.70);
         pref.setMinimumUserRating(0.1);//gelam standartebi awia
         man.updateDriverPreference(pref);
-        man.registerDriver(driver2);
-
         man.updateDriver(driver2);
         //Login
         driver1=man.loginDriver(driver2.getEmail(),driver2.getPassword());
-        compareDrivers(driver2,driver1);
+        compareDrivers(driver1,driver2);
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
         DriverPreference pref1 = man.getDriverPreferenceByID(pref.getDriverPreferenceID());
         comparePrefernces(pref,pref1);
@@ -280,12 +279,13 @@ public class DaoTests {
         assertTrue(man.checkFacebookID(driver2.getFacebookID()));
         assertFalse(man.checkFacebookID(driver.getFacebookID()));
         //google id check
-        assertTrue(man.checkFacebookID(driver2.getGoogleID()));
-        assertFalse(man.checkFacebookID(driver.getGoogleID()));
+        assertTrue(man.checkFacebookID(driver2.getFacebookID()));
+        assertFalse(man.checkFacebookID(driver.getFacebookID()));
         //phone number check
-        assertTrue(man.checkPhoneNumber(driver2.getGoogleID()));
-        assertFalse(man.checkPhoneNumber(driver.getGoogleID()));
+        assertTrue(man.checkPhoneNumber(driver2.getPhoneNumber()));
+        assertFalse(man.checkPhoneNumber(driver.getPhoneNumber()));
         //get driver by company
+        System.out.println(driver2.getCompanyID());
         List<Driver> drivers =man.getDriverByCompanyID(driver2.getCompanyID());
         for(Driver d:drivers){
             if(d.getDriverID().equals(driver2.getDriverID()))
@@ -309,7 +309,7 @@ public class DaoTests {
     private void compareDrivers(Driver driver,Driver driver1){
         Car car = driver.getCar();
         DriverPreference pref = driver.getPreferences();
-        assertEquals(driver1.getRating() , driver.getRating());
+        assertEquals(driver1.getRating(), driver.getRating());
         assertEquals(driver1.getDriverID(),driver.getDriverID());
         assertEquals(driver1.getCompanyID(),driver.getCompanyID());
         assertEquals(driver1.getEmail(),driver.getEmail());
@@ -318,7 +318,8 @@ public class DaoTests {
         assertEquals(driver1.getLastName(),driver.getLastName());
         assertEquals(driver1.getGender().toString(),driver.getGender().toString());
         assertEquals(driver1.getGoogleID(),driver.getGoogleID());
-        assertEquals(HashGenerator.getSaltHash(driver1.getPassword()),driver.getPassword());
+        System.out.println(HashGenerator.getSaltHash(driver1.getPassword())+" "+driver.getPassword());
+        assertEquals(HashGenerator.getSaltHash(driver1.getPassword()), driver.getPassword());
         assertEquals(driver1.getPersonalID(),driver.getPersonalID());
         assertEquals(driver1.getPhoneNumber(),driver.getPhoneNumber());
         assertEquals(driver1.isActive(),driver.isActive());

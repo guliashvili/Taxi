@@ -27,7 +27,7 @@ public class DriverDao implements DriverDaoAPI {
             " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Drivers " +
             "SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?,isVerified=?" +
-            "WHERE driverID = ?";
+            " WHERE driverID = ?";
 
     private final static String preferences_STMT = base_join_select_STMT +
             " WHERE " +
