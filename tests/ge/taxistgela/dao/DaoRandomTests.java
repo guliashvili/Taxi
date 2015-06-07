@@ -355,6 +355,12 @@ public class DaoRandomTests extends TestCase {
         ReviewDao dao =new ReviewDao();
         Random rnd = new Random();
         Review rev = new Review(-1,orders.get(rnd.nextInt(orders.size())).getOrderID(),rnd.nextBoolean(),rnd.nextDouble()*5,generateRandomString(120,false,false));
+        reviews.add(rev);
+        if(rnd.nextBoolean()) {
+            rev = new Review(rev.getReviewID(),orders.get(rnd.nextInt(orders.size())).getOrderID(),rnd.nextBoolean(),rnd.nextDouble()*5,generateRandomString(120,false,false);
+            dao.updateReview(rev);
+            assertTrue(rev.equals(dao.getReviewByID(rev.getReviewID())));
+        }
     }
 
 }
