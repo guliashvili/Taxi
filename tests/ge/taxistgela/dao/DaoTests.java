@@ -26,18 +26,18 @@ import static org.mockito.Mockito.when;
 public class DaoTests {
     @Before
     public void setup(){
-        /*AdminDatabase db = new AdminDatabase();
+        AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
         }catch(Exception e){
             System.out.println(e.toString());
             assertTrue(false);
-        }*/
+        }
     }
     @Test
     public void testCompanyDao(){
         //RegistrationTests
-        CompanyManager man = new CompanyManager(new CompanyDao());
+        CompanyDao man = new CompanyDao();
         Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","558677895","facebookIDmock","googleIDmock",true);
         assertEquals(0,man.registerCompany(comp));
         //assertEquals(-1,man.registerCompany(comp));
@@ -128,7 +128,7 @@ public class DaoTests {
     }
     @Test
     public void testUserDao(){
-        UserManager man = new UserManager(new UserDao());
+        UserDao man = new UserDao();
         UserPreference usrp = new UserPreference();
         usrp.setCarYear(2013);
         usrp.setMinimumDriverRating(2.3);
@@ -231,7 +231,7 @@ public class DaoTests {
     }
     @Test
     public void testDriverDao(){
-        DriverManager man = new DriverManager(new DriverDao());
+        DriverDao man = new DriverDao();
         Car car = new Car();
         DriverPreference pref = new DriverPreference();
 
@@ -354,12 +354,12 @@ public class DaoTests {
     }
     @After
     public void cleanup(){
-        /*AdminDatabase db = new AdminDatabase();
+        AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
         }catch(Exception e){
             System.out.println(e.toString());
             assertTrue(false);
-        }*/
+        }
     }
 }

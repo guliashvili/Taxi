@@ -10,7 +10,7 @@ import java.sql.Connection;
  * Created by Ratmach on 30/5/15.
  */
 public class AdminDatabase {
-    private final static String database = "src\\ge\\taxistgela\\db\\database.sql";
+    private final static String database = "..\\src\\ge\\taxistgela\\db\\database.sql";
 
     /**
      * drops and recreates database from database.sql file
