@@ -39,11 +39,20 @@ public class DaoRandomTests extends TestCase {
             String password = generateRandomString(10,true,false);
             String name = names[rnd.nextInt(names.length)];
             String surename = surenames[rnd.nextInt(surenames.length)];
-            String phoneNumber = generateRandomString(9,true,true);
+            String phoneNumber = "";
+            while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
+                phoneNumber = generateRandomString(9,true,true);
+            }
             Gender gend=Gender.MALE;
             if(rnd.nextBoolean()) gend=Gender.FEMALE;
-            String facebookID = generateRandomString(30,true,false);
-            String googleID = generateRandomString(30,true,false);
+            String facebookID = "";
+            while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
+                facebookID=generateRandomString(30,true,false);
+            }
+            String googleID ="";
+            while(googleID.equals("") || dao.checkGoogleID(googleID)){
+                googleID=generateRandomString(30,true,false);
+            }
             double rating = rnd.nextDouble()*5;
             UserPreference usrp = new UserPreference();
             usrp.setUserPreferenceID(-1);
@@ -58,24 +67,117 @@ public class DaoRandomTests extends TestCase {
             assertTrue(usr.equals(dao.loginUser(usr.getEmail(), usr.getPassword())));
             users.add(usr);
         }
+        for(User user : users){
+            if(rnd.nextBoolean()){
+                String email = "";
+                while(email.equals("") || dao.checkEmail(email)){
+                    email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
+                }
+                if(rnd.nextBoolean()) user.setEmail(email);
+                String password = generateRandomString(10,true,false);
+                if(rnd.nextBoolean()) user.setPassword(password);
+                String name = names[rnd.nextInt(names.length)];
+                if(rnd.nextBoolean()) user.setFirstName(name);
+                String surename = surenames[rnd.nextInt(surenames.length)];
+                if(rnd.nextBoolean()) user.setLastName(surename);
+                String phoneNumber = "";
+                while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
+                    phoneNumber = generateRandomString(9,true,true);
+                }
+                if(rnd.nextBoolean()) user.setPhoneNumber(phoneNumber);
+                Gender gend=Gender.MALE;
+                if(rnd.nextBoolean()) gend=Gender.FEMALE;
+                if(rnd.nextBoolean()) user.setGender(gend);
+                String facebookID = "";
+                while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
+                    facebookID=generateRandomString(30,true,false);
+                }
+                if(rnd.nextBoolean()) user.setFacebookID(facebookID);
+                String googleID ="";
+                while(googleID.equals("") || dao.checkGoogleID(googleID)){
+                    googleID=generateRandomString(30,true,false);
+                }
+                if(rnd.nextBoolean()) user.setGoogleID(googleID);
+                double rating = rnd.nextDouble()*5;
+                if(rnd.nextBoolean()) user.setRating(rating);
+                if(rnd.nextBoolean()) {
+                    UserPreference usrp = user.getPreference();
+                    usrp.setCarYear(rnd.nextInt(25) + 1990);
+                    usrp.setConditioning(rnd.nextBoolean());
+                    usrp.setMinimumDriverRating(rnd.nextDouble() * 5);
+                    usrp.setTimeLimit(rnd.nextInt(2500));
+                    usrp.setWantsAlone(rnd.nextBoolean());
+                    dao.updateUserPreference(usrp);
+                }
+                dao.updateUser(user);
+                assertTrue(user.equals(dao.loginUser(user.getEmail(),user.getPassword())));
+            }
+        }
     }
     @Test
     public void randomCompanyTests(){
         CompanyDao dao = new CompanyDao();
         Random rnd = new Random();
-        for(int i=0;i<250;++i){
-            String companyCode = generateRandomString(9,true,false);
+        for(int i=0;i<companyNames.length;++i){
+            String companyCode = "";
+            while(companyCode.equals("") || dao.checkCompanyCode(companyCode)){
+                companyCode=generateRandomString(9,true,false);
+            }
             String email = "";
             while(email.equals("") || dao.checkEmail(email)){
                 email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
             }
             String password = generateRandomString(10,true,false);
-            String companyName = companyNames[rnd.nextInt(companyNames.length)];
-            String phoneNumber = generateRandomString(9,true,true);
-            String facebookID = generateRandomString(30,true,false);
-            String googleID = generateRandomString(30,true,false);
+            String companyName = companyNames[i];
+            String phoneNumber = "";
+            while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
+                phoneNumber = generateRandomString(9,true,true);
+            }
+            String facebookID = "";
+            while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
+                facebookID=generateRandomString(30,true,false);
+            }
+            String googleID ="";
+            while(googleID.equals("") || dao.checkGoogleID(googleID)){
+                googleID=generateRandomString(30,true,false);
+            }
             Company company = new Company(-1,companyCode,email,password,companyName,phoneNumber,facebookID,googleID,rnd.nextBoolean());
             dao.registerCompany(company);
+            assertTrue(company.equals(dao.loginCompany(company.getEmail(),company.getPassword())));
+            companies.add(company);
+        }
+        for(Company company:companies){
+            String companyCode = "";
+            while(companyCode.equals("") || dao.checkCompanyCode(companyCode)){
+                companyCode=generateRandomString(9,true,false);
+            }
+            if(rnd.nextBoolean()) company.setCompanyCode(companyCode);
+            String email = "";
+            while(email.equals("") || dao.checkEmail(email)){
+                email = generateRandomString(14,false,false)+emails[rnd.nextInt(emails.length)];
+            }
+            if(rnd.nextBoolean()) company.setEmail(email);
+            String password = generateRandomString(10,true,false);
+            if(rnd.nextBoolean()) company.setPassword(password);
+            if(rnd.nextBoolean()) company.setCompanyCode(companyCode);
+            String companyName = companyNames[rnd.nextInt(companyNames.length)];
+            if(rnd.nextBoolean()) company.setCompanyName(companyName);
+            String phoneNumber = "";
+            while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
+                phoneNumber = generateRandomString(9,true,true);
+            };
+            if(rnd.nextBoolean()) company.setPhoneNumber(phoneNumber);
+            String facebookID = "";
+            while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
+                facebookID=generateRandomString(30,true,false);
+            }
+            if(rnd.nextBoolean()) company.setFacebookID(facebookID);
+            String googleID ="";
+            while(googleID.equals("") || dao.checkGoogleID(googleID)){
+                googleID=generateRandomString(30,true,false);
+            }
+            if(rnd.nextBoolean()) company.setGoogleID(googleID);
+            dao.updateCompany(company);
             assertTrue(company.equals(dao.loginCompany(company.getEmail(),company.getPassword())));
             companies.add(company);
         }
@@ -94,11 +196,20 @@ public class DaoRandomTests extends TestCase {
             Integer companyID = companies.get(rnd.nextInt(companies.size())).getCompanyID();
             String name = names[rnd.nextInt(names.length)];
             String surename = surenames[rnd.nextInt(surenames.length)];
-            String phoneNumber = generateRandomString(9,true,true);
+            String phoneNumber = "";
+            while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
+                phoneNumber = generateRandomString(9,true,true);
+            }
             Gender gend=Gender.MALE;
             if(rnd.nextBoolean()) gend=Gender.FEMALE;
-            String facebookID = generateRandomString(30,true,false);
-            String googleID = generateRandomString(30,true,false);
+            String facebookID = "";
+            while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
+                facebookID=generateRandomString(30,true,false);
+            }
+            String googleID ="";
+            while(googleID.equals("") || dao.checkGoogleID(googleID)){
+                googleID=generateRandomString(30,true,false);
+            }
             Car car = new Car();
             String carID="";
             while(carID.equals("") || dao.checkCarID(carID)){
@@ -106,19 +217,22 @@ public class DaoRandomTests extends TestCase {
             }
             car.setConditioning(rnd.nextBoolean());
             car.setCarYear(1990+rnd.nextInt(25));
-            car.setCarDescription(generateRandomString(200,false,false));
+            car.setCarDescription(generateRandomString(200, false, false));
             car.setNumPassengers(rnd.nextInt(8));
             dao.insertCar(car);
             DriverPreference driverPreference = new DriverPreference();
-            driverPreference.setCoefficientPer(rnd.nextDouble()*8);
+            driverPreference.setCoefficientPer(rnd.nextDouble() * 8);
             driverPreference.setDriverPreferenceID(-1);
-            driverPreference.setMinimumUserRating(rnd.nextDouble()*5);
+            driverPreference.setMinimumUserRating(rnd.nextDouble() * 5);
             dao.insertDriverPreference(driverPreference);
             Location loc = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
             Driver driver = new Driver(-1,personalID,email,password,companyID,name,surename,gend,phoneNumber,car,facebookID,googleID,loc,rnd.nextDouble()*5,driverPreference,rnd.nextBoolean(),rnd.nextBoolean());
             dao.registerDriver(driver);
-            assertTrue(driver.equals(dao.loginDriver(driver.getEmail(),driver.getPassword())));
+            assertTrue(driver.equals(dao.loginDriver(driver.getEmail(), driver.getPassword())));
             drivers.add(driver);
+        }
+        for(Driver driver:drivers){
+
         }
     }
     /**
