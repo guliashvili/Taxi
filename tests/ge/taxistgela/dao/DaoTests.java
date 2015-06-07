@@ -262,7 +262,7 @@ public class DaoTests {
         man.updateDriver(driver2);
         //Login
         driver1=man.loginDriver(driver2.getEmail(),driver2.getPassword());
-        compareDrivers(driver1,driver2);
+        compareDrivers(driver2,driver1);
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
         DriverPreference pref1 = man.getDriverPreferenceByID(pref.getDriverPreferenceID());
         comparePrefernces(pref,pref1);
