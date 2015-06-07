@@ -1,8 +1,17 @@
-DELETE  FROM cars;
+#dont rearrange
 DELETE  FROM Companies;
+
+
+DELETE FROM Reviews;
+
+DELETE FROM Orders;
+
+
+DELETE FROM Drivers;
+
+DELETE FROM Cars;
 DELETE  FROM DriverPreferences;
-DELETE  FROM Drivers;
-DELETE  FROM UserPreferences;
+
 DELETE  FROM Users;
-DELETE  FROM Orders;
-DELETE  FROM Reviews;
+
+DELETE FROM UserPreferences;

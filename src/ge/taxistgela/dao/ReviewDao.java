@@ -3,8 +3,12 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.Review;
 import ge.taxistgela.db.DBConnectionProvider;
 import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.helper.PreparedStatementEnhanced;
+import ge.taxistgela.helper.ResultSetEnhanced;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,50 +33,66 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
     private static final String GET_REVIEW_BY_DRIVER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
             "FROM Reviews r INNER JOIN Orders o ON o.driverID = ?";
 
+
+    private int setStrings(PreparedStatementEnhanced st, Review review, boolean update) {
+        int errorCode = 0;
+        try {
+            st.setInt(1, review.getOrderID());
+
+            st.setBoolean(2, review.isOrientationFlag());
+            st.setDouble(3, review.getRating());
+            st.setString(4, review.getDescription());
+            if (update)
+                st.setInt(5, review.getReviewID());
+        } catch (SQLException e) {
+            errorCode = -1;
+        }
+        return errorCode;
+    }
+
     @Override
     public int addReview(Review review) {
+        int errorCode = 0;
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement(ADD_REVIEW, Statement.RETURN_GENERATED_KEYS)) {
-                st.setInt(1, review.getOrderID());
-                st.setBoolean(2, review.isOrientationFlag());
-                st.setDouble(3, review.getRating());
-                st.setString(4, review.getDescription());
+            try (PreparedStatementEnhanced st =
+                         new PreparedStatementEnhanced(conn.prepareStatement(ADD_REVIEW, Statement.RETURN_GENERATED_KEYS))) {
+
+                errorCode |= setStrings(st, review, false);
 
                 ExternalAlgorithms.debugPrintSelect("addReview \n" + st.toString());
 
                 st.executeUpdate();
 
-                try (ResultSet rslt = st.getGeneratedKeys()) {
+                try (ResultSetEnhanced rslt = st.getGeneratedKeys()) {
                     if (rslt.next())
                         review.setReviewID(rslt.getInt(1));
                 }
             }
         } catch (SQLException e) {
-
+            errorCode = -1;
             ExternalAlgorithms.debugPrint(e);
         }
-        return 0;
+        return errorCode;
     }
 
     @Override
     public int updateReview(Review review) {
+        int errorCode = 0;
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement(UPDATE_REVIEW)) {
-                st.setInt(1, review.getOrderID());
-                st.setBoolean(2, review.isOrientationFlag());
-                st.setDouble(3, review.getRating());
-                st.setString(4, review.getDescription());
-                st.setInt(5, review.getReviewID());
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(UPDATE_REVIEW))) {
+
+                errorCode |= setStrings(st, review, true);
+
 
                 ExternalAlgorithms.debugPrintSelect("updateReview \n" + st.toString());
 
                 st.executeUpdate();
             }
         } catch (SQLException e) {
-
+            errorCode = -1;
             ExternalAlgorithms.debugPrint(e);
         }
-        return 0;
+        return errorCode;
     }
 
     @Override
@@ -80,18 +100,19 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
         Review review = null;
 
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement(GET_REVIEW_BY_ID)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_REVIEW_BY_ID))) {
+                
                 st.setInt(1, reviewID);
 
                 ExternalAlgorithms.debugPrintSelect("getReviewByID \n" + st.toString());
 
-                try (ResultSet rslt = st.executeQuery()) {
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
                     if (rslt.next())
                         review = fetchReview(rslt);
                 }
             }
         } catch (SQLException e) {
-
+            review = null;
             ExternalAlgorithms.debugPrint(e);
         }
 
@@ -103,19 +124,20 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
         List<Review> reviews = new ArrayList<>();
 
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement(GET_REVIEW_BY_USER_ID)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_REVIEW_BY_USER_ID))) {
+                
                 st.setInt(1, userID);
 
                 ExternalAlgorithms.debugPrintSelect("getReviewByUserID \n" + st.toString());
 
 
-                try (ResultSet rslt = st.executeQuery()) {
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
                     while (rslt.next())
                         reviews.add(fetchReview(rslt));
                 }
             }
         } catch (SQLException e) {
-
+            reviews = null;
             ExternalAlgorithms.debugPrint(e);
         }
 
@@ -127,19 +149,20 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
         List<Review> reviews = new ArrayList<>();
 
         try (Connection conn = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement(GET_REVIEW_BY_DRIVER_ID)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_REVIEW_BY_DRIVER_ID))) {
+                
                 st.setInt(1, driverID);
 
                 ExternalAlgorithms.debugPrintSelect("getReviewByDriverID \n" + st.toString());
 
 
-                try (ResultSet rslt = st.executeQuery()) {
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
                     while (rslt.next())
                         reviews.add(fetchReview(rslt));
                 }
             }
         } catch (SQLException e) {
-
+            reviews = null;
             ExternalAlgorithms.debugPrint(e);
         }
 
@@ -153,15 +176,17 @@ public class ReviewDao implements ReviewDaoAPI, OperationCodes {
      * @return Generated Review.
      * @throws SQLException
      */
-    private Review fetchReview(ResultSet rslt) throws SQLException {
+    private Review fetchReview(ResultSetEnhanced rslt) {
         Review review = new Review();
-
-        review.setReviewID(rslt.getInt(1));
-        review.setOrderID(rslt.getInt(2));
-        review.setOrientationFlag(rslt.getBoolean(3));
-        review.setRating(rslt.getDouble(4));
-        review.setDescription(rslt.getString(5));
-
+        try {
+            review.setReviewID(rslt.getInt(1));
+            review.setOrderID(rslt.getInt(2));
+            review.setOrientationFlag(rslt.getBoolean(3));
+            review.setRating(rslt.getDouble(4));
+            review.setDescription(rslt.getString(5));
+        } catch (SQLException e) {
+            review = null;
+        }
         return review;
     }
 }

@@ -1,13 +1,17 @@
 package ge.taxistgela.dao;
 
-import ge.taxistgela.bean.*;
+import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.Gender;
+import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.db.DBConnectionProvider;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.HashGenerator;
+import ge.taxistgela.helper.PreparedStatementEnhanced;
+import ge.taxistgela.helper.ResultSetEnhanced;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +50,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
             "UPDATE UserPreferences SET " +
                     "minimumDriverRating=?,conditioning=?,carYear=?," +
                     "passengersCount=?,wantsAlone=?,timeLimit=? WHERE userPreferenceID = ?";
-    private UserPreference getUserPreference(ResultSet res) {
+
+    private UserPreference getUserPreference(ResultSetEnhanced res) {
         UserPreference up = new UserPreference();
 
         try {
@@ -68,13 +73,15 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public UserPreference getUserPreferenceByID(int userPreferenceID) {
         UserPreference user;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement("SELECT * FROM UserPreferences WHERE userpreferences.userPreferenceID = ?")) {
+            try (PreparedStatementEnhanced st =
+                         new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM UserPreferences WHERE userpreferences.userPreferenceID = ?"))) {
+                
                 st.setInt(1, userPreferenceID);
 
                 ExternalAlgorithms.debugPrintSelect("getUserPreferenceByID \n" + st.toString());
 
 
-                ResultSet res = st.executeQuery();
+                ResultSetEnhanced res = st.executeQuery();
                 if (res.next())
                     user = getUserPreference(res);
                 else
@@ -87,7 +94,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         return user;
     }
 
-    private int setStringsPreference(PreparedStatement st,UserPreference up,boolean update){
+    private int setStringsPreference(PreparedStatementEnhanced st, UserPreference up, boolean update) {
         int errorCode = 0;
         try {
             st.setDouble(1,up.getMinimumDriverRating());
@@ -109,15 +116,16 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public int insertUserPreference(UserPreference userPreference) {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(preference_insert_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
+            try (PreparedStatementEnhanced st =
+                         new PreparedStatementEnhanced(con.prepareStatement(preference_insert_STMT, PreparedStatement.RETURN_GENERATED_KEYS))) {
+                
                 errorCode |= setStringsPreference(st,userPreference,false);
 
 
                 ExternalAlgorithms.debugPrintSelect("insertUserPreferene \n" + st.toString());
 
                 st.executeUpdate();
-                ResultSet res = st.getGeneratedKeys();
+                ResultSetEnhanced res = st.getGeneratedKeys();
                 if (res.next()) {
                     userPreference.setUserPreferenceID(res.getInt(1));
                 } else {
@@ -137,7 +145,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public int updateUserPreference(UserPreference userPreference) {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(preference_update_STMT)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(preference_update_STMT))) {
+                
                 errorCode |= setStringsPreference(st, userPreference, true);
 
                 ExternalAlgorithms.debugPrintSelect("updateUserPreference \n" + st.toString());
@@ -151,7 +160,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
         return errorCode;
     }
 
-    private User getUser(ResultSet res) {
+    private User getUser(ResultSetEnhanced res) {
         User ret = new User();
 
         try {
@@ -184,13 +193,14 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public User getUserByID(int userID) {
         User user;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(userByID_STMT)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(userByID_STMT))) {
+                
                 st.setInt(1, userID);
 
                 ExternalAlgorithms.debugPrintSelect("getUserByID \n" + st.toString());
 
 
-                ResultSet res = st.executeQuery();
+                ResultSetEnhanced res = st.executeQuery();
                 if (res.next())
                     user = getUser(res);
                 else
@@ -207,7 +217,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public List<User> getUsersByPreferences(Driver driver) {
         List<User> output = new ArrayList<>();
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(preferences_STMT)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(preferences_STMT))) {
+                
 
                 st.setDouble(1, driver.getRating());
                 st.setBoolean(2, driver.getCar().hasConditioning());
@@ -216,7 +227,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 st.setDouble(5, driver.getPreferences().getMinimumUserRating());
 
                 ExternalAlgorithms.debugPrintSelect("getUserByPreferences \n" + st.toString());
-                ResultSet res = st.executeQuery();
+                ResultSetEnhanced res = st.executeQuery();
                 while (res.next())
                     output.add(getUser(res));
             }
@@ -233,7 +244,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public User loginUser(String email, String password) {
         User user;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(login_STMT)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(login_STMT))) {
+                
                 st.setString(1, email);
                 st.setString(2, HashGenerator.getSaltHash(password));
 
@@ -241,8 +253,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
                 ExternalAlgorithms.debugPrintSelect("loginUser \n" + st.toString());
 
 
-
-                ResultSet res = st.executeQuery();
+                ResultSetEnhanced res = st.executeQuery();
                 if (res.next())
                     user = getUser(res);
                 else
@@ -259,7 +270,7 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID
     sets string with that order
      */
-    private int setStrings(PreparedStatement st, User user, boolean update) {
+    private int setStrings(PreparedStatementEnhanced st, User user, boolean update) {
         int errorCode = 0;
         try {
             st.setString(1, HashGenerator.getSaltHash(user.getPassword()));
@@ -287,14 +298,15 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public int registerUser(User user) {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(register_STMT, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
+            try (PreparedStatementEnhanced st =
+                         new PreparedStatementEnhanced(con.prepareStatement(register_STMT, PreparedStatement.RETURN_GENERATED_KEYS))) {
+                
                 errorCode |= setStrings(st, user, false);
 
                 ExternalAlgorithms.debugPrintSelect("registerUser \n" + st.toString());
 
                 st.executeUpdate();
-                ResultSet res = st.getGeneratedKeys();
+                ResultSetEnhanced res = st.getGeneratedKeys();
                 if (res.next()) {
                     user.setUserID(res.getInt(1));
                 } else {
@@ -315,7 +327,8 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public int updateUser(User user) {
         int errorCode = 0;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(update_STMT)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(update_STMT))) {
+                
                 errorCode |= setStrings(st, user, true);
 
                 ExternalAlgorithms.debugPrintSelect("updateUser \n" + st.toString());
@@ -333,12 +346,13 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     @Override
     public boolean checkEmail(String email) {
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(checkMail_STM)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(checkMail_STM))) {
+                
                 st.setString(1, email);
 
                 ExternalAlgorithms.debugPrintSelect("checkEmail User \n" + st.toString());
 
-                ResultSet res = st.executeQuery();
+                ResultSetEnhanced res = st.executeQuery();
                 return res.next();
             }
         } catch (SQLException e) {
@@ -350,12 +364,13 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     @Override
     public boolean checkPhoneNumber(String phoneNumber) {
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatement st = con.prepareStatement(checkPhoneNumber_STM)) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(checkPhoneNumber_STM))) {
+                
                 st.setString(1, phoneNumber);
 
                 ExternalAlgorithms.debugPrintSelect("checkPhoneNumber User \n" + st.toString());
 
-                ResultSet res = st.executeQuery();
+                ResultSetEnhanced res = st.executeQuery();
                 return res.next();
             }
         } catch (SQLException e) {
@@ -369,12 +384,13 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public boolean checkFacebookID(String facebookID) {
         if (facebookID != null)
             try (Connection con = DBConnectionProvider.getConnection()) {
-                try (PreparedStatement st = con.prepareStatement(checkFacebook_STM)) {
+                try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(checkFacebook_STM))) {
+                    
                     st.setString(1, facebookID);
 
                     ExternalAlgorithms.debugPrintSelect("checkFacebookID User \n" + st.toString());
 
-                    ResultSet res = st.executeQuery();
+                    ResultSetEnhanced res = st.executeQuery();
                     return res.next();
                 }
             } catch (SQLException e) {
@@ -389,12 +405,13 @@ public class UserDao implements UserDaoAPI, OperationCodes {
     public boolean checkGoogleID(String googleID) {
         if (googleID != null)
             try (Connection con = DBConnectionProvider.getConnection()) {
-                try (PreparedStatement st = con.prepareStatement(checkGoogle_STM)) {
+                try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(checkGoogle_STM))) {
+                    
                     st.setString(1, googleID);
 
                     ExternalAlgorithms.debugPrintSelect("checkGoogleID user \n" + st.toString());
 
-                    ResultSet res = st.executeQuery();
+                    ResultSetEnhanced res = st.executeQuery();
                     return res.next();
                 }
             } catch (SQLException e) {
