@@ -1,24 +1,15 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
-import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.model.CompanyManager;
-import ge.taxistgela.model.DriverManager;
-import ge.taxistgela.model.ReviewManager;
-import ge.taxistgela.model.UserManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Ratmach on 30/5/15.
@@ -39,8 +30,8 @@ public class DaoTests {
         //RegistrationTests
         CompanyDao man = new CompanyDao();
         Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","558677895","facebookIDmock","googleIDmock",true);
-        assertEquals(0,man.registerCompany(comp));
-        //assertEquals(-1,man.registerCompany(comp));
+        assertEquals(false, man.registerCompany(comp));
+        assertEquals(true, man.registerCompany(comp));
         //LoginTests
         Company company = man.loginCompany(comp.getEmail(),comp.getPassword());
         compareCompanies(comp,company);
@@ -239,7 +230,8 @@ public class DaoTests {
         car.setCarDescription("junk");
         car.setCarID("69dota95");
         car.setNumPassengers(2);
-        man.insertCar(car);
+        car.setConditioning(true);
+        assertEquals(false, man.insertCar(car));
 
         pref.setCoefficientPer(0.69);
         pref.setDriverPreferenceID(-1);
@@ -267,6 +259,7 @@ public class DaoTests {
         pref.setCoefficientPer(0.70);
         pref.setMinimumUserRating(0.1);//gelam standartebi awia
         man.updateDriverPreference(pref);
+        man.registerDriver(driver2);
 
         man.updateDriver(driver2);
         //Login

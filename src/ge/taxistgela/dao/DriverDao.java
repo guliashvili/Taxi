@@ -120,12 +120,7 @@ public class DriverDao implements DriverDaoAPI {
 
                 st.executeUpdate();
                 ResultSetEnhanced res = st.getGeneratedKeys();
-                if (res.next()) {
-                    car.setCarID(res.getString("carID"));
-                } else {
-                    errorCode = true;
 
-                }
 
             }
         } catch (SQLException e) {

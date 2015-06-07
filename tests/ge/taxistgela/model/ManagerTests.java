@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
 import static org.mockito.Mockito.when;
 
 /**
@@ -71,8 +72,8 @@ public class ManagerTests extends TestCase {
         when(dao.loginCompany("123456789", "asdf")).thenReturn(comp);
         assertEquals(comp,dao.loginCompany("123456789", "asdf"));
         //register check?
-        when(dao.registerCompany(comp)).thenReturn(69);
-        assertEquals(man.registerCompany(comp),69);
+        when(dao.registerCompany(comp)).thenReturn(false);
+        assertEquals(man.registerCompany(comp), false);
     }
     @Test
     public void driverManagerTests(){
