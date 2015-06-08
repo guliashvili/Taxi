@@ -672,7 +672,7 @@ public class ManagerTests{
         //loginUser
         when(dao.loginUser("tornikeman@gmail.com","yey")).thenReturn(u2);
         when(dao.loginUser("tmand13@freeuni.edu.ge","something")).thenReturn(u1);
-        assertEquals(u1, man.loginUser("tmand13@freeuni.edu.ge","something"));
+        assertEquals(u1, man.loginUser("tmand13@freeuni.edu.ge", "something"));
         assertEquals(u2, man.loginUser("tornikeman@gmail.com", "yey"));
         when(dao.loginUser(null, null)).thenReturn(null);
         assertNull(man.loginUser(null, null));
