@@ -32,17 +32,19 @@ public class ManagerTests{
         when(dao.checkCompanyCode("123456790")).thenReturn(true);
         when(dao.checkCompanyCode("123456791")).thenReturn(false);
         when(dao.checkCompanyCode("123456777")).thenReturn(true);
-        //when(dao.checkCompanyCode(null)).thenReturn(true);
+        when(dao.checkCompanyCode(null)).thenReturn(true);
         assertTrue(man.checkCompanyCode("123456789"));
         assertTrue(man.checkCompanyCode("123456790"));
         assertFalse(man.checkCompanyCode("123456791"));
         assertTrue(man.checkCompanyCode("123456777"));
-        //assertTrue(man.checkCompanyCode(null));
+        assertTrue(man.checkCompanyCode(null));
         //Email
         when(dao.checkEmail("asd@asd.com")).thenReturn(true);
         when(dao.checkEmail("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkEmail("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkEmail("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkEmail(null)).thenReturn(true);
+        assertTrue(man.checkEmail(null));
         assertTrue(man.checkEmail("asd@asd.com"));
         assertTrue(man.checkEmail("gelaasd@gela.ge"));
         assertFalse(man.checkEmail("asdfkj@kasdasd.cz"));
@@ -52,6 +54,8 @@ public class ManagerTests{
         when(dao.checkFacebookID("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkFacebookID("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkFacebookID("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkFacebookID(null)).thenReturn(false);
+        assertFalse(man.checkFacebookID(null));
         assertTrue(man.checkFacebookID("asd@asd.com"));
         assertTrue(man.checkFacebookID("gelaasd@gela.ge"));
         assertFalse(man.checkFacebookID("asdfkj@kasdasd.cz"));
@@ -61,15 +65,19 @@ public class ManagerTests{
         when(dao.checkGoogleID("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkGoogleID("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkGoogleID("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkGoogleID(null)).thenReturn(false);
         assertTrue(man.checkGoogleID("asd@asd.com"));
         assertTrue(man.checkGoogleID("gelaasd@gela.ge"));
         assertFalse(man.checkGoogleID("asdfkj@kasdasd.cz"));
         assertTrue(man.checkGoogleID("123456777@gmail.com"));
+        assertFalse(man.checkGoogleID(null));
         //CheckPhoneNumber
         when(dao.checkPhoneNumber("123456789")).thenReturn(true);
         when(dao.checkPhoneNumber("123456790")).thenReturn(true);
         when(dao.checkPhoneNumber("123456791")).thenReturn(false);
         when(dao.checkPhoneNumber("123456777")).thenReturn(true);
+        when(dao.checkPhoneNumber(null)).thenReturn(false);
+        assertFalse(man.checkPhoneNumber(null));
         assertTrue(man.checkPhoneNumber("123456789"));
         assertTrue(man.checkPhoneNumber("123456790"));
         assertFalse(man.checkPhoneNumber("123456791"));
@@ -89,7 +97,7 @@ public class ManagerTests{
         assertTrue(man.registerCompany(comp));
 
         comp.setEmail("rame@mail.ru");
-        //assertTrue(man.registerCompany(null));
+        assertTrue(man.registerCompany(null));
         // update company
         when(dao.updateCompany(comp)).thenReturn(true);
         assertEquals(man.updateCompany(comp), true);
@@ -99,7 +107,7 @@ public class ManagerTests{
         comp.setEmail("hophophopla");
         when(dao.updateCompany(comp)).thenReturn(false);
         assertTrue(man.updateCompany(comp));
-        //assertTrue(man.updateCompany(null));
+        assertTrue(man.updateCompany(null));
     }
     @Test
     public void driverManagerTests(){
@@ -110,6 +118,8 @@ public class ManagerTests{
         when(dao.checkEmail("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkEmail("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkEmail("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkEmail(null)).thenReturn(true);
+        assertTrue(man.checkEmail(null));
         assertTrue(man.checkEmail("asd@asd.com"));
         assertTrue(man.checkEmail("gelaasd@gela.ge"));
         assertFalse(man.checkEmail("asdfkj@kasdasd.cz"));
@@ -119,6 +129,8 @@ public class ManagerTests{
         when(dao.checkFacebookID("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkFacebookID("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkFacebookID("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkFacebookID(null)).thenReturn(false);
+        assertFalse(man.checkFacebookID(null));
         assertTrue(man.checkFacebookID("asd@asd.com"));
         assertTrue(man.checkFacebookID("gelaasd@gela.ge"));
         assertFalse(man.checkFacebookID("asdfkj@kasdasd.cz"));
@@ -128,15 +140,19 @@ public class ManagerTests{
         when(dao.checkGoogleID("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkGoogleID("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkGoogleID("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkGoogleID(null)).thenReturn(false);
+        assertFalse(man.checkGoogleID(null));
         assertTrue(man.checkGoogleID("asd@asd.com"));
         assertTrue(man.checkGoogleID("gelaasd@gela.ge"));
         assertFalse(man.checkGoogleID("asdfkj@kasdasd.cz"));
         assertTrue(man.checkGoogleID("123456777@gmail.com"));
         //CheckPhoneNumber
         when(dao.checkPhoneNumber("123456789")).thenReturn(true);
+        when(dao.checkPhoneNumber(null)).thenReturn(false);
         when(dao.checkPhoneNumber("123456790")).thenReturn(true);
         when(dao.checkPhoneNumber("123456791")).thenReturn(false);
         when(dao.checkPhoneNumber("123456777")).thenReturn(true);
+        assertFalse(man.checkPhoneNumber(null));
         assertTrue(man.checkPhoneNumber("123456789"));
         assertTrue(man.checkPhoneNumber("123456790"));
         assertFalse(man.checkPhoneNumber("123456791"));
@@ -146,21 +162,25 @@ public class ManagerTests{
         when(dao.checkCarID("aaa010aaa")).thenReturn(true);
         when(dao.checkCarID("aaa020aaa")).thenReturn(false);
         when(dao.checkCarID("aaa030aaa")).thenReturn(true);
+        when(dao.checkCarID(null)).thenReturn(true);
+        assertTrue(man.checkCarID(null));
         assertTrue(man.checkCarID("aaa000aaa"));
         assertTrue(man.checkCarID("aaa010aaa"));
         assertFalse(man.checkCarID("aaa020aaa"));
         assertTrue(man.checkCarID("aaa030aaa"));
         //getDriverByPreferences check
+        when(dao.getDriverByPreferences(null)).thenReturn(null);
+        assertNull(man.getDriverByPreferences(null));
         ArrayList<Driver> list = new ArrayList<Driver>();
         list.add(new Driver());
         list.add(new Driver());
         when(dao.getDriverByPreferences(anyObject())).thenReturn(list);
         User user = new User();
         assertEquals(list, man.getDriverByPreferences(user));
-        //assertEquals(list, man.getDriverByPreferences(null));
+        assertEquals(list, man.getDriverByPreferences(null));
         verify(dao, times(1)).getDriverByPreferences(user);
-        //when(dao.getDriverByPreferences(anyObject())).thenReturn(null);
-        //assertNull(man.getDriverByPreferences(null));
+        when(dao.getDriverByPreferences(anyObject())).thenReturn(null);
+        assertNull(man.getDriverByPreferences(null));
         List list2 = new ArrayList<Driver>();
         User user2 = new User();
         user2.setEmail("gela@gmail.com");
@@ -172,6 +192,8 @@ public class ManagerTests{
         assertNotEquals(list, man.getDriverByPreferences(user2));
         assertNotEquals(list2, man.getDriverByPreferences(user));
         //updateDriverPreference
+        when(dao.updateDriverPreference(null)).thenReturn(false);
+        assertFalse(man.updateDriverPreference(null));
         DriverPreference dp1 = new DriverPreference();
         dp1.setCoefficientPer(1.78);
         DriverPreference dp2 = new DriverPreference();
@@ -189,10 +211,10 @@ public class ManagerTests{
         //insertDriverPreference
         when(dao.insertDriverPreference(anyObject())).thenReturn(true);
         assertTrue(man.insertDriverPreference(new DriverPreference()));
-        //assertTrue(man.insertDriverPreference(null));
+        assertTrue(man.insertDriverPreference(null));
         when(dao.insertDriverPreference(anyObject())).thenReturn(false);
         assertFalse(man.insertDriverPreference(new DriverPreference()));
-        //assertFalse(man.insertDriverPreference(null));
+        assertFalse(man.insertDriverPreference(null));
         //getDriverPreferenceByIDs
         DriverPreference dp = new DriverPreference();
         when(dao.getDriverPreferenceByID(anyInt())).thenReturn(dp);
@@ -212,17 +234,17 @@ public class ManagerTests{
         //updateCar
         when(dao.updateCar(anyObject())).thenReturn(false);
         assertFalse(man.updateCar(new Car()));
-        //assertFalse(man.updateCar(null));
+        assertFalse(man.updateCar(null));
         when(dao.updateCar(anyObject())).thenReturn(true);
         assertTrue(man.updateCar(new Car()));
-        //assertTrue(man.updateCar(null));
+        assertTrue(man.updateCar(null));
         //insertCar
         when(dao.insertCar(anyObject())).thenReturn(false);
         assertFalse(man.insertCar(new Car()));
-        //assertFalse(man.insertCar(null));
+        assertFalse(man.insertCar(null));
         when(dao.insertCar(anyObject())).thenReturn(true);
         assertTrue(man.insertCar(new Car()));
-        //assertTrue(man.insertCar(null));
+        assertTrue(man.insertCar(null));
         //getCarByID
         Car c1 = new Car();
         c1.setCarID("1");
@@ -248,7 +270,7 @@ public class ManagerTests{
         d.setPhoneNumber("599029302");
         d.setPassword("huhu");
         when(dao.updateDriver(anyObject())).thenReturn(false);
-        //assertTrue(man.updateDriver(null));
+        assertTrue(man.updateDriver(null));
         assertFalse(man.updateDriver(d));
         when(dao.updateDriver(anyObject())).thenReturn(true);
         assertTrue(man.updateDriver(d));
@@ -261,7 +283,7 @@ public class ManagerTests{
         driver.setEmail("tornikeman@gmail.com");
         driver.setPhoneNumber("593499023");
         driver.setPassword("gela");
-        //assertTrue(man.registerDriver(null));
+        assertTrue(man.registerDriver(null));
         assertFalse(man.registerDriver(driver));
         when(dao.registerDriver(anyObject())).thenReturn(true);
         assertTrue(man.registerDriver(driver));
@@ -269,8 +291,10 @@ public class ManagerTests{
         driver.setPassword("");
         when(dao.registerDriver(driver)).thenReturn(false);
         assertTrue(man.registerDriver(driver));
-        //assertTrue(man.registerDriver(null));
+        assertTrue(man.registerDriver(null));
         //loginDriver
+        when(dao.loginDriver(null, null)).thenReturn(null);
+        assertNull(dao.loginDriver(null, null));
         Driver driver1 = new Driver();
         driver1.setEmail("geluka@gmail.com");
         driver1.setFacebookID("gelucha@gmail.com");
@@ -351,13 +375,15 @@ public class ManagerTests{
         assertTrue(man.addOrder(order1));
         when(dao.addOrder(order2)).thenReturn(false);
         assertFalse(man.addOrder(order2));
-        //when(dao.addOrder(null)).thenReturn(false);
-        //assertFalse(man.addOrder(null));
+        when(dao.addOrder(null)).thenReturn(false);
+        assertFalse(man.addOrder(null));
         //updateOrder
         when(dao.updateOrder(order1)).thenReturn(true);
         assertTrue(man.updateOrder(order1));
         when(dao.updateOrder(order2)).thenReturn(false);
         assertFalse(man.updateOrder(order2));
+        when(dao.updateOrder(null)).thenReturn(false);
+        assertFalse(man.updateOrder(null));
         //getOrderByID
         when(dao.getOrderByID(1)).thenReturn(order1);
         when(dao.getOrderByID(2)).thenReturn(order2);
@@ -365,8 +391,8 @@ public class ManagerTests{
         assertEquals(order1, man.getOrderByID(1));
         assertEquals(order2, man.getOrderByID(2));
         assertEquals(order3, man.getOrderByID(3));
-        when(dao.getOrderByID(anyInt())).thenReturn(/*null, */order1, order2, order3);
-        //assertNull(man.getOrderByID(3));
+        when(dao.getOrderByID(anyInt())).thenReturn(null, order1, order2, order3);
+        assertNull(man.getOrderByID(3));
         assertEquals(order1, man.getOrderByID(3));
         assertEquals(order2, man.getOrderByID(2));
         assertEquals(order3, man.getOrderByID(1));
@@ -387,8 +413,8 @@ public class ManagerTests{
         assertEquals(arr3, man.getOrderByUserID(100));
         assertEquals(arr2, man.getOrderByUserID(10));
         assertEquals(arr1, man.getOrderByUserID(1));
-        when(dao.getOrderByUserID(anyInt())).thenReturn(/*null, */arr1, arr2, arr3);
-        //assertNull(man.getOrderByUserID(1));
+        when(dao.getOrderByUserID(anyInt())).thenReturn(null, arr1, arr2, arr3);
+        assertNull(man.getOrderByUserID(1));
         assertEquals(arr1, man.getOrderByUserID(1000));
         assertEquals(arr2, man.getOrderByUserID(-1));
         assertEquals(arr3, man.getOrderByUserID(10));
@@ -400,8 +426,8 @@ public class ManagerTests{
         assertEquals(arr3, man.getOrdersByDriverID(100));
         assertEquals(arr2, man.getOrdersByDriverID(10));
         assertEquals(arr1, man.getOrdersByDriverID(1));
-        when(dao.getOrdersByDriverID(anyInt())).thenReturn(/*null, */arr1, arr2, arr3);
-        //assertNull(man.getOrdersByDriverID(1));
+        when(dao.getOrdersByDriverID(anyInt())).thenReturn(null, arr1, arr2, arr3);
+        assertNull(man.getOrdersByDriverID(1));
         assertEquals(arr1, man.getOrdersByDriverID(1000));
         assertEquals(arr2, man.getOrdersByDriverID(-1));
         assertEquals(arr3, man.getOrdersByDriverID(10));
@@ -420,11 +446,15 @@ public class ManagerTests{
         assertTrue(man.addReview(r1));
         when(dao.addReview(r2)).thenReturn(false);
         assertFalse(man.addReview(r2));
+        when(dao.addReview(null)).thenReturn(true);
+        assertTrue(man.addReview(null));
         //updateReview
         when(dao.updateReview(r1)).thenReturn(true);
         assertTrue(man.updateReview(r1));
         when(dao.updateReview(r2)).thenReturn(false);
         assertFalse(man.updateReview(r2));
+        when(dao.updateReview(null)).thenReturn(false);
+        assertFalse(dao.updateReview(null));
         //getReviewByID
         when(dao.getReviewByID(1000)).thenReturn(r1);
         when(dao.getReviewByID(2000)).thenReturn(r2);
@@ -452,11 +482,11 @@ public class ManagerTests{
         assertEquals(arr3, man.getReviewByUserID(1));
         assertEquals(arr2, man.getReviewByUserID(2));
         assertEquals(arr1, man.getReviewByUserID(3));
-        when(dao.getReviewByUserID(anyInt())).thenReturn(arr1, arr2/*, null*/);
+        when(dao.getReviewByUserID(anyInt())).thenReturn(arr1, arr2, null);
         assertEquals(arr1, man.getReviewByUserID(-1));
         assertEquals(arr2, man.getReviewByUserID(-2));
-        //assertNull(man.getReviewByUserID(3));
-        //assertNull(man.getReviewByUserID(-3));
+        assertNull(man.getReviewByUserID(3));
+        assertNull(man.getReviewByUserID(-3));
         //getReviewByDriverID
         when(dao.getReviewByDriverID(3)).thenReturn(arr1);
         when(dao.getReviewByDriverID(2)).thenReturn(arr2);
@@ -464,11 +494,11 @@ public class ManagerTests{
         assertEquals(arr3, man.getReviewByDriverID(1));
         assertEquals(arr2, man.getReviewByDriverID(2));
         assertEquals(arr1, man.getReviewByDriverID(3));
-        when(dao.getReviewByDriverID(anyInt())).thenReturn(arr1, arr2/*, null*/);
+        when(dao.getReviewByDriverID(anyInt())).thenReturn(arr1, arr2, null);
         assertEquals(arr1, man.getReviewByDriverID(-1));
         assertEquals(arr2, man.getReviewByDriverID(-2));
-        //assertNull(man.getReviewByDriverID(3));
-        //assertNull(man.getReviewByDriverID(-3));
+        assertNull(man.getReviewByDriverID(3));
+        assertNull(man.getReviewByDriverID(-3));
     }
     @Test
     public void remoteManagerTests() {
@@ -532,6 +562,8 @@ public class ManagerTests{
         when(dao.checkEmail("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkEmail("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkEmail("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkEmail(null)).thenReturn(false);
+        assertFalse(man.checkEmail(null));
         assertTrue(man.checkEmail("asd@asd.com"));
         assertTrue(man.checkEmail("gelaasd@gela.ge"));
         assertFalse(man.checkEmail("asdfkj@kasdasd.cz"));
@@ -541,6 +573,8 @@ public class ManagerTests{
         when(dao.checkFacebookID("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkFacebookID("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkFacebookID("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkFacebookID(null)).thenReturn(false);
+        assertFalse(man.checkFacebookID(null));
         assertTrue(man.checkFacebookID("asd@asd.com"));
         assertTrue(man.checkFacebookID("gelaasd@gela.ge"));
         assertFalse(man.checkFacebookID("asdfkj@kasdasd.cz"));
@@ -550,6 +584,8 @@ public class ManagerTests{
         when(dao.checkGoogleID("gelaasd@gela.ge")).thenReturn(true);
         when(dao.checkGoogleID("asdfkj@kasdasd.cz")).thenReturn(false);
         when(dao.checkGoogleID("123456777@gmail.com")).thenReturn(true);
+        when(dao.checkGoogleID(null)).thenReturn(true);
+        assertTrue(man.checkGoogleID(null));
         assertTrue(man.checkGoogleID("asd@asd.com"));
         assertTrue(man.checkGoogleID("gelaasd@gela.ge"));
         assertFalse(man.checkGoogleID("asdfkj@kasdasd.cz"));
@@ -559,6 +595,8 @@ public class ManagerTests{
         when(dao.checkPhoneNumber("123456790")).thenReturn(true);
         when(dao.checkPhoneNumber("123456791")).thenReturn(false);
         when(dao.checkPhoneNumber("123456777")).thenReturn(true);
+        when(dao.checkPhoneNumber(null)).thenReturn(true);
+        assertTrue(man.checkPhoneNumber(null));
         assertTrue(man.checkPhoneNumber("123456789"));
         assertTrue(man.checkPhoneNumber("123456790"));
         assertFalse(man.checkPhoneNumber("123456791"));
@@ -575,21 +613,21 @@ public class ManagerTests{
         when(dao.updateUserPreference(up2)).thenReturn(true);
         assertTrue(man.updateUserPreference(up2));
         when(dao.updateUserPreference(anyObject())).thenReturn(true);
-        //assertTrue(man.updateUserPreference(null));
+        assertTrue(man.updateUserPreference(null));
         //insertUserPreference
         when(dao.insertUserPreference(up1)).thenReturn(false);
         assertFalse(man.insertUserPreference(up1));
         when(dao.insertUserPreference(up2)).thenReturn(true);
         assertTrue(man.insertUserPreference(up2));
-        //when(dao.insertUserPreference(null)).thenReturn(true);
-        //assertTrue(man.insertUserPreference(null));
+        when(dao.insertUserPreference(null)).thenReturn(true);
+        assertTrue(man.insertUserPreference(null));
         //getUserPreferenceByID
         when(dao.getUserPreferenceByID(1)).thenReturn(up1);
         when(dao.getUserPreferenceByID(2)).thenReturn(up2);
-        //when(dao.getUserPreferenceByID(3)).thenReturn(null);
+        when(dao.getUserPreferenceByID(3)).thenReturn(null);
         assertEquals(up1, man.getUserPreferenceByID(1));
         assertEquals(up2, man.getUserPreferenceByID(2));
-        //assertNull(man.getUserPreferenceByID(3));
+        assertNull(man.getUserPreferenceByID(3));
         when(dao.getUserPreferenceByID(anyInt())).thenReturn(up1, up1, up2);
         assertEquals(up1, man.getUserPreferenceByID(10));
         assertEquals(up1, man.getUserPreferenceByID(20));
@@ -617,7 +655,7 @@ public class ManagerTests{
         assertTrue(man.updateUser(u3));
         assertFalse(man.updateUser(u2));
         when(dao.updateUser(anyObject())).thenReturn(false);
-        //assertTrue(man.updateUser(null));
+        assertTrue(man.updateUser(null));
         //registerUser
         u3 = new User();
         u3.setPassword("gela");
@@ -630,12 +668,14 @@ public class ManagerTests{
         assertTrue(man.registerUser(u1));
         assertFalse(man.registerUser(u2));
         when(dao.registerUser(anyObject())).thenReturn(false);
-        //assertTrue(man.registerUser(null));
+        assertTrue(man.registerUser(null));
         //loginUser
         when(dao.loginUser("tornikeman@gmail.com","yey")).thenReturn(u2);
         when(dao.loginUser("tmand13@freeuni.edu.ge","something")).thenReturn(u1);
         assertEquals(u1, man.loginUser("tmand13@freeuni.edu.ge","something"));
         assertEquals(u2, man.loginUser("tornikeman@gmail.com", "yey"));
+        when(dao.loginUser(null, null)).thenReturn(null);
+        assertNull(man.loginUser(null, null));
         //getUserByID
         when(dao.getUserByID(1)).thenReturn(u1);
         when(dao.getUserByID(2)).thenReturn(u2);
