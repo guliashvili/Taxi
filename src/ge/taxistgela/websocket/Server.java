@@ -1,6 +1,6 @@
 package ge.taxistgela.websocket;
 
-import ge.taxistgela.model.SessionManagerAPI;
+import ge.taxistgela.model.RemoteManagerAPI;
 
 import javax.servlet.ServletContext;
 import javax.websocket.*;
@@ -13,7 +13,7 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value = "/wsapp/{sessionType}/{token}", configurator = Configurator.class)
 public class Server {
 
-    private SessionManagerAPI sm;
+    private RemoteManagerAPI sm;
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config, @PathParam("sessionType") int sessionType, @PathParam("token") String token) {
@@ -22,12 +22,12 @@ public class Server {
             ServletContext sc = (ServletContext) config.getUserProperties().get(ServletContext.class.getName());
 
             if (sc != null) {
-                sm = (SessionManagerAPI) sc.getAttribute(SessionManagerAPI.class.getName());
+                sm = (RemoteManagerAPI) sc.getAttribute(RemoteManagerAPI.class.getName());
             }
         }
 
         if (sm != null) {
-            sm.addSession(sessionType, token, session);
+            sm.addRemote(sessionType, token, session.getAsyncRemote());
         }
     }
 
@@ -39,7 +39,7 @@ public class Server {
     @OnClose
     public void onClose(Session session, @PathParam("sessionType") int sessionType, @PathParam("token") String token) {
         if (sm != null) {
-            sm.removeSession(sessionType, token);
+            sm.removeRemote(sessionType, token);
         }
     }
 

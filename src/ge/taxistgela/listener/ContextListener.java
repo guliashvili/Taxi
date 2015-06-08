@@ -3,8 +3,8 @@ package ge.taxistgela.listener; /**
  */
 
 import ge.taxistgela.dispatcher.OrderDispatcher;
-import ge.taxistgela.model.SessionManager;
-import ge.taxistgela.model.SessionManagerAPI;
+import ge.taxistgela.model.RemoteManager;
+import ge.taxistgela.model.RemoteManagerAPI;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -32,7 +32,7 @@ public class ContextListener implements ServletContextListener,
          You can initialize servlet context related data here.
       */
         ServletContext sc = sce.getServletContext();
-        sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager());
+        sc.setAttribute(RemoteManagerAPI.class.getName(), new RemoteManager());
 
         OrderDispatcher orderDispatcher = new OrderDispatcher(sc);
         sc.setAttribute(OrderDispatcher.class.getName(), orderDispatcher);
@@ -44,7 +44,7 @@ public class ContextListener implements ServletContextListener,
          (the Web application) is undeployed or 
          Application Server shuts down.
       */
-        sce.getServletContext().removeAttribute(SessionManagerAPI.class.getName());
+        sce.getServletContext().removeAttribute(RemoteManagerAPI.class.getName());
 
         OrderDispatcher orderDispatcher = (OrderDispatcher) sce.getServletContext().getAttribute(OrderDispatcher.class.getName());
         orderDispatcher.cancel();

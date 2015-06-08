@@ -1,23 +1,19 @@
 package ge.taxistgela.model;
+
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.*;
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
-
-import static org.mockito.Mockito.*;
-
-
+import javax.websocket.RemoteEndpoint;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyObject;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Ratmach on 7/6/15.
@@ -475,10 +471,53 @@ public class ManagerTests{
         //assertNull(man.getReviewByDriverID(-3));
     }
     @Test
-    public void SessionManagerTests(){
-        SessionManager man = new SessionManager();// Does this need tests
-        // TODO
+    public void remoteManagerTests() {
+        RemoteManagerAPI sm = new RemoteManager();
+
+        // test add
+        RemoteEndpoint.Async remote1 = mock(RemoteEndpoint.Async.class);
+
+        sm.addRemote(RemoteManager.USER_REMOTE, "geloidi", remote1);
+
+        sm.sendMessage(RemoteManager.USER_REMOTE, "geloidi", "gela var");
+        verify(remote1).sendText("gela var");
+
+        RemoteEndpoint.Async remote2 = mock(RemoteEndpoint.Async.class);
+
+        sm.sendMessage(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", "taxisti var");
+        verify(remote2, never()).sendText("taxisti var");
+
+        sm.addRemote(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", remote2);
+
+        sm.sendMessage(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", "taxisti var");
+        verify(remote2).sendText("taxisti var");
+
+        // adding invalid remote.
+        RemoteEndpoint.Async remote3 = mock(RemoteEndpoint.Async.class);
+
+        sm.addRemote(10, "ar var gela", remote3);
+
+        sm.sendMessage(10, "ar var gela", "haha");
+        verify(remote3, never()).sendText(anyString());
+
+        // test remove
+        sm.removeRemote(RemoteManager.USER_REMOTE, "geloidi");
+
+        sm.sendMessage(RemoteManager.USER_REMOTE, "geloidi", "gela var");
+        verify(remote1).sendText("gela var");
+
+        sm.removeRemote(RemoteManager.DRIVER_REMOTE, "taxisti geloidi");
+
+        sm.sendMessage(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", "taxisti var");
+        verify(remote2).sendText("taxisti var");
+
+        // removing invalid remote.
+        sm.removeRemote(10, "ar var gela");
+
+        sm.sendMessage(10, "ar var gela", "haha");
+        verify(remote3, never()).sendText(anyString());
     }
+
     @Test
     public void taxUserQueueTests(){
         TaxUserQueue queue = new TaxUserQueue(); // Same Goes Here
