@@ -27,12 +27,16 @@ public abstract class GeneralCheckableInformation implements Checkable {
      * @return returns true if number is in format noted
      */
     private boolean isValidPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) return false;
+
         phoneNumber = phoneNumber.replaceAll("[^0-9]", "");
         if (phoneNumber.length() != 9) return false;
         return phoneNumber.charAt(0) == '5';
     }
 
     private boolean isValidEmail(String email) {
+        if (email == null) return false;
+
         boolean result = true;
         try {
             InternetAddress emailAddress = new InternetAddress(email);
@@ -44,6 +48,8 @@ public abstract class GeneralCheckableInformation implements Checkable {
     }
 
     private boolean isValidPassword(String password) {
+        if (password == null) return false;
+
         boolean ret = true;
         ret &= password.length() >= 1;
 
