@@ -1,5 +1,4 @@
 package ge.taxistgela.model;
-
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.*;
 import static org.junit.Assert.*;
@@ -151,7 +150,7 @@ public class ManagerTests{
         assertEquals(list, man.getDriverByPreferences(null));
         verify(dao, times(1)).getDriverByPreferences(user);
         when(dao.getDriverByPreferences(anyObject())).thenReturn(null);
-        assertEquals(null, man.getDriverByPreferences(null));
+        assertNull(man.getDriverByPreferences(null));
         List list2 = new ArrayList<Driver>();
         User user2 = new User();
         user2.setEmail("gela@gmail.com");
@@ -233,7 +232,7 @@ public class ManagerTests{
         assertEquals(c1, man.getCarByID("1"));
         assertEquals(c1, man.getCarByID("2"));
         assertNotEquals(c3, man.getCarByID("3"));
-        //updateDriver TODO null davikide aqac
+        //updateDriver TODO null ze true unda tu falsE?
         Driver d = new Driver();
         d.setEmail("x@gmail.com");
         d.setPhoneNumber("599029302");
@@ -243,6 +242,7 @@ public class ManagerTests{
         when(dao.updateDriver(anyObject())).thenReturn(true);
         assertTrue(man.updateDriver(d));
         //registerDriver
+        // TODO igive
         when(dao.registerDriver(anyObject())).thenReturn(false);
         Driver driver = new Driver();
         driver.setEmail("tornikeman@gmail.com");
@@ -251,7 +251,6 @@ public class ManagerTests{
         assertFalse(man.registerDriver(driver));
         when(dao.registerDriver(anyObject())).thenReturn(true);
         assertTrue(man.registerDriver(driver));
-        // TODO
         //loginDriver
         Driver driver1 = new Driver();
         driver1.setEmail("geluka@gmail.com");
@@ -348,7 +347,7 @@ public class ManagerTests{
         assertEquals(order2, man.getOrderByID(2));
         assertEquals(order3, man.getOrderByID(3));
         when(dao.getOrderByID(anyInt())).thenReturn(null, order1, order2, order3);
-        assertEquals(null, man.getOrderByID(3)); // TODO problemaa aq rame null ro weria ?
+        assertNull(man.getOrderByID(3));
         assertEquals(order1, man.getOrderByID(3));
         assertEquals(order2, man.getOrderByID(2));
         assertEquals(order3, man.getOrderByID(1));
@@ -370,7 +369,7 @@ public class ManagerTests{
         assertEquals(arr2, man.getOrderByUserID(10));
         assertEquals(arr1, man.getOrderByUserID(1));
         when(dao.getOrderByUserID(anyInt())).thenReturn(null, arr1, arr2, arr3);
-        assertEquals(null, man.getOrderByUserID(1));
+        assertNull(man.getOrderByUserID(1));
         assertEquals(arr1, man.getOrderByUserID(1000));
         assertEquals(arr2, man.getOrderByUserID(-1));
         assertEquals(arr3, man.getOrderByUserID(10));
@@ -383,7 +382,7 @@ public class ManagerTests{
         assertEquals(arr2, man.getOrdersByDriverID(10));
         assertEquals(arr1, man.getOrdersByDriverID(1));
         when(dao.getOrdersByDriverID(anyInt())).thenReturn(null, arr1, arr2, arr3);
-        assertEquals(null, man.getOrdersByDriverID(1));
+        assertNull(man.getOrdersByDriverID(1));
         assertEquals(arr1, man.getOrdersByDriverID(1000));
         assertEquals(arr2, man.getOrdersByDriverID(-1));
         assertEquals(arr3, man.getOrdersByDriverID(10));
@@ -437,8 +436,8 @@ public class ManagerTests{
         when(dao.getReviewByUserID(anyInt())).thenReturn(arr1, arr2, null);
         assertEquals(arr1, man.getReviewByUserID(-1));
         assertEquals(arr2, man.getReviewByUserID(-2));
-        assertEquals(null, man.getReviewByUserID(3));
-        assertEquals(null, man.getReviewByUserID(-3));
+        assertNull(man.getReviewByUserID(3));
+        assertNull(man.getReviewByUserID(-3));
         //getReviewByDriverID
         when(dao.getReviewByDriverID(3)).thenReturn(arr1);
         when(dao.getReviewByDriverID(2)).thenReturn(arr2);
@@ -449,8 +448,8 @@ public class ManagerTests{
         when(dao.getReviewByDriverID(anyInt())).thenReturn(arr1, arr2, null);
         assertEquals(arr1, man.getReviewByDriverID(-1));
         assertEquals(arr2, man.getReviewByDriverID(-2));
-        assertEquals(null, man.getReviewByDriverID(3));
-        assertEquals(null, man.getReviewByDriverID(-3));
+        assertNull(man.getReviewByDriverID(3));
+        assertNull(man.getReviewByDriverID(-3));
     }
     @Test
     public void SessionManagerTests(){
@@ -528,7 +527,7 @@ public class ManagerTests{
         when(dao.getUserPreferenceByID(3)).thenReturn(null);
         assertEquals(up1, man.getUserPreferenceByID(1));
         assertEquals(up2, man.getUserPreferenceByID(2));
-        assertEquals(null, man.getUserPreferenceByID(3)); // TODO any problem here because of null ?
+        assertNull(man.getUserPreferenceByID(3));
         when(dao.getUserPreferenceByID(anyInt())).thenReturn(up1, up1, up2);
         assertEquals(up1, man.getUserPreferenceByID(10));
         assertEquals(up1, man.getUserPreferenceByID(20));
