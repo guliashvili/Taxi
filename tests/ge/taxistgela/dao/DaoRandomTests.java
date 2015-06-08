@@ -234,7 +234,7 @@ public class DaoRandomTests {
             driverPreference.setDriverPreferenceID(-1);
             driverPreference.setMinimumUserRating(rnd.nextDouble() * 5);
             dao.insertDriverPreference(driverPreference);
-            Location loc = new Location(new BigDecimal(rnd.nextDouble()*180),new BigDecimal(rnd.nextDouble()*180));
+            Location loc = new Location(rnd.nextDouble()*180,rnd.nextDouble()*180);
             Driver driver = new Driver(-1,personalID,email,password,companyID,name,surename,gend,phoneNumber,car,facebookID,googleID,loc,rnd.nextDouble()*5,driverPreference,rnd.nextBoolean(),rnd.nextBoolean());
             dao.registerDriver(driver);
             dt.compareDrivers(driver,dao.loginDriver(driver.getEmail(), driver.getPassword()));
@@ -294,7 +294,7 @@ public class DaoRandomTests {
                 driverPreference.setMinimumUserRating(rnd.nextDouble() * 5);
                 dao.updateDriverPreference(driverPreference);
             }
-            Location loc = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
+            Location loc = new Location(rnd.nextDouble() * 180, rnd.nextDouble() * 180);
             if(rnd.nextBoolean()) driver.setLocation(loc);
             dao.updateDriver(driver);
             dt.compareDrivers(driver, dao.loginDriver(driver.getEmail(), driver.getPassword()));
@@ -348,8 +348,8 @@ public class DaoRandomTests {
                 int userID = users.get(rnd.nextInt(users.size())).getUserID();
                 int driverID = drivers.get(rnd.nextInt(drivers.size())).getDriverID();
                 int numPassengers = rnd.nextInt(8);
-                Location loc = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
-                Location loc1 = new Location(new BigDecimal(rnd.nextDouble() * 180), new BigDecimal(rnd.nextDouble() * 180));
+                Location loc = new Location(rnd.nextDouble() * 180,rnd.nextDouble() * 180);
+                Location loc1 = new Location(rnd.nextDouble() * 180, rnd.nextDouble() * 180);
                 Date startDate = new Date();
                 Date callTime = new Date();
                 Date endDate = new Date();
@@ -359,7 +359,7 @@ public class DaoRandomTests {
                     startDate.setTime(Long.parseLong("143369056000"));
                     callTime.setTime(Long.parseLong("1433690560348"));
                 }*/
-                BigDecimal paymentAmount = new BigDecimal(rnd.nextDouble() * 220);
+                double paymentAmount = rnd.nextDouble() * 220;
                 Order ord = new Order(-1, userID, driverID, numPassengers, loc, loc1, startDate, endDate, paymentAmount, callTime);
                 dao.addOrder(ord);
                 Order ord1=dao.getOrderByID(ord.getOrderID());
@@ -367,7 +367,9 @@ public class DaoRandomTests {
                 assertEquals(ord.getNumPassengers(), ord1.getNumPassengers());
                 assertEquals(ord.getCallTime().toString(), ord1.getCallTime().toString());
                 assertEquals(ord.getDriverID(), ord1.getDriverID());
-                assertEquals(ord.getEndLocation(), ord1.getEndLocation());
+                System.out.println(ord.getEndLocation().getLatitude() + " - "+ ord1.getEndLocation().getLatitude());
+                assertEquals(ord.getEndLocation().getLatitude(), ord1.getEndLocation().getLatitude());
+                assertEquals(ord.getEndLocation().getLongitude(), ord1.getEndLocation().getLongitude());
                 assertEquals(ord.getPaymentAmount(), ord1.getPaymentAmount());
                 assertEquals(ord.getUserID(), ord1.getUserID());
                 assertEquals(ord.getStartLocation(), ord1.getStartLocation());
