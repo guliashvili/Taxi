@@ -35,22 +35,21 @@ public class DriverManager extends  DriverManagerAPI {
     @Override
     public boolean registerDriver(Driver driver) {
         boolean errorCode;
-        if (!driver.isValid())
+        if(!driver.isValid())
             errorCode = true;
         else
             errorCode = driverDao.registerDriver(driver);
-        return errorCode;
+        return  errorCode;
     }
 
     @Override
     public boolean updateDriver(Driver driver) {
-
         boolean errorCode;
         if (!driver.isValid())
             errorCode = true;
         else
             errorCode = driverDao.updateDriver(driver);
-        return errorCode;
+        return  errorCode;
     }
 
     @Override

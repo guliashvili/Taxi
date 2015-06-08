@@ -23,80 +23,40 @@ public class SessionManager implements SessionManagerAPI {
 
     @Override
     public void addSession(int sessionType, String token, Session session) {
-        switch (sessionType) {
-            case USER_SESSION:
-                addUserSession(token, session);
-                break;
-            case DRIVER_SESSION:
-                addDriverSession(token, session);
-                break;
+        Map<String, Session> sessions = getMap(sessionType);
 
-            default:
-                break;
+        if (sessions != null) {
+            sessions.put(token, session);
         }
     }
 
     @Override
     public void removeSession(int sessionType, String token) {
-        switch (sessionType) {
-            case USER_SESSION:
-                removeUserSession(token);
-                break;
-            case DRIVER_SESSION:
-                removeDriverSession(token);
-                break;
+        Map<String, Session> sessions = getMap(sessionType);
 
-            default:
-                break;
+        if (sessions != null) {
+            sessions.remove(token);
         }
     }
 
     @Override
     public void sendMessage(int sessionType, String token, String message) {
+        Map<String, Session> sessions = getMap(sessionType);
+
+        if (sessions != null && sessions.containsKey(token)) {
+            sessions.get(token).getAsyncRemote().sendText(message);
+        }
+    }
+
+    private Map<String, Session> getMap(int sessionType) {
         switch (sessionType) {
             case USER_SESSION:
-                sendToUser(token, message);
-                break;
+                return userSessions;
             case DRIVER_SESSION:
-                sendToDriver(token, message);
-                break;
+                return driverSessions;
 
             default:
-                break;
-        }
-    }
-
-    private void addUserSession(String token, Session session) {
-        userSessions.put(token, session);
-    }
-
-    private void removeUserSession(String token) {
-        if (userSessions.containsKey(token)) {
-            userSessions.remove(token);
-        }
-    }
-
-    private void sendToUser(String token, String message) {
-        Session session = userSessions.get(token);
-
-        if (session != null) {
-            session.getAsyncRemote().sendText(message);
-        }
-    }
-
-    private void addDriverSession(String token, Session session) {
-        driverSessions.put(token, session);
-    }
-
-    private void removeDriverSession(String token) {
-        driverSessions.remove(token);
-    }
-
-    private void sendToDriver(String token, String message) {
-        Session session = driverSessions.get(token);
-
-        if (session != null) {
-            session.getAsyncRemote().sendText(message);
+                return null;
         }
     }
 }

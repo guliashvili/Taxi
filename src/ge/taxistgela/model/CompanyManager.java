@@ -31,7 +31,6 @@ public class CompanyManager extends   CompanyManagerAPI {
             errorCode = true;
         else
             errorCode = companyDao.updateCompany(company);
-
         return errorCode;
     }
 

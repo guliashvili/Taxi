@@ -27,6 +27,7 @@ public class ExternalAlgorithms {
             return c.compareTo(EPS) <= 0;
         }
         return  a.equals(b);
+        // TODO assertEquals isgan riti gansxvavdeba?
     }
 
     static public void debugPrintSelect(String s){
