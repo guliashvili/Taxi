@@ -36,7 +36,7 @@ public class DriverManager extends  DriverManagerAPI {
     public boolean registerDriver(Driver driver) {
         boolean errorCode;
         if(!driver.isValid())
-            errorCode = true; // TODO true tu false?
+            errorCode = true;
         else
             errorCode = driverDao.registerDriver(driver);
         return  errorCode;
@@ -46,7 +46,7 @@ public class DriverManager extends  DriverManagerAPI {
     public boolean updateDriver(Driver driver) {
         boolean errorCode;
         if (!driver.isValid())
-            errorCode = true; // TODO true tu false ?
+            errorCode = true;
         else
             errorCode = driverDao.updateDriver(driver);
         return  errorCode;

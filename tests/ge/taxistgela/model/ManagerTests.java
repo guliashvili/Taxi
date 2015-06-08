@@ -85,11 +85,15 @@ public class ManagerTests{
         assertEquals(man.registerCompany(comp), false);
         when(dao.registerCompany(comp)).thenReturn(true);
         assertEquals(man.registerCompany(comp), true);
+        when(dao.registerCompany(anyObject())).thenReturn(false);
+        assertTrue(man.registerCompany(null));
         // update company
         when(dao.updateCompany(comp)).thenReturn(true);
         assertEquals(man.updateCompany(comp), true);
         when(dao.updateCompany(comp)).thenReturn(false);
         assertEquals(man.updateCompany(comp), false);
+        when(dao.updateCompany(anyObject())).thenReturn(false);
+        assertTrue(man.updateCompany(null));
     }
     @Test
     public void driverManagerTests(){
@@ -232,25 +236,28 @@ public class ManagerTests{
         assertEquals(c1, man.getCarByID("1"));
         assertEquals(c1, man.getCarByID("2"));
         assertNotEquals(c3, man.getCarByID("3"));
-        //updateDriver TODO null ze true unda tu falsE?
+        //updateDriver
         Driver d = new Driver();
         d.setEmail("x@gmail.com");
         d.setPhoneNumber("599029302");
         d.setPassword("huhu");
         when(dao.updateDriver(anyObject())).thenReturn(false);
+        assertTrue(man.updateDriver(null));
         assertFalse(man.updateDriver(d));
         when(dao.updateDriver(anyObject())).thenReturn(true);
         assertTrue(man.updateDriver(d));
         //registerDriver
-        // TODO igive
         when(dao.registerDriver(anyObject())).thenReturn(false);
         Driver driver = new Driver();
         driver.setEmail("tornikeman@gmail.com");
         driver.setPhoneNumber("593499023");
         driver.setPassword("gela");
+        assertTrue(man.registerDriver(null));
         assertFalse(man.registerDriver(driver));
         when(dao.registerDriver(anyObject())).thenReturn(true);
         assertTrue(man.registerDriver(driver));
+        when(dao.registerDriver(anyObject())).thenReturn(false);
+        assertTrue(man.registerDriver(null));
         //loginDriver
         Driver driver1 = new Driver();
         driver1.setEmail("geluka@gmail.com");
@@ -512,7 +519,7 @@ public class ManagerTests{
         assertFalse(man.updateUserPreference(up1));
         when(dao.updateUserPreference(up2)).thenReturn(true);
         assertTrue(man.updateUserPreference(up2));
-        when(dao.updateUserPreference(null)).thenReturn(true);
+        when(dao.updateUserPreference(anyObject())).thenReturn(true);
         assertTrue(man.updateUserPreference(null));
         //insertUserPreference
         when(dao.insertUserPreference(up1)).thenReturn(false);
@@ -548,16 +555,20 @@ public class ManagerTests{
         when(dao.updateUser(u2)).thenReturn(false);
         assertTrue(man.updateUser(u1));
         assertFalse(man.updateUser(u2));
-        //registerUser TODO same problem here as in registerCompany
+        when(dao.updateUser(anyObject())).thenReturn(false);
+        assertTrue(man.updateUser(null));
+        //registerUser
         when(dao.registerUser(u1)).thenReturn(true);
         when(dao.registerUser(u2)).thenReturn(false);
         assertTrue(man.registerUser(u1));
         assertFalse(man.registerUser(u2));
+        when(dao.registerUser(anyObject())).thenReturn(false);
+        assertTrue(man.registerUser(null));
         //loginUser
         when(dao.loginUser("tornikeman@gmail.com","yey")).thenReturn(u2);
         when(dao.loginUser("tmand13@freeuni.edu.ge","something")).thenReturn(u1);
         assertEquals(u1, man.loginUser("tmand13@freeuni.edu.ge","something"));
-        assertEquals(u2, man.loginUser("tornikeman@gmail.com","yey"));
+        assertEquals(u2, man.loginUser("tornikeman@gmail.com", "yey"));
         //getUserByID
         when(dao.getUserByID(1)).thenReturn(u1);
         when(dao.getUserByID(2)).thenReturn(u2);
