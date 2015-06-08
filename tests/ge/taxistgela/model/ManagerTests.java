@@ -233,13 +233,15 @@ public class ManagerTests{
         assertEquals(c1, man.getCarByID("1"));
         assertEquals(c1, man.getCarByID("2"));
         assertNotEquals(c3, man.getCarByID("3"));
-        //updateDriver
+        //updateDriver TODO null davikide aqac
+        Driver d = new Driver();
+        d.setEmail("x@gmail.com");
+        d.setPhoneNumber("599029302");
+        d.setPassword("huhu");
         when(dao.updateDriver(anyObject())).thenReturn(false);
-        assertFalse(man.updateDriver(new Driver()));
-        assertFalse(man.updateDriver(null));
+        assertFalse(man.updateDriver(d));
         when(dao.updateDriver(anyObject())).thenReturn(true);
-        assertTrue(man.updateDriver(new Driver()));
-        assertTrue(man.updateDriver(null));
+        assertTrue(man.updateDriver(d));
         //registerDriver
         when(dao.registerDriver(anyObject())).thenReturn(false);
         Driver driver = new Driver();
@@ -569,6 +571,7 @@ public class ManagerTests{
         assertEquals(u2, man.getUserByID(20));
         assertEquals(u2, man.getUserByID(30));
     }
+
     @After
     public void cleanUp(){
 
