@@ -33,7 +33,7 @@ public abstract class ReviewManagerAPI {
      * @param reviewID
      * @return
      */
-    public  abstract Review getReviewByID(int reviewID);
+    public abstract Review getReviewByID(Integer reviewID);
 
     /**
      * Returns list of reviews selected by the certain userID.
@@ -41,7 +41,7 @@ public abstract class ReviewManagerAPI {
      * @param userID
      * @return List of reviews.
      */
-    public  abstract List<Review> getReviewByUserID(int userID);
+    public abstract List<Review> getReviewByUserID(Integer userID);
 
     /**
      * Returns list of reviews selected by the certain driverID.
@@ -49,5 +49,5 @@ public abstract class ReviewManagerAPI {
      * @param driverID
      * @return List of reviews.
      */
-    public  abstract List<Review> getReviewByDriverID(int driverID);
+    public abstract List<Review> getReviewByDriverID(Integer driverID);
 }

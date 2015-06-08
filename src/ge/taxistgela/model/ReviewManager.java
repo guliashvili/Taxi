@@ -22,17 +22,17 @@ public class ReviewManager extends  ReviewManagerAPI {
     }
 
     @Override
-    public Review getReviewByID(int reviewID) {
+    public Review getReviewByID(Integer reviewID) {
         return reviewDaoAPI.getReviewByID(reviewID);
     }
 
     @Override
-    public List<Review> getReviewByUserID(int userID) {
+    public List<Review> getReviewByUserID(Integer userID) {
         return reviewDaoAPI.getReviewByUserID(userID);
     }
 
     @Override
-    public List<Review> getReviewByDriverID(int driverID) {
+    public List<Review> getReviewByDriverID(Integer driverID) {
         return reviewDaoAPI.getReviewByDriverID(driverID);
     }
 }

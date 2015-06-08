@@ -23,7 +23,7 @@ public abstract class UserManagerAPI {
      * @param userPreferenceID
      * @return UserPreference generated from database.
      */
-    public abstract UserPreference getUserPreferenceByID(int userPreferenceID);
+    public abstract UserPreference getUserPreferenceByID(Integer userPreferenceID);
 
 
     /**
@@ -51,7 +51,7 @@ public abstract class UserManagerAPI {
      * @param userID
      * @return User generated from database.
      */
-    public abstract User getUserByID(int userID);
+    public abstract User getUserByID(Integer userID);
 
     /**
      * Returns Users selected by the driver  criteria.

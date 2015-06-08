@@ -18,12 +18,12 @@ public class DriverManager extends  DriverManagerAPI {
 
 
     @Override
-    public Driver getDriverByID(int driverID) {
+    public Driver getDriverByID(Integer driverID) {
         return  driverDao.getDriverByID(driverID);
     }
 
     @Override
-    public List<Driver> getDriverByCompanyID(int companyID) {
+    public List<Driver> getDriverByCompanyID(Integer companyID) {
         return driverDao.getDriverByCompanyID(companyID);
     }
 
@@ -35,7 +35,7 @@ public class DriverManager extends  DriverManagerAPI {
     @Override
     public boolean registerDriver(Driver driver) {
         boolean errorCode;
-        if(!driver.isValid())
+        if (driver == null || !driver.isValid())
             errorCode = true;
         else
             errorCode = driverDao.registerDriver(driver);
@@ -45,7 +45,7 @@ public class DriverManager extends  DriverManagerAPI {
     @Override
     public boolean updateDriver(Driver driver) {
         boolean errorCode;
-        if (!driver.isValid())
+        if (driver == null || !driver.isValid())
             errorCode = true;
         else
             errorCode = driverDao.updateDriver(driver);
@@ -68,7 +68,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public DriverPreference getDriverPreferenceByID(int driverPreferenceID) {
+    public DriverPreference getDriverPreferenceByID(Integer driverPreferenceID) {
         return driverDao.getDriverPreferenceByID(driverPreferenceID);
 
     }

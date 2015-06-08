@@ -17,7 +17,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     @Override
     public boolean registerCompany(Company company) {
         boolean errorCode;
-        if (!company.isValid())
+        if (company == null || !company.isValid())
             errorCode = true;
         else
             errorCode = companyDao.registerCompany(company);
@@ -27,7 +27,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     @Override
     public boolean updateCompany(Company company) {
         boolean errorCode;
-        if (!company.isValid())
+        if (company == null || !company.isValid())
             errorCode = true;
         else
             errorCode = companyDao.updateCompany(company);

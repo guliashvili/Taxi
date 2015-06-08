@@ -21,17 +21,17 @@ public class OrderManager extends OrderManagerAPI {
     }
 
     @Override
-    public Order getOrderByID(int orderID) {
+    public Order getOrderByID(Integer orderID) {
         return orderDaoAPI.getOrderByID(orderID);
     }
 
     @Override
-    public List<Order> getOrderByUserID(int userID) {
+    public List<Order> getOrderByUserID(Integer userID) {
         return orderDaoAPI.getOrderByUserID(userID);
     }
 
     @Override
-    public List<Order> getOrdersByDriverID(int driverID) {
+    public List<Order> getOrdersByDriverID(Integer driverID) {
         return orderDaoAPI.getOrdersByDriverID(driverID);
     }
 }

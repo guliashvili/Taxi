@@ -50,7 +50,7 @@ public abstract  class DriverManagerAPI {
      * @param driverPreferenceID
      * @return DriverPreference generated from database.
      */
-    public abstract DriverPreference getDriverPreferenceByID(int driverPreferenceID);
+    public abstract DriverPreference getDriverPreferenceByID(Integer driverPreferenceID);
 
 
     /**
@@ -76,7 +76,7 @@ public abstract  class DriverManagerAPI {
      * @param driverID
      * @return Driver generated from database.
      */
-    public abstract Driver getDriverByID(int driverID);
+    public abstract Driver getDriverByID(Integer driverID);
 
     /**
      * Returns Driver selected by the certain companyID.
@@ -84,7 +84,7 @@ public abstract  class DriverManagerAPI {
      * @param companyID
      * @return Drivers generated from database.
      */
-    public abstract List<Driver> getDriverByCompanyID(int companyID);
+    public abstract List<Driver> getDriverByCompanyID(Integer companyID);
 
 
     /**

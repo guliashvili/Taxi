@@ -35,7 +35,7 @@ public abstract class OrderManagerAPI {
      * @param orderID
      * @return Order generated from database.
      */
-    public abstract Order getOrderByID(int orderID);
+    public abstract Order getOrderByID(Integer orderID);
 
     /**
      * Returns list of order selected by the certain userID.
@@ -43,7 +43,7 @@ public abstract class OrderManagerAPI {
      * @param userID
      * @return List of orders.
      */
-    public abstract List<Order> getOrderByUserID(int userID);
+    public abstract List<Order> getOrderByUserID(Integer userID);
 
     /**
      * Returns list of orders selected by the certain driverID.
@@ -51,6 +51,6 @@ public abstract class OrderManagerAPI {
      * @param driverID
      * @return List of orders.
      */
-    public abstract  List<Order> getOrdersByDriverID(int driverID);
+    public abstract List<Order> getOrdersByDriverID(Integer driverID);
 
 }

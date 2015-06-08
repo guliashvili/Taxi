@@ -16,7 +16,7 @@ public class UserManager extends  UserManagerAPI{
     }
 
     @Override
-    public User getUserByID(int userID) {
+    public User getUserByID(Integer userID) {
         return userDao.getUserByID(userID);
     }
 
@@ -29,7 +29,7 @@ public class UserManager extends  UserManagerAPI{
     public boolean registerUser(User user) {
         boolean errorCode;
 
-        if (!user.isValid())
+        if (user == null || !user.isValid())
             errorCode = true;
         else
             errorCode = userDao.registerUser(user);
@@ -41,7 +41,7 @@ public class UserManager extends  UserManagerAPI{
 
         boolean errorCode;
 
-        if (!user.isValid())
+        if (user == null || !user.isValid())
             errorCode = true;
         else
             errorCode = userDao.updateUser(user);
@@ -49,7 +49,7 @@ public class UserManager extends  UserManagerAPI{
     }
 
     @Override
-    public UserPreference getUserPreferenceByID(int userPreferenceID) {
+    public UserPreference getUserPreferenceByID(Integer userPreferenceID) {
         return  userDao.getUserPreferenceByID(userPreferenceID);
     }
 
