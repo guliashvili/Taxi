@@ -8,7 +8,8 @@ import java.math.BigDecimal;
  */
 public class ExternalAlgorithms {
     public final static BigDecimal EPS = new BigDecimal(0.000001);
-    public static boolean DEBUG = true;
+    public static boolean DEBUGStrings = true;
+    public static boolean DEBUGExceptions = true;
     public static boolean DEBUGSelects = false;
 
     /**
@@ -19,6 +20,7 @@ public class ExternalAlgorithms {
      * @return true if both are null or equal
      */
     static  public  boolean equalsNull(Object a, Object b){
+
         if(a == null && b == null) return  true;
         else if(a == null || b == null) return  false;
         else if (a instanceof BigDecimal && b instanceof BigDecimal) {
@@ -27,7 +29,6 @@ public class ExternalAlgorithms {
             return c.compareTo(EPS) <= 0;
         }
         return  a.equals(b);
-        // TODO assertEquals isgan riti gansxvavdeba?
     }
 
     static public void debugPrintSelect(String s){
@@ -35,11 +36,11 @@ public class ExternalAlgorithms {
             debugPrint(s);
     }
     static public void debugPrint(String s){
-        if(DEBUG)
+        if (DEBUGStrings)
           System.err.println(s);
     }
     static public void debugPrint(Exception e){
-       if(DEBUG)
+        if (DEBUGExceptions)
          e.printStackTrace();
     }
 }
