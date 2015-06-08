@@ -88,6 +88,11 @@ public class ManagerTests{
         when(dao.registerCompany(comp)).thenReturn(true);
         assertEquals(man.registerCompany(comp), true);
         when(dao.registerCompany(anyObject())).thenReturn(false);
+        comp.setEmail("hophophopla");
+        when(dao.registerCompany(comp)).thenReturn(false);
+        assertTrue(man.registerCompany(comp));
+
+        comp.setEmail("rame@mail.ru");
         //assertTrue(man.registerCompany(null));
         // update company
         when(dao.updateCompany(comp)).thenReturn(true);
@@ -95,6 +100,9 @@ public class ManagerTests{
         when(dao.updateCompany(comp)).thenReturn(false);
         assertEquals(man.updateCompany(comp), false);
         when(dao.updateCompany(anyObject())).thenReturn(false);
+        comp.setEmail("hophophopla");
+        when(dao.updateCompany(comp)).thenReturn(false);
+        assertTrue(man.updateCompany(comp));
         //assertTrue(man.updateCompany(null));
     }
     @Test
@@ -248,6 +256,9 @@ public class ManagerTests{
         assertFalse(man.updateDriver(d));
         when(dao.updateDriver(anyObject())).thenReturn(true);
         assertTrue(man.updateDriver(d));
+        d.setEmail("mail.ru");
+        when(dao.updateDriver(d)).thenReturn(false);
+        assertTrue(man.updateDriver(d));
         //registerDriver
         when(dao.registerDriver(anyObject())).thenReturn(false);
         Driver driver = new Driver();
@@ -259,6 +270,9 @@ public class ManagerTests{
         when(dao.registerDriver(anyObject())).thenReturn(true);
         assertTrue(man.registerDriver(driver));
         when(dao.registerDriver(anyObject())).thenReturn(false);
+        driver.setPassword("");
+        when(dao.registerDriver(driver)).thenReturn(false);
+        assertTrue(man.registerDriver(driver));
         //assertTrue(man.registerDriver(null));
         //loginDriver
         Driver driver1 = new Driver();
@@ -553,15 +567,27 @@ public class ManagerTests{
         u2.setPassword("uff");
         u2.setEmail("buzuzuuu@gmail.com");
         u2.setPhoneNumber("598999900");
+        User u3 = new User();
+        u3.setPassword("");
+        u3.setEmail("buzuzuuu@gmail.com");
+        u3.setPhoneNumber("598999900");
         when(dao.updateUser(u1)).thenReturn(true);
         when(dao.updateUser(u2)).thenReturn(false);
+        when(dao.updateUser(u3)).thenReturn(false);
         assertTrue(man.updateUser(u1));
+        assertTrue(man.updateUser(u3));
         assertFalse(man.updateUser(u2));
         when(dao.updateUser(anyObject())).thenReturn(false);
         //assertTrue(man.updateUser(null));
         //registerUser
+        u3 = new User();
+        u3.setPassword("gela");
+        u3.setEmail("dafuq@gmail.com");
+        u3.setPhoneNumber("5550304011");
         when(dao.registerUser(u1)).thenReturn(true);
         when(dao.registerUser(u2)).thenReturn(false);
+        when(dao.registerUser(u3)).thenReturn(false);
+        assertTrue(man.registerUser(u3));
         assertTrue(man.registerUser(u1));
         assertFalse(man.registerUser(u2));
         when(dao.registerUser(anyObject())).thenReturn(false);
