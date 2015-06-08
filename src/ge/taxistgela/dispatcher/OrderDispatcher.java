@@ -2,11 +2,10 @@ package ge.taxistgela.dispatcher;
 
 import com.google.gson.Gson;
 import ge.taxistgela.bean.Order;
-import ge.taxistgela.model.SessionManager;
-import ge.taxistgela.model.SessionManagerAPI;
+import ge.taxistgela.model.RemoteManager;
+import ge.taxistgela.model.RemoteManagerAPI;
 
 import javax.servlet.ServletContext;
-import javax.websocket.Session;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -44,10 +43,10 @@ public class OrderDispatcher extends Thread {
 
             // TODO replace with real implementation.
 
-            final SessionManagerAPI sessionManager = (SessionManagerAPI) sc.getAttribute(SessionManagerAPI.class.getName());
+            final RemoteManagerAPI sessionManager = (RemoteManagerAPI) sc.getAttribute(RemoteManagerAPI.class.getName());
 
             if (order != null) {
-                sessionManager.sendMessage(SessionManager.DRIVER_SESSION, Integer.toString(order.getDriverID()), new Gson().toJson(order));
+                sessionManager.sendMessage(RemoteManager.DRIVER_REMOTE, Integer.toString(order.getDriverID()), new Gson().toJson(order));
             }
         }
     }

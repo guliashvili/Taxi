@@ -3,8 +3,8 @@ package ge.taxistgela.servlet;
 import com.google.gson.Gson;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.dispatcher.OrderDispatcher;
-import ge.taxistgela.model.SessionManager;
-import ge.taxistgela.model.SessionManagerAPI;
+import ge.taxistgela.model.RemoteManager;
+import ge.taxistgela.model.RemoteManagerAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,21 +29,21 @@ public class SendServlet extends ActionServlet {
 
         orderDispatcher.addToQueue(new Gson().fromJson(message, Order.class));
 
-        response.setStatus(response.SC_OK);
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     protected void sendToUser(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("sendToUser");
 
-        SessionManagerAPI sessionManager = (SessionManagerAPI) getServletContext().getAttribute(SessionManagerAPI.class.getName());
+        RemoteManagerAPI sessionManager = (RemoteManagerAPI) getServletContext().getAttribute(RemoteManagerAPI.class.getName());
 
         String token = request.getParameter("token");
         String message = request.getParameter("message");
 
         System.out.println("sendToUser: " + token + " " + message);
 
-        sessionManager.sendMessage(SessionManager.USER_SESSION, token, message);
+        sessionManager.sendMessage(RemoteManager.USER_REMOTE, token, message);
 
-        response.setStatus(response.SC_OK);
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }
