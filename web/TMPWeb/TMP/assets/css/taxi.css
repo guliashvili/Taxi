@@ -1,0 +1,66 @@
+.modal {
+			text-align: center;
+		    position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			overflow: hidden;
+		}
+		.modal:before {
+		  display: inline-block;
+		  vertical-align: middle;
+		  content: " ";
+		  height: 100%;
+		}
+		.fullscreen .innerContainer{
+			margin-top:25%;
+		}
+		.innerContainer{
+			margin-top:0;
+		}
+		.fullscreen .modal-content {
+			height:100%;
+			width:100%;
+			border-radius:0;
+		}
+		.fullscreen .modal-dialog{
+			position:absolute;
+			left:0;
+			height:85%;
+			width:93%;
+			padding:0;
+		}
+		.fullscreen .modal-body{
+			height:100%;
+		}
+		
+		.modal-dialog {
+		  display: inline-block;
+		  text-align: left;
+		  vertical-align: middle;
+		}
+		#mainHeader{
+			background-color:yellow;
+			color:black;
+			border:2px medium black;
+		}
+		.modal-header{
+			color:white;
+			background-color: #F8CD3B;
+			background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), 
+			linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
+			background-size:60px 60px;
+			background-position:0 0, 30px 30px
+		}
+		.modal-footer{
+			color:white;
+			background-color: #F8CD3B;
+			background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), 
+			linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
+			background-size:60px 60px;
+			background-position:0 0, 30px 30px
+		}
+		.modal-body{
+			background-color:black;
+		}
