@@ -3,8 +3,8 @@ package ge.taxistgela.servlet;
 import com.google.gson.Gson;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.dispatcher.OrderDispatcher;
-import ge.taxistgela.model.RemoteManager;
-import ge.taxistgela.model.RemoteManagerAPI;
+import ge.taxistgela.model.SessionManager;
+import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,14 +35,14 @@ public class SendServlet extends ActionServlet {
     protected void sendToUser(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("sendToUser");
 
-        RemoteManagerAPI sessionManager = (RemoteManagerAPI) getServletContext().getAttribute(RemoteManagerAPI.class.getName());
+        SessionManagerAPI sessionManager = (SessionManagerAPI) getServletContext().getAttribute(SessionManagerAPI.class.getName());
 
         String token = request.getParameter("token");
         String message = request.getParameter("message");
 
         System.out.println("sendToUser: " + token + " " + message);
 
-        sessionManager.sendMessage(RemoteManager.USER_REMOTE, token, message);
+        sessionManager.sendMessage(SessionManager.USER_SESSION, token, message);
 
         response.setStatus(HttpServletResponse.SC_OK);
     }

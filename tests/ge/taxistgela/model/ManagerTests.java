@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import javax.websocket.RemoteEndpoint;
+import javax.websocket.Session;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -501,48 +502,63 @@ public class ManagerTests{
         assertNull(man.getReviewByDriverID(-3));
     }
     @Test
-    public void remoteManagerTests() {
-        RemoteManagerAPI sm = new RemoteManager();
+    public void sessionManagerTests() {
+        SessionManagerAPI sm = new SessionManager();
 
         // test add
+        Session session1 = mock(Session.class);
         RemoteEndpoint.Async remote1 = mock(RemoteEndpoint.Async.class);
+        when(session1.getAsyncRemote()).thenReturn(remote1);
+        when(session1.isOpen()).thenReturn(true);
 
-        sm.addRemote(RemoteManager.USER_REMOTE, "geloidi", remote1);
+        sm.addSession(SessionManager.USER_SESSION, "geloidi", session1);
 
-        sm.sendMessage(RemoteManager.USER_REMOTE, "geloidi", "gela var");
+        sm.sendMessage(SessionManager.USER_SESSION, "geloidi", "gela var");
         verify(remote1).sendText("gela var");
 
+        Session session2 = mock(Session.class);
         RemoteEndpoint.Async remote2 = mock(RemoteEndpoint.Async.class);
+        when(session2.getAsyncRemote()).thenReturn(remote2);
+        when(session2.isOpen()).thenReturn(true);
 
-        sm.sendMessage(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", "taxisti var");
+        sm.sendMessage(SessionManager.DRIVER_SESSION, "taxisti geloidi", "taxisti var");
         verify(remote2, never()).sendText("taxisti var");
 
-        sm.addRemote(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", remote2);
+        sm.addSession(SessionManager.DRIVER_SESSION, "taxisti geloidi", session2);
 
-        sm.sendMessage(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", "taxisti var");
+        sm.sendMessage(SessionManager.DRIVER_SESSION, "taxisti geloidi", "taxisti var");
         verify(remote2).sendText("taxisti var");
 
         // adding invalid remote.
+        // checking closed session.
+        Session session3 = mock(Session.class);
         RemoteEndpoint.Async remote3 = mock(RemoteEndpoint.Async.class);
+        when(session3.getAsyncRemote()).thenReturn(remote3);
+        when(session3.isOpen()).thenReturn(false);
 
-        sm.addRemote(10, "ar var gela", remote3);
+        sm.addSession(10, "ar var gela", session3);
 
         sm.sendMessage(10, "ar var gela", "haha");
         verify(remote3, never()).sendText(anyString());
 
-        // test remove
-        sm.removeRemote(RemoteManager.USER_REMOTE, "geloidi");
+        sm.addSession(SessionManager.USER_SESSION, "ar var gela", session3);
 
-        sm.sendMessage(RemoteManager.USER_REMOTE, "geloidi", "gela var");
+        sm.sendMessage(SessionManager.USER_SESSION, "ar var gela", "haha");
+        verify(remote3, never()).sendText(anyString());
+
+        // test remove
+        sm.removeSession(SessionManager.USER_SESSION, "geloidi");
+
+        sm.sendMessage(SessionManager.USER_SESSION, "geloidi", "gela var");
         verify(remote1).sendText("gela var");
 
-        sm.removeRemote(RemoteManager.DRIVER_REMOTE, "taxisti geloidi");
+        sm.removeSession(SessionManager.DRIVER_SESSION, "taxisti geloidi");
 
-        sm.sendMessage(RemoteManager.DRIVER_REMOTE, "taxisti geloidi", "taxisti var");
+        sm.sendMessage(SessionManager.DRIVER_SESSION, "taxisti geloidi", "taxisti var");
         verify(remote2).sendText("taxisti var");
 
         // removing invalid remote.
-        sm.removeRemote(10, "ar var gela");
+        sm.removeSession(10, "ar var gela");
 
         sm.sendMessage(10, "ar var gela", "haha");
         verify(remote3, never()).sendText(anyString());

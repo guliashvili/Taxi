@@ -2,8 +2,9 @@ package ge.taxistgela.dispatcher;
 
 import com.google.gson.Gson;
 import ge.taxistgela.bean.Order;
-import ge.taxistgela.model.RemoteManager;
-import ge.taxistgela.model.RemoteManagerAPI;
+import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.model.SessionManager;
+import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.ServletContext;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -33,22 +34,26 @@ public class OrderDispatcher extends Thread {
                 break;
 
             Order order = null;
-            System.out.println("Waiting to take order...");
+            ExternalAlgorithms.debugPrint("Waiting to take order...");
+
             try {
                 order = orders.take();
             } catch (InterruptedException ex) {
                 break;
             }
-            System.out.println("Took order...");
+
+            ExternalAlgorithms.debugPrint("Took order...");
 
             // TODO replace with real implementation.
 
-            final RemoteManagerAPI sessionManager = (RemoteManagerAPI) sc.getAttribute(RemoteManagerAPI.class.getName());
+            final SessionManagerAPI sessionManager = (SessionManagerAPI) sc.getAttribute(SessionManagerAPI.class.getName());
 
             if (order != null) {
-                sessionManager.sendMessage(RemoteManager.DRIVER_REMOTE, Integer.toString(order.getDriverID()), new Gson().toJson(order));
+                sessionManager.sendMessage(SessionManager.DRIVER_SESSION, Integer.toString(order.getDriverID()), new Gson().toJson(order));
             }
         }
+
+        ExternalAlgorithms.debugPrint("Order dispatcher stopped...");
     }
 
     /**
@@ -57,20 +62,23 @@ public class OrderDispatcher extends Thread {
      * @param order
      */
     public void addToQueue(Order order) {
-        System.out.println("Waiting to put order...");
+        ExternalAlgorithms.debugPrint("Waiting to put order...");
+
         try {
             orders.put(order);
         } catch (InterruptedException e) {
             // TODO Remove
              e.printStackTrace();
         }
-        System.out.println("Put order...");
+
+        ExternalAlgorithms.debugPrint("Put order...");
     }
 
     /**
      * Stop dispatcher.
      */
     public void cancel() {
+        ExternalAlgorithms.debugPrint("Canceling order dispatcher...");
         state = false;
     }
 }

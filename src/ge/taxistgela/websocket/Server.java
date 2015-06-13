@@ -1,11 +1,12 @@
 package ge.taxistgela.websocket;
 
-import ge.taxistgela.model.RemoteManagerAPI;
+import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.ServletContext;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 
 /**
  * Created by Alex on 6/6/2015.
@@ -13,21 +14,20 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value = "/wsapp/{sessionType}/{token}", configurator = Configurator.class)
 public class Server {
 
-    private RemoteManagerAPI sm;
+    private SessionManagerAPI sm;
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config, @PathParam("sessionType") int sessionType, @PathParam("token") String token) {
-        System.out.println(sessionType + " " + token);
         if (sm == null) {
             ServletContext sc = (ServletContext) config.getUserProperties().get(ServletContext.class.getName());
 
             if (sc != null) {
-                sm = (RemoteManagerAPI) sc.getAttribute(RemoteManagerAPI.class.getName());
+                sm = (SessionManagerAPI) sc.getAttribute(SessionManagerAPI.class.getName());
             }
         }
 
         if (sm != null) {
-            sm.addRemote(sessionType, token, session.getAsyncRemote());
+            sm.addSession(sessionType, token, session);
         }
     }
 
@@ -39,12 +39,22 @@ public class Server {
     @OnClose
     public void onClose(Session session, @PathParam("sessionType") int sessionType, @PathParam("token") String token) {
         if (sm != null) {
-            sm.removeRemote(sessionType, token);
+            sm.removeSession(sessionType, token);
         }
     }
 
     @OnError
     public void onError(Session session, Throwable t, @PathParam("sessionType") int sessionType, @PathParam("token") String token) {
-        System.out.println(t.toString());
+        try {
+            session.close();
+        } catch (IOException e) {
+            System.err.println(e.toString());
+        }
+
+        if (sm != null) {
+            sm.removeSession(sessionType, token);
+        }
+
+        System.err.println(t.toString());
     }
 }
