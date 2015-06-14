@@ -1,138 +1,153 @@
-		.modal {
-			text-align: center;
-		    position: fixed;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			overflow: hidden;
-		}
-		.modal:before {
-		  display: inline-block;
-		  vertical-align: middle;
-		  content: " ";
-		  height: 100%;
-		}
-		.fullscreen .innerContainer{
-			margin-top:25%;
-		}
-		.modal .\34 u, .\34 u\24{
-            float:left;
-            width:32%;
-        }
-		.innerContainer{
-			margin-top:0;
-		}
-		.fullscreen .modal-content {
-			height:100%;
-			width:100%;
-			border-radius:0;
-		}
-		.fullscreen .modal-dialog{
-			position:absolute;
-			left:0;
-			height:85%;
-			width:93%;
-			padding:0;
-		}
-		.fullscreen .modal-body{
-			height:100%;
-		}
-		
-		.modal-dialog {
-		  display: inline-block;
-		  text-align: left;
-		  vertical-align: middle;
-		}
-		#mainHeader{
-			background-color:yellow;
-			color:black;
-			border:2px medium black;
-		}
-		.modal-header{
-			color:white;
-			background-color: #F8CD3B;
-			background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), 
-			linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
-			background-size:60px 60px;
-			background-position:0 0, 30px 30px
-		}
-		.modal-footer{
-			color:white;
-			background-color: #F8CD3B;
-			background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), 
-			linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
-			background-size:60px 60px;
-			background-position:0 0, 30px 30px
-		}
-		.modal-body{
-			background-color:black;
-		}
-        .icon {
-            float:right;
-            text-decoration: none;
-            border-bottom: none;
-            position: relative;
-            font-size:2.1em;
-            text-decoration: none;
-        }
-        .icon:hover{
-            text-decoration: none;
-        }
+@media (max-width: 790px) {
+    .modal-content {
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+    }
 
-        .icon:before {
-            -moz-osx-font-smoothing: grayscale;
-            -webkit-font-smoothing: antialiased;
-            font-family: FontAwesome;
-            font-style: normal;
-            font-weight: normal;
-            text-transform: none !important;
-        }
+    .modal-dialog {
+        position: absolute;
+        left: 0;
+        height: 85%;
+        width: 93%;
+        padding: 0;
+    }
 
-        .icon > .label {
+    .modal-body {
+        height: 100%;
+    }
 
-        }
+    div#loginModal .innerContainer {
+        margin-top: 30%;
+    }
+}
 
-        .icon.major {
-            -moz-transform: rotate(-45deg);
-            -webkit-transform: rotate(-45deg);
-            -ms-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-            border-radius: 3px;
-            border: solid 2px #fff;
-            display: inline-block;
-            font-size: 2.1em;
-            height: calc(3em + 2px);
-            line-height: 2.1em;
-            text-align: center;
-            width: calc(2.1em + 2px);
-        }
+.modal {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
 
-        .icon.major:before {
-            -moz-transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
-            display: inline-block;
-            font-size: 2.1em;
-        }
+.modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+}
 
-        @media screen and (max-width: 736px) {
+.modal .\34 u, .\34 u\24 {
+    float: left;
+    width: 32%;
+}
 
-            .icon.major {
-                font-size: 2.1em;
-            }
+.innerContainer {
+    margin-top: 0;
+}
 
-        }
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
 
-        .icon.style1 {
-            color: #00ffcc;
-        }
+#mainHeader {
+    background-color: yellow;
+    color: black;
+    border: 2px medium black;
+}
 
-        .icon.style2 {
-            color: #00f0ff;
-        }
+.modal-header {
+    color: white;
+    background-color: #F8CD3B;
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),
+    linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px
+}
 
-        .icon.style3 {
-            color: #76ddff;
-        }
+.modal-footer {
+    color: white;
+    background-color: #F8CD3B;
+    background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black),
+    linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px
+}
+
+.modal-body {
+    background-color: black;
+}
+
+.icon {
+    float: right;
+    text-decoration: none;
+    border-bottom: none;
+    position: relative;
+    font-size: 2.1em;
+    text-decoration: none;
+}
+
+.icon:hover {
+    text-decoration: none;
+}
+
+.icon:before {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none !important;
+}
+
+.icon > .label {
+
+}
+
+.icon.major {
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    border-radius: 3px;
+    border: solid 2px #fff;
+    display: inline-block;
+    font-size: 2.1em;
+    height: calc(3em + 2px);
+    line-height: 2.1em;
+    text-align: center;
+    width: calc(2.1em + 2px);
+}
+
+.icon.major:before {
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: inline-block;
+    font-size: 2.1em;
+}
+
+@media screen and (max-width: 736px) {
+
+    .icon.major {
+        font-size: 2.1em;
+    }
+
+}
+
+.icon.style1 {
+    color: #00ffcc;
+}
+
+.icon.style2 {
+    color: #00f0ff;
+}
+
+.icon.style3 {
+    color: #76ddff;
+}
