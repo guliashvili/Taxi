@@ -15,26 +15,17 @@
 		<link rel="stylesheet" href="assets/css/taxi.css"> </style>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
+
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
-	<script>
-	/*$(document).ready(function (e){
-		checkModals();
-	});
-	$(window).resize(function() {
-		checkModals();
-	});
-	function checkModals(){
-		if(window.innerHeight <= 376 || window.innerWidth <=640){
-			$("#loginModal").addClass("fullscreen");
-			$("#registerModal").addClass("fullscreen");
-		}else{
-			$("#loginModal").removeClass("fullscreen");
-			$("#registerModal").removeClass("fullscreen");
-		}
-	}*/
-	</script>
 	<style>
 		
 	</style>
@@ -124,17 +115,18 @@
 				  <div class="modal-body">
 						<form id="registrationForm">
 							<div class = "4u">
-								<input type="radio" id="userReg" name="userReg">
+								<input type="radio" class="regChange" showf="companyRegistration" id="userReg" name="userReg">
 								<label for="userReg">User</label>
 							</div>
 							<div class = "4u">
-								<input type="radio" id="driverReg" name="userReg">
+								<input type="radio" class="regChange" showf="userRegistration" id="driverReg" name="userReg">
 								<label for="driverReg">Driver</label>
 							</div>
 							<div class = "4u">
-								<input type="radio" id="companyReg" name="userReg">
+								<input type="radio" class="regChange" showf="driverRegistration" id="companyReg" name="userReg">
 								<label for="companyReg">Company</label>
 							</div>
+							<br><br>
 							<div id="companyRegistration" class="hidden" >
 								<input type ="text" name="companyCode" value="" placeholder="Company Code"/><br>
 								<input type ="email" name="email" value="" placeholder="Company Email"/><br>
@@ -144,19 +136,33 @@
 								<a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
 								<a href="#" class="icon fa-google"><span class="label">Google+</span></a>
 							</div>
-							<div id="userRegistration">
+							<div id="userRegistration" class="hidden">
 								<input type ="text" name="firstName" value="" placeholder="First Name"/><br>
 								<input type ="text" name="lastName" value="" placeholder="Last Name"/><br>
 								<input type ="email" name="email" value="" placeholder="Email"/><br>
 								<input type ="text" name="password" value="" placeholder="Password"/><br>
-								<input type ="text" name="companyName" value="" placeholder="Company Name"/><br>
+								<select name="gender">
+									<option value="MALE">Male</option>
+									<option value="FEMALE">Female</option>
+								</select><br>
 								<input type ="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
 								<a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
 								<a href="#" class="icon fa-google"><span class="label">Google+</span></a>
-								private Gender gender;
-								private Double rating;
-								private UserPreference preference;
-								private Boolean isVerified;
+							</div>
+							<div id="driverRegistration" class="hidden">
+								<input type ="text" name="firstName" value="" placeholder="First Name"/><br>
+								<input type ="text" name="lastName" value="" placeholder="Last Name"/><br>
+								<input type ="text" name="personalID" value="" placeholder="Personal ID"/><br>
+								<input type ="text" name="companyID" value="" placeholder="Company ID"/><br>
+								<input type ="email" name="email" value="" placeholder="Email"/><br>
+								<input type ="text" name="password" value="" placeholder="Password"/><br>
+								<select name="gender">
+									<option value="MALE">Male</option>
+									<option value="FEMALE">Female</option>
+								</select><br>
+								<input type ="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
+								<a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+								<a href="#" class="icon fa-google"><span class="label">Google+</span></a>
 							</div>
 						</form>
 				  </div>
@@ -190,14 +196,15 @@
 
 			  </div>
 			</div>
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
 
 	</body>
+
+	<script>
+		$(".regChange").change(function(e){
+			$("#companyRegistration").addClass("hidden");
+			$("#userRegistration").addClass("hidden");
+			$("#driverRegistration").addClass("hidden");
+			$("#"+$(e.target).attr("showf")).removeClass("hidden");
+		});
+	</script>
 </html>
