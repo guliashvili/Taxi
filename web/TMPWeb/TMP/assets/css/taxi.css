@@ -30,7 +30,6 @@
     bottom: 0;
     left: 0;
 }
-
 .modal:before {
     display: inline-block;
     vertical-align: middle;
@@ -352,4 +351,8 @@ input[type="radio"] + label:before {
 .formerize-placeholder {
     color: rgba(255, 255, 255, 0.5) !important;
     opacity: 1.0;
+}
+
+#registerModal input[type="submit"]{
+    float:right;
 }
