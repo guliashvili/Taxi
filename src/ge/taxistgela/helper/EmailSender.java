@@ -26,30 +26,42 @@ public class EmailSender {
      * @param user user to verify email
      * @param key key to be sent
      */
-    public static synchronized void verifyEmail(User user,String key) throws MessagingException{
-        Properties properties = System.getProperties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", stmphost);
-        properties.put("mail.smtp.port", "587");
+    public static void verifyEmail(User user, String key) throws RuntimeException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Properties properties = System.getProperties();
+                    properties.put("mail.smtp.auth", "true");
+                    properties.put("mail.smtp.starttls.enable", "true");
+                    properties.put("mail.smtp.host", stmphost);
+                    properties.put("mail.smtp.port", "587");
 
-        Session session = Session.getDefaultInstance(properties,
-                new javax.mail.Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(username, password);
+                    Session session = Session.getDefaultInstance(properties,
+                            new javax.mail.Authenticator() {
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                    return new PasswordAuthentication(username, password);
+                                }
+                            });
+                    MimeMessage message = new MimeMessage(session);
+                    message.setFrom(from);
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+                    message.setSubject(subject);
+                    StringBuilder b = new StringBuilder();
+                    for (int i = 0; i < message_t.length; ++i) {
+                        if (i == 1) b.append(user.getFirstName());
+                        b.append(message_t[i]);
+                    }
+                    b.append(key);
+                    message.setText(b.toString());
+                    Transport.send(message);
+                } catch (MessagingException e) {
+                    throw new RuntimeException();
                 }
+            }
+
         });
-        MimeMessage message = new MimeMessage(session);
-        message.setFrom(from);
-        message.addRecipient(Message.RecipientType.TO,new InternetAddress(user.getEmail()));
-        message.setSubject(subject);
-        StringBuilder b = new StringBuilder();
-        for(int i=0;i<message_t.length;++i){
-            if(i==1) b.append(user.getFirstName());
-                b.append(message_t[i]);
-        }
-        b.append(key);
-        message.setText(b.toString());
-        Transport.send(message);
+
+        thread.start();
     }
 }
