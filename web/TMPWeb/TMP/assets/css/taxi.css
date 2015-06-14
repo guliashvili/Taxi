@@ -1,4 +1,4 @@
-.modal {
+		.modal {
 			text-align: center;
 		    position: fixed;
 			top: 0;
@@ -16,6 +16,10 @@
 		.fullscreen .innerContainer{
 			margin-top:25%;
 		}
+		.modal .\34 u, .\34 u\24{
+            float:left;
+            width:32%;
+        }
 		.innerContainer{
 			margin-top:0;
 		}
@@ -64,3 +68,71 @@
 		.modal-body{
 			background-color:black;
 		}
+        .icon {
+            float:right;
+            text-decoration: none;
+            border-bottom: none;
+            position: relative;
+            font-size:2.1em;
+            text-decoration: none;
+        }
+        .icon:hover{
+            text-decoration: none;
+        }
+
+        .icon:before {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            text-transform: none !important;
+        }
+
+        .icon > .label {
+
+        }
+
+        .icon.major {
+            -moz-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            border-radius: 3px;
+            border: solid 2px #fff;
+            display: inline-block;
+            font-size: 2.1em;
+            height: calc(3em + 2px);
+            line-height: 2.1em;
+            text-align: center;
+            width: calc(2.1em + 2px);
+        }
+
+        .icon.major:before {
+            -moz-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            display: inline-block;
+            font-size: 2.1em;
+        }
+
+        @media screen and (max-width: 736px) {
+
+            .icon.major {
+                font-size: 2.1em;
+            }
+
+        }
+
+        .icon.style1 {
+            color: #00ffcc;
+        }
+
+        .icon.style2 {
+            color: #00f0ff;
+        }
+
+        .icon.style3 {
+            color: #76ddff;
+        }
