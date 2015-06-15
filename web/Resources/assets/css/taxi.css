@@ -42,8 +42,12 @@
     margin-top:-8px;
     background-color:#FFD800;
     opacity:1;
+    height:40px;
+    width:40px;
+    font-size:2.5em;
     padding-left:5px;
     border:0px none;
+    float:right;
 }
 
 .modal .\34 u, .\34 u\24 {
