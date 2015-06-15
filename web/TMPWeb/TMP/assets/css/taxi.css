@@ -365,3 +365,7 @@ input[type="radio"] + label:before {
 #registerModal input[type="submit"]{
     float:right;
 }
+/*Section styles*/
+#about{
+    background-color:black;
+}
