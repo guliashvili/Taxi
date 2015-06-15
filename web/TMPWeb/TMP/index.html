@@ -31,10 +31,8 @@
 	</style>
 	<body class="landing">
 
-		<!-- Page Wrapper -->
 			<div id="page-wrapper">
 
-				<!-- Header -->
 					<header id="header" class="alt">
 						<h1><a href="index.html">Taxist Gela</a></h1>
 						<nav id="nav">
@@ -68,7 +66,9 @@
 						</div>
 						<a href="#about" class="more scrolly one">About</a>
 					</section>
-
+					<section id="panel" class="hidden">
+						<!-- Ajax request goes here -->
+					</section>
 					<section id="about" class="wrapper style1 special">
 						<div class="inner">
 							<header class="major">
@@ -206,5 +206,17 @@
 			$("#driverRegistration").addClass("hidden");
 			$("#"+$(e.target).attr("showf")).removeClass("hidden");
 		});
+		function load_user(){
+			$.ajax({
+				type:"POST",
+				url:"/ActionServlet",
+				data:{
+					getMap:"true"
+				},
+				success:function(data){
+					$("#panel").html(data);
+				}
+			})
+		}
 	</script>
 </html>
