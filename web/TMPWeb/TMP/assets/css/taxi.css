@@ -36,6 +36,15 @@
     content: " ";
     height: 100%;
 }
+.modal .close{
+    height:20px;
+    margin-right:-12px;
+    margin-top:-8px;
+    background-color:#FFD800;
+    opacity:1;
+    padding-left:5px;
+    border:0px none;
+}
 
 .modal .\34 u, .\34 u\24 {
     float: left;
