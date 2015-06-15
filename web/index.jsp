@@ -127,44 +127,44 @@
           </div>
           <br><br>
           <div id="companyRegistration" class="hidden" >
-            <input type ="text" name="companyCode" value="" placeholder="Company Code"/><br>
-            <input type ="email" name="email" value="" placeholder="Company Email"/><br>
-            <input type ="text" name="password" value="" placeholder="Company Password"/><br>
-            <input type ="text" name="password" value="" placeholder="Repeat Password"/><br>
-            <input type ="text" name="companyName" value="" placeholder="Company Name"/><br>
-            <input type ="text" name="phoneNumber" value="" placeholder="Company Phone Number"/><br>
+            <input type ="text" name="companyCode" value="" placeholder="Company Code" required/><br>
+            <input type ="email" name="email" value="" placeholder="Company Email" required/><br>
+            <input type ="password" name="password" value="" placeholder="Company Password" required/><br>
+            <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
+            <input type ="text" name="companyName" value="" placeholder="Company Name" required/><br>
+            <input type ="text" name="phoneNumber" value="" placeholder="Company Phone Number" required/><br>
             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
             <input type="submit" class="button special" value="Register"/>
           </div>
           <div id="userRegistration" class="hidden">
-            <input type ="text" name="firstName" value="" placeholder="First Name"/><br>
-            <input type ="text" name="lastName" value="" placeholder="Last Name"/><br>
-            <input type ="email" name="email" value="" placeholder="Email"/><br>
-            <input type ="text" name="password" value="" placeholder="Password"/><br>
-            <input type ="text" name="password" value="" placeholder="Repeat Password"/><br>
+            <input type ="text" name="firstName" value="" placeholder="First Name" required/><br>
+            <input type ="text" name="lastName" value="" placeholder="Last Name" required/><br>
+            <input type ="email" name="email" value="" placeholder="Email" required/><br>
+            <input type ="password" name="password" value="" placeholder="Password" required/><br>
+            <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
             <select name="gender">
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
             </select><br>
-            <input type ="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
+            <input type ="text" name="phoneNumber" value="" placeholder="Phone Number" required/><br>
             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
             <input type="submit" class="button special" value="Register"/>
           </div>
           <div id="driverRegistration" class="hidden">
-            <input type ="text" name="firstName" value="" placeholder="First Name"/><br>
-            <input type ="text" name="lastName" value="" placeholder="Last Name"/><br>
-            <input type ="text" name="personalID" value="" placeholder="Personal ID"/><br>
+            <input type ="text" name="firstName" value="" placeholder="First Name" required/><br>
+            <input type ="text" name="lastName" value="" placeholder="Last Name" required/><br>
+            <input type ="text" name="personalID" value="" placeholder="Personal ID" required/><br>
             <input type ="text" name="companyID" value="" placeholder="Company ID"/><br>
-            <input type ="email" name="email" value="" placeholder="Email"/><br>
-            <input type ="text" name="password" value="" placeholder="Password"/><br>
-            <input type ="text" name="password" value="" placeholder="Repeat Password"/><br>
+            <input type ="email" name="email" value="" placeholder="Email" required/><br>
+            <input type ="password" name="password" value="" placeholder="Password" required/><br>
+            <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
             <select name="gender">
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
             </select><br>
-            <input type ="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
+            <input type ="text" name="phoneNumber" value="" placeholder="Phone Number" required/><br>
             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
             <input type="submit" class="button special" value="Register"/>
