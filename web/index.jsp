@@ -11,22 +11,22 @@
   <title>Taxist Gela</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+  <!--[if lte IE 8]><script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
   <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> </style>
-  <link rel="stylesheet" href="assets/css/taxi.css"> </style>
+  <link rel="stylesheet" href="Resources/assets/css/taxi.css"> </style>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.scrollex.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/skel.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-  <script src="assets/js/main.js"></script>
+  <link rel="stylesheet" href="Resources/assets/css/main.css" />
+  <script src="Resources/assets/js/jquery.min.js"></script>
+  <script src="Resources/assets/js/jquery.scrollex.min.js"></script>
+  <script src="Resources/assets/js/jquery.scrolly.min.js"></script>
+  <script src="Resources/assets/js/skel.min.js"></script>
+  <script src="Resources/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="Resources/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="Resources/assets/js/main.js"></script>
 
-  <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-  <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="Resources/assets/css/ie8.css" /><![endif]-->
+  <!--[if lte IE 9]><link rel="stylesheet" href="Resources/assets/css/ie9.css" /><![endif]-->
 </head>
 <style>
 
