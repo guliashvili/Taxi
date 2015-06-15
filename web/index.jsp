@@ -114,15 +114,15 @@
       <div class="modal-body">
         <form id="registrationForm">
           <div class = "4u">
-            <input type="radio" class="regChange" showf="companyRegistration" id="userReg" name="userReg">
+            <input type="radio" class="regChange" showf="userRegistration" id="userReg" name="userReg">
             <label for="userReg">User</label>
           </div>
           <div class = "4u">
-            <input type="radio" class="regChange" showf="userRegistration" id="driverReg" name="userReg">
+            <input type="radio" class="regChange" showf="driverRegistration" id="driverReg" name="userReg">
             <label for="driverReg">Driver</label>
           </div>
           <div class = "4u">
-            <input type="radio" class="regChange" showf="driverRegistration" id="companyReg" name="userReg">
+            <input type="radio" class="regChange" showf="companyRegistration" id="companyReg" name="userReg">
             <label for="companyReg">Company</label>
           </div>
           <br><br>
@@ -130,6 +130,7 @@
             <input type ="text" name="companyCode" value="" placeholder="Company Code"/><br>
             <input type ="email" name="email" value="" placeholder="Company Email"/><br>
             <input type ="text" name="password" value="" placeholder="Company Password"/><br>
+            <input type ="text" name="password" value="" placeholder="Repeat Password"/><br>
             <input type ="text" name="companyName" value="" placeholder="Company Name"/><br>
             <input type ="text" name="phoneNumber" value="" placeholder="Company Phone Number"/><br>
             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
@@ -141,6 +142,7 @@
             <input type ="text" name="lastName" value="" placeholder="Last Name"/><br>
             <input type ="email" name="email" value="" placeholder="Email"/><br>
             <input type ="text" name="password" value="" placeholder="Password"/><br>
+            <input type ="text" name="password" value="" placeholder="Repeat Password"/><br>
             <select name="gender">
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
@@ -157,6 +159,7 @@
             <input type ="text" name="companyID" value="" placeholder="Company ID"/><br>
             <input type ="email" name="email" value="" placeholder="Email"/><br>
             <input type ="text" name="password" value="" placeholder="Password"/><br>
+            <input type ="text" name="password" value="" placeholder="Repeat Password"/><br>
             <select name="gender">
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
