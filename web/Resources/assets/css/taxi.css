@@ -392,7 +392,9 @@ input[type="radio"] + label:before {
 .is-mobile .prefPanel {
     width: 100%;
 }
-
+.prefPanel a{
+	text-decoration:none;
+}
 .prefPanel .verified{
 	border-color:green;
 	background-color:green;
