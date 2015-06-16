@@ -9,6 +9,12 @@ import java.util.Map;
 public class ErrorCode {
     private Map<String, String> errors = new HashMap<String, String>();
 
+    public void union(ErrorCode a) {
+        for (String elem : a.errors.keySet()) {
+            errors.put(elem, a.errors.get(elem));
+        }
+    }
+
     public String getErrorMessage(String varName) {
         if (errors.containsKey(varName))
             return errors.get(varName);
@@ -16,37 +22,83 @@ public class ErrorCode {
             return null;
     }
 
+    public boolean errorAccrued() {
+        return errors.size() > 0;
+    }
+
+    public void put(String varName, String info) {
+        errors.put(varName, info);
+    }
+
+    public void unexpected() {
+        put("unexpected", "unexpected error accrued");
+    }
+
     public void carDescriptionLong() {
-        errors.put("carDescription", "Car description is very long");
+        put("carDescription", "Car description is very long");
     }
 
     public void carYearOutOfRange() {
-        errors.put("carYear", "Car Year is too small or too big");
+        put("carYear", "Car Year is too small or too big");
     }
 
     public void numPassengersOutOfRange() {
-        errors.put("numPassengers", "num of passengers is too small or too big");
+        put("numPassengers", "num of passengers is too small or too big");
     }
 
     public void companyCodeDuplicate() {
-        errors.put("companyCode", "this companyCode already exists");
+        put("companyCode", "this companyCode already exists");
     }
 
     public void companyCodeFormat() {
-        errors.put("companyCode", "Not correct format");
+        put("companyCode", "Not correct format");
     }
 
     public void emailFormat() {
-        errors.put("email", "Not correct format");
+        put("email", "Not correct format");
     }
 
     public void emailDuplicate() {
-        errors.put("email", "this email already exists");
+        put("email", "this email already exists");
     }
 
     public void passwordFormat() {
-        errors.put("password", "wrong format");
+        put("password", "wrong format. password length is more then 50 or less then 2");
     }
+
+    public void companyNameLong() {
+        put("companyName", "Company name is too long");
+    }
+
+    public void phoneNumberFormat() {
+        put("phoneNumber", "Not correct format");
+    }
+
+    public void phoneNumberDuplicate() {
+        put("phoneNumber", "Phone number already exists");
+    }
+
+    public void firstNameLong() {
+        put("firstName", "first name is long");
+    }
+
+    public void lastNameLong() {
+        put("lastName", "last name is long");
+    }
+
+    public void descriptionLong() {
+        put("description", "description is long");
+    }
+
+    public void facebookIDDuplicate() {
+        put("facebookID", "this facebook account already exists");
+    }
+
+    public void googleIDDuplicate() {
+        put("googleID", "this google account already exists");
+    }
+
+
 
 
 }

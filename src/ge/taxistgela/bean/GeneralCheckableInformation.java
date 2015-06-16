@@ -14,10 +14,13 @@ public abstract class GeneralCheckableInformation implements Checkable {
     public abstract String getPhoneNumber();
 
 
-    public boolean isValid() {
-        return isValidEmail(getEmail()) &&
-                isValidPassword(getPassword()) &&
-                isValidPhoneNumber(getPhoneNumber());
+    public ErrorCode isValid() {
+        ErrorCode ret = new ErrorCode();
+        ret.union(isValidEmail(getEmail()));
+        ret.union(isValidPassword(getPassword()));
+        ret.union(isValidPhoneNumber(getPhoneNumber()));
+
+        return ret;
     }
 
     /**
@@ -26,33 +29,36 @@ public abstract class GeneralCheckableInformation implements Checkable {
      * @param phoneNumber
      * @return returns true if number is in format noted
      */
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null) return false;
-
-        phoneNumber = phoneNumber.replaceAll("[^0-9]", "");
-        if (phoneNumber.length() != 9) return false;
-        return phoneNumber.charAt(0) == '5';
-    }
-
-    private boolean isValidEmail(String email) {
-        if (email == null) return false;
-
-        boolean result = true;
-        try {
-            InternetAddress emailAddress = new InternetAddress(email);
-            emailAddress.validate();
-        } catch (AddressException ex) {
-            result = false;
+    private ErrorCode isValidPhoneNumber(String phoneNumber) {
+        ErrorCode ret = new ErrorCode();
+        if (phoneNumber == null) ret.phoneNumberFormat();
+        else {
+            phoneNumber = phoneNumber.replaceAll("[^0-9]", "");
+            if (phoneNumber.length() != 9 || phoneNumber.charAt(0) != '5')
+                ret.passwordFormat();
         }
-        return result;
+        return ret;
     }
 
-    private boolean isValidPassword(String password) {
-        if (password == null) return false;
+    private ErrorCode isValidEmail(String email) {
+        ErrorCode ret = new ErrorCode();
+        if (email == null || email.length() > 50)
+            ret.emailFormat();
+        else {
+            try {
+                InternetAddress emailAddress = new InternetAddress(email);
+                emailAddress.validate();
+            } catch (AddressException ex) {
+                ret.emailFormat();
+            }
+        }
+        return ret;
+    }
 
-        boolean ret = true;
-        ret &= password.length() >= 1;
-
+    private ErrorCode isValidPassword(String password) {
+        ErrorCode ret = new ErrorCode();
+        if (password == null || password.length() > 50 || password.length() < 2)
+            ret.passwordFormat();
         return ret;
     }
 }

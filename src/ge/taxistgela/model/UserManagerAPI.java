@@ -1,6 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;
@@ -33,7 +34,7 @@ public abstract class UserManagerAPI {
      * @param userPreference
      * @return operationCode
      */
-    public abstract boolean insertUserPreference(UserPreference userPreference);
+    public abstract ErrorCode insertUserPreference(UserPreference userPreference);
 
     /**
      * Updates the userPreference with the new data.
@@ -41,7 +42,7 @@ public abstract class UserManagerAPI {
      * @param userPreference
      * @return operationCode
      */
-    public abstract boolean updateUserPreference(UserPreference userPreference);
+    public abstract ErrorCode updateUserPreference(UserPreference userPreference);
 
 
 
@@ -85,7 +86,7 @@ public abstract class UserManagerAPI {
      * @param user
      * @return operationCode
      */
-    public abstract boolean registerUser(User user);
+    public abstract ErrorCode registerUser(User user);
 
     /**
      * Updates the user order with the new data.
@@ -93,7 +94,7 @@ public abstract class UserManagerAPI {
      * @param user
      * @return operationCode
      */
-    public abstract boolean updateUser(User user);
+    public abstract ErrorCode updateUser(User user);
 
     /**
      * Checks if the user exists with the certain email.

@@ -1,9 +1,6 @@
 package ge.taxistgela.model;
 
-import ge.taxistgela.bean.Car;
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.DriverPreference;
-import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 
 import java.util.List;
@@ -33,7 +30,7 @@ public abstract  class DriverManagerAPI {
      * @param car
      * @return operationCode
      */
-    public abstract boolean insertCar(Car car);
+    public abstract ErrorCode insertCar(Car car);
 
     /**
      * Updates the Car with the new data.
@@ -41,7 +38,7 @@ public abstract  class DriverManagerAPI {
      * @param car
      * @return operationCode
      */
-    public abstract boolean updateCar(Car car);
+    public abstract ErrorCode updateCar(Car car);
 
 
     /**
@@ -60,7 +57,7 @@ public abstract  class DriverManagerAPI {
      * @param driverPreference
      * @return operationCode
      */
-    public abstract boolean insertDriverPreference(DriverPreference driverPreference);
+    public abstract ErrorCode insertDriverPreference(DriverPreference driverPreference);
 
     /**
      * Updates the driverPreference with the new data.
@@ -68,7 +65,7 @@ public abstract  class DriverManagerAPI {
      * @param driverPreference
      * @return operationCode
      */
-    public abstract boolean updateDriverPreference(DriverPreference driverPreference);
+    public abstract ErrorCode updateDriverPreference(DriverPreference driverPreference);
 
     /**
      * Returns Driver selected by the certain driverID.
@@ -120,7 +117,7 @@ public abstract  class DriverManagerAPI {
      * @param driver
      * @return operationCode
      */
-    public abstract boolean registerDriver(Driver driver);
+    public abstract ErrorCode registerDriver(Driver driver);
 
     /**
      * Updates the certain driver with the new data.
@@ -128,7 +125,7 @@ public abstract  class DriverManagerAPI {
      * @param driver
      * @return operationCode
      */
-    public abstract boolean updateDriver(Driver driver);
+    public abstract ErrorCode updateDriver(Driver driver);
 
     /**
      * Checks if the driver exists with the certain carID.

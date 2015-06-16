@@ -1,9 +1,6 @@
 package ge.taxistgela.model;
 
-import ge.taxistgela.bean.Car;
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.DriverPreference;
-import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 
 import java.util.List;
@@ -32,24 +29,33 @@ public class DriverManager extends  DriverManagerAPI {
         return driverDao.loginDriver(email, password);
     }
 
-    @Override
-    public boolean registerDriver(Driver driver) {
-        boolean errorCode;
-        if (driver == null || !driver.isValid())
-            errorCode = true;
-        else
-            errorCode = driverDao.registerDriver(driver);
-        return  errorCode;
+    private ErrorCode getErrorsDriver(Driver driver) {
+        ErrorCode ret = new ErrorCode();
+        if (driver == null) ret.unexpected();
+        else {
+            ret.union(driver.isValid());
+            if (checkEmail(driver.getEmail())) ret.emailDuplicate();
+            if (checkPhoneNumber(driver.getPhoneNumber())) ret.phoneNumberDuplicate();
+            if (checkFacebookID(driver.getFacebookID())) ret.facebookIDDuplicate();
+            if (checkGoogleID(driver.getGoogleID())) ret.googleIDDuplicate();
+        }
+        return ret;
     }
 
     @Override
-    public boolean updateDriver(Driver driver) {
-        boolean errorCode;
-        if (driver == null || !driver.isValid())
-            errorCode = true;
-        else
-            errorCode = driverDao.updateDriver(driver);
-        return  errorCode;
+    public ErrorCode registerDriver(Driver driver) {
+        ErrorCode ret = getErrorsDriver(driver);
+        if (!ret.errorAccrued())
+            if (driverDao.registerDriver(driver)) ret.unexpected();
+        return ret;
+    }
+
+    @Override
+    public ErrorCode updateDriver(Driver driver) {
+        ErrorCode ret = getErrorsDriver(driver);
+        if (!ret.errorAccrued())
+            if (driverDao.updateDriver(driver)) ret.unexpected();
+        return ret;
     }
 
     @Override
@@ -57,14 +63,29 @@ public class DriverManager extends  DriverManagerAPI {
         return driverDao.getCarByID(carID);
     }
 
-    @Override
-    public boolean insertCar(Car car) {
-        return driverDao.insertCar(car);
+    private ErrorCode getErrorsCar(Car car) {
+        ErrorCode ret = new ErrorCode();
+        if (car.getCarDescription().length() > 500)
+            ret.carDescriptionLong();
+        return ret;
     }
 
     @Override
-    public boolean updateCar(Car car) {
-        return driverDao.updateCar(car);
+    public ErrorCode insertCar(Car car) {
+        ErrorCode ret = getErrorsCar(car);
+        if (!ret.errorAccrued())
+            if (driverDao.insertCar(car))
+                ret.unexpected();
+        return ret;
+    }
+
+    @Override
+    public ErrorCode updateCar(Car car) {
+        ErrorCode ret = getErrorsCar(car);
+        if (!ret.errorAccrued())
+            if (driverDao.updateCar(car))
+                ret.unexpected();
+        return ret;
     }
 
     @Override
@@ -73,14 +94,28 @@ public class DriverManager extends  DriverManagerAPI {
 
     }
 
-    @Override
-    public boolean insertDriverPreference(DriverPreference driverPreference) {
-        return driverDao.insertDriverPreference(driverPreference);
+    private ErrorCode getErrorsDriverPreference(DriverPreference driverPreference) {
+        ErrorCode ret = new ErrorCode();
+
+        return ret;
     }
 
     @Override
-    public boolean updateDriverPreference(DriverPreference driverPreference) {
-        return driverDao.updateDriverPreference(driverPreference);
+    public ErrorCode insertDriverPreference(DriverPreference driverPreference) {
+        ErrorCode ret = getErrorsDriverPreference(driverPreference);
+        if (!ret.errorAccrued())
+            if (driverDao.insertDriverPreference(driverPreference))
+                ret.unexpected();
+        return ret;
+    }
+
+    @Override
+    public ErrorCode updateDriverPreference(DriverPreference driverPreference) {
+        ErrorCode ret = getErrorsDriverPreference(driverPreference);
+        if (!ret.errorAccrued())
+            if (driverDao.updateDriverPreference(driverPreference))
+                ret.unexpected();
+        return ret;
     }
 
     @Override

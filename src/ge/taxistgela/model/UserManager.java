@@ -1,6 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;
@@ -25,27 +26,37 @@ public class UserManager extends  UserManagerAPI{
         return userDao.loginUser(username,password);
     }
 
-    @Override
-    public boolean registerUser(User user) {
-        boolean errorCode;
+    private ErrorCode getErrorsUser(User user) {
+        ErrorCode ret = new ErrorCode();
+        ret.union(user.isValid());
+        if (checkEmail(user.getEmail()))
+            ret.emailDuplicate();
+        if (checkPhoneNumber(user.getPhoneNumber()))
+            ret.phoneNumberDuplicate();
+        if (checkGoogleID(user.getGoogleID()))
+            ret.googleIDDuplicate();
+        if (checkFacebookID(user.getFacebookID()))
+            ret.facebookIDDuplicate();
 
-        if (user == null || !user.isValid())
-            errorCode = true;
-        else
-            errorCode = userDao.registerUser(user);
-        return errorCode;
+        return ret;
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public ErrorCode registerUser(User user) {
+        ErrorCode ret = getErrorsUser(user);
+        if (!ret.errorAccrued())
+            if (userDao.registerUser(user))
+                ret.unexpected();
+        return ret;
+    }
 
-        boolean errorCode;
-
-        if (user == null || !user.isValid())
-            errorCode = true;
-        else
-            errorCode = userDao.updateUser(user);
-        return errorCode;
+    @Override
+    public ErrorCode updateUser(User user) {
+        ErrorCode ret = getErrorsUser(user);
+        if (!ret.errorAccrued())
+            if (userDao.updateUser(user))
+                ret.unexpected();
+        return ret;
     }
 
     @Override
@@ -53,14 +64,29 @@ public class UserManager extends  UserManagerAPI{
         return  userDao.getUserPreferenceByID(userPreferenceID);
     }
 
+    private ErrorCode getErrorsUserPreference(UserPreference userPreference) {
+        ErrorCode ret = new ErrorCode();
+
+        return ret;
+    }
     @Override
-    public boolean insertUserPreference(UserPreference userPreference) {
-        return  userDao.insertUserPreference(userPreference);
+    public ErrorCode insertUserPreference(UserPreference userPreference) {
+        ErrorCode ret = getErrorsUserPreference(userPreference);
+        if (!ret.errorAccrued())
+            if (userDao.insertUserPreference(userPreference))
+                ret.unexpected();
+
+        return ret;
     }
 
     @Override
-    public boolean updateUserPreference(UserPreference userPreference) {
-        return  userDao.updateUserPreference(userPreference);
+    public ErrorCode updateUserPreference(UserPreference userPreference) {
+        ErrorCode ret = getErrorsUserPreference(userPreference);
+        if (!ret.errorAccrued())
+            if (userDao.updateUserPreference(userPreference))
+                ret.unexpected();
+
+        return ret;
     }
 
     @Override

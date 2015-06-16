@@ -1,6 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Company;
+import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.dao.CompanyDaoAPI;
 
 /**
@@ -28,7 +29,7 @@ public abstract class CompanyManagerAPI {
      * @param company
      * @return operationCode
      */
-    public abstract boolean registerCompany(Company company);
+    public abstract ErrorCode registerCompany(Company company);
 
     /**
      * Updates the certain company with the new data.
@@ -36,7 +37,7 @@ public abstract class CompanyManagerAPI {
      * @param company
      * @return operationCode
      */
-    public abstract boolean updateCompany(Company company);
+    public abstract ErrorCode updateCompany(Company company);
 
     /**
      * Checks if the company exists with the certain email.

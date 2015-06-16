@@ -1,6 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Company;
+import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.dao.CompanyDaoAPI;
 
 /**
@@ -14,24 +15,43 @@ public class CompanyManager extends   CompanyManagerAPI {
         return  companyDao.loginCompany(email, password);
     }
 
+    private ErrorCode getErrors(Company company) {
+        ErrorCode ret = new ErrorCode();
+        if (company == null) ret.unexpected();
+        else {
+            ret.union(company.isValid());
+            if (checkEmail(company.getEmail())) ret.emailDuplicate();
+            if (checkCompanyCode(company.getCompanyCode())) ret.companyCodeDuplicate();
+            if (checkPhoneNumber(company.getPhoneNumber())) ret.phoneNumberDuplicate();
+            if (checkFacebookID(company.getFacebookID())) ret.facebookIDDuplicate();
+            if (checkGoogleID(company.getGoogleID())) ret.googleIDDuplicate();
+        }
+        return ret;
+    }
+
+
     @Override
-    public boolean registerCompany(Company company) {
-        boolean errorCode;
-        if (company == null || !company.isValid())
-            errorCode = true;
-        else
-            errorCode = companyDao.registerCompany(company);
-        return errorCode;
+    public ErrorCode registerCompany(Company company) {
+        ErrorCode ret = new ErrorCode();
+        ret.union(getErrors(company));
+
+        if (!ret.errorAccrued())
+            if (companyDao.registerCompany(company))
+                ret.unexpected();
+
+        return ret;
     }
 
     @Override
-    public boolean updateCompany(Company company) {
-        boolean errorCode;
-        if (company == null || !company.isValid())
-            errorCode = true;
-        else
-            errorCode = companyDao.updateCompany(company);
-        return errorCode;
+    public ErrorCode updateCompany(Company company) {
+        ErrorCode ret = new ErrorCode();
+        ret.union(getErrors(company));
+
+        if (!ret.errorAccrued())
+            if (companyDao.updateCompany(company))
+                ret.unexpected();
+
+        return ret;
     }
 
     @Override

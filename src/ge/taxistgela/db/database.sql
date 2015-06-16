@@ -6,7 +6,7 @@ USE taxistGela;
 
 CREATE TABLE Cars (
   carID         VARCHAR(8) PRIMARY KEY,
-  carDescription TEXT,
+  carDescription VARCHAR(500),
   carYear       INT NOT NULL,
   conditioning  BOOLEAN    NOT NULL,
   numPassengers INT NOT NULL
@@ -102,6 +102,6 @@ CREATE TABLE Reviews (
   orderID          INT     NOT NULL,
   orientationFlag BOOLEAN NOT NULL,
   rating      DOUBLE  NOT NULL,
-  description     TEXT    NOT NULL,
+  description VARCHAR(1000) NOT NULL,
   FOREIGN KEY (orderID) REFERENCES Orders (orderID)
 );
