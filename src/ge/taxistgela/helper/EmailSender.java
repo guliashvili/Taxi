@@ -27,9 +27,8 @@ public class EmailSender {
      * @param key key to be sent
      */
     public static void verifyEmail(User user, String key) throws RuntimeException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+        Thread thread = new Thread(() -> {
+
                 try {
                     Properties properties = System.getProperties();
                     properties.put("mail.smtp.auth", "true");
@@ -60,7 +59,7 @@ public class EmailSender {
                 }
             }
 
-        });
+        );
 
         thread.start();
     }
