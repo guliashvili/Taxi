@@ -1,25 +1,24 @@
-@media (max-width: 790px) {
-    .modal-content {
-        height: 100%;
-        width: 100%;
-        border-radius: 0;
-    }
 
-    .modal-dialog {
-        position: absolute;
-        left: 0;
-        height: 85%;
-        width: 93%;
-        padding: 0;
-    }
+.is-mobile .modal-content {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+}
 
-    .modal-body {
-        height: 100%;
-    }
+.is-mobile .modal-dialog {
+    position: absolute;
+    left: 0;
+    height: 85%;
+    width: 93%;
+    padding: 0;
+}
 
-    div#loginModal .innerContainer {
-        margin-top: 30%;
-    }
+.is-mobile .modal-body {
+    height: 100%;
+}
+
+.is-mobile div#loginModal .innerContainer {
+    margin-top: 30%;
 }
 
 .modal {
@@ -30,38 +29,42 @@
     bottom: 0;
     left: 0;
 }
+
 .modal:before {
     display: inline-block;
     vertical-align: middle;
     content: " ";
     height: 100%;
 }
-.modal .close{
-    height:20px;
-    margin-right:-12px;
-    margin-top:-8px;
-    background-color:#FFD800;
-    opacity:1;
-    height:40px;
-    width:40px;
-    font-size:2.5em;
-    padding-left:5px;
-    border:0px none;
-    float:right;
+
+.modal .close {
+    height: 20px;
+    margin-right: -12px;
+    margin-top: -8px;
+    background-color: #FFD800;
+    opacity: 1;
+    height: 40px;
+    width: 40px;
+    font-size: 2.5em;
+    padding-left: 5px;
+    border: 0px none;
+    float: right;
 }
 
 .modal .\34 u, .\34 u\24 {
     float: left;
     width: 32%;
 }
-.modal-body{
-    overflow-y:auto;
-    overflow-x:hidden;
+
+.modal-body {
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: black;
-    width:auto;
+    width: auto;
     margin-left: 25px;
     margin-right: auto;
 }
+
 .innerContainer {
     margin-top: 0;
 }
@@ -71,10 +74,12 @@
     text-align: left;
     vertical-align: middle;
 }
-.modal-content{
-    background-color:black;
-    text-align:center;
+
+.modal-content {
+    background-color: black;
+    text-align: center;
 }
+
 #mainHeader {
     background-color: yellow;
     color: black;
@@ -168,10 +173,11 @@
 .icon.style3 {
     color: #76ddff;
 }
+
 /*Elements */
-option{
-    background-color:black;
-    color:white;
+option {
+    background-color: black;
+    color: white;
 }
 
 form {
@@ -366,10 +372,36 @@ input[type="radio"] + label:before {
     opacity: 1.0;
 }
 
-#registerModal input[type="submit"]{
-    float:right;
+#header.alt h1.headCaption {
+    background-color: #F8CD3B;
+    opacity: 1;
+    width: 100%;
+    position: fixed;
+    left: 0;
 }
+
+.prefPanel {
+    background-color: #F8CD3B;
+    width: 60%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 53px;
+}
+
+.is-mobile .prefPanel {
+    width: 100%;
+}
+
+.prefPanel .verified{
+	border-color:green;
+	background-color:green;
+}
+#registerModal input[type="submit"] {
+    float: right;
+}
+
 /*Section styles*/
-#about{
-    background-color:black;
+#about {
+    background-color: black;
 }
