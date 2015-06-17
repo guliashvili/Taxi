@@ -68,7 +68,16 @@
 						<button class="fa fa-check-circle button small special">Verify</button>
 					</div>
 					<div class="12u$">
-						<button class="button special fa fa-key"> Change Password </button>
+						<button onclick="$('#cPass').toggleClass('hidden');" class="button special fa fa-key"> Change Password </button>
+					</div>
+					<div id="cPass" class="5u$ hidden">
+						<form action="" type="post">
+							<span> New Password: </span>
+							<input name="password" type="password" value="" required></input>
+							<span> Repeat Password: </span>
+							<input type="password" value="" required></input><br>
+							<input type="submit" class="special button" value="Save"></input>
+						</form>
 					</div>
 					<div style="float:right" class="4u$ (xsmall)">
 						<li style="float:left" class="disabled icon fa-google"><span class="label">Google+</span></li>
