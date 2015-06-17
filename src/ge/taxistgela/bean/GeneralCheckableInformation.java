@@ -57,7 +57,7 @@ public abstract class GeneralCheckableInformation implements Checkable {
 
     private ErrorCode isValidPassword(String password) {
         ErrorCode ret = new ErrorCode();
-        if (password == null || password.length() > 50 || password.length() < 2)
+        if (password == null || password.length() > 50)
             ret.passwordFormat();
         return ret;
     }

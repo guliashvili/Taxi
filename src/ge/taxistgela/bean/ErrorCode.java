@@ -22,6 +22,10 @@ public class ErrorCode {
             return null;
     }
 
+    public boolean errorNotAccrued() {
+        return !errorAccrued();
+    }
+
     public boolean errorAccrued() {
         return errors.size() > 0;
     }

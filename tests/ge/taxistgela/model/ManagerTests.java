@@ -89,16 +89,16 @@ public class ManagerTests{
         assertEquals(comp,dao.loginCompany("123456789", "asdf"));
         //register check?
         when(dao.registerCompany(comp)).thenReturn(false);
-        assertEquals(man.registerCompany(comp), false);
+        assertEquals(man.registerCompany(comp).errorNotAccrued(), true);
         when(dao.registerCompany(comp)).thenReturn(true);
-        assertEquals(man.registerCompany(comp), true);
+        assertEquals(man.registerCompany(comp).errorNotAccrued(), false);
         when(dao.registerCompany(anyObject())).thenReturn(false);
         comp.setEmail("hophophopla");
         when(dao.registerCompany(comp)).thenReturn(false);
-        assertTrue(man.registerCompany(comp));
+        assertFalse(man.registerCompany(comp).errorNotAccrued());
 
         comp.setEmail("rame@mail.ru");
-        assertTrue(man.registerCompany(null));
+        assertFalse(man.registerCompany(null).errorNotAccrued());
         // update company
         when(dao.updateCompany(comp)).thenReturn(true);
         assertEquals(man.updateCompany(comp), true);
@@ -107,8 +107,8 @@ public class ManagerTests{
         when(dao.updateCompany(anyObject())).thenReturn(false);
         comp.setEmail("hophophopla");
         when(dao.updateCompany(comp)).thenReturn(false);
-        assertTrue(man.updateCompany(comp));
-        assertTrue(man.updateCompany(null));
+        assertFalse(man.updateCompany(comp).errorNotAccrued());
+        assertTrue(man.updateCompany(null).errorNotAccrued());
     }
     @Test
     public void driverManagerTests(){
@@ -194,28 +194,28 @@ public class ManagerTests{
         assertNotEquals(list2, man.getDriverByPreferences(user));
         //updateDriverPreference
         when(dao.updateDriverPreference(null)).thenReturn(false);
-        assertFalse(man.updateDriverPreference(null));
+        assertFalse(man.updateDriverPreference(null).errorNotAccrued());
         DriverPreference dp1 = new DriverPreference();
         dp1.setCoefficientPer(1.78);
         DriverPreference dp2 = new DriverPreference();
         dp2.setDriverPreferenceID(1);
         when(dao.updateDriverPreference(anyObject())).thenReturn(false);
-        assertFalse(man.updateDriverPreference(dp1));
-        assertFalse(man.updateDriverPreference(dp2));
+        assertFalse(man.updateDriverPreference(dp1).errorNotAccrued());
+        assertFalse(man.updateDriverPreference(dp2).errorNotAccrued());
         when(dao.updateDriverPreference(anyObject())).thenReturn(true);
-        assertTrue(man.updateDriverPreference(dp1));
-        assertTrue(man.updateDriverPreference(dp2));
+        assertTrue(man.updateDriverPreference(dp1).errorNotAccrued());
+        assertTrue(man.updateDriverPreference(dp2).errorNotAccrued());
         when(dao.updateDriverPreference(dp1)).thenReturn(true);
         when(dao.updateDriverPreference(dp2)).thenReturn(false);
-        assertTrue(man.updateDriverPreference(dp1));
-        assertFalse(man.updateDriverPreference(dp2));
+        assertTrue(man.updateDriverPreference(dp1).errorNotAccrued());
+        assertFalse(man.updateDriverPreference(dp2).errorNotAccrued());
         //insertDriverPreference
         when(dao.insertDriverPreference(anyObject())).thenReturn(true);
-        assertTrue(man.insertDriverPreference(new DriverPreference()));
-        assertTrue(man.insertDriverPreference(null));
+        assertTrue(man.insertDriverPreference(new DriverPreference()).errorNotAccrued());
+        assertTrue(man.insertDriverPreference(null).errorNotAccrued());
         when(dao.insertDriverPreference(anyObject())).thenReturn(false);
-        assertFalse(man.insertDriverPreference(new DriverPreference()));
-        assertFalse(man.insertDriverPreference(null));
+        assertFalse(man.insertDriverPreference(new DriverPreference()).errorNotAccrued());
+        assertFalse(man.insertDriverPreference(null).errorNotAccrued());
         //getDriverPreferenceByIDs
         DriverPreference dp = new DriverPreference();
         when(dao.getDriverPreferenceByID(anyInt())).thenReturn(dp);
@@ -234,18 +234,18 @@ public class ManagerTests{
         assertEquals(DP3, man.getDriverPreferenceByID(3));
         //updateCar
         when(dao.updateCar(anyObject())).thenReturn(false);
-        assertFalse(man.updateCar(new Car()));
-        assertFalse(man.updateCar(null));
+        assertFalse(man.updateCar(new Car()).errorNotAccrued());
+        assertFalse(man.updateCar(null).errorNotAccrued());
         when(dao.updateCar(anyObject())).thenReturn(true);
-        assertTrue(man.updateCar(new Car()));
-        assertTrue(man.updateCar(null));
+        assertTrue(man.updateCar(new Car()).errorNotAccrued());
+        assertTrue(man.updateCar(null).errorNotAccrued());
         //insertCar
         when(dao.insertCar(anyObject())).thenReturn(false);
-        assertFalse(man.insertCar(new Car()));
-        assertFalse(man.insertCar(null));
+        assertFalse(man.insertCar(new Car()).errorNotAccrued());
+        assertFalse(man.insertCar(null).errorNotAccrued());
         when(dao.insertCar(anyObject())).thenReturn(true);
-        assertTrue(man.insertCar(new Car()));
-        assertTrue(man.insertCar(null));
+        assertTrue(man.insertCar(new Car()).errorNotAccrued());
+        assertTrue(man.insertCar(null).errorNotAccrued());
         //getCarByID
         Car c1 = new Car();
         c1.setCarID("1");
@@ -271,28 +271,28 @@ public class ManagerTests{
         d.setPhoneNumber("599029302");
         d.setPassword("huhu");
         when(dao.updateDriver(anyObject())).thenReturn(false);
-        assertTrue(man.updateDriver(null));
-        assertFalse(man.updateDriver(d));
+        assertTrue(man.updateDriver(null).errorNotAccrued());
+        assertFalse(man.updateDriver(d).errorNotAccrued());
         when(dao.updateDriver(anyObject())).thenReturn(true);
-        assertTrue(man.updateDriver(d));
+        assertTrue(man.updateDriver(d).errorNotAccrued());
         d.setEmail("mail.ru");
         when(dao.updateDriver(d)).thenReturn(false);
-        assertTrue(man.updateDriver(d));
+        assertTrue(man.updateDriver(d).errorNotAccrued());
         //registerDriver
         when(dao.registerDriver(anyObject())).thenReturn(false);
         Driver driver = new Driver();
         driver.setEmail("tornikeman@gmail.com");
         driver.setPhoneNumber("593499023");
         driver.setPassword("gela");
-        assertTrue(man.registerDriver(null));
-        assertFalse(man.registerDriver(driver));
+        assertTrue(man.registerDriver(null).errorNotAccrued());
+        assertFalse(man.registerDriver(driver).errorNotAccrued());
         when(dao.registerDriver(anyObject())).thenReturn(true);
-        assertTrue(man.registerDriver(driver));
+        assertTrue(man.registerDriver(driver).errorNotAccrued());
         when(dao.registerDriver(anyObject())).thenReturn(false);
         driver.setPassword("");
         when(dao.registerDriver(driver)).thenReturn(false);
-        assertTrue(man.registerDriver(driver));
-        assertTrue(man.registerDriver(null));
+        assertTrue(man.registerDriver(driver).errorNotAccrued());
+        assertTrue(man.registerDriver(null).errorNotAccrued());
         //loginDriver
         when(dao.loginDriver(null, null)).thenReturn(null);
         assertNull(dao.loginDriver(null, null));
@@ -625,18 +625,18 @@ public class ManagerTests{
         UserPreference up2 = new UserPreference();
         up2.setCarYear(2012);
         when(dao.updateUserPreference(up1)).thenReturn(false);
-        assertFalse(man.updateUserPreference(up1));
+        assertFalse(man.updateUserPreference(up1).errorNotAccrued());
         when(dao.updateUserPreference(up2)).thenReturn(true);
-        assertTrue(man.updateUserPreference(up2));
+        assertTrue(man.updateUserPreference(up2).errorNotAccrued());
         when(dao.updateUserPreference(anyObject())).thenReturn(true);
-        assertTrue(man.updateUserPreference(null));
+        assertTrue(man.updateUserPreference(null).errorNotAccrued());
         //insertUserPreference
         when(dao.insertUserPreference(up1)).thenReturn(false);
-        assertFalse(man.insertUserPreference(up1));
+        assertFalse(man.insertUserPreference(up1).errorNotAccrued());
         when(dao.insertUserPreference(up2)).thenReturn(true);
-        assertTrue(man.insertUserPreference(up2));
+        assertTrue(man.insertUserPreference(up2).errorNotAccrued());
         when(dao.insertUserPreference(null)).thenReturn(true);
-        assertTrue(man.insertUserPreference(null));
+        assertTrue(man.insertUserPreference(null).errorNotAccrued());
         //getUserPreferenceByID
         when(dao.getUserPreferenceByID(1)).thenReturn(up1);
         when(dao.getUserPreferenceByID(2)).thenReturn(up2);
@@ -667,11 +667,11 @@ public class ManagerTests{
         when(dao.updateUser(u1)).thenReturn(true);
         when(dao.updateUser(u2)).thenReturn(false);
         when(dao.updateUser(u3)).thenReturn(false);
-        assertTrue(man.updateUser(u1));
-        assertTrue(man.updateUser(u3));
-        assertFalse(man.updateUser(u2));
+        assertTrue(man.updateUser(u1).errorNotAccrued());
+        assertTrue(man.updateUser(u3).errorNotAccrued());
+        assertFalse(man.updateUser(u2).errorNotAccrued());
         when(dao.updateUser(anyObject())).thenReturn(false);
-        assertTrue(man.updateUser(null));
+        assertTrue(man.updateUser(null).errorNotAccrued());
         //registerUser
         u3 = new User();
         u3.setPassword("gela");
@@ -680,11 +680,11 @@ public class ManagerTests{
         when(dao.registerUser(u1)).thenReturn(true);
         when(dao.registerUser(u2)).thenReturn(false);
         when(dao.registerUser(u3)).thenReturn(false);
-        assertTrue(man.registerUser(u3));
-        assertTrue(man.registerUser(u1));
-        assertFalse(man.registerUser(u2));
+        assertTrue(man.registerUser(u3).errorNotAccrued());
+        assertTrue(man.registerUser(u1).errorNotAccrued());
+        assertFalse(man.registerUser(u2).errorNotAccrued());
         when(dao.registerUser(anyObject())).thenReturn(false);
-        assertTrue(man.registerUser(null));
+        assertTrue(man.registerUser(null).errorNotAccrued());
         //loginUser
         when(dao.loginUser("tornikeman@gmail.com","yey")).thenReturn(u2);
         when(dao.loginUser("tmand13@freeuni.edu.ge","something")).thenReturn(u1);
