@@ -402,8 +402,41 @@ input[type="radio"] + label:before {
 #registerModal input[type="submit"] {
     float: right;
 }
-
 /*Section styles*/
 #about {
     background-color: black;
+}
+/*Custom Element Styles*/
+#driversModal  .modal-dialog{
+	width:100%;
+	text-align: center;
+    position: fixed;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.dataTables_length label{
+	display:none;
+}
+.dataTables_filter label{
+	display:none;
+}
+.dataTables_info{
+	display:none;
+}
+.dataTables_wrapper .paginate_button:hover{
+	text-decoration:none;
+}
+.dataTables_wrapper .paginate_button {
+	text-decoration:none;
+}
+.dataTables_wrapper #driversTable_next{
+	display:none;
+}
+.dataTables_wrapper #driversTable_previous{
+	display:none;
+}
+.dataTables_wrapper a{
+	border-bottom:none;
 }
