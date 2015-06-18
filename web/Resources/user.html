@@ -69,6 +69,8 @@
 					</div>
 					<div id="cPass" class="5u$ hidden">
 						<form action="" type="post">
+							<span> Current Password: </span>
+							<input name="oldPassword" type="password" value="" required></input>
 							<span> New Password: </span>
 							<input name="password" type="password" value="" required></input>
 							<span> Repeat Password: </span>
@@ -82,7 +84,25 @@
 						<a href="#" style="float:left" class="icon fa-facebook"><span class="label">Facebook</span></a>
 					</div>
 					<div class="5u$ 12u$(small)">
-						<a href="#" data-toggle="modal" data-target="#preferenceModal" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+						<a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+					</div>
+					<div id="cPref" class="6u$ hidden">
+						<form action="" type="post">
+							<span> Minimum Driver Rating </span>
+							<i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+							<input type="checkbox" id="conditioning" name="conditioning" checked>
+								<label for="conditioning"> Conditioning Required </label>
+							</input><br>
+							<input type="number" name="carYear" style="color:black;padding-left:5px" value="1990" step="1">
+							<label for="carYear"> Minimum Car Year </label>
+							<input type="number" name="timeLimit" style="color:black;padding-left:5px" value="10" step="1">
+							<label for="carYear"> Maximum Time Limit (Minutes) </label>
+							<input type="number" name="passengerCount" style="color:black;padding-left:5px" value="1" step="1">
+							<label for="carYear"> Passenger Count </label><br>
+							<input type="checkbox" id="wantsAlone" name="wantsAlone" checked>
+								<label for="wantsAlone"> Want To Travel Alone </label>
+							</input>
+							<input type="submit" style="margin-top:5px" class="button special"><br>
 					</div>
 					<div class="12u 1u$(small)" style="float:left">
 						<a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart"> View Order History</a>
