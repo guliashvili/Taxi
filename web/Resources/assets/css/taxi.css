@@ -3,7 +3,6 @@
     width: 100%;
     border-radius: 0;
 }
-
 .is-mobile .modal-dialog {
     position: absolute;
     left: 0;
@@ -378,17 +377,37 @@ input[type="radio"] + label:before {
     position: fixed;
     left: 0;
 }
-
+#map{
+	opacity:0.5;
+	transition: opacity .5s;
+	-webkit-transition: opacity .5s;
+}
+#map.mOP{
+	opacity:1;
+	transition: opacity 1s;
+	-webkit-transition: opacity 1s;
+}
 .prefPanel {
     background-color: #F8CD3B;
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
     width: 60%;
     height: 100%;
 	overflow-y:auto;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 53px;
+    padding-top: 45px;
+	transition: height .5s;
+	-webkit-transition: height .5s;
 }
-
+.prefPanel.zero{
+	overflow:hidden;
+	transition: height .5s;
+	-webkit-transition: height .5s;
+	height:0;
+}
 .is-mobile .prefPanel {
     width: 100%;
 }
