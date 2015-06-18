@@ -22,6 +22,7 @@
 		<script src="assets/js/util.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 		<script src="assets/js/main.js"></script>
+        <script src="assets/js/index.js"></script>
 
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -187,11 +188,29 @@
 					<h5 class="modal-title">Login</h5>
 				</div>
 				<div class="modal-body">
-					<div class="innerContainer">
-						<input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
-						<input type="password" name="password" id="passwordLogin" value="" placeholder="Password"><br>
-						<button class="btn btn-success btn-sm" style="float:right">Log In</button><br><br>
-					</div>
+                    <form id="loginForm">
+                        <div class="4u">
+                            <input type="radio" class="regChange" id="userReg" name="userReg">
+                            <label for="userReg">User</label>
+                        </div>
+                        <div class="4u">
+                            <input type="radio" class="regChange" id="driverReg" name="userReg">
+                            <label for="driverReg">Driver</label>
+                        </div>
+                        <div class="4u">
+                            <input type="radio" class="regChange" id="companyReg" name="userReg">
+                            <label for="companyReg">Company</label>
+                        </div>
+                        <br><br>
+
+                        <div class="innerContainer">
+                            <input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
+                            <input type="password" name="password" id="passwordLogin" value=""
+                                   placeholder="Password"><br>
+                            <button class="btn btn-success btn-sm" style="float:right">Log In</button>
+                            <br><br>
+                        </div>
+                    </form>
 				</div>
 				<div class="modal-footer">
 				</div>
@@ -201,25 +220,4 @@
 	</div>
 
 	</body>
-
-	<script>
-		$(".regChange").change(function(e){
-			$("#companyRegistration").addClass("hidden");
-			$("#userRegistration").addClass("hidden");
-			$("#driverRegistration").addClass("hidden");
-			$("#"+$(e.target).attr("showf")).removeClass("hidden");
-		});
-		function load_user(){
-			$.ajax({
-				type:"POST",
-				url:"/ActionServlet",
-				data:{
-					getMap:"true"
-				},
-				success:function(data){
-					$("#panel").html(data);
-				}
-			})
-		}
-	</script>
 </html>
