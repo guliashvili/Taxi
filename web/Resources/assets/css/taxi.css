@@ -1,9 +1,11 @@
+.landing{
+	overflow-y:hidden;
+}
 .is-mobile .modal-content {
     height: 100%;
     width: 100%;
     border-radius: 0;
 }
-
 .is-mobile .modal-dialog {
     position: absolute;
     left: 0;
@@ -378,15 +380,21 @@ input[type="radio"] + label:before {
     position: fixed;
     left: 0;
 }
-
+#map{
+	opacity:0.5;
+}
 .prefPanel {
     background-color: #F8CD3B;
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
     width: 60%;
     height: 100%;
 	overflow-y:auto;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 53px;
+    margin-top: 45px;
 }
 
 .is-mobile .prefPanel {
