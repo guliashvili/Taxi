@@ -64,6 +64,7 @@ public class HashGenerator {
     }
 
     public static String encryptAES(String text) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        text = text + SALT;
         Key key = new SecretKeySpec(HashGenerator.key, "AES");
         Cipher c = Cipher.getInstance("AES");
         c.init(Cipher.ENCRYPT_MODE, key);
@@ -72,11 +73,15 @@ public class HashGenerator {
     }
 
     public static String decryptAES(String text) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException {
+
         Key key = new SecretKeySpec(HashGenerator.key, "AES");
         Cipher c = Cipher.getInstance("AES");
         c.init(Cipher.DECRYPT_MODE, key);
         byte[] decr = c.doFinal(new BASE64Decoder().decodeBuffer(text));
-        return new String(decr);
+        String ret = new String(decr);
+        ret = ret.substring(0, ret.length() - SALT.length());
+
+        return ret;
     }
 
 

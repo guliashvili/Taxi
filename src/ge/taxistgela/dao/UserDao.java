@@ -30,10 +30,10 @@ public class UserDao implements UserDaoAPI {
     private final static String base_joined_select_STMT = "SELECT * FROM Users INNER JOIN UserPreferences ON " +"UserPreferences.userPreferenceID=Users.userPreferenceID ";
     private final static String login_STMT = base_select_STMT + " WHERE Users.email=? AND Users.password=?";
     private final static String userByID_STMT = base_select_STMT + " WHERE Users.userID = ?";
-    private final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID,isVerified) " +
-            "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID,isVerifiedEmail,isVerifiedPhone) " +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Users SET password=?,email=?,firstName=?,lastName=?," +
-            "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=?,isVerified=? " +
+            "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=?,isVerifiedEmail=?,isVerifiedPhone=? " +
             "WHERE Users.userID=?";
     private final static String preferences_STMT = base_joined_select_STMT +
             " WHERE " +
@@ -174,6 +174,8 @@ public class UserDao implements UserDaoAPI {
             ret.setRating(res.getDouble("Users.rating"));
             ret.setFacebookID(res.getString("Users.facebookID"));
             ret.setGoogleID(res.getString("Users.googleID"));
+            ret.setIsVerifiedEmail(res.getBoolean("Users.isVerifiedEmail"));
+            ret.setIsVerifiedPhone(res.getBoolean("Users.isVerifiedPhone"));
 
             int userPreferenceID = res.getInt("Users.userPreferenceID");
 
@@ -283,7 +285,8 @@ public class UserDao implements UserDaoAPI {
             st.setString(8, user.getFacebookID());
             st.setString(9, user.getGoogleID());
             st.setInt(10, user.getPreference().getUserPreferenceID());
-            st.setBoolean(11,user.isVerified());
+            st.setBoolean(11, user.getIsVerifiedEmail());
+            st.setBoolean(12, user.getIsVerifiedPhone());
             if (update)
                 st.setInt(12, user.getUserID());
 

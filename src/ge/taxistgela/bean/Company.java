@@ -14,13 +14,14 @@ public class Company extends GeneralCheckableInformation {
     private String phoneNumber;
     private String facebookID;
     private String googleID;
-    private Boolean isVerified;
+    private Boolean isVerifiedEmail;
+    private Boolean isVerifiedPhone;
 
 
     public Company() {
     }
 
-    public Company(Integer companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID, Boolean isVerified) {
+    public Company(Integer companyID, String companyCode, String email, String password, String companyName, String phoneNumber, String facebookID, String googleID, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
         setCompanyID(companyID);
         setCompanyCode(companyCode);
         setEmail(email);
@@ -29,7 +30,8 @@ public class Company extends GeneralCheckableInformation {
         setPhoneNumber(phoneNumber);
         setFacebookID(facebookID);
         setGoogleID(googleID);
-        setIsVerified(isVerified);
+        setIsVerifiedEmail(isVerifiedEmail);
+        setIsVerifiedPhone(isVerifiedPhone);
     }
 
     @Override
@@ -43,8 +45,9 @@ public class Company extends GeneralCheckableInformation {
                 ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
                 ExternalAlgorithms.equalsNull(getGoogleID(),o.getGoogleID()) &&
                 ExternalAlgorithms.equalsNull(getPassword(),o.getPassword()) &&
-                ExternalAlgorithms.equalsNull(getPhoneNumber(),o.getPhoneNumber()) &&
-                ExternalAlgorithms.equalsNull(isVerified() , o.isVerified());
+                ExternalAlgorithms.equalsNull(getPhoneNumber(), o.getPhoneNumber()) &&
+                ExternalAlgorithms.equalsNull(getIsVerifiedEmail(), o.getIsVerifiedEmail()) &&
+                ExternalAlgorithms.equalsNull(getIsVerifiedPhone(), o.getIsVerifiedPhone());
     }
 
     @Override
@@ -119,11 +122,21 @@ public class Company extends GeneralCheckableInformation {
         this.googleID = googleID;
     }
 
-    public Boolean isVerified() {
-        return isVerified;
+    public Boolean getIsVerifiedEmail() {
+        return isVerifiedEmail;
     }
 
-    public void setIsVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
+    public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
+        this.isVerifiedEmail = isVerifiedEmail;
+    }
+
+    public Boolean getIsVerifiedPhone() {
+        return isVerifiedPhone;
+    }
+
+    public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
+        this.isVerifiedPhone = isVerifiedPhone;
     }
 }
+
+

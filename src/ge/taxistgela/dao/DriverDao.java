@@ -23,10 +23,10 @@ public class DriverDao implements DriverDaoAPI {
     private final static String login_STMT = base_select_STMT + " WHERE email=? AND password=?";
     private final static String driverById_STMT = base_select_STMT + "WHERE driverID = ?";
     private final static String driverByCompanyId_STMT = base_select_STMT + "WHERE companyID=?";
-    private final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive,isVerified)" +
-            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive,isVerifiedEmail,isVerifiedPhone)" +
+            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Drivers " +
-            "SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?,isVerified=?" +
+            "SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?,isVerifiedEmail=?,isVerifiedPhone=? " +
             " WHERE driverID = ?";
 
     private final static String preferences_STMT = base_join_select_STMT +
@@ -282,7 +282,8 @@ public class DriverDao implements DriverDaoAPI {
 
             output.setLocation(new Location(res.getDouble("Drivers.latitude"), res.getDouble("Drivers.longitude")));
             output.setIsActive(res.getBoolean("Drivers.isActive"));
-            output.setIsVerified(res.getBoolean("Drivers.isVerified"));
+            output.setIsVerifiedEmail(res.getBoolean("Drivers.isVerifiedEmail"));
+            output.setIsVerifiedPhone(res.getBoolean("Drivers.isVerifiedPhone"));
         } catch (SQLException e) {
             output = null;
             ExternalAlgorithms.debugPrint(e);
@@ -400,7 +401,8 @@ public class DriverDao implements DriverDaoAPI {
             st.setDouble(14, driver.getLocation().getLatitude());
             st.setDouble(15, driver.getLocation().getLongitude());
             st.setBoolean(16, driver.isActive());
-            st.setBoolean(17, driver.isVerified());
+            st.setBoolean(17, driver.getIsVerifiedEmail());
+            st.setBoolean(18, driver.getIsVerifiedPhone());
             if (update)
                 st.setInt(18, driver.getDriverID());
         } catch (SQLException e) {

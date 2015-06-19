@@ -17,9 +17,9 @@ import java.sql.Statement;
 public class CompanyDao implements CompanyDaoAPI {
     private final static String base_select_STMT = " SELECT * FROM Companies ";
     private final static String login_STMT = base_select_STMT + "  WHERE email=? AND password=? ";
-    private final static String register_STMT = "INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID,isVerified) VALUES(?,?,?,?,?,?,?,?)";
+    private final static String register_STMT = "INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID,isVerifiedEmail,isVerifiedPhone) VALUES(?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Companies SET " +
-            "companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?,isVerified=? " +
+            "companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?,isVerifiedEmail=?,isVerifiedPhone=? " +
             "WHERE companyID = ?";
 
     @Override
@@ -39,7 +39,7 @@ public class CompanyDao implements CompanyDaoAPI {
                 if (!res.next()) {
                     return null;
                 }
-                ret = new Company(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getString(7), res.getString(8), res.getBoolean(9));
+                ret = new Company(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getString(7), res.getString(8), res.getBoolean(9), res.getBoolean(10));
             }
         } catch (SQLException e) {
             ret = null;
@@ -63,7 +63,8 @@ public class CompanyDao implements CompanyDaoAPI {
             st.setString(5, company.getPhoneNumber());
             st.setString(6, company.getFacebookID());
             st.setString(7, company.getGoogleID());
-            st.setBoolean(8, company.isVerified());
+            st.setBoolean(8, company.getIsVerifiedEmail());
+            st.setBoolean(9, company.getIsVerifiedPhone());
 
             if (update)
                 st.setInt(9, company.getCompanyID());
