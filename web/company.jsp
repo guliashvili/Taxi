@@ -1,3 +1,4 @@
+<%@ page import="ge.taxistgela.bean.Company" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -53,6 +54,7 @@
     </ul>
   </nav>
 </header>
+<% Company company = (Company) session.getAttribute(Company.class.getName());%>
 <section id="map" style="width:100%;height:100%;">
 
 </section>

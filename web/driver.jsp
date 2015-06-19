@@ -1,3 +1,4 @@
+<%@ page import="ge.taxistgela.bean.Driver" %>
 \<%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -53,6 +54,7 @@
     </ul>
   </nav>
 </header>
+<% Driver user = (Driver) session.getAttribute(Driver.class.getName());%>
 <section id="map" style="width:100%;height:100%;">
 
 </section>
