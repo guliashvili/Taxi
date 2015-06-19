@@ -1,3 +1,6 @@
+<%@ page import="ge.taxistgela.bean.User" %>
+<%@ page import="ge.taxistgela.bean.Company" %>
+<%@ page import="ge.taxistgela.bean.Driver" %>
 <%--
   Created by IntelliJ IDEA.
   ge.taxistgela.bean.User: Alex
@@ -41,7 +44,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <body class="landing">
 
 <div id="page-wrapper">
-
   <header id="header" class="alt">
     <h1><a href="index.html">Taxist Gela</a></h1>
     <nav id="nav">
@@ -61,7 +63,12 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
       </ul>
     </nav>
   </header>
-
+  <%
+    User user = (User) session.getAttribute(User.class.getName());
+    Company company = (Company) session.getAttribute(Company.class.getName());
+    Driver driver = (Driver) session.getAttribute(Driver.class.getName());
+    if(user == null && company == null && driver == null){
+  %>
   <section id="banner">
     <div class="inner">
       <h2 id="mainHeader">Taxist Gela</h2>
@@ -78,6 +85,19 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   <section id="panel" class="hidden">
     <!-- Ajax request goes here -->
   </section>
+  <% }else{%>
+    <section id="panel" class="hidden">
+      if(user!=null){
+        <jsp:include page="user.jsp"/>
+      }
+      if(driver!=null){
+        <jsp:include page="driver.jsp"/>
+      }
+      if(company!=null){
+        <jsp:include page="company.jsp"/>
+      }
+    </section>
+  <% }%>
   <section id="about" class="wrapper style1 special">
     <div class="inner">
       <header class="major">
