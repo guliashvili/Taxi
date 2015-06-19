@@ -19,7 +19,7 @@ public class CompanyDao implements CompanyDaoAPI {
     private final static String login_STMT = base_select_STMT + "  WHERE email=? AND password=? ";
     private final static String register_STMT = "INSERT INTO Companies (companyCode,email,password,companyName,phoneNumber,facebookID,googleID,isVerifiedEmail,isVerifiedPhone) VALUES(?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Companies SET " +
-            "companyCode=?,email=?,password=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?,isVerifiedEmail=?,isVerifiedPhone=? " +
+            "companyCode=?,email=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?,isVerifiedEmail=?,isVerifiedPhone=? " +
             "WHERE companyID = ?";
 
     @Override
@@ -56,18 +56,41 @@ public class CompanyDao implements CompanyDaoAPI {
     private boolean setStrings(PreparedStatementEnhanced st, Company company, boolean update) {
         boolean errorCode = false;
         try {
-            st.setString(1, company.getCompanyCode());
-            st.setString(2, company.getEmail());
-            st.setString(3, HashGenerator.getSaltHash(company.getPassword()));
-            st.setString(4, company.getCompanyName());
-            st.setString(5, company.getPhoneNumber());
-            st.setString(6, company.getFacebookID());
-            st.setString(7, company.getGoogleID());
-            st.setBoolean(8, company.getIsVerifiedEmail());
-            st.setBoolean(9, company.getIsVerifiedPhone());
+            int x = 1;
+            st.setString(x++, company.getCompanyCode());
+            st.setString(x++, company.getEmail());
+            if (!update) st.setString(x++, HashGenerator.getSaltHash(company.getPassword()));
+            st.setString(x++, company.getCompanyName());
+            st.setString(x++, company.getPhoneNumber());
+            st.setString(x++, company.getFacebookID());
+            st.setString(x++, company.getGoogleID());
+            st.setBoolean(x++, company.getIsVerifiedEmail());
+            st.setBoolean(x++, company.getIsVerifiedPhone());
 
             if (update)
-                st.setInt(9, company.getCompanyID());
+                st.setInt(x++, company.getCompanyID());
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+    @Override
+    public boolean changePassword(Company company) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Companies SET password=? WHERE companyID=?"))) {
+
+                st.setString(1, HashGenerator.getSaltHash(company.getPassword()));
+                st.setInt(2, company.getCompanyID());
+
+
+                ExternalAlgorithms.debugPrintSelect("Update Company password\n" + st.toString());
+
+                st.executeUpdate();
+            }
         } catch (SQLException e) {
             errorCode = true;
             ExternalAlgorithms.debugPrint(e);

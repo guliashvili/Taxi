@@ -32,7 +32,7 @@ public class UserDao implements UserDaoAPI {
     private final static String userByID_STMT = base_select_STMT + " WHERE Users.userID = ?";
     private final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID,isVerifiedEmail,isVerifiedPhone) " +
             "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    private final static String update_STMT = "UPDATE Users SET password=?,email=?,firstName=?,lastName=?," +
+    private final static String update_STMT = "UPDATE Users SET email=?,firstName=?,lastName=?," +
             "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=?,isVerifiedEmail=?,isVerifiedPhone=? " +
             "WHERE Users.userID=?";
     private final static String preferences_STMT = base_joined_select_STMT +
@@ -275,21 +275,44 @@ public class UserDao implements UserDaoAPI {
     private boolean setStrings(PreparedStatementEnhanced st, User user, boolean update) {
         boolean errorCode = false;
         try {
-            st.setString(1, HashGenerator.getSaltHash(user.getPassword()));
-            st.setString(2, user.getEmail());
-            st.setString(3, user.getFirstName());
-            st.setString(4, user.getLastName());
-            st.setString(5, user.getPhoneNumber());
-            st.setString(6, user.getGender().name());
-            st.setDouble(7, user.getRating());
-            st.setString(8, user.getFacebookID());
-            st.setString(9, user.getGoogleID());
-            st.setInt(10, user.getPreference().getUserPreferenceID());
-            st.setBoolean(11, user.getIsVerifiedEmail());
-            st.setBoolean(12, user.getIsVerifiedPhone());
+            int x = 1;
+            if (!update) st.setString(x++, HashGenerator.getSaltHash(user.getPassword()));
+            st.setString(x++, user.getEmail());
+            st.setString(x++, user.getFirstName());
+            st.setString(x++, user.getLastName());
+            st.setString(x++, user.getPhoneNumber());
+            st.setString(x++, user.getGender().name());
+            st.setDouble(x++, user.getRating());
+            st.setString(x++, user.getFacebookID());
+            st.setString(x++, user.getGoogleID());
+            st.setInt(x++, user.getPreference().getUserPreferenceID());
+            st.setBoolean(x++, user.getIsVerifiedEmail());
+            st.setBoolean(x++, user.getIsVerifiedPhone());
             if (update)
-                st.setInt(12, user.getUserID());
+                st.setInt(x++, user.getUserID());
 
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+    @Override
+    public boolean changePassword(User user) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Users SET password=? WHERE userID=?"))) {
+
+                st.setString(1, HashGenerator.getSaltHash(user.getPassword()));
+                st.setInt(2, user.getUserID());
+
+
+                ExternalAlgorithms.debugPrintSelect("Update User password\n" + st.toString());
+
+                st.executeUpdate();
+            }
         } catch (SQLException e) {
             errorCode = true;
             ExternalAlgorithms.debugPrint(e);

@@ -83,11 +83,20 @@ public interface UserDaoAPI {
 
     /**
      * Updates the user order with the new data.
+     * will not change password
      *
      * @param user
      * @return operationCode
      */
     boolean updateUser(User user);
+
+    /**
+     * changes password to whats written in user(it should be in plain text not  hash)
+     *
+     * @param user
+     * @return operationCode
+     */
+    boolean changePassword(User user);
 
     /**
      * Checks if the user exists with the certain email.
