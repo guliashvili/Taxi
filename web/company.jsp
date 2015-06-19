@@ -90,10 +90,10 @@
     <div id="cPass" class="5u$ hidden">
       <form id="changePass" action="" type="post">
         <span> New Password: </span>
-        <input name="password" type="password" value="" required></input>
+        <input name="password" type="password" value="" required/>
         <span> Repeat Password: </span>
-        <input type="password" value="" required></input><br>
-        <input type="submit" onclick="if" class="special button" value="Save"></input>
+        <input type="password" value="" required/><br>
+        <input type="submit" class="special button" value="Save"/>
       </form>
     </div>
     <div style="float:right" class="4u$ (xsmall)">
