@@ -10,12 +10,12 @@
 
             $("#connectBtn").click(function () {
                 var token = $("#token").val();
-
+                // bla
                 socket = new WebSocket("ws://" + window.location.host + "/wsapp/2/" + token);
 
                 socket.onopen = function (arg) {
                     console.log("success", "connected");
-                }
+                };
 
                 socket.onmessage = function (arg) {
                     console.log("success", arg.data);
@@ -23,11 +23,11 @@
                     var $notifications = $("#notifications");
 
                     $notifications.append("<li>" + arg.data + "</li>");
-                }
+                };
 
                 socket.onclose = function (arg) {
                     console.log("success", "disconnected");
-                }
+                };
 
                 socket.error = function (arg) {
                     console.error(arg.data);
