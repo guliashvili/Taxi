@@ -1,3 +1,4 @@
+<%@ page import="ge.taxistgela.bean.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -56,17 +57,24 @@
 <section id="map" style="width:100%;height:100%;">
 
 </section>
+<% User user = (User) session.getAttribute(User.class.getName());%>
 <div class="prefPanel">
   <div class="row uniform" style="margin-left:10px">
     <br>
-    <h2> Greetings Rati <br> </h2>
+    <h2> Greetings <%= user.getFirstName()%> <br> </h2>
     <div class="5u$">
-      <a href="#"><h3>Your Current Rating: 4.3</h3></a>
-      <li class="fa fa-star"></li>
-      <li class="fa fa-star"></li>
-      <li class="fa fa-star"></li>
-      <li class="fa fa-star-half-o"></li>
-      <li class="fa fa-star-o"></li>
+      <a href="#"><h3>Your Current Rating: <%= user.getRating()%></h3></a>
+      <% for(int i=1;i<=5;++i){ %>
+        <% if(user.getRating()>i){ %>
+          <li class="fa fa-star"></li>
+        <% }else{ %>
+          <% if(Math.ceil(user.getRating())>i){ %>
+            <li class="fa fa-star-half-o"></li>
+          <% }else{ %>
+            <li class="fa fa-star-o"></li>
+          <%} %>
+        <%} %>
+      <%} %>
     </div>
     <div class="12u$ (small) fit" style="float:left">
       <a href="#" onclick = "$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');" class="button special small fa fa-bar-chart"> Add Order</a>
