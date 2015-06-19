@@ -130,6 +130,7 @@
         <label for="wantsAlone"> Want To Travel Alone </label>
         </input>
         <input type="submit" style="margin-top:5px" class="button special"><br>
+      </form>
     </div>
     <div class="12u 1u$(small)" style="float:left">
       <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart"> View Order History</a>
