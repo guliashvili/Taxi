@@ -1,3 +1,6 @@
+<%@ page import="ge.taxistgela.bean.User" %>
+<%@ page import="ge.taxistgela.bean.Company" %>
+<%@ page import="ge.taxistgela.bean.Driver" %>
 <%--
   Created by IntelliJ IDEA.
   ge.taxistgela.bean.User: Alex
@@ -6,6 +9,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE HTML>
+<!--
+Spectral by HTML5 UP
+html5up.net | @n33co
+Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 <head>
   <title>Taxist Gela</title>
@@ -13,8 +22,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!--[if lte IE 8]><script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
   <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> </style>
-  <link rel="stylesheet" href="Resources/assets/css/taxi.css"> </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Resources/assets/css/taxi.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
   <link rel="stylesheet" href="Resources/assets/css/main.css" />
   <script src="Resources/assets/js/jquery.min.js"></script>
@@ -24,6 +33,7 @@
   <script src="Resources/assets/js/util.js"></script>
   <!--[if lte IE 8]><script src="Resources/assets/js/ie/respond.min.js"></script><![endif]-->
   <script src="Resources/assets/js/main.js"></script>
+  <script src="Resources/assets/js/index.js"></script>
 
   <!--[if lte IE 8]><link rel="stylesheet" href="Resources/assets/css/ie8.css" /><![endif]-->
   <!--[if lte IE 9]><link rel="stylesheet" href="Resources/assets/css/ie9.css" /><![endif]-->
@@ -34,7 +44,6 @@
 <body class="landing">
 
 <div id="page-wrapper">
-
   <header id="header" class="alt">
     <h1><a href="index.html">Taxist Gela</a></h1>
     <nav id="nav">
@@ -54,7 +63,12 @@
       </ul>
     </nav>
   </header>
-
+  <%
+    User user = (User) session.getAttribute(User.class.getName());
+    Company company = (Company) session.getAttribute(Company.class.getName());
+    Driver driver = (Driver) session.getAttribute(Driver.class.getName());
+    if(user == null && company == null && driver == null){
+  %>
   <section id="banner">
     <div class="inner">
       <h2 id="mainHeader">Taxist Gela</h2>
@@ -71,6 +85,19 @@
   <section id="panel" class="hidden">
     <!-- Ajax request goes here -->
   </section>
+  <% }else{%>
+    <section id="panel" class="hidden">
+      if(user!=null){
+        <jsp:include page="user.jsp"/>
+      }
+      if(driver!=null){
+        <jsp:include page="driver.jsp"/>
+      }
+      if(company!=null){
+        <jsp:include page="company.jsp"/>
+      }
+    </section>
+  <% }%>
   <section id="about" class="wrapper style1 special">
     <div class="inner">
       <header class="major">
@@ -79,7 +106,7 @@
         <p>Our flexible preference service helps you find the taxi driver you need<br />
           with lowest price, best rating and not waste a single moment. <br>
           <br>
-          <img src="images/gela.jpg"/>
+          <img src="Resources/images/gela.jpg"/>
         <h2>Your Service is:</h2></p>
       </header>
       <ul class="icons major">
@@ -189,11 +216,29 @@
         <h5 class="modal-title">Login</h5>
       </div>
       <div class="modal-body">
-        <div class="innerContainer">
-          <input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
-          <input type="password" name="password" id="passwordLogin" value="" placeholder="Password"><br>
-          <button class="btn btn-success btn-sm" style="float:right">Log In</button><br><br>
-        </div>
+        <form id="loginForm">
+          <div class="4u">
+            <input type="radio" class="loginChange" id="userLogin" showf="1" name="loginC">
+            <label for="userLogin">User</label>
+          </div>
+          <div class="4u">
+            <input type="radio" class="loginChange" id="driverLogin" showf="2" name="loginC">
+            <label for="driverLogin">Driver</label>
+          </div>
+          <div class="4u">
+            <input type="radio" class="loginChange" id="companyLogin" showf="3" name="loginC">
+            <label for="companyLogin">Company</label>
+          </div>
+          <br><br>
+
+          <div class="innerContainer">
+            <input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
+            <input type="password" name="password" id="passwordLogin" value=""
+                   placeholder="Password"><br>
+            <button class="btn btn-success btn-sm" style="float:right">Log In</button>
+            <br><br>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
       </div>
@@ -203,25 +248,4 @@
 </div>
 
 </body>
-
-<script>
-  $(".regChange").change(function(e){
-    $("#companyRegistration").addClass("hidden");
-    $("#userRegistration").addClass("hidden");
-    $("#driverRegistration").addClass("hidden");
-    $("#"+$(e.target).attr("showf")).removeClass("hidden");
-  });
-  function load_user(){
-    $.ajax({
-      type:"POST",
-      url:"/ActionServlet",
-      data:{
-        getMap:"true"
-      },
-      success:function(data){
-        $("#panel").html(data);
-      }
-    })
-  }
-</script>
 </html>
