@@ -83,13 +83,13 @@
       <input type="email" disabled value="rmach13@freeuni.edu.ge">
     </div>
     <div class="6u$ 12u$(xsmall)">
-      <button class="fa fa-check-circle button small disabled verified">Verified</button>
+      <button class="fa fa-check-circle button small <% if(user.isVerified()){out.println("disalbed");}%> verified">Verified</button>
     </div>
     <div class="6u 12u$(xsmall)">
       <input type="text" disabled value="+995558677895">
     </div>
     <div class="6u$ 12u$(xsmall)">
-      <button class="fa fa-check-circle button small special">Verify</button>
+      <button class="fa fa-check-circle button small <% if(user.isVerified()){out.println("disalbed");}%> special">Verify</button>
     </div>
     <div class="12u$">
       <button onclick="$('#cPass').toggleClass('hidden');" class="button special fa fa-key"> Change Password </button>
@@ -97,12 +97,12 @@
     <div id="cPass" class="5u$ hidden">
       <form action="" type="post">
         <span> Current Password: </span>
-        <input name="oldPassword" type="password" value="" required></input>
+        <input name="oldPassword" type="password" value="" required/>
         <span> New Password: </span>
-        <input name="password" type="password" value="" required></input>
+        <input name="password" type="password" value="" required/>
         <span> Repeat Password: </span>
-        <input type="password" value="" required></input><br>
-        <input type="submit" class="special button" value="Save"></input>
+        <input type="password" value="" required/><br>
+        <input type="submit" class="special button" value="Save"/>
       </form>
     </div>
     <div style="float:right" class="4u$ (xsmall)">
@@ -120,12 +120,12 @@
         <input type="checkbox" id="conditioning" name="conditioning" checked>
         <label for="conditioning"> Conditioning Required </label>
         </input><br>
-        <input type="number" name="carYear" style="color:black;padding-left:5px" value="1990" step="1">
+        <input type="number" id="carYear" style="color:black;padding-left:5px" value="1990" step="1">
         <label for="carYear"> Minimum Car Year </label>
-        <input type="number" name="timeLimit" style="color:black;padding-left:5px" value="10" step="1">
-        <label for="carYear"> Maximum Time Limit (Minutes) </label>
-        <input type="number" name="passengerCount" style="color:black;padding-left:5px" value="1" step="1">
-        <label for="carYear"> Passenger Count </label><br>
+        <input type="number" id="timeLimit" style="color:black;padding-left:5px" value="10" step="1">
+        <label for="timeLimit"> Maximum Time Limit (Minutes) </label>
+        <input type="number" id="passengerCount" style="color:black;padding-left:5px" value="1" step="1">
+        <label for="passengerCount"> Passenger Count </label><br>
         <input type="checkbox" id="wantsAlone" name="wantsAlone" checked>
         <label for="wantsAlone"> Want To Travel Alone </label>
         </input>
