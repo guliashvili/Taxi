@@ -34,12 +34,20 @@ public abstract  class DriverManagerAPI {
 
     /**
      * Updates the Car with the new data.
+     * Will not change password
      *
      * @param car
      * @return operationCode
      */
     public abstract ErrorCode updateCar(Car car);
 
+    /**
+     * changes password to whats written in driver(it should be in plain text not  hash)
+     *
+     * @param driver
+     * @return operationCode
+     */
+    public abstract ErrorCode changePassword(Driver driver);
 
     /**
      * Returns DriverPreference selected by the certain driverPreferenceID.

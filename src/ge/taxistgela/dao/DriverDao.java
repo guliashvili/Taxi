@@ -23,10 +23,10 @@ public class DriverDao implements DriverDaoAPI {
     private final static String login_STMT = base_select_STMT + " WHERE email=? AND password=?";
     private final static String driverById_STMT = base_select_STMT + "WHERE driverID = ?";
     private final static String driverByCompanyId_STMT = base_select_STMT + "WHERE companyID=?";
-    private final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive,isVerified)" +
-            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String register_STMT = "INSERT INTO Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID,facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive,isVerifiedEmail,isVerifiedPhone)" +
+            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Drivers " +
-            "SET personalID=?,password=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?,isVerified=?" +
+            "SET personalID=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?,rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?,isVerifiedEmail=?,isVerifiedPhone=? " +
             " WHERE driverID = ?";
 
     private final static String preferences_STMT = base_join_select_STMT +
@@ -282,7 +282,8 @@ public class DriverDao implements DriverDaoAPI {
 
             output.setLocation(new Location(res.getDouble("Drivers.latitude"), res.getDouble("Drivers.longitude")));
             output.setIsActive(res.getBoolean("Drivers.isActive"));
-            output.setIsVerified(res.getBoolean("Drivers.isVerified"));
+            output.setIsVerifiedEmail(res.getBoolean("Drivers.isVerifiedEmail"));
+            output.setIsVerifiedPhone(res.getBoolean("Drivers.isVerifiedPhone"));
         } catch (SQLException e) {
             output = null;
             ExternalAlgorithms.debugPrint(e);
@@ -384,25 +385,49 @@ public class DriverDao implements DriverDaoAPI {
     private boolean setStrings(PreparedStatementEnhanced st, Driver driver, boolean update) {
         boolean errorCode = false;
         try {
-            st.setString(1, driver.getPersonalID());
-            st.setString(2, HashGenerator.getSaltHash(driver.getPassword()));
-            st.setString(3, driver.getEmail());
-            st.setInt(4, driver.getCompanyID());
-            st.setString(5, driver.getFirstName());
-            st.setString(6, driver.getLastName());
-            st.setString(7, driver.getGender().name());
-            st.setString(8, driver.getPhoneNumber());
-            st.setString(9, driver.getCar().getCarID());
-            st.setString(10, driver.getFacebookID());
-            st.setString(11, driver.getGoogleID());
-            st.setDouble(12, driver.getRating());
-            st.setInt(13, driver.getPreferences().getDriverPreferenceID());
-            st.setDouble(14, driver.getLocation().getLatitude());
-            st.setDouble(15, driver.getLocation().getLongitude());
-            st.setBoolean(16, driver.isActive());
-            st.setBoolean(17, driver.isVerified());
+            int x = 1;
+            st.setString(x++, driver.getPersonalID());
+            if (!update) st.setString(x++, HashGenerator.getSaltHash(driver.getPassword()));
+            st.setString(x++, driver.getEmail());
+            st.setInt(x++, driver.getCompanyID());
+            st.setString(x++, driver.getFirstName());
+            st.setString(x++, driver.getLastName());
+            st.setString(x++, driver.getGender().name());
+            st.setString(x++, driver.getPhoneNumber());
+            st.setString(x++, driver.getCar().getCarID());
+            st.setString(x++, driver.getFacebookID());
+            st.setString(x++, driver.getGoogleID());
+            st.setDouble(x++, driver.getRating());
+            st.setInt(x++, driver.getPreferences().getDriverPreferenceID());
+            st.setDouble(x++, driver.getLocation().getLatitude());
+            st.setDouble(x++, driver.getLocation().getLongitude());
+            st.setBoolean(x++, driver.isActive());
+            st.setBoolean(x++, driver.getIsVerifiedEmail());
+            st.setBoolean(x++, driver.getIsVerifiedPhone());
             if (update)
-                st.setInt(18, driver.getDriverID());
+                st.setInt(x++, driver.getDriverID());
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+    @Override
+    public boolean changePassword(Driver driver) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Drivers SET password=? WHERE driverID=?"))) {
+
+                st.setString(1, HashGenerator.getSaltHash(driver.getPassword()));
+                st.setInt(2, driver.getDriverID());
+
+
+                ExternalAlgorithms.debugPrintSelect("Update Driver password\n" + st.toString());
+
+                st.executeUpdate();
+            }
         } catch (SQLException e) {
             errorCode = true;
             ExternalAlgorithms.debugPrint(e);

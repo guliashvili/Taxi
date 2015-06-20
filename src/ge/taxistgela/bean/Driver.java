@@ -22,9 +22,11 @@ public class Driver extends GeneralCheckableInformation {
     private Double rating;
     private DriverPreference preferences;
     private Boolean isActive;
-    private Boolean isVerified;
+    private Boolean isVerifiedEmail;
+    private Boolean isVerifiedPhone;
 
-    public Driver(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerified) {        setDriverID(driverID);
+    public Driver(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+        setDriverID(driverID);
         setPersonalID(personalID);
         setEmail(email);
         setPassword(password);
@@ -40,7 +42,8 @@ public class Driver extends GeneralCheckableInformation {
         setRating(rating);
         setPreferences(preferences);
         setIsActive(isActive);
-        setIsVerified(isVerified);
+        setIsVerifiedEmail(isVerifiedEmail);
+        setIsVerifiedPhone(isVerifiedPhone);
     }
 
     public Driver() {
@@ -72,7 +75,8 @@ public class Driver extends GeneralCheckableInformation {
                 ExternalAlgorithms.equalsNull(getRating(), o.getRating()) &&
                 ExternalAlgorithms.equalsNull(getPreferences(), o.getPreferences()) &&
                 ExternalAlgorithms.equalsNull(isActive(), o.isActive()) &&
-                ExternalAlgorithms.equalsNull(isVerified(), o.isVerified());
+                ExternalAlgorithms.equalsNull(getIsVerifiedEmail(), o.getIsVerifiedEmail()) &&
+                ExternalAlgorithms.equalsNull(getIsVerifiedPhone(), o.getIsVerifiedPhone());
     }
 
     @Override
@@ -211,11 +215,20 @@ public class Driver extends GeneralCheckableInformation {
         this.isActive = isActive;
     }
 
-    public Boolean isVerified() {
-        return isVerified;
+    public Boolean getIsVerifiedEmail() {
+        return isVerifiedEmail;
     }
 
-    public void setIsVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
+    public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
+        this.isVerifiedEmail = isVerifiedEmail;
+    }
+
+    public Boolean getIsVerifiedPhone() {
+        return isVerifiedPhone;
+    }
+
+    public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
+        this.isVerifiedPhone = isVerifiedPhone;
     }
 }
+

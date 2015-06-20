@@ -51,6 +51,15 @@ public class UserManager extends  UserManagerAPI{
     }
 
     @Override
+    public ErrorCode changePassword(User user) {
+        ErrorCode ret = getErrorsUser(user);
+        if (!ret.errorAccrued())
+            if (userDao.changePassword(user))
+                ret.unexpected();
+        return ret;
+    }
+
+    @Override
     public ErrorCode updateUser(User user) {
         ErrorCode ret = getErrorsUser(user);
         if (!ret.errorAccrued())

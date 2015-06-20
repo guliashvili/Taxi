@@ -117,12 +117,20 @@ public interface DriverDaoAPI {
 
     /**
      * Updates the certain driver with the new data.
+     * will not change password
      *
      * @param driver
      * @return operationCode
      */
     boolean updateDriver(Driver driver);
 
+    /**
+     * changes password to whats written in driver(it should be in plain text not  hash)
+     *
+     * @param driver
+     * @return operationCode
+     */
+    boolean changePassword(Driver driver);
 
     /**
      * Checks if the driver exists with the certain carID.

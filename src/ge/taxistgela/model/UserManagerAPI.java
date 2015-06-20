@@ -90,11 +90,20 @@ public abstract class UserManagerAPI {
 
     /**
      * Updates the user order with the new data.
+     * Will not change password
      *
      * @param user
      * @return operationCode
      */
     public abstract ErrorCode updateUser(User user);
+
+    /**
+     * changes password to whats written in user(it should be in plain text not  hash)
+     *
+     * @param user
+     * @return operationCode
+     */
+    public abstract ErrorCode changePassword(User user);
 
     /**
      * Checks if the user exists with the certain email.

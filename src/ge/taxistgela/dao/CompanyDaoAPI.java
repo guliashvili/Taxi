@@ -28,11 +28,20 @@ public interface CompanyDaoAPI {
 
     /**
      * Updates the certain company with the new data.
+     * will not change password
      *
      * @param company
      * @return operationCode
      */
     boolean updateCompany(Company company);
+
+    /**
+     * changes password to whats written in company(it should be in plain text not  hash)
+     *
+     * @param company
+     * @return operationCode
+     */
+    boolean changePassword(Company company);
 
     /**
      * Checks if the company exists with the certain email.

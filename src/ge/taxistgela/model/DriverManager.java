@@ -51,6 +51,14 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
+    public ErrorCode changePassword(Driver driver) {
+        ErrorCode ret = getErrorsDriver(driver);
+        if (!ret.errorAccrued())
+            if (driverDao.changePassword(driver)) ret.unexpected();
+        return ret;
+    }
+
+    @Override
     public ErrorCode updateDriver(Driver driver) {
         ErrorCode ret = getErrorsDriver(driver);
         if (!ret.errorAccrued())

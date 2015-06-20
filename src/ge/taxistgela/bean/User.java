@@ -17,12 +17,13 @@ public class User extends GeneralCheckableInformation {
     private String googleID;
     private Double rating;
     private UserPreference preference;
-    private Boolean isVerified;
+    private Boolean isVerifiedEmail;
+    private Boolean isVerifiedPhone;
 
     public User() {
     }
 
-    public User(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerified) {
+    public User(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
         setUserID(userID);
         setEmail(email);
         setPassword(password);
@@ -34,7 +35,8 @@ public class User extends GeneralCheckableInformation {
         setGoogleID(googleID);
         setRating(rating);
         setPreference(preference);
-        setIsVerified(isVerified);
+        setIsVerifiedEmail(isVerifiedEmail);
+        setIsVerifiedPhone(isVerifiedPhone);
     }
 
     @Override
@@ -55,7 +57,8 @@ public class User extends GeneralCheckableInformation {
                 ExternalAlgorithms.equalsNull(getGoogleID(), o.getGoogleID()) &&
                 ExternalAlgorithms.equalsNull(getRating(), o.getRating()) &&
                 ExternalAlgorithms.equalsNull(getPreference(), o.getPreference()) &&
-                ExternalAlgorithms.equalsNull(isVerified(), o.isVerified());
+                ExternalAlgorithms.equalsNull(getIsVerifiedEmail(), o.getIsVerifiedEmail()) &&
+                ExternalAlgorithms.equalsNull(getIsVerifiedPhone(), o.getIsVerifiedPhone());
     }
 
     @Override
@@ -154,11 +157,20 @@ public class User extends GeneralCheckableInformation {
         this.preference = preference;
     }
 
-    public Boolean isVerified() {
-        return isVerified;
+
+    public Boolean getIsVerifiedEmail() {
+        return isVerifiedEmail;
     }
 
-    public void setIsVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
+    public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
+        this.isVerifiedEmail = isVerifiedEmail;
+    }
+
+    public Boolean getIsVerifiedPhone() {
+        return isVerifiedPhone;
+    }
+
+    public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
+        this.isVerifiedPhone = isVerifiedPhone;
     }
 }

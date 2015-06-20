@@ -43,6 +43,18 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
+    public ErrorCode changePassword(Company company) {
+        ErrorCode ret = new ErrorCode();
+        ret.union(getErrors(company));
+
+        if (!ret.errorAccrued())
+            if (companyDao.changePassword(company))
+                ret.unexpected();
+
+        return ret;
+    }
+
+    @Override
     public ErrorCode updateCompany(Company company) {
         ErrorCode ret = new ErrorCode();
         ret.union(getErrors(company));
