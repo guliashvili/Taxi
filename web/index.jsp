@@ -85,6 +85,123 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   <section id="panel" class="hidden">
     <!-- Ajax request goes here -->
   </section>
+  <div id="registerModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title">Registration</h5>
+        </div>
+        <div class="modal-body">
+          <form id="registrationForm">
+            <div class = "4u">
+              <input type="radio" class="regChange" showf="userRegistration" id="userReg" name="userReg">
+              <label for="userReg">User</label>
+            </div>
+            <div class = "4u">
+              <input type="radio" class="regChange" showf="driverRegistration" id="driverReg" name="userReg">
+              <label for="driverReg">Driver</label>
+            </div>
+            <div class = "4u">
+              <input type="radio" class="regChange" showf="companyRegistration" id="companyReg" name="userReg">
+              <label for="companyReg">Company</label>
+            </div>
+            <br><br>
+            <div id="companyRegistration" class="hidden" >
+              <input type ="text" name="companyCode" value="" placeholder="Company Code" required/><br>
+              <input type ="email" name="email" value="" placeholder="Company Email" required/><br>
+              <input type ="password" name="password" value="" placeholder="Company Password" required/><br>
+              <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
+              <input type ="text" name="companyName" value="" placeholder="Company Name" required/><br>
+              <input type ="text" name="phoneNumber" value="" placeholder="Company Phone Number" required/><br>
+              <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+              <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
+              <input type="submit" class="button special" value="Register"/>
+            </div>
+            <div id="userRegistration" class="hidden">
+              <input type ="text" name="firstName" value="" placeholder="First Name" required/><br>
+              <input type ="text" name="lastName" value="" placeholder="Last Name" required/><br>
+              <input type ="email" name="email" value="" placeholder="Email" required/><br>
+              <input type ="password" name="password" value="" placeholder="Password" required/><br>
+              <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
+              <select name="gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+              </select><br>
+              <input type ="text" name="phoneNumber" value="" placeholder="Phone Number" required/><br>
+              <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+              <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
+              <input type="submit" class="button special" value="Register"/>
+            </div>
+            <div id="driverRegistration" class="hidden">
+              <input type ="text" name="firstName" value="" placeholder="First Name" required/><br>
+              <input type ="text" name="lastName" value="" placeholder="Last Name" required/><br>
+              <input type ="text" name="personalID" value="" placeholder="Personal ID" required/><br>
+              <input type ="text" name="companyID" value="" placeholder="Company ID"/><br>
+              <input type ="email" name="email" value="" placeholder="Email" required/><br>
+              <input type ="password" name="password" value="" placeholder="Password" required/><br>
+              <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
+              <select name="gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+              </select><br>
+              <input type ="text" name="phoneNumber" value="" placeholder="Phone Number" required/><br>
+              <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+              <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
+              <input type="submit" class="button special" value="Register"/>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title">Login</h5>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="4u">
+              <input type="radio" class="loginChange" id="userLogin" showf="1" name="loginC">
+              <label for="userLogin">User</label>
+            </div>
+            <div class="4u">
+              <input type="radio" class="loginChange" id="driverLogin" showf="2" name="loginC">
+              <label for="driverLogin">Driver</label>
+            </div>
+            <div class="4u">
+              <input type="radio" class="loginChange" id="companyLogin" showf="3" name="loginC">
+              <label for="companyLogin">Company</label>
+            </div>
+            <br><br>
+
+            <div class="innerContainer">
+              <input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
+              <input type="password" name="password" id="passwordLogin" value=""
+                     placeholder="Password"><br>
+              <button class="btn btn-success btn-sm" style="float:right">Log In</button>
+              <br><br>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+
+    </div>
+  </div>
   <% }else{%>
     <section id="panel" class="hidden">
       if(user!=null){
@@ -127,124 +244,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </ul>
   </footer>
 
-</div>
-
-<div id="registerModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Registration</h5>
-      </div>
-      <div class="modal-body">
-        <form id="registrationForm">
-          <div class = "4u">
-            <input type="radio" class="regChange" showf="userRegistration" id="userReg" name="userReg">
-            <label for="userReg">User</label>
-          </div>
-          <div class = "4u">
-            <input type="radio" class="regChange" showf="driverRegistration" id="driverReg" name="userReg">
-            <label for="driverReg">Driver</label>
-          </div>
-          <div class = "4u">
-            <input type="radio" class="regChange" showf="companyRegistration" id="companyReg" name="userReg">
-            <label for="companyReg">Company</label>
-          </div>
-          <br><br>
-          <div id="companyRegistration" class="hidden" >
-            <input type ="text" name="companyCode" value="" placeholder="Company Code" required/><br>
-            <input type ="email" name="email" value="" placeholder="Company Email" required/><br>
-            <input type ="password" name="password" value="" placeholder="Company Password" required/><br>
-            <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
-            <input type ="text" name="companyName" value="" placeholder="Company Name" required/><br>
-            <input type ="text" name="phoneNumber" value="" placeholder="Company Phone Number" required/><br>
-            <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
-            <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
-            <input type="submit" class="button special" value="Register"/>
-          </div>
-          <div id="userRegistration" class="hidden">
-            <input type ="text" name="firstName" value="" placeholder="First Name" required/><br>
-            <input type ="text" name="lastName" value="" placeholder="Last Name" required/><br>
-            <input type ="email" name="email" value="" placeholder="Email" required/><br>
-            <input type ="password" name="password" value="" placeholder="Password" required/><br>
-            <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
-            <select name="gender">
-              <option value="MALE">Male</option>
-              <option value="FEMALE">Female</option>
-            </select><br>
-            <input type ="text" name="phoneNumber" value="" placeholder="Phone Number" required/><br>
-            <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
-            <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
-            <input type="submit" class="button special" value="Register"/>
-          </div>
-          <div id="driverRegistration" class="hidden">
-            <input type ="text" name="firstName" value="" placeholder="First Name" required/><br>
-            <input type ="text" name="lastName" value="" placeholder="Last Name" required/><br>
-            <input type ="text" name="personalID" value="" placeholder="Personal ID" required/><br>
-            <input type ="text" name="companyID" value="" placeholder="Company ID"/><br>
-            <input type ="email" name="email" value="" placeholder="Email" required/><br>
-            <input type ="password" name="password" value="" placeholder="Password" required/><br>
-            <input type ="password" name="password" value="" placeholder="Repeat Password" required/><br>
-            <select name="gender">
-              <option value="MALE">Male</option>
-              <option value="FEMALE">Female</option>
-            </select><br>
-            <input type ="text" name="phoneNumber" value="" placeholder="Phone Number" required/><br>
-            <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
-            <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
-            <input type="submit" class="button special" value="Register"/>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Login Modal -->
-<div id="loginModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Login</h5>
-      </div>
-      <div class="modal-body">
-        <form id="loginForm">
-          <div class="4u">
-            <input type="radio" class="loginChange" id="userLogin" showf="1" name="loginC">
-            <label for="userLogin">User</label>
-          </div>
-          <div class="4u">
-            <input type="radio" class="loginChange" id="driverLogin" showf="2" name="loginC">
-            <label for="driverLogin">Driver</label>
-          </div>
-          <div class="4u">
-            <input type="radio" class="loginChange" id="companyLogin" showf="3" name="loginC">
-            <label for="companyLogin">Company</label>
-          </div>
-          <br><br>
-
-          <div class="innerContainer">
-            <input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
-            <input type="password" name="password" id="passwordLogin" value=""
-                   placeholder="Password"><br>
-            <button class="btn btn-success btn-sm" style="float:right">Log In</button>
-            <br><br>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-
-  </div>
 </div>
 
 </body>
