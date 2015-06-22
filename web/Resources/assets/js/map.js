@@ -4,7 +4,7 @@
 
 // Add map element to the background.
 var map;
-function initialize() {
+function initializeMap() {
     //geolocation
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -39,7 +39,6 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
-google.maps.event.addDomListener(window, 'load', initialize);
 function getIcon(glyph, color) {
     var canvas, ctx;
     canvas = document.createElement('canvas');

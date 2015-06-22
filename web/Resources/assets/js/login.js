@@ -18,8 +18,10 @@ $(function () {
                 console.log("Logged in\n" + JSON.stringify(formData));
                 console.log(data);
                 //$("#panel").load(data);
+                $("footer").hide();
                 $("#panel").html(data);
-                $("#loginModal").modal();
+                initializeMap();
+                $("#loginModal").modal('hide');
                 $("#banner").hide();
             },
             error: function (data) {

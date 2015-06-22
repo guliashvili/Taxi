@@ -21,11 +21,12 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!--[if lte IE 8]><script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
-  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="Resources/assets/css/taxi.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
+  <link rel="stylesheet" href="Resources/assets/css/taxi.css">
   <link rel="stylesheet" href="Resources/assets/css/main.css" />
+  <script src="Resources/assets/js/jquery.min.js"></script>
   <script src="Resources/assets/js/jquery.scrollex.min.js"></script>
   <script src="Resources/assets/js/jquery.scrolly.min.js"></script>
   <script src="Resources/assets/js/skel.min.js"></script>
@@ -37,6 +38,10 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
   <!--[if lte IE 8]><link rel="stylesheet" href="Resources/assets/css/ie8.css" /><![endif]-->
   <!--[if lte IE 9]><link rel="stylesheet" href="Resources/assets/css/ie9.css" /><![endif]-->
+  <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYaoDG8Mj-4FtjBn1p18va0taQyb0KwBk">
+  </script>
+  <script src="Resources/assets/js/map.js"></script>
 </head>
 <style>
 
