@@ -23,6 +23,7 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 		<script src="assets/js/main.js"></script>
         <script src="assets/js/index.js"></script>
+        <script src="assets/js/login.js"></script>
 
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -190,7 +191,7 @@
 				<div class="modal-body">
                     <form id="loginForm">
                         <div class="4u">
-                            <input type="radio" class="loginChange" id="userLogin" showf="1" name="loginC">
+                            <input type="radio" class="loginChange" id="userLogin" showf="1" name="loginC" value="user">
                             <label for="userLogin">User</label>
                         </div>
                         <div class="4u">
@@ -207,7 +208,7 @@
                             <input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
                             <input type="password" name="password" id="passwordLogin" value=""
                                    placeholder="Password"><br>
-                            <button class="btn btn-success btn-sm" style="float:right">Log In</button>
+                            <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
                             <br><br>
                         </div>
                     </form>

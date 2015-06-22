@@ -4,3 +4,10 @@
 
 
 // Login management goes here.
+
+$(function () {
+    $('#loginBtn').click(function () {
+        console.log(JSON.stringify($("#loginForm").serialize()));
+        return false;
+    });
+});

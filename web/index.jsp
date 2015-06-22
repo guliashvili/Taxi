@@ -1,6 +1,6 @@
-<%@ page import="ge.taxistgela.bean.User" %>
 <%@ page import="ge.taxistgela.bean.Company" %>
 <%@ page import="ge.taxistgela.bean.Driver" %>
+<%@ page import="ge.taxistgela.bean.User" %>
 <%--
   Created by IntelliJ IDEA.
   ge.taxistgela.bean.User: Alex
@@ -192,24 +192,23 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div class="modal-body">
           <form id="loginForm">
             <div class="4u">
-              <input type="radio" class="loginChange" id="userLogin" showf="1" name="loginC">
+                <input type="radio" class="loginChange" id="userLogin" name="action" value="loginUser">
               <label for="userLogin">User</label>
             </div>
             <div class="4u">
-              <input type="radio" class="loginChange" id="driverLogin" showf="2" name="loginC">
+                <input type="radio" class="loginChange" id="driverLogin" name="action" value="loginDriver">
               <label for="driverLogin">Driver</label>
             </div>
             <div class="4u">
-              <input type="radio" class="loginChange" id="companyLogin" showf="3" name="loginC">
+                <input type="radio" class="loginChange" id="companyLogin" name="action" value="loginCompany">
               <label for="companyLogin">Company</label>
             </div>
             <br><br>
 
             <div class="innerContainer">
-              <input type="text" name="username" id="usernameLogin" value="" placeholder="Username"><br>
-              <input type="password" name="password" id="passwordLogin" value=""
-                     placeholder="Password"><br>
-              <button class="btn btn-success btn-sm" style="float:right">Log In</button>
+                <input type="text" name="email" placeholder="Email"><br>
+                <input type="password" name="password" placeholder="Password"><br>
+                <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
               <br><br>
             </div>
           </form>
@@ -222,15 +221,13 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   </div>
   <% }else{%>
     <section id="panel" class="hidden">
-      if(user!=null){
+        <% if (user != null) { %>
         <jsp:include page="user.jsp"/>
-      }
-      if(driver!=null){
+        <% } else if (driver != null) { %>
         <jsp:include page="driver.jsp"/>
-      }
-      if(company!=null){
+        <% } else if (company != null) { %>
         <jsp:include page="company.jsp"/>
-      }
+        <% } %>
     </section>
   <% }%>
   <footer id="footer">
