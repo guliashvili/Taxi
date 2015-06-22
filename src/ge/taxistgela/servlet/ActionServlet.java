@@ -34,7 +34,6 @@ public abstract class ActionServlet extends HttpServlet {
         
         try {
             Method method = this.getClass().getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
-            method.setAccessible(true);
             method.invoke(this, request, response);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();

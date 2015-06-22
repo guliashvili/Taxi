@@ -84,7 +84,7 @@ public class ManagerTests{
         assertFalse(man.checkPhoneNumber("123456791"));
         assertTrue(man.checkPhoneNumber("123456777"));
         //login check
-        Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","558677895","facebookIDmock","googleIDmock",true);
+        Company comp = new Company(-1, "123456789", "support@taxistgela.com", "1234qwerTy", "taxistGela", "558677895", "facebookIDmock", "googleIDmock", true, true);
         when(dao.loginCompany("123456789", "asdf")).thenReturn(comp);
         assertEquals(comp,dao.loginCompany("123456789", "asdf"));
         //register check?

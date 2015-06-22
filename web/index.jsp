@@ -34,6 +34,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   <!--[if lte IE 8]><script src="Resources/assets/js/ie/respond.min.js"></script><![endif]-->
   <script src="Resources/assets/js/main.js"></script>
   <script src="Resources/assets/js/index.js"></script>
+    <script src="Resources/assets/js/login.js"></script>
 
   <!--[if lte IE 8]><link rel="stylesheet" href="Resources/assets/css/ie8.css" /><![endif]-->
   <!--[if lte IE 9]><link rel="stylesheet" href="Resources/assets/css/ie9.css" /><![endif]-->
@@ -100,7 +101,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </div>
     <a onclick="$('#card').toggleClass('flipped')" class="more">flip</a>
   </section>
-  <section id="panel" class="hidden">
+    <section id="panel">
     <!-- Ajax request goes here -->
   </section>
   <div id="registerModal" class="modal fade" role="dialog">
@@ -220,7 +221,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </div>
   </div>
   <% }else{%>
-    <section id="panel" class="hidden">
+    <section id="panel">
         <% if (user != null) { %>
         <jsp:include page="user.jsp"/>
         <% } else if (driver != null) { %>

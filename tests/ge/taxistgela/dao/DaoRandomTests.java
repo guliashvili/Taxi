@@ -1,14 +1,8 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
-import junit.extensions.ActiveTestSuite;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -68,7 +62,7 @@ public class DaoRandomTests {
             usrp.setWantsAlone(rnd.nextBoolean());
             usrp.setPassengersCount(rnd.nextInt(9));
             dao.insertUserPreference(usrp);
-            User usr = new User(-1,email,password,name,surename,phoneNumber,gend,facebookID,googleID,rating,usrp,rnd.nextBoolean());
+            User usr = new User(-1, email, password, name, surename, phoneNumber, gend, facebookID, googleID, rating, usrp, rnd.nextBoolean(), rnd.nextBoolean());
             dao.registerUser(usr);
             dt.compareUsers(usr,dao.loginUser(usr.getEmail(), usr.getPassword()));
             users.add(usr);
@@ -147,7 +141,7 @@ public class DaoRandomTests {
             while(googleID.equals("") || dao.checkGoogleID(googleID)){
                 googleID=generateRandomString(30,true,false);
             }
-            Company company = new Company(-1,companyCode,email,password,companyName,phoneNumber,facebookID,googleID,rnd.nextBoolean());
+            Company company = new Company(-1, companyCode, email, password, companyName, phoneNumber, facebookID, googleID, rnd.nextBoolean(), rnd.nextBoolean());
             dao.registerCompany(company);
             dt.compareCompanies(company, dao.loginCompany(company.getEmail(), company.getPassword()));
             companies.add(company);
@@ -171,7 +165,7 @@ public class DaoRandomTests {
             String phoneNumber = "";
             while(phoneNumber.equals("") || dao.checkPhoneNumber(phoneNumber)){
                 phoneNumber = generateRandomString(9,true,true);
-            };
+            }
             if(rnd.nextBoolean()) company.setPhoneNumber(phoneNumber);
             String facebookID = "";
             while(facebookID.equals("") || dao.checkFacebookID(facebookID)){
@@ -235,7 +229,7 @@ public class DaoRandomTests {
             driverPreference.setMinimumUserRating(rnd.nextDouble() * 5);
             dao.insertDriverPreference(driverPreference);
             Location loc = new Location(rnd.nextDouble()*180,rnd.nextDouble()*180);
-            Driver driver = new Driver(-1,personalID,email,password,companyID,name,surename,gend,phoneNumber,car,facebookID,googleID,loc,rnd.nextDouble()*5,driverPreference,rnd.nextBoolean(),rnd.nextBoolean());
+            Driver driver = new Driver(-1, personalID, email, password, companyID, name, surename, gend, phoneNumber, car, facebookID, googleID, loc, rnd.nextDouble() * 5, driverPreference, rnd.nextBoolean(), rnd.nextBoolean(), rnd.nextBoolean());
             dao.registerDriver(driver);
             dt.compareDrivers(driver,dao.loginDriver(driver.getEmail(), driver.getPassword()));
             drivers.add(driver);

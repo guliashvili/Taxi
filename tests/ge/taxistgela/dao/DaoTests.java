@@ -28,7 +28,7 @@ public class DaoTests {
     public void testCompanyDao(){
         //RegistrationTests
         CompanyDao man = new CompanyDao();
-        Company comp = new Company(-1,"123456789","support@taxistgela.com","1234qwerTy","taxistGela","558677895","facebookIDmock","googleIDmock",true);
+        Company comp = new Company(-1, "123456789", "support@taxistgela.com", "1234qwerTy", "taxistGela", "558677895", "facebookIDmock", "googleIDmock", true, true);
         assertEquals(false, man.registerCompany(comp));
         assertEquals(true, man.registerCompany(comp));
         //LoginTests
@@ -126,7 +126,7 @@ public class DaoTests {
         usrp.setTimeLimit(30);
         usrp.setConditioning(true);
         usrp.setWantsAlone(false);
-        User usr = new User(-1,"rmach13@freeuni.edu.ge","1234a","Rati","Matchavariani","558677895",Gender.MALE,"asdfa2d","asdsdafrk",4.3,usrp,false);
+        User usr = new User(-1, "rmach13@freeuni.edu.ge", "1234a", "Rati", "Matchavariani", "558677895", Gender.MALE, "asdfa2d", "asdsdafrk", 4.3, usrp, false, false);
         man.insertUserPreference(usrp);
         //Register
         man.registerUser(usr);
@@ -164,7 +164,7 @@ public class DaoTests {
         usrp.setTimeLimit(30);
         usrp.setConditioning(true);
         usrp.setWantsAlone(false);
-        User usr2 = new User(usr.getUserID(),"rmach12@freeuni.edu.ge","1234a","raTi","MatchavariaNi","+992358677895",Gender.MALE,"asdfa3d","asdfl2d",4.2,usrp,true);
+        User usr2 = new User(usr.getUserID(), "rmach12@freeuni.edu.ge", "1234a", "raTi", "MatchavariaNi", "+992358677895", Gender.MALE, "asdfa3d", "asdfl2d", 4.2, usrp, true, true);
 
         man.updateUser(usr2);
         man.updateUserPreference(usrp);
@@ -238,7 +238,7 @@ public class DaoTests {
         man.insertDriverPreference(pref);
 
         Location l = new Location(new Double(2.234), new Double(3.1245));
-        Driver driver = new Driver(-1,"01010101011","gela@taxistgela.ge","Madridista1",1,"gela","magaltadze",Gender.MALE,"555696996",car,"gelandara95","bozandara",l,2.2,pref,true,true);
+        Driver driver = new Driver(-1, "01010101011", "gela@taxistgela.ge", "Madridista1", 1, "gela", "magaltadze", Gender.MALE, "555696996", car, "gelandara95", "bozandara", l, 2.2, pref, true, true, true);
 
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
@@ -248,7 +248,7 @@ public class DaoTests {
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
         //Update
 
-        Driver driver2 = new Driver(driver.getDriverID(),"01010101012","gelusi@taxistgela.ge","Madridista!",1,"Gela","Magaltadze",Gender.FEMALE,"555696997",car,"gelusi7","bozandara99",l,2.3,pref,false,false);
+        Driver driver2 = new Driver(driver.getDriverID(), "01010101012", "gelusi@taxistgela.ge", "Madridista!", 1, "Gela", "Magaltadze", Gender.FEMALE, "555696997", car, "gelusi7", "bozandara99", l, 2.3, pref, false, false, false);
         car.setCarYear(1996);
         car.setCarDescription("trash");
         car.setCarID("69dota95");
@@ -321,7 +321,7 @@ public class DaoTests {
         assertEquals(driver1.getPersonalID(),driver.getPersonalID());
         assertEquals(driver1.getPhoneNumber(),driver.getPhoneNumber());
         assertEquals(driver1.isActive(),driver.isActive());
-        assertEquals(driver1.isVerified(),driver.isVerified());
+        assertEquals(driver1.getIsVerifiedEmail(), driver.getIsVerifiedEmail());
         Car c = driver1.getCar();
         DriverPreference p = driver1.getPreferences();
         compareCars(c,car);
