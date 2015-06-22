@@ -26,7 +26,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   <link rel="stylesheet" href="Resources/assets/css/taxi.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"> </script>
   <link rel="stylesheet" href="Resources/assets/css/main.css" />
-  <script src="Resources/assets/js/jquery.min.js"></script>
   <script src="Resources/assets/js/jquery.scrollex.min.js"></script>
   <script src="Resources/assets/js/jquery.scrolly.min.js"></script>
   <script src="Resources/assets/js/skel.min.js"></script>
@@ -89,7 +88,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
           <p>Our flexible preference service helps you find the taxi driver you need<br />
             with lowest price, best rating and not waste a single moment. <br>
             <br>
-            <img src="images/gela.jpg"/>
+            <img src="Resources/images/gela.jpg"/>
           <h2>Your Service is:</h2></p>
         </header>
         <ul class="icons major">

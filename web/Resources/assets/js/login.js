@@ -19,6 +19,8 @@ $(function () {
                 console.log(data);
                 //$("#panel").load(data);
                 $("#panel").html(data);
+                $("#loginModal").modal();
+                $("#banner").hide();
             },
             error: function (data) {
                 console.error("Couldn't log in\n" + JSON.stringify(formData));

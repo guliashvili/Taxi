@@ -16,7 +16,7 @@ public class LoginServlet extends ActionServlet {
     public void loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ExternalAlgorithms.debugPrint("Login User " + request.getParameter("email") + " " + request.getParameter("password"));
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().print("/Resources/user.html");
+        response.sendRedirect("/Resources/user.html");
     }
 
     public void loginDriver(HttpServletRequest request, HttpServletResponse response) {
