@@ -69,18 +69,36 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     Driver driver = (Driver) session.getAttribute(Driver.class.getName());
     if(user == null && company == null && driver == null){
   %>
-  <section id="banner">
-    <div class="inner">
-      <h2 id="mainHeader">Taxist Gela</h2>
-      <p>Some Very Inspiring<br />
-        Text goes<br />
-        Here
-      <ul class="actions">
-        <li><a href="#" class="button special" data-toggle="modal" data-target="#loginModal">Sign in</a></li>
-        <li><a href="#" class="button special" data-toggle="modal" data-target="#registerModal">Register</a></li>
-      </ul>
+  <section id="banner" class="containerCard">
+    <div id="card" class="inner">
+      <figure class="front">
+        <h2 id="mainHeader">Taxist Gela</h2>
+        <p>Some Very Inspiring<br />
+          Text goes<br />
+          Here
+        <ul class="actions">
+          <li><a href="#" class="button special" data-toggle="modal" data-target="#loginModal">Sign in</a></li>
+          <li><a href="#" class="button special" data-toggle="modal" data-target="#registerModal">Register</a></li>
+        </ul>
+      </figure>
+      <figure class="back">
+        <header class="major">
+          <h2>Taxist gela is an awesome free service connecting you to<br />
+            your desired destination</h2>
+          <p>Our flexible preference service helps you find the taxi driver you need<br />
+            with lowest price, best rating and not waste a single moment. <br>
+            <br>
+            <img src="images/gela.jpg"/>
+          <h2>Your Service is:</h2></p>
+        </header>
+        <ul class="icons major">
+          <li><span class="icon fa-dollar style1"><span class="label">Cheap</span></span></li>
+          <li><span class="icon fa-clock-o style2"><span class="label">Fast</span></span></li>
+          <li><span class="icon fa-comment style3"><span class="label">Interractive</span></span></li>
+        </ul>
+      </figure>
     </div>
-    <a href="#about" class="more scrolly one">About</a>
+    <a onclick="$('#card').toggleClass('flipped')" class="more">flip</a>
   </section>
   <section id="panel" class="hidden">
     <!-- Ajax request goes here -->
@@ -215,24 +233,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
       }
     </section>
   <% }%>
-  <section id="about" class="wrapper style1 special">
-    <div class="inner">
-      <header class="major">
-        <h2>Taxist gela is an awesome free service connecting you to<br />
-          your desired destination</h2>
-        <p>Our flexible preference service helps you find the taxi driver you need<br />
-          with lowest price, best rating and not waste a single moment. <br>
-          <br>
-          <img src="Resources/images/gela.jpg"/>
-        <h2>Your Service is:</h2></p>
-      </header>
-      <ul class="icons major">
-        <li><span class="icon fa-dollar style1"><span class="label">Cheap</span></span></li>
-        <li><span class="icon fa-clock-o style2"><span class="label">Fast</span></span></li>
-        <li><span class="icon fa-comment style3"><span class="label">Interractive</span></span></li>
-      </ul>
-    </div>
-  </section>
   <footer id="footer">
     <ul class="icons">
       <li><a href="#" class="icon fa-twitter"><span class="label">Follow us</span></a></li>
