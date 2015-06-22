@@ -17,8 +17,7 @@ $(function () {
             success: function (data) {
                 console.log("Logged in\n" + JSON.stringify(formData));
                 console.log(data);
-                //$("#panel").load(data);
-                $("#panel").html(data);
+                $("#panel").load(data);
             },
             error: function (data) {
                 console.error("Couldn't log in\n" + JSON.stringify(formData));
