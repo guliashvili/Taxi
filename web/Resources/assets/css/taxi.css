@@ -1,11 +1,13 @@
-body{
-	overflow-y:hidden;
+body {
+    overflow-y: hidden;
 }
+
 .is-mobile .modal-content {
     height: 100%;
     width: 100%;
     border-radius: 0;
 }
+
 .is-mobile .modal-dialog {
     position: absolute;
     left: 0;
@@ -69,9 +71,9 @@ body{
 .innerContainer {
     margin-top: 0;
 }
-.inner{
-	position:fixed;
-	top:0;
+
+.inner {
+
 }
 
 .modal-dialog {
@@ -162,7 +164,7 @@ body{
 @media screen and (max-width: 736px) {
 
     .icon.major {
-	   font-size: 2.1em;
+        font-size: 2.1em;
     }
 
 }
@@ -384,157 +386,188 @@ input[type="radio"] + label:before {
     position: fixed;
     left: 0;
 }
-#map{
-	opacity:0.5;
-	transition: opacity .5s;
-	-webkit-transition: opacity .5s;
+
+#map {
+    opacity: 0.5;
+    transition: opacity .5s;
+    -webkit-transition: opacity .5s;
 }
-#map.mOP{
-	opacity:1;
-	transition: opacity 1s;
-	-webkit-transition: opacity 1s;
+
+#map.mOP {
+    opacity: 1;
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
 }
+
 .prefPanel {
     background-color: #F8CD3B;
-	position:absolute;
-	top:0;
-	left:0;
-	right:0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 60%;
     height: 100%;
-	overflow-y:auto;
+    overflow-y: auto;
     margin-left: auto;
     margin-right: auto;
     padding-top: 45px;
-	transition: height .5s;
-	-webkit-transition: height .5s;
+    transition: height .5s;
+    -webkit-transition: height .5s;
 }
-.prefPanel.zero{
-	overflow:hidden;
-	transition: height .5s;
-	-webkit-transition: height .5s;
-	height:0;
+
+.prefPanel.zero {
+    overflow: hidden;
+    transition: height .5s;
+    -webkit-transition: height .5s;
+    height: 0;
 }
+
 .is-mobile .prefPanel {
     width: 100%;
 }
-.prefPanel a{
-	text-decoration:none;
+
+.prefPanel a {
+    text-decoration: none;
 }
-.prefPanel .verified{
-	border-color:green;
-	background-color:green;
+
+.prefPanel .verified {
+    border-color: green;
+    background-color: green;
 }
+
 #registerModal input[type="submit"] {
     float: right;
 }
+
 /*Section styles*/
 #about {
     background-color: black;
 }
+
 /*Custom Element Styles*/
-#driversModal  .modal-dialog{
-	width:100%;
-	text-align: center;
+#driversModal .modal-dialog {
+    width: 100%;
+    text-align: center;
     position: fixed;
     top: 20px;
     right: 0;
     bottom: 0;
     left: 0;
 }
-.dataTables_length label{
-	display:none;
+
+.dataTables_length label {
+    display: none;
 }
-.dataTables_filter label{
-	display:none;
+
+.dataTables_filter label {
+    display: none;
 }
-.dataTables_info{
-	display:none;
+
+.dataTables_info {
+    display: none;
 }
-.dataTables_wrapper .paginate_button:hover{
-	text-decoration:none;
+
+.dataTables_wrapper .paginate_button:hover {
+    text-decoration: none;
 }
+
 .dataTables_wrapper .paginate_button {
-	text-decoration:none;
+    text-decoration: none;
 }
-.dataTables_wrapper #driversTable_next{
-	display:none;
+
+.dataTables_wrapper #driversTable_next {
+    display: none;
 }
-.dataTables_wrapper #driversTable_previous{
-	display:none;
+
+.dataTables_wrapper #driversTable_previous {
+    display: none;
 }
-.dataTables_wrapper a{
-	border-bottom:none;
+
+.dataTables_wrapper a {
+    border-bottom: none;
 }
+
 #page-wrapper {
-	-moz-transition: opacity 0.5s ease;
-	-webkit-transition: opacity 0.5s ease;
-	-ms-transition: opacity 0.5s ease;
-	transition: opacity 0.5s ease;
-	opacity: 1;
-	padding-top: 3em;
+    -moz-transition: opacity 0.5s ease;
+    -webkit-transition: opacity 0.5s ease;
+    -ms-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+    padding-top: 3em;
 }
 
 #page-wrapper:before {
-	background: transparent;
-	content: '';
-	display: block;
-	display: none;
-	height: 100%;
-	left: 0;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 10001;
+    background: transparent;
+    content: '';
+    display: block;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10001;
 }
+
 .containerCard {
-   position: relative;
-   margin: 0 auto 40px;
-   overflow-x:scroll;
+    position: relative;
+    margin: 0 auto 40px;
+    overflow-x: scroll;
 }
+
 #card {
-	width: 100%;
-	height: 100%;
-	 -webkit-transition: -webkit-transform 1s;
-	    -moz-transition: -moz-transform 1s;
-		 -o-transition: -o-transform 1s;
-		    transition: transform 1s;
-	 -webkit-transform-style: preserve-3d;
-	    -moz-transform-style: preserve-3d;
-		 -o-transform-style: preserve-3d;
-		    transform-style: preserve-3d;
-	 -webkit-transform-origin: right center;
-	    -moz-transform-origin: right center;
-		 -o-transform-origin: right center;
-		    transform-origin: right center;
-    }
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: all 1s ease 0s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: right center;
+    -moz-transform-origin: right center;
+    -o-transform-origin: right center;
+    transform-origin: right center;
+    top:40%;
+}
 
 #card.flipped {
-	-webkit-transform: translateX( -100% ) rotateY( -180deg );
-	-moz-transform: translateX( -100% ) rotateY( -180deg );
-	-o-transform: translateX( -100% ) rotateY( -180deg );
-	transform: translateX( -100% ) rotateY( -180deg );
+    -webkit-transform: translateX(-100%) rotateY(-180deg);
+    -moz-transform: translateX(-100%) rotateY(-180deg);
+    -o-transform: translateX(-100%) rotateY(-180deg);
+    transform: translateX(-100%) rotateY(-180deg);
+    top:0;
 }
+
 #card figure {
-	overflow-y:scroll;
-	overflow-x:hidden;
-	position:absolute;
-	width: 100%;
-	height: 100%;
-	-webkit-backface-visibility: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
-	 -o-backface-visibility: hidden;
-	    backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
+
 #card .front {
-	    -webkit-transform: rotateY( 0deg );
-         -moz-transform: rotateY( 0deg );
-           -o-transform: rotateY( 0deg );
-              transform: rotateY( 0deg );
+    display: table-cell;
+    vertical-align: middle;
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
 }
+
 #card .back {
-      -webkit-transform: rotateY( 180deg );
-         -moz-transform: rotateY( 180deg );
-           -o-transform: rotateY( 180deg );
-              transform: rotateY( 180deg );
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    top:0;
+    position:fixed;
 }
