@@ -4,10 +4,13 @@
 
 // Here goes user panel management.
 $(document).ready(function(){
+    initializeO();
+});
+function initializeO(){
     initializeMap();
     createPreferencesSaves();
     generateGrid();
-});
+}
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
         var formData = $("#passForm").serialize();
