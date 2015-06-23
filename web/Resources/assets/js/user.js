@@ -11,8 +11,9 @@ function initializeO(){
 }
 
 function askForDate(){
-    console.log("would you date me? :(");
+    $("#order").removeClass("hidden");
 }
+
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
         var formData = $("#passForm").serialize();

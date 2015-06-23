@@ -14,6 +14,15 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
+<section id="order" class="hidden" style="position: absolute; top: 10px; left: 10px; z-index: 99;">
+    <div class='input-group date' id='datetimepicker10'>
+        <input type='text' class="form-control" />
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar">
+            </span>
+        </span>
+    </div>
+</section><!-- TOOD -->
 <% User user = (User) session.getAttribute(User.class.getName());%>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
