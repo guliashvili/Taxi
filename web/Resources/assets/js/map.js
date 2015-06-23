@@ -50,3 +50,17 @@ function getIcon(glyph, color) {
     ctx.fillText(glyph, 0, 16);
     return canvas.toDataURL();
 }
+function updateMapLocations(){
+	$.ajax({
+		url: "/updateMap",
+        method: "post",
+        data: "",
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("fetch Data");
+		}
+	});
+}
