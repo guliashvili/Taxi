@@ -26,7 +26,7 @@ function showPosition(position) {
 	var marker = new google.maps.Marker({
       position: {lat: position.coords.latitude, lng: position.coords.longitude},
       map: map,
-      title: 'Hello World!'
+      title: 'Taxi Map'
 	});
 	for (var i=0;i<randomdrivers.length;++i){
 		var driver = new google.maps.Marker({
