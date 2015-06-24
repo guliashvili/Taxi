@@ -18,7 +18,7 @@ public class DaoTests {
     @Before
     @After
     public void setup() {
-        System.out.print("xxx");
+
         AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
