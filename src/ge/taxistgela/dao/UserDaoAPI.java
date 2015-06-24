@@ -47,6 +47,15 @@ public interface UserDaoAPI {
      */
     User getUserByID(int userID);
 
+    User getUserByEmail(String email);
+
+    User getUserByPhoneNumber(String phoneNumber);
+
+    User getUserByGoogleID(String googleID);
+
+    User getUserByFacebookID(String facebookID);
+
+
     /**
      * Returns Users selected by the driver  criteria.
      * Does not consider TimeLimit

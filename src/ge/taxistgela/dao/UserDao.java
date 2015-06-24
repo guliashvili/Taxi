@@ -216,6 +216,102 @@ public class UserDao implements UserDaoAPI {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        User user;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT  * FROM users WHERE email=?"))) {
+
+                st.setString(1, email);
+
+                ExternalAlgorithms.debugPrintSelect("getUserByEmail \n" + st.toString());
+
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next())
+                    user = getUser(res);
+                else
+                    user = null;
+            }
+        } catch (SQLException e) {
+            user = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) {
+        User user;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT  * FROM users WHERE phoneNumber=?"))) {
+
+                st.setString(1, phoneNumber);
+
+                ExternalAlgorithms.debugPrintSelect("getUserByPhoneNumber \n" + st.toString());
+
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next())
+                    user = getUser(res);
+                else
+                    user = null;
+            }
+        } catch (SQLException e) {
+            user = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByFacebookID(String facebookID) {
+        User user;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT  * FROM users WHERE facebookID=?"))) {
+
+                st.setString(1, facebookID);
+
+                ExternalAlgorithms.debugPrintSelect("getUserByFacebookID \n" + st.toString());
+
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next())
+                    user = getUser(res);
+                else
+                    user = null;
+            }
+        } catch (SQLException e) {
+            user = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByGoogleID(String googleID) {
+        User user;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT  * FROM users WHERE googleID=?"))) {
+
+                st.setString(1, googleID);
+
+                ExternalAlgorithms.debugPrintSelect("getUserByGoogleID \n" + st.toString());
+
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next())
+                    user = getUser(res);
+                else
+                    user = null;
+            }
+        } catch (SQLException e) {
+            user = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return user;
+    }
+
+    @Override
     public List<User> getUsersByPreferences(Driver driver) {
         List<User> output = new ArrayList<>();
         try (Connection con = DBConnectionProvider.getConnection()) {
@@ -322,12 +418,40 @@ public class UserDao implements UserDaoAPI {
 
     @Override
     public boolean verifyUserEmail(String email) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Users SET isVerifiedEmail=TRUE WHERE email=?"))) {
 
+                st.setString(1, email);
+                ExternalAlgorithms.debugPrintSelect("Verify  User email password\n" + st.toString());
+
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
     }
 
     @Override
     public boolean verifyUserPhoneNumber(String phoneNumber) {
-        return false;
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Users SET isVerifiedPhone=TRUE WHERE phoneNumber=?"))) {
+
+                st.setString(1, phoneNumber);
+                ExternalAlgorithms.debugPrintSelect("Verify  User phoneNumber password\n" + st.toString());
+
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
     }
 
     @Override

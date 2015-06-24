@@ -85,6 +85,46 @@ public class DriverDao implements DriverDaoAPI {
         return car;
     }
 
+
+    @Override
+    public boolean verifyDriverEmail(String email) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Drivers SET isVerifiedEmail=TRUE WHERE email=?"))) {
+
+                st.setString(1, email);
+                ExternalAlgorithms.debugPrintSelect("Verify  Driver email password\n" + st.toString());
+
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+    @Override
+    public boolean verifyDriverPhoneNumber(String phoneNumber) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Drivers SET isVerifiedPhone=TRUE WHERE phoneNumber=?"))) {
+
+                st.setString(1, phoneNumber);
+                ExternalAlgorithms.debugPrintSelect("Verify  Driver phoneNumber password\n" + st.toString());
+
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+
     @Override
     public Car getCarByID(String carID) {
 
@@ -310,6 +350,87 @@ public class DriverDao implements DriverDaoAPI {
         }
         return output;
     }
+
+    @Override
+    public Driver getDriverByEmail(String email) {
+        Driver output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM drivers WHERE email=?"))) {
+
+                st.setString(1, email);
+
+                ExternalAlgorithms.debugPrintSelect("getDriverByEmail \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = getDriver(res);
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
+
+    @Override
+    public Driver getDriverByPhoneNumber(String phoneNumber) {
+        Driver output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM drivers WHERE phoneNumber=?"))) {
+
+                st.setString(1, phoneNumber);
+
+                ExternalAlgorithms.debugPrintSelect("getDriverByPhoneNumber \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = getDriver(res);
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
+
+    @Override
+    public Driver getDriverByFacebookID(String facebookID) {
+        Driver output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM drivers WHERE facebookID=?"))) {
+
+                st.setString(1, facebookID);
+
+                ExternalAlgorithms.debugPrintSelect("getDriverByFacebookID \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = getDriver(res);
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
+
+    @Override
+    public Driver getDriverByGoogleID(String googleID) {
+        Driver output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM drivers WHERE googleID=?"))) {
+
+                st.setString(1, googleID);
+
+                ExternalAlgorithms.debugPrintSelect("getDriverByGoogleID \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = getDriver(res);
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
+
 
     @Override
     public List<Driver> getDriverByCompanyID(int companyID) {

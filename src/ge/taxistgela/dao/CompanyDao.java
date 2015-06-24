@@ -22,6 +22,11 @@ public class CompanyDao implements CompanyDaoAPI {
             "companyCode=?,email=?,companyName=?,phoneNumber=?,facebookID=?,googleID=?,isVerifiedEmail=?,isVerifiedPhone=? " +
             "WHERE companyID = ?";
 
+    private Company getCompany(ResultSetEnhanced res) throws SQLException {
+        Company ret = new Company(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getString(7), res.getString(8), res.getBoolean(9), res.getBoolean(10));
+        return ret;
+    }
+
     @Override
     public Company loginCompany(String email, String password) {
         password = HashGenerator.getSaltHash(password);
@@ -39,7 +44,138 @@ public class CompanyDao implements CompanyDaoAPI {
                 if (!res.next()) {
                     return null;
                 }
-                ret = new Company(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getString(7), res.getString(8), res.getBoolean(9), res.getBoolean(10));
+                ret = getCompany(res);
+            }
+        } catch (SQLException e) {
+            ret = null;
+            ExternalAlgorithms.debugPrint(e);
+
+        }
+        return ret;
+    }
+
+    @Override
+    public Company getCompanyByID(int companyID) {
+
+        Company ret;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE companiID=?"))) {
+
+                st.setInt(1, companyID);
+
+
+                ExternalAlgorithms.debugPrintSelect("getCompanyByID \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (!res.next()) {
+                    return null;
+                }
+                ret = getCompany(res);
+            }
+        } catch (SQLException e) {
+            ret = null;
+            ExternalAlgorithms.debugPrint(e);
+
+        }
+        return ret;
+    }
+
+    @Override
+    public Company getCompanyByEmail(String email) {
+
+        Company ret;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE email=?"))) {
+
+                st.setString(1, email);
+
+
+                ExternalAlgorithms.debugPrintSelect("getCompanyByEmail \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (!res.next()) {
+                    return null;
+                }
+                ret = getCompany(res);
+            }
+        } catch (SQLException e) {
+            ret = null;
+            ExternalAlgorithms.debugPrint(e);
+
+        }
+        return ret;
+    }
+
+
+    @Override
+    public Company getCompanyByPhoneNumber(String phoneNumber) {
+
+        Company ret;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE phoneNumber=?"))) {
+
+                st.setString(1, phoneNumber);
+
+
+                ExternalAlgorithms.debugPrintSelect("getCompanyByPhoneNumber \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (!res.next()) {
+                    return null;
+                }
+                ret = getCompany(res);
+            }
+        } catch (SQLException e) {
+            ret = null;
+            ExternalAlgorithms.debugPrint(e);
+
+        }
+        return ret;
+    }
+
+    @Override
+    public Company getCompanyByFacebookID(String facebookID) {
+
+        Company ret;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE facebookID=?"))) {
+
+                st.setString(1, facebookID);
+
+
+                ExternalAlgorithms.debugPrintSelect("getCompanyByFacebookID \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (!res.next()) {
+                    return null;
+                }
+                ret = getCompany(res);
+            }
+        } catch (SQLException e) {
+            ret = null;
+            ExternalAlgorithms.debugPrint(e);
+
+        }
+        return ret;
+    }
+
+    @Override
+    public Company getCompanyByGoogleID(String googleID) {
+
+        Company ret;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE facebookID=?"))) {
+
+                st.setString(1, googleID);
+
+
+                ExternalAlgorithms.debugPrintSelect("getCompanyByFacebookID \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (!res.next()) {
+                    return null;
+                }
+                ret = getCompany(res);
             }
         } catch (SQLException e) {
             ret = null;
@@ -69,6 +205,44 @@ public class CompanyDao implements CompanyDaoAPI {
 
             if (update)
                 st.setInt(x++, company.getCompanyID());
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+    @Override
+    public boolean verifyCompanyEmail(String email) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Companies SET isVerifiedEmail=TRUE WHERE email=?"))) {
+
+                st.setString(1, email);
+                ExternalAlgorithms.debugPrintSelect("Verify  Company email password\n" + st.toString());
+
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+    @Override
+    public boolean verifyCompanyPhoneNumber(String phoneNumber) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Companies SET isVerifiedPhone=TRUE WHERE phoneNumber=?"))) {
+
+                st.setString(1, phoneNumber);
+                ExternalAlgorithms.debugPrintSelect("Verify  Company phoneNumber password\n" + st.toString());
+
+                st.executeUpdate();
+            }
         } catch (SQLException e) {
             errorCode = true;
             ExternalAlgorithms.debugPrint(e);

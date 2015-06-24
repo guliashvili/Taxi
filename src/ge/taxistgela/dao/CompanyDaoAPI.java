@@ -7,6 +7,32 @@ import ge.taxistgela.bean.Company;
  */
 public interface CompanyDaoAPI {
 
+    Company getCompanyByID(int userID);
+
+    Company getCompanyByEmail(String email);
+
+    Company getCompanyByPhoneNumber(String phoneNumber);
+
+    Company getCompanyByGoogleID(String googleID);
+
+    Company getCompanyByFacebookID(String facebookID);
+
+    /**
+     * verifies company email
+     *
+     * @param email
+     * @return true if error
+     */
+    boolean verifyCompanyEmail(String email);
+
+    /**
+     * verifies company phoneNumber with the same phoneNumber
+     *
+     * @param phoneNumber
+     * @return true if error
+     */
+    boolean verifyCompanyPhoneNumber(String phoneNumber);
+
     /**
      * Tries to login with the certain email and password.
      * Returns null if no company exists.
