@@ -5,6 +5,7 @@ import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;
+import ge.taxistgela.helper.HashGenerator;
 
 import java.util.List;
 
@@ -39,6 +40,24 @@ public class UserManager extends  UserManagerAPI{
             ret.facebookIDDuplicate();
 
         return ret;
+    }
+
+    @Override
+    public ErrorCode verifyUserEmail(String token) {
+        ErrorCode ret = new ErrorCode();
+        token = HashGenerator.decryptAES(token);
+        if (token == null) {
+            ret.setWrongToken();
+        } else {
+
+        }
+
+        return ret;
+    }
+
+    @Override
+    public ErrorCode verifyUserPhoneNumber(String token) {
+        return null;
     }
 
     @Override

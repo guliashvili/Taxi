@@ -64,6 +64,31 @@ public interface DriverDaoAPI {
      */
     boolean updateDriverPreference(DriverPreference driverPreference);
 
+
+    Driver getDriverByEmail(String email);
+
+    Driver getDriverByPhoneNumber(String phoneNumber);
+
+    Driver getDriverByGoogleID(String googleID);
+
+    Driver getDriverByFacebookID(String facebookID);
+
+    /**
+     * verifies driver email
+     *
+     * @param email
+     * @return true if error
+     */
+    boolean verifyDriverEmail(String email);
+
+    /**
+     * verifies driver phoneNumber with the same phoneNumber
+     *
+     * @param phoneNumber
+     * @return true if error
+     */
+    boolean verifyDriverPhoneNumber(String phoneNumber);
+
     /**
      * Returns Driver selected by the certain driverID.
      *

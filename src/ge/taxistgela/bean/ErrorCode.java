@@ -16,6 +16,7 @@ public class ErrorCode {
     }
 
     public String getErrorMessage(String varName) {
+        varName = varName.toLowerCase();
         if (errors.containsKey(varName))
             return errors.get(varName);
         else
@@ -31,6 +32,7 @@ public class ErrorCode {
     }
 
     public void put(String varName, String info) {
+        varName = varName.toLowerCase();
         errors.put(varName, info);
     }
 
@@ -102,7 +104,13 @@ public class ErrorCode {
         put("googleID", "this google account already exists");
     }
 
+    public void setWrongToken() {
+        put("wrongToken", "This link is broken");
+    }
 
+    public void setAlreadyVerified() {
+        put("alreadyVerified", "User is already verified");
+    }
 
 
 }
