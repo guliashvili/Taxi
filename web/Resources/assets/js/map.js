@@ -63,6 +63,7 @@ function placeMarker(loc){
 			draggable:true,
 			animation: google.maps.Animation.DROP
 		});
+		askForDate();
 	}else{
 		askForDate();
 	}
