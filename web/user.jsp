@@ -155,7 +155,7 @@
                 { field: 'callTime', caption: 'Call Time', size: '30%' },
                 { field: 'Driver', caption: 'Driver', size: '30px' },
                 { field: 'StLoc', caption: 'Start', size: '30px' },
-                { field: 'EndLoc', caption: 'End', size: '30px'
+                { field: 'EndLoc', caption: 'End', size: '30px' },
                 { field: 'paymentAmount', caption: 'Amount', size: '30px' }
             ],
             records: [
