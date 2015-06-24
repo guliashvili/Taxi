@@ -7,7 +7,7 @@ import ge.taxistgela.dao.CompanyDaoAPI;
 /**
  * Created by GIO on 5/25/2015.
  */
-public abstract class CompanyManagerAPI {
+public abstract class CompanyManagerAPI implements Verifies {
     protected CompanyDaoAPI companyDao;
     public  CompanyManagerAPI(CompanyDaoAPI companyDao){this.companyDao = companyDao;}
 
@@ -54,7 +54,8 @@ public abstract class CompanyManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifyCompanyEmail(String token);
+    @Override
+    public abstract ErrorCode verifyEmail(String token);
 
     /**
      * verifies company phoneNumber with the same token
@@ -63,7 +64,8 @@ public abstract class CompanyManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifyCompanyPhoneNumber(String token);
+    @Override
+    public abstract ErrorCode verifyPhoneNumber(String token);
 
 
     /**

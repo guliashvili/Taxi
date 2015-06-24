@@ -2,6 +2,7 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
+import ge.taxistgela.helper.HashGenerator;
 
 import java.util.List;
 
@@ -55,6 +56,40 @@ public class DriverManager extends  DriverManagerAPI {
         ErrorCode ret = getErrorsDriver(driver);
         if (!ret.errorAccrued())
             if (driverDao.changePassword(driver)) ret.unexpected();
+        return ret;
+    }
+
+    @Override
+    public ErrorCode verifyEmail(String token) {
+        ErrorCode ret = new ErrorCode();
+        token = HashGenerator.decryptAES(token);
+        if (token == null) {
+            ret.setWrongToken();
+        } else {
+            Driver u = driverDao.getDriverByEmail(token);
+            if (u.getIsVerifiedEmail()) ret.setAlreadyVerified();
+            else {
+                if (driverDao.verifyDriverEmail(token)) ret.unexpected();
+            }
+        }
+
+        return ret;
+    }
+
+    @Override
+    public ErrorCode verifyPhoneNumber(String token) {
+        ErrorCode ret = new ErrorCode();
+        token = HashGenerator.decryptAES(token);
+        if (token == null) {
+            ret.setWrongToken();
+        } else {
+            Driver u = driverDao.getDriverByPhoneNumber(token);
+            if (u.getIsVerifiedPhone()) ret.setAlreadyVerified();
+            else {
+                if (driverDao.verifyDriverPhoneNumber(token)) ret.unexpected();
+            }
+        }
+
         return ret;
     }
 

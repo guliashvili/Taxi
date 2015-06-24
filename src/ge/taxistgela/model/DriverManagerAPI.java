@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by GIO on 5/25/2015.
  */
-public abstract  class DriverManagerAPI {
+public abstract class DriverManagerAPI implements Verifies {
     protected DriverDaoAPI driverDao;
     public  DriverManagerAPI(DriverDaoAPI driverDao){
         this.driverDao = driverDao;
@@ -82,7 +82,8 @@ public abstract  class DriverManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifyDriverEmail(String token);
+    @Override
+    public abstract ErrorCode verifyEmail(String token);
 
     /**
      * verifies driver phoneNumber with the same token
@@ -91,7 +92,8 @@ public abstract  class DriverManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifyDriverPhoneNumber(String token);
+    @Override
+    public abstract ErrorCode verifyPhoneNumber(String token);
     /**
      * Returns Driver selected by the certain driverID.
      *

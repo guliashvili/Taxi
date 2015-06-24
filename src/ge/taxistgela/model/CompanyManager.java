@@ -3,6 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.dao.CompanyDaoAPI;
+import ge.taxistgela.helper.HashGenerator;
 
 /**
  * Created by GIO on 5/25/2015.
@@ -38,6 +39,40 @@ public class CompanyManager extends   CompanyManagerAPI {
         if (!ret.errorAccrued())
             if (companyDao.registerCompany(company))
                 ret.unexpected();
+
+        return ret;
+    }
+
+    @Override
+    public ErrorCode verifyEmail(String token) {
+        ErrorCode ret = new ErrorCode();
+        token = HashGenerator.decryptAES(token);
+        if (token == null) {
+            ret.setWrongToken();
+        } else {
+            Company u = companyDao.getCompanyByEmail(token);
+            if (u.getIsVerifiedEmail()) ret.setAlreadyVerified();
+            else {
+                if (companyDao.verifyCompanyEmail(token)) ret.unexpected();
+            }
+        }
+
+        return ret;
+    }
+
+    @Override
+    public ErrorCode verifyPhoneNumber(String token) {
+        ErrorCode ret = new ErrorCode();
+        token = HashGenerator.decryptAES(token);
+        if (token == null) {
+            ret.setWrongToken();
+        } else {
+            Company u = companyDao.getCompanyByPhoneNumber(token);
+            if (u.getIsVerifiedPhone()) ret.setAlreadyVerified();
+            else {
+                if (companyDao.verifyCompanyPhoneNumber(token)) ret.unexpected();
+            }
+        }
 
         return ret;
     }

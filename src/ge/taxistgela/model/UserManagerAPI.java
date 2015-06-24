@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by GIO on 5/25/2015.
  */
-public abstract class UserManagerAPI {
+public abstract class UserManagerAPI implements Verifies {
     protected UserDaoAPI userDao;
 
     public  UserManagerAPI(UserDaoAPI userDao){
@@ -77,7 +77,8 @@ public abstract class UserManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifyUserEmail(String token);
+    @Override
+    public abstract ErrorCode verifyEmail(String token);
 
     /**
      * verifies user phoneNumber with the same token
@@ -86,7 +87,8 @@ public abstract class UserManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifyUserPhoneNumber(String token);
+    @Override
+    public abstract ErrorCode verifyPhoneNumber(String token);
 
     /**
      * Tries to login with the certain email and password.

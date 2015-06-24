@@ -164,12 +164,12 @@ public class CompanyDao implements CompanyDaoAPI {
 
         Company ret;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE facebookID=?"))) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE googleID=?"))) {
 
                 st.setString(1, googleID);
 
 
-                ExternalAlgorithms.debugPrintSelect("getCompanyByFacebookID \n" + st.toString());
+                ExternalAlgorithms.debugPrintSelect("getcompanygoogleID \n" + st.toString());
 
                 ResultSetEnhanced res = st.executeQuery();
                 if (!res.next()) {

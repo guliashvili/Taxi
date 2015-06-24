@@ -43,21 +43,37 @@ public class UserManager extends  UserManagerAPI{
     }
 
     @Override
-    public ErrorCode verifyUserEmail(String token) {
+    public ErrorCode verifyEmail(String token) {
         ErrorCode ret = new ErrorCode();
         token = HashGenerator.decryptAES(token);
         if (token == null) {
             ret.setWrongToken();
         } else {
-
+            User u = userDao.getUserByEmail(token);
+            if (u.getIsVerifiedEmail()) ret.setAlreadyVerified();
+            else {
+                if (userDao.verifyUserEmail(token)) ret.unexpected();
+            }
         }
 
         return ret;
     }
 
     @Override
-    public ErrorCode verifyUserPhoneNumber(String token) {
-        return null;
+    public ErrorCode verifyPhoneNumber(String token) {
+        ErrorCode ret = new ErrorCode();
+        token = HashGenerator.decryptAES(token);
+        if (token == null) {
+            ret.setWrongToken();
+        } else {
+            User u = userDao.getUserByPhoneNumber(token);
+            if (u.getIsVerifiedPhone()) ret.setAlreadyVerified();
+            else {
+                if (userDao.verifyUserPhoneNumber(token)) ret.unexpected();
+            }
+        }
+
+        return ret;
     }
 
     @Override
