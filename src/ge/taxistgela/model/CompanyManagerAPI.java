@@ -48,6 +48,25 @@ public abstract class CompanyManagerAPI {
     public abstract ErrorCode changePassword(Company company);
 
     /**
+     * verifies company email with the same token
+     * errorCodes : alreadyVerified ; wrongToken
+     *
+     * @param token
+     * @return operationCode
+     */
+    public abstract ErrorCode verifieCompanyEmail(String token);
+
+    /**
+     * verifies company phoneNumber with the same token
+     * errorCodes : alreadyVerified ; wrongToken
+     *
+     * @param token
+     * @return operationCode
+     */
+    public abstract ErrorCode verifieCompanyPhoneNumber(String token);
+
+
+    /**
      * Checks if the company exists with the certain email.
      *
      * @param email

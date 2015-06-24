@@ -69,6 +69,25 @@ public abstract class UserManagerAPI {
      */
     public abstract List<User> getUsersByPreferences(Driver driver);
 
+
+    /**
+     * verifies user email with the same token
+     * errorCodes : alreadyVerified ; wrongToken
+     *
+     * @param token
+     * @return operationCode
+     */
+    public abstract ErrorCode verifieUserEmail(String token);
+
+    /**
+     * verifies user phoneNumber with the same token
+     * errorCodes : alreadyVerified ; wrongToken
+     *
+     * @param token
+     * @return operationCode
+     */
+    public abstract ErrorCode verifieUserPhoneNumber(String token);
+
     /**
      * Tries to login with the certain email and password.
      * Returns null if no user exists.

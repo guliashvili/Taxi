@@ -71,8 +71,8 @@ public class DaoTests {
         comp.setFacebookID("asd");
         comp.setGoogleID("googleIDmock1");
         comp.setPhoneNumber("558677892");
-        comp.setPassword("1234qwerTy3");
         man.updateCompany(comp);
+        man.changePassword(comp);
         //LOGIN
         company = man.loginCompany(comp.getEmail(),comp.getPassword());
         compareCompanies(comp,company);
@@ -238,7 +238,7 @@ public class DaoTests {
         man.insertDriverPreference(pref);
 
         Location l = new Location(new Double(2.234), new Double(3.1245));
-        Driver driver = new Driver(-1, "01010101011", "gela@taxistgela.ge", "Madridista1", 1, "gela", "magaltadze", Gender.MALE, "555696996", car, "gelandara95", "bozandara", l, 2.2, pref, true, true, true);
+        Driver driver = new Driver(-1, "01010101011", "gela@taxistgela.ge", "Madridista1", null, "gela", "magaltadze", Gender.MALE, "555696996", car, "gelandara95", "bozandara", l, 2.2, pref, true, true, true);
 
         man.registerDriver(driver);
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
@@ -247,18 +247,20 @@ public class DaoTests {
         comparePrefernces(man.getDriverPreferenceByID(pref.getDriverPreferenceID()),pref);
         /*Car car1 = man.getCarByID(car.getCarID());*/ //TODO NEEDS FIXING !!!!!!!!!!!!!!!!!!!GMERTCHEMAV!!!!!!!!!!!!!!!!
         //Update
-
-        Driver driver2 = new Driver(driver.getDriverID(), "01010101012", "gelusi@taxistgela.ge", "Madridista!", 1, "Gela", "Magaltadze", Gender.FEMALE, "555696997", car, "gelusi7", "bozandara99", l, 2.3, pref, false, false, false);
         car.setCarYear(1996);
         car.setCarDescription("trash");
-        car.setCarID("69dota95");
+        car.setCarID("69dota11");
         car.setNumPassengers(3);//adgili miasvarka
-        man.updateCar(car);
+        assertFalse(man.insertCar(car));
+        man.insertDriverPreference(pref);
+        Driver driver2 = new Driver(driver.getDriverID(), "01010101012", "gelusi@taxistgela.ge", "Madridista!", 1, "Gela", "Magaltadze", Gender.FEMALE, "555696997", car, "gelusi7", "bozandara99", l, 2.3, pref, false, false, false);
+
+        assertFalse(man.registerDriver(driver2));
 
         pref.setCoefficientPer(0.70);
         pref.setMinimumUserRating(0.1);//gelam standartebi awia
         man.updateDriverPreference(pref);
-        man.updateDriver(driver2);
+        assertFalse(man.registerDriver(driver2));
         //Login
         driver1=man.loginDriver(driver2.getEmail(),driver2.getPassword());
         compareDrivers(driver2,driver1);

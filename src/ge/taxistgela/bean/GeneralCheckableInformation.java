@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import ge.taxistgela.helper.HashGenerator;
+
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -12,6 +14,14 @@ public abstract class GeneralCheckableInformation implements Checkable {
     public abstract String getPassword();
 
     public abstract String getPhoneNumber();
+
+    public String getPhoneNumberToken() {
+        return HashGenerator.encryptAES(getPhoneNumber());
+    }
+
+    public String getEmailToken() {
+        return HashGenerator.encryptAES(getEmail());
+    }
 
 
     public ErrorCode isValid() {

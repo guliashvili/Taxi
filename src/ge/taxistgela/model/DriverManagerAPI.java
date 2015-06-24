@@ -76,6 +76,23 @@ public abstract  class DriverManagerAPI {
     public abstract ErrorCode updateDriverPreference(DriverPreference driverPreference);
 
     /**
+     * verifies driver email with the same token
+     * errorCodes : alreadyVerified ; wrongToken
+     *
+     * @param token
+     * @return operationCode
+     */
+    public abstract ErrorCode verifieDriverEmail(String token);
+
+    /**
+     * verifies driver phoneNumber with the same token
+     * errorCodes : alreadyVerified ; wrongToken
+     *
+     * @param token
+     * @return operationCode
+     */
+    public abstract ErrorCode verifieDriverPhoneNumber(String token);
+    /**
      * Returns Driver selected by the certain driverID.
      *
      * @param driverID

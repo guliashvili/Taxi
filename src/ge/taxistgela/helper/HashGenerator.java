@@ -3,13 +3,8 @@ package ge.taxistgela.helper;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.IOException;
-import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -63,24 +58,33 @@ public class HashGenerator {
         return buff.toString();
     }
 
-    public static String encryptAES(String text) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        text = text + SALT;
-        Key key = new SecretKeySpec(HashGenerator.key, "AES");
-        Cipher c = Cipher.getInstance("AES");
-        c.init(Cipher.ENCRYPT_MODE, key);
-        byte[] encr = c.doFinal(text.getBytes());
+    public static String encryptAES(String text) {
+        byte[] encr = null;
+        try {
+            text = text + SALT;
+            Key key = new SecretKeySpec(HashGenerator.key, "AES");
+            Cipher c = Cipher.getInstance("AES");
+            c.init(Cipher.ENCRYPT_MODE, key);
+            encr = c.doFinal(text.getBytes());
+
+        } catch (Exception e) {
+            return null;
+        }
         return new BASE64Encoder().encode(encr);
     }
 
-    public static String decryptAES(String text) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException {
-
-        Key key = new SecretKeySpec(HashGenerator.key, "AES");
-        Cipher c = Cipher.getInstance("AES");
-        c.init(Cipher.DECRYPT_MODE, key);
-        byte[] decr = c.doFinal(new BASE64Decoder().decodeBuffer(text));
-        String ret = new String(decr);
-        ret = ret.substring(0, ret.length() - SALT.length());
-
+    public static String decryptAES(String text) {
+        String ret = null;
+        try {
+            Key key = new SecretKeySpec(HashGenerator.key, "AES");
+            Cipher c = Cipher.getInstance("AES");
+            c.init(Cipher.DECRYPT_MODE, key);
+            byte[] decr = c.doFinal(new BASE64Decoder().decodeBuffer(text));
+            ret = new String(decr);
+            ret = ret.substring(0, ret.length() - SALT.length());
+        } catch (Exception e) {
+            ret = null;
+        }
         return ret;
     }
 
