@@ -26,7 +26,7 @@ function showPosition(position) {
 	var marker = new google.maps.Marker({
       position: {lat: position.coords.latitude, lng: position.coords.longitude},
       map: map,
-      title: 'Hello World!'
+      title: 'Taxi Map'
 	});
 	for (var i=0;i<randomdrivers.length;++i){
 		var driver = new google.maps.Marker({
@@ -49,4 +49,18 @@ function getIcon(glyph, color) {
     ctx.font = '20px FontAwesome';
     ctx.fillText(glyph, 0, 16);
     return canvas.toDataURL();
+}
+function updateMapLocations(){
+	$.ajax({
+		url: "/updateMap",
+        method: "post",
+        data: "",
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("fetch Data");
+		}
+	});
 }
