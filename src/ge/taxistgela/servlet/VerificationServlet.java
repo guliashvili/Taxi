@@ -120,6 +120,7 @@ public class VerificationServlet extends ActionServlet {
     public void cEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
+        String token = request.getParameter("token");
 
         if (companyManager != null && token != null) {
             ErrorCode errorCode = companyManager.verifyCompanyEmail(token);
