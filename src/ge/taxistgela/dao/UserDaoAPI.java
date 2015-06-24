@@ -63,6 +63,22 @@ public interface UserDaoAPI {
     List<User> getUsersByPreferences(Driver driver);
 
     /**
+     * verifies user email
+     *
+     * @param email
+     * @return true if error
+     */
+    boolean verifyUserEmail(String email);
+
+    /**
+     * verifies user phoneNumber with the same phoneNumber
+     *
+     * @param phoneNumber
+     * @return true if error
+     */
+    boolean verifyUserPhoneNumber(String phoneNumber);
+
+    /**
      * Tries to login with the certain email and password.
      * Returns null if no user exists.
      *

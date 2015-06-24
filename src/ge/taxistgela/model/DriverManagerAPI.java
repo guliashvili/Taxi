@@ -82,7 +82,7 @@ public abstract  class DriverManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifieDriverEmail(String token);
+    public abstract ErrorCode verifyDriverEmail(String token);
 
     /**
      * verifies driver phoneNumber with the same token
@@ -91,7 +91,7 @@ public abstract  class DriverManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifieDriverPhoneNumber(String token);
+    public abstract ErrorCode verifyDriverPhoneNumber(String token);
     /**
      * Returns Driver selected by the certain driverID.
      *

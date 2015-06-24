@@ -54,7 +54,7 @@ public abstract class CompanyManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifieCompanyEmail(String token);
+    public abstract ErrorCode verifyCompanyEmail(String token);
 
     /**
      * verifies company phoneNumber with the same token
@@ -63,7 +63,7 @@ public abstract class CompanyManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifieCompanyPhoneNumber(String token);
+    public abstract ErrorCode verifyCompanyPhoneNumber(String token);
 
 
     /**

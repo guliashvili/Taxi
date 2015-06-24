@@ -77,7 +77,7 @@ public abstract class UserManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifieUserEmail(String token);
+    public abstract ErrorCode verifyUserEmail(String token);
 
     /**
      * verifies user phoneNumber with the same token
@@ -86,7 +86,7 @@ public abstract class UserManagerAPI {
      * @param token
      * @return operationCode
      */
-    public abstract ErrorCode verifieUserPhoneNumber(String token);
+    public abstract ErrorCode verifyUserPhoneNumber(String token);
 
     /**
      * Tries to login with the certain email and password.

@@ -321,6 +321,16 @@ public class UserDao implements UserDaoAPI {
     }
 
     @Override
+    public boolean verifyUserEmail(String email) {
+
+    }
+
+    @Override
+    public boolean verifyUserPhoneNumber(String phoneNumber) {
+        return false;
+    }
+
+    @Override
     public boolean registerUser(User user) {
         boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
