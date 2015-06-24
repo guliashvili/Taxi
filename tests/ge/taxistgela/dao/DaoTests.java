@@ -1,6 +1,7 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
+import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -15,15 +16,18 @@ import static org.junit.Assert.*;
  */
 public class DaoTests {
     @Before
-    public void setup(){
-        /*AdminDatabase db = new AdminDatabase();
+    @After
+    public void setup() {
+        System.out.print("xxx");
+        AdminDatabase db = new AdminDatabase();
         try {
             db.recreateDatabase();
         }catch(Exception e){
             System.out.println(e.toString());
             assertTrue(false);
-        }*/
+        }
     }
+
     @Test
     public void testCompanyDao(){
         //RegistrationTests

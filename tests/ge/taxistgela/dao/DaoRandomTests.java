@@ -1,6 +1,8 @@
 package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
+import ge.taxistgela.helper.AdminDatabase;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
@@ -25,6 +27,17 @@ public class DaoRandomTests {
     List<Review> reviews = Collections.synchronizedList(new ArrayList<>());
 
     DaoTests dt = new DaoTests();
+
+    @Before
+    public void setup() {
+        AdminDatabase db = new AdminDatabase();
+        try {
+            db.recreateDatabase();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            assertTrue(false);
+        }
+    }
     @Test
     public void randomUserTests(){
         UserDao dao = new UserDao();

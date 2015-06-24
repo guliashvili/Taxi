@@ -1,4 +1,4 @@
-#dont rearrange
+
 DELETE  FROM Companies;
 
 
