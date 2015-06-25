@@ -12,7 +12,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="Resources/assets/js/user.js"></script>
-<section id="map" style="width:100%;height:100%;">
+<section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
 <% User user = (User) session.getAttribute(User.class.getName());%>
@@ -26,7 +26,7 @@
             <a href="#"><h3>Your Current Rating: <%= user.getRating()%>
             </h3></a>
             <% for (int i = 1; i <= 5; ++i) { %>
-            <% if (user.getRating() > i) { %>
+            <% if (user.getRating() >= i) { %>
             <li class="fa fa-star"></li>
             <% } else { %>
             <% if (Math.ceil(user.getRating()) > i) { %>

@@ -3,3 +3,25 @@
  */
 
 // Registration management goes here.
+$(function () {
+    $('#registerBtn').click(function () {
+        var formData = $("#registrationForm").serialize();
+
+        $.ajax({
+            url: "/register",
+            method: "post",
+            data: formData,
+            cache: false,
+            success: function (data) {
+                $("#registerModal").modal('hide');
+                $("#loginModal").modal('show');
+                $("#regStatus").removeClass('hidden');
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+        return false;
+    });
+});

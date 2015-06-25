@@ -135,7 +135,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="text" name="phoneNumber" value="" placeholder="Company Phone Number"/><br>
                             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
-                            <input type="submit" class="button special" value="Register"/>
                         </div>
                         <div id="userRegistration" class="hidden">
                             <input type="text" name="firstName" value="" placeholder="First Name"/><br>
@@ -150,7 +149,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
                             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
-                            <input type="submit" class="button special" value="Register"/>
                         </div>
                         <div id="driverRegistration" class="hidden">
                             <input type="text" name="firstName" value="" placeholder="First Name"/><br>
@@ -167,8 +165,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
                             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
-                            <input type="submit" class="button special" value="Register"/>
                         </div>
+                        <button id="registerBtn" type="submit" class="button special" value="Register"/>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -189,6 +187,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     <h5 class="modal-title">Login</h5>
                 </div>
                 <div class="modal-body">
+                    <span id="regStatus" class="hidden"> Registration Successfull</span>
                     <form id="loginForm">
                         <div class="4u">
                             <input type="radio" class="loginChange" id="userLogin" name="action" value="loginUser">
