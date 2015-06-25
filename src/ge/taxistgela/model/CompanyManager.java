@@ -10,7 +10,9 @@ import ge.taxistgela.helper.HashGenerator;
  * Created by GIO on 5/25/2015.
  */
 public class CompanyManager extends   CompanyManagerAPI {
-    public  CompanyManager(CompanyDaoAPI companyDao){super(companyDao);}
+    public CompanyManager(CompanyDaoAPI companyDao, TaxRam taxRam) {
+        super(companyDao, taxRam);
+    }
 
     @Override
     public Company login(String email, String password) {

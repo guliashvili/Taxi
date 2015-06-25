@@ -33,12 +33,13 @@ public class ContextListener implements ServletContextListener,
          You can initialize servlet context related data here.
       */
         ServletContext sc = sce.getServletContext();
+        TaxRam ram = new TaxRam();
 
         // add CompanyManager.
-        sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(new CompanyDao()));
+        sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(new CompanyDao(), ram));
 
         // add DriverManager.
-        sc.setAttribute(DriverManagerAPI.class.getName(), new DriverManager(new DriverDao()));
+        sc.setAttribute(DriverManagerAPI.class.getName(), new DriverManager(new DriverDao(), ram));
 
         // add OrderManager.
         sc.setAttribute(OrderManagerAPI.class.getName(), new OrderManager(new OrderDao()));
@@ -50,7 +51,9 @@ public class ContextListener implements ServletContextListener,
         sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager());
 
         // add UserManager.
-        sc.setAttribute(UserManagerAPI.class.getName(), new UserManager(new UserDao()));
+        sc.setAttribute(UserManagerAPI.class.getName(), new UserManager(new UserDao(), ram));
+
+        sc.setAttribute(TaxRam.class.getName(), ram);
 
         // add OrderDispatcher.
         OrderDispatcher orderDispatcher = new OrderDispatcher(sc);
