@@ -7,15 +7,13 @@ import ge.taxistgela.model.SessionManager;
 import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.ServletContext;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by Alex on 6/5/2015.
  */
 public class OrderDispatcher extends Thread {
-
-    private static final int QUEUE_LIMIT = 1000;
 
     private final ServletContext sc;
     private final BlockingQueue<Order> orders;
@@ -23,7 +21,7 @@ public class OrderDispatcher extends Thread {
 
     public OrderDispatcher(ServletContext sc) {
         this.sc = sc;
-        this.orders = new ArrayBlockingQueue<>(QUEUE_LIMIT);
+        this.orders = new LinkedBlockingQueue<>();
         this.state = true;
     }
 
@@ -49,7 +47,7 @@ public class OrderDispatcher extends Thread {
             final SessionManagerAPI sessionManager = (SessionManagerAPI) sc.getAttribute(SessionManagerAPI.class.getName());
 
             if (order != null) {
-                sessionManager.sendMessage(SessionManager.DRIVER_SESSION, Integer.toString(order.getDriverID()), new Gson().toJson(order));
+                sessionManager.sendMessage(SessionManager.DRIVER_SESSION, order.getDriverID(), new Gson().toJson(order));
             }
         }
 

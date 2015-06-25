@@ -1,5 +1,6 @@
 package ge.taxistgela.websocket;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.ServletContext;
@@ -48,13 +49,13 @@ public class Server {
         try {
             session.close();
         } catch (IOException e) {
-            System.err.println(e.toString());
+            ExternalAlgorithms.debugPrint(t.toString());
         }
 
         if (sm != null) {
             sm.removeSession(sessionType, token);
         }
 
-        System.err.println(t.toString());
+        ExternalAlgorithms.debugPrint(t.toString());
     }
 }
