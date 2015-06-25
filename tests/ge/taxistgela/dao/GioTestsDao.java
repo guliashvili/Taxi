@@ -184,6 +184,9 @@ public class GioTestsDao {
         assertTrue(userDao.registerUser(user2));
 
         checksUsers(new User[]{user1, user2});
+
+        user1 = verifyUser(user1);
+        user2 = verifyUser(user2);
     }
 
     public DriverPreference insertDriverPreference(DriverPreference blank,DriverPreference target){
@@ -227,7 +230,7 @@ public class GioTestsDao {
 
         tmp = driverDao.getCarByID(tmp.getCarID());
 
-        assertEquals(to,tmp);
+        assertEquals(to, tmp);
 
         return  tmp;
     }
@@ -236,6 +239,7 @@ public class GioTestsDao {
     public Driver insertDriver(Driver blank,Driver target,DriverPreference pf,Car cr){
         Driver tmp = new Driver(blank);
         Driver to = new Driver(target);
+
 
         assertFalse(driverDao.registerDriver(tmp));
 
@@ -277,10 +281,31 @@ public class GioTestsDao {
         assertEquals(tmp,to);
 
 
+        assertEquals(tmp, driverDao.getDriverByEmail(tmp.getEmail()));
+        if (tmp.getFacebookID() != null)
+            assertEquals(tmp, driverDao.getDriverByFacebookID(tmp.getFacebookID()));
+        if (tmp.getGoogleID() != null)
+            assertEquals(tmp, driverDao.getDriverByGoogleID(tmp.getGoogleID()));
+        assertEquals(tmp, driverDao.getDriverByID(tmp.getDriverID()));
+        assertEquals(tmp, driverDao.getDriverByPhoneNumber(tmp.getPhoneNumber()));
+        if (tmp.getCompanyID() != null)
+            assertEquals(tmp, driverDao.getDriverByCompanyID(tmp.getCompanyID()));
+        assertEquals(tmp, driverDao.loginDriver(target.getEmail(), target.getPassword()));
 
-        return  null;
+        return tmp;
     }
 
+    public void checkDrivers(Driver[] drivers) {
+        for (Driver elem : drivers) {
+            if (elem.getFacebookID() != null)
+                assertTrue(driverDao.checkFacebookID(elem.getFacebookID()));
+            if (elem.getGoogleID() != null)
+                assertTrue(driverDao.checkGoogleID(elem.getGoogleID()));
+            assertTrue(driverDao.checkPhoneNumber(elem.getPhoneNumber()));
+            assertTrue(driverDao.checkCarID(elem.getCar().getCarID()));
+            assertTrue(driverDao.checkEmail(elem.getEmail()));
+        }
+    }
     public  void testDrivers(){
         DriverPreference blankPreference = new DriverPreference(-1,-1.0,-1.0);
 
@@ -295,15 +320,141 @@ public class GioTestsDao {
         Driver blankDriver = new Driver(-1,"66666669999","blank@blank.ge","blankpwd",null,"blank","blankiashvili",
                 Gender.MALE,"556667776",car2,null,null,blankLocation,-1.0,driverPreference2,false,false,false);
         driver1 = insertDriver(blankDriver,driver1,driverPreference1,car1);
+        assertTrue(driverDao.registerDriver(driver1));
         driver2 = insertDriver(blankDriver,driver2,driverPreference2,car2);
+        assertTrue(driverDao.registerDriver(driver2));
+
+        checkDrivers(new Driver[]{driver1, driver2});
+
+        driver1 = verifyDriver(driver1);
+        driver2 = verifyDriver(driver2);
     }
+
+    public Company insertCompany(Company blank, Company target) {
+        Company tmp = new Company(blank);
+        Company to = new Company(target);
+
+        assertFalse(companyDao.registerCompany(tmp));
+
+        to.setCompanyID(tmp.getCompanyID());
+
+
+        tmp.setCompanyCode(to.getCompanyCode());
+        tmp.setEmail(to.getEmail());
+        tmp.setPassword(to.getPassword());
+        tmp.setCompanyName(to.getCompanyName());
+        tmp.setPhoneNumber(to.getPhoneNumber());
+        tmp.setFacebookID(to.getFacebookID());
+        tmp.setGoogleID(to.getGoogleID());
+        tmp.setIsVerifiedEmail(to.getIsVerifiedEmail());
+        tmp.setIsVerifiedPhone(to.getIsVerifiedPhone());
+
+        assertEquals(tmp, to);
+
+        assertFalse(companyDao.updateCompany(tmp));
+        tmp.setPassword(to.getPassword());
+        assertFalse(companyDao.changePassword(tmp));
+        tmp = companyDao.getCompanyByID(tmp.getCompanyID());
+        to.setPassword(HashGenerator.getSaltHash(to.getPassword()));
+        assertEquals(tmp, to);
+
+
+        assertEquals(tmp, companyDao.getCompanyByEmail(tmp.getEmail()));
+        if (tmp.getFacebookID() != null)
+            assertEquals(tmp, companyDao.getCompanyByFacebookID(tmp.getFacebookID()));
+        if (tmp.getGoogleID() != null)
+            assertEquals(tmp, companyDao.getCompanyByGoogleID(tmp.getGoogleID()));
+        assertEquals(tmp, companyDao.getCompanyByID(tmp.getCompanyID()));
+        assertEquals(tmp, companyDao.getCompanyByPhoneNumber(tmp.getPhoneNumber()));
+        assertEquals(tmp, companyDao.loginCompany(target.getEmail(), target.getPassword()));
+
+
+        return tmp;
+    }
+
+    public void checkCompanies(Company[] companies) {
+        for (Company elem : companies) {
+            if (elem.getFacebookID() != null)
+                assertTrue(companyDao.checkFacebookID(elem.getFacebookID()));
+            if (elem.getGoogleID() != null)
+                assertTrue(companyDao.checkGoogleID(elem.getGoogleID()));
+            assertTrue(companyDao.checkPhoneNumber(elem.getPhoneNumber()));
+            assertTrue(companyDao.checkCompanyCode(elem.getCompanyCode()));
+            assertTrue(companyDao.checkEmail(elem.getEmail()));
+        }
+    }
+
+    public User verifyUser(User user) {
+        user.setIsVerifiedEmail(true);
+        assertFalse(userDao.updateUser(user));
+        user = userDao.getUserByID(user.getUserID());
+        assertTrue(user.getIsVerifiedEmail());
+
+
+        user.setIsVerifiedPhone(true);
+        assertFalse(userDao.updateUser(user));
+        user = userDao.getUserByID(user.getUserID());
+        assertTrue(user.getIsVerifiedPhone());
+
+        return user;
+    }
+
+    public Driver verifyDriver(Driver driver) {
+        driver.setIsVerifiedEmail(true);
+        assertFalse(driverDao.updateDriver(driver));
+        driver = driverDao.getDriverByID(driver.getDriverID());
+        assertTrue(driver.getIsVerifiedEmail());
+
+
+        driver.setIsVerifiedPhone(true);
+        assertFalse(driverDao.updateDriver(driver));
+        driver = driverDao.getDriverByID(driver.getDriverID());
+        assertTrue(driver.getIsVerifiedPhone());
+
+        return driver;
+    }
+
+    public Company verifyCompany(Company company) {
+        company.setIsVerifiedEmail(true);
+        assertFalse(companyDao.updateCompany(company));
+        company = companyDao.getCompanyByID(company.getCompanyID());
+        assertTrue(company.getIsVerifiedEmail());
+
+
+        company.setIsVerifiedPhone(true);
+        assertFalse(companyDao.updateCompany(company));
+        company = companyDao.getCompanyByID(company.getCompanyID());
+        assertTrue(company.getIsVerifiedPhone());
+
+        return company;
+    }
+
+    public void testCompanies() {
+        Company blank = new Company(-1, "blankcode", "blank.company.ge", "blankPWd", "blankGmert", "559101010", "fb comp blank", "gl comp blank",
+                false, false);
+        company1 = insertCompany(blank, company1);
+        assertTrue(companyDao.registerCompany(company1));
+
+        checkCompanies(new Company[]{company1});
+
+        company1 = verifyCompany(company1);
+
+    }
+
+    public void interaction() {
+
+    }
+
 
     @Test
     public void superTest() {
+        testCompanies();
 
         testUsers();
 
         testDrivers();
+
+
     }
 
 
