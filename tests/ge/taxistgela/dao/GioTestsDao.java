@@ -385,6 +385,7 @@ public class GioTestsDao {
             assertTrue(companyDao.checkPhoneNumber(elem.getPhoneNumber()));
             assertTrue(companyDao.checkCompanyCode(elem.getCompanyCode()));
             assertTrue(companyDao.checkEmail(elem.getEmail()));
+            assertEquals(companyDao.getCompanyIDByCode(elem.getCompanyCode()), elem.getCompanyID());
         }
     }
 
@@ -471,6 +472,7 @@ public class GioTestsDao {
 
         assertTrue(company.getIsVerifiedEmail());
         assertTrue(company.getIsVerifiedPhone());
+
 
         return company;
     }

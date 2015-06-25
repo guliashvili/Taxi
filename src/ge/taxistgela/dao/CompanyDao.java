@@ -341,14 +341,15 @@ public class CompanyDao implements CompanyDaoAPI {
     public Integer getCompanyIDByCode(String companyCode) {
         Integer ret = null;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT companyID FROM companies WHERE  companyCode = ?"))) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT companyID FROM companies WHERE  companyCode=?"))) {
 
                 st.setString(1, companyCode);
 
                 ExternalAlgorithms.debugPrintSelect("getCompanyIDByCode \n" + st.toString());
 
                 ResultSetEnhanced res = st.executeQuery();
-                ret = res.getInt(1);
+                if (res.next())
+                    ret = res.getInt(1);
             }
         } catch (SQLException e) {
             ExternalAlgorithms.debugPrint(e);
