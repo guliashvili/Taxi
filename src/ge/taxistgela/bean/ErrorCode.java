@@ -90,7 +90,7 @@ public class ErrorCode {
     }
 
     public void passwordFormat() {
-        put("password", "wrong format. password length is more then 50 or less then 2");
+        put("password", "wrong format. password length is more then 50 or null");
     }
 
     public void companyNameLong() {
