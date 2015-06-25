@@ -35,8 +35,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="Resources/assets/js/main.js"></script>
-    <script src="Resources/assets/js/index.js"></script>
     <script src="Resources/assets/js/login.js"></script>
+    <script src="Resources/assets/js/register.js"></script>
+    <script src="Resources/assets/js/index.js"></script>
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="Resources/assets/css/ie8.css"/><![endif]-->
@@ -166,8 +167,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
-                        <button id="registerBtn" type="submit" class="button special" value="Register"/>
                     </form>
+                    <button id="registerBtn" class="hidden button special">Register</button>
                 </div>
                 <div class="modal-footer">
                 </div>

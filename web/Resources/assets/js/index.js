@@ -10,5 +10,8 @@ $(function () {
         $("#userRegistration").addClass("hidden");
         $("#driverRegistration").addClass("hidden");
         $("#" + $(e.target).attr("showf")).removeClass("hidden");
+        $("#registerBtn").removeClass("hidden");
     });
+    createRegister();
+    createLogin();
 });
