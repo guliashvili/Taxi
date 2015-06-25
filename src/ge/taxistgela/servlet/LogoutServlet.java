@@ -32,7 +32,7 @@ public class LogoutServlet extends ActionServlet {
 
     }
 
-    private void logoutSuper(HttpServletRequest request, HttpServletResponse response) {
+    private void logoutSuper(int type, HttpServletRequest request, HttpServletResponse response) {
 
         // TODO remove socket sessions. in the near future.
     }
