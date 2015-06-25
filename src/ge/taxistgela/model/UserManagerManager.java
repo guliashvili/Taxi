@@ -9,8 +9,8 @@ import java.util.List;
 /**
  * Created by GIO on 5/25/2015.
  */
-public class UserManager extends  UserManagerAPI{
-    public  UserManager(UserDaoAPI userDao){
+public class UserManagerManager extends UserManagerManagerAPI {
+    public UserManagerManager(UserDaoAPI userDao) {
         super(userDao);
     }
 

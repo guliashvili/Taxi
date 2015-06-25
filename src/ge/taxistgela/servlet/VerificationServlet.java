@@ -3,8 +3,8 @@ package ge.taxistgela.servlet;
 import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
-import ge.taxistgela.model.SuperUser;
-import ge.taxistgela.model.UserManagerAPI;
+import ge.taxistgela.model.SuperUserManager;
+import ge.taxistgela.model.UserManagerManagerAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ public class VerificationServlet extends ActionServlet {
 
     private final static String[] V_TYPE = {"phone number", "email"};
 
-    private void mainVerifyPhone(SuperUser obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void mainVerifyPhone(SuperUserManager obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = request.getParameter("token");
 
@@ -38,7 +38,7 @@ public class VerificationServlet extends ActionServlet {
 
     }
 
-    private void mainVerifyEmail(SuperUser obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void mainVerifyEmail(SuperUserManager obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
 
         if (obj != null && token != null) {
@@ -57,7 +57,7 @@ public class VerificationServlet extends ActionServlet {
 
     // /verify?action=uPhone&token=
     public void uPhone(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+        UserManagerManagerAPI userManager = (UserManagerManagerAPI) request.getServletContext().getAttribute(UserManagerManagerAPI.class.getName());
 
         mainVerifyPhone(userManager, request, response);
 
@@ -65,7 +65,7 @@ public class VerificationServlet extends ActionServlet {
 
     // /verify?action=uEmail&token=
     public void uEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+        UserManagerManagerAPI userManager = (UserManagerManagerAPI) request.getServletContext().getAttribute(UserManagerManagerAPI.class.getName());
 
         mainVerifyEmail(userManager, request, response);
     }

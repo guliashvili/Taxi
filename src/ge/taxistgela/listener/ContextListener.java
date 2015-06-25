@@ -49,8 +49,8 @@ public class ContextListener implements ServletContextListener,
         // add SessionManager.
         sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager());
 
-        // add UserManager.
-        sc.setAttribute(UserManagerAPI.class.getName(), new UserManager(new UserDao()));
+        // add UserManagerManager.
+        sc.setAttribute(UserManagerManagerAPI.class.getName(), new UserManagerManager(new UserDao()));
 
         // add OrderDispatcher.
         OrderDispatcher orderDispatcher = new OrderDispatcher(sc);
@@ -83,8 +83,8 @@ public class ContextListener implements ServletContextListener,
         // remove SessionManager.
         sc.removeAttribute(SessionManagerAPI.class.getName());
 
-        // remove UserManager.
-        sc.removeAttribute(UserManagerAPI.class.getName());
+        // remove UserManagerManager.
+        sc.removeAttribute(UserManagerManagerAPI.class.getName());
 
         // remove OrderDispatcher.
         OrderDispatcher orderDispatcher = (OrderDispatcher) sce.getServletContext().getAttribute(OrderDispatcher.class.getName());

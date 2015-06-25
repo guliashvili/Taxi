@@ -7,11 +7,11 @@ import ge.taxistgela.bean.GeneralCheckableInformation;
 /**
  * Created by GIO on 6/25/2015.
  */
-public interface SuperUser {
+public interface SuperUserManager {
 
 
     /**
-     * Checks if the SuperUser exists with the certain email.
+     * Checks if the SuperUserManager exists with the certain email.
      *
      * @param email
      * @return true/false
@@ -19,7 +19,7 @@ public interface SuperUser {
     boolean checkEmail(String email);
 
     /**
-     * Checks if the SuperUser exists with the certain phoneNumber.
+     * Checks if the SuperUserManager exists with the certain phoneNumber.
      *
      * @param phoneNumber
      * @return true/false
@@ -28,7 +28,7 @@ public interface SuperUser {
 
 
     /**
-     * Check if the SuperUser exists with the certain facebookID. null if he has not linked to profile.
+     * Check if the SuperUserManager exists with the certain facebookID. null if he has not linked to profile.
      *
      * @param facebookID
      * @return true/false
@@ -37,7 +37,7 @@ public interface SuperUser {
 
 
     /**
-     * Check if the SuperUser exists with the certain googleID. null if he has not linked to profile.
+     * Check if the SuperUserManager exists with the certain googleID. null if he has not linked to profile.
      *
      * @param googleID
      * @return true/false
@@ -45,7 +45,7 @@ public interface SuperUser {
     boolean checkGoogleID(String googleID);
 
     /**
-     * changes password to whats written in SuperUser(it should be in plain text not  hash)
+     * changes password to whats written in SuperUserManager(it should be in plain text not  hash)
      *
      * @param SuperUser
      * @return operationCode
@@ -53,7 +53,7 @@ public interface SuperUser {
     ErrorCode changePassword(GeneralCheckableInformation SuperUser);
 
     /**
-     * Returns SuperUser selected by the certain superUserID.
+     * Returns SuperUserManager selected by the certain superUserID.
      *
      * @param superUserID
      * @return User generated from database.
@@ -62,7 +62,7 @@ public interface SuperUser {
 
 
     /**
-     * Updates the SuperUser order with the new data.
+     * Updates the SuperUserManager order with the new data.
      * Will not change password
      *
      * @param superUser
@@ -71,7 +71,7 @@ public interface SuperUser {
     ErrorCode update(GeneralCheckableInformation superUser);
 
     /**
-     * Registers the certain SuperUser.
+     * Registers the certain SuperUserManager.
      * Returns operation result.
      *
      * @param superUser
@@ -80,7 +80,7 @@ public interface SuperUser {
     ErrorCode register(GeneralCheckableInformation superUser);
 
     /**
-     * verifies SuperUser email with the same token
+     * verifies SuperUserManager email with the same token
      * errorCodes : alreadyVerified ; wrongToken
      *
      * @param token
@@ -91,7 +91,7 @@ public interface SuperUser {
 
 
     /**
-     * verifies SuperUser phoneNumber with the same token
+     * verifies SuperUserManager phoneNumber with the same token
      * errorCodes : alreadyVerified ; wrongToken
      *
      * @param token
@@ -106,7 +106,7 @@ public interface SuperUser {
      *
      * @param email
      * @param password
-     * @return Loggedin SuperUser.
+     * @return Loggedin SuperUserManager.
      */
     Object login(String email, String password);
 

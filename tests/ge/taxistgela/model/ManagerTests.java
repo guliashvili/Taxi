@@ -89,26 +89,26 @@ public class ManagerTests{
         assertEquals(comp,dao.loginCompany("123456789", "asdf"));
         //register check?
         when(dao.registerCompany(comp)).thenReturn(false);
-        assertEquals(man.registerCompany(comp).errorNotAccrued(), true);
+        assertEquals(man.register(comp).errorNotAccrued(), true);
         when(dao.registerCompany(comp)).thenReturn(true);
-        assertEquals(man.registerCompany(comp).errorNotAccrued(), false);
+        assertEquals(man.register(comp).errorNotAccrued(), false);
         when(dao.registerCompany(anyObject())).thenReturn(false);
         comp.setEmail("hophophopla");
         when(dao.registerCompany(comp)).thenReturn(false);
-        assertFalse(man.registerCompany(comp).errorNotAccrued());
+        assertFalse(man.register(comp).errorNotAccrued());
 
         comp.setEmail("rame@mail.ru");
-        assertFalse(man.registerCompany(null).errorNotAccrued());
+        assertFalse(man.register(null).errorNotAccrued());
         // update company
         when(dao.updateCompany(comp)).thenReturn(true);
-        assertEquals(man.updateCompany(comp), true);
+        assertEquals(man.update(comp), true);
         when(dao.updateCompany(comp)).thenReturn(false);
-        assertEquals(man.updateCompany(comp), false);
+        assertEquals(man.update(comp), false);
         when(dao.updateCompany(anyObject())).thenReturn(false);
         comp.setEmail("hophophopla");
         when(dao.updateCompany(comp)).thenReturn(false);
-        assertFalse(man.updateCompany(comp).errorNotAccrued());
-        assertTrue(man.updateCompany(null).errorNotAccrued());
+        assertFalse(man.update(comp).errorNotAccrued());
+        assertTrue(man.update(null).errorNotAccrued());
     }
     @Test
     public void driverManagerTests(){
@@ -271,28 +271,28 @@ public class ManagerTests{
         d.setPhoneNumber("599029302");
         d.setPassword("huhu");
         when(dao.updateDriver(anyObject())).thenReturn(false);
-        assertTrue(man.updateDriver(null).errorNotAccrued());
-        assertFalse(man.updateDriver(d).errorNotAccrued());
+        assertTrue(man.update(null).errorNotAccrued());
+        assertFalse(man.update(d).errorNotAccrued());
         when(dao.updateDriver(anyObject())).thenReturn(true);
-        assertTrue(man.updateDriver(d).errorNotAccrued());
+        assertTrue(man.update(d).errorNotAccrued());
         d.setEmail("mail.ru");
         when(dao.updateDriver(d)).thenReturn(false);
-        assertTrue(man.updateDriver(d).errorNotAccrued());
+        assertTrue(man.update(d).errorNotAccrued());
         //registerDriver
         when(dao.registerDriver(anyObject())).thenReturn(false);
         Driver driver = new Driver();
         driver.setEmail("tornikeman@gmail.com");
         driver.setPhoneNumber("593499023");
         driver.setPassword("gela");
-        assertTrue(man.registerDriver(null).errorNotAccrued());
-        assertFalse(man.registerDriver(driver).errorNotAccrued());
+        assertTrue(man.register(null).errorNotAccrued());
+        assertFalse(man.register(driver).errorNotAccrued());
         when(dao.registerDriver(anyObject())).thenReturn(true);
-        assertTrue(man.registerDriver(driver).errorNotAccrued());
+        assertTrue(man.register(driver).errorNotAccrued());
         when(dao.registerDriver(anyObject())).thenReturn(false);
         driver.setPassword("");
         when(dao.registerDriver(driver)).thenReturn(false);
-        assertTrue(man.registerDriver(driver).errorNotAccrued());
-        assertTrue(man.registerDriver(null).errorNotAccrued());
+        assertTrue(man.register(driver).errorNotAccrued());
+        assertTrue(man.register(null).errorNotAccrued());
         //loginDriver
         when(dao.loginDriver(null, null)).thenReturn(null);
         assertNull(dao.loginDriver(null, null));
@@ -304,13 +304,13 @@ public class ManagerTests{
         driver2.setFacebookID("tornike_mandzulashvili");
         when(dao.loginDriver("gelanasha@gmail.com", "gelaSuntqavs")).thenReturn(driver1);
         when(dao.loginDriver("tornikeman@gmail.com", "araashenisaqme")).thenReturn(driver2);
-        assertEquals(driver1, man.loginDriver("gelanasha@gmail.com", "gelaSuntqavs"));
-        assertEquals(driver2, man.loginDriver("tornikeman@gmail.com", "araashenisaqme"));
+        assertEquals(driver1, man.login("gelanasha@gmail.com", "gelaSuntqavs"));
+        assertEquals(driver2, man.login("tornikeman@gmail.com", "araashenisaqme"));
         when(dao.loginDriver(anyObject(), anyObject())).thenReturn(driver1);
         when(dao.loginDriver("tornikeman@gmail.com" , "jemali")).thenReturn(driver2);
-        assertEquals(driver1, man.loginDriver("gelanasha@gmail.com", "avoeeeee"));
-        assertEquals(driver2, man.loginDriver("tornikeman@gmail.com", "jemali"));
-        assertEquals(driver1, man.loginDriver("tornikeman@gmail.com", "jemalii"));
+        assertEquals(driver1, man.login("gelanasha@gmail.com", "avoeeeee"));
+        assertEquals(driver2, man.login("tornikeman@gmail.com", "jemali"));
+        assertEquals(driver1, man.login("tornikeman@gmail.com", "jemalii"));
         //getDriverByCompanyID
         ArrayList<Driver> arr1 = new ArrayList<>();
         arr1.add(new Driver());
@@ -350,15 +350,15 @@ public class ManagerTests{
         when(dao.getDriverByID(2)).thenReturn(d2);
         when(dao.getDriverByID(3)).thenReturn(d3);
         when(dao.getDriverByID(4)).thenReturn(d4);
-        assertEquals(d1, man.getDriverByID(1));
-        assertEquals(d2, man.getDriverByID(2));
-        assertEquals(d3, man.getDriverByID(3));
-        assertEquals(d4, man.getDriverByID(4));
+        assertEquals(d1, man.getByID(1));
+        assertEquals(d2, man.getByID(2));
+        assertEquals(d3, man.getByID(3));
+        assertEquals(d4, man.getByID(4));
         when(dao.getDriverByID(anyInt())).thenReturn(d1, d2);
-        assertEquals(d1, man.getDriverByID(1));
-        assertEquals(d2, man.getDriverByID(2));
-        assertEquals(d2, man.getDriverByID(3));
-        assertEquals(d2, man.getDriverByID(1));
+        assertEquals(d1, man.getByID(1));
+        assertEquals(d2, man.getByID(2));
+        assertEquals(d2, man.getByID(3));
+        assertEquals(d2, man.getByID(1));
     }
     @Test
     public void orderManagerTests(){
@@ -572,7 +572,7 @@ public class ManagerTests{
     @Test
     public void userManagerTests(){
         UserDao dao = Mockito.mock(UserDao.class);
-        UserManager man = new UserManager(dao);
+        UserManagerManager man = new UserManagerManager(dao);
         //Email
         when(dao.checkEmail("asd@asd.com")).thenReturn(true);
         when(dao.checkEmail("gelaasd@gela.ge")).thenReturn(true);
@@ -667,11 +667,11 @@ public class ManagerTests{
         when(dao.updateUser(u1)).thenReturn(true);
         when(dao.updateUser(u2)).thenReturn(false);
         when(dao.updateUser(u3)).thenReturn(false);
-        assertTrue(man.updateUser(u1).errorNotAccrued());
-        assertTrue(man.updateUser(u3).errorNotAccrued());
-        assertFalse(man.updateUser(u2).errorNotAccrued());
+        assertTrue(man.update(u1).errorNotAccrued());
+        assertTrue(man.update(u3).errorNotAccrued());
+        assertFalse(man.update(u2).errorNotAccrued());
         when(dao.updateUser(anyObject())).thenReturn(false);
-        assertTrue(man.updateUser(null).errorNotAccrued());
+        assertTrue(man.update(null).errorNotAccrued());
         //registerUser
         u3 = new User();
         u3.setPassword("gela");
@@ -680,29 +680,29 @@ public class ManagerTests{
         when(dao.registerUser(u1)).thenReturn(true);
         when(dao.registerUser(u2)).thenReturn(false);
         when(dao.registerUser(u3)).thenReturn(false);
-        assertTrue(man.registerUser(u3).errorNotAccrued());
-        assertTrue(man.registerUser(u1).errorNotAccrued());
-        assertFalse(man.registerUser(u2).errorNotAccrued());
+        assertTrue(man.register(u3).errorNotAccrued());
+        assertTrue(man.register(u1).errorNotAccrued());
+        assertFalse(man.register(u2).errorNotAccrued());
         when(dao.registerUser(anyObject())).thenReturn(false);
-        assertTrue(man.registerUser(null).errorNotAccrued());
+        assertTrue(man.register(null).errorNotAccrued());
         //loginUser
         when(dao.loginUser("tornikeman@gmail.com","yey")).thenReturn(u2);
         when(dao.loginUser("tmand13@freeuni.edu.ge","something")).thenReturn(u1);
-        assertEquals(u1, man.loginUser("tmand13@freeuni.edu.ge", "something"));
-        assertEquals(u2, man.loginUser("tornikeman@gmail.com", "yey"));
+        assertEquals(u1, man.login("tmand13@freeuni.edu.ge", "something"));
+        assertEquals(u2, man.login("tornikeman@gmail.com", "yey"));
         when(dao.loginUser(null, null)).thenReturn(null);
-        assertNull(man.loginUser(null, null));
+        assertNull(man.login(null, null));
         //getUserByID
         when(dao.getUserByID(1)).thenReturn(u1);
         when(dao.getUserByID(2)).thenReturn(u2);
         when(dao.getUserByID(3)).thenReturn(u2);
-        assertEquals(u2, man.getUserByID(2));
-        assertEquals(u2, man.getUserByID(3));
-        assertEquals(u1, man.getUserByID(1));
+        assertEquals(u2, man.getByID(2));
+        assertEquals(u2, man.getByID(3));
+        assertEquals(u1, man.getByID(1));
         when(dao.getUserByID(anyInt())).thenReturn(u1, u2);
-        assertEquals(u1, man.getUserByID(10));
-        assertEquals(u2, man.getUserByID(20));
-        assertEquals(u2, man.getUserByID(30));
+        assertEquals(u1, man.getByID(10));
+        assertEquals(u2, man.getByID(20));
+        assertEquals(u2, man.getByID(30));
     }
 
     @After
