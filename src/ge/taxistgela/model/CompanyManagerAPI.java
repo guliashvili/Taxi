@@ -9,6 +9,7 @@ public abstract class CompanyManagerAPI implements SuperUserManager {
     protected CompanyDaoAPI companyDao;
     public  CompanyManagerAPI(CompanyDaoAPI companyDao){this.companyDao = companyDao;}
 
+    public abstract Integer getCompanyIDByCode(String companyCode);
     /**
      * Check if the company exists with the certain companyCode.
      *

@@ -33,6 +33,13 @@ public class CompanyManager extends   CompanyManagerAPI {
         return ret;
     }
 
+    @Override
+    public Integer getCompanyIDByCode(String companyCode) {
+        if (companyCode == null)
+            return null;
+        else
+            return companyDao.getCompanyIDByCode(companyCode);
+    }
 
     @Override
     public ErrorCode register(GeneralCheckableInformation c) {
