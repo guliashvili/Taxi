@@ -9,6 +9,14 @@ import java.util.Map;
 public class ErrorCode {
     private Map<String, String> errors = new HashMap<String, String>();
 
+    public ErrorCode() {
+
+    }
+
+    public ErrorCode(ErrorCode errorCode) {
+        errors = new HashMap<>(errorCode.errors);
+    }
+
     public void union(ErrorCode a) {
         for (String elem : a.errors.keySet()) {
             errors.put(elem, a.errors.get(elem));

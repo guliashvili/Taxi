@@ -9,7 +9,9 @@ public class Location {
     private Double latitude;
     private Double longitude;
 
-
+    public Location(Location loc) {
+        this(loc.getLatitude(), loc.getLongitude());
+    }
     public Location(Double latitude, Double longitude) {
         setLatitude(latitude);
         setLongitude(longitude);

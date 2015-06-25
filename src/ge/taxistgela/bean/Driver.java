@@ -46,6 +46,13 @@ public class Driver extends GeneralCheckableInformation {
         setIsVerifiedPhone(isVerifiedPhone);
     }
 
+    public Driver(Driver driver) {
+        this(driver.getDriverID(), driver.getPersonalID(), driver.getEmail(), driver.getPassword(), driver.getCompanyID(),
+                driver.getFirstName(), driver.getLastName(), driver.getGender(), driver.getPhoneNumber(), driver.getCar(),
+                driver.getFacebookID(), driver.getGoogleID(), driver.getLocation(), driver.getRating(), driver.getPreferences(),
+                driver.isActive(), driver.getIsVerifiedEmail(), driver.getIsVerifiedPhone());
+    }
+
     public Driver() {
     }
 

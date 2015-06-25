@@ -32,6 +32,11 @@ public class Order {
         setCallTime(callTime);
     }
 
+    public Order(Order ord) {
+        this(ord.getOrderID(), ord.getUserID(), ord.getDriverID(), ord.getNumPassengers(), ord.getStartLocation(),
+                ord.getEndLocation(), ord.getStartTime(), ord.getEndTime(), ord.getPaymentAmount(), ord.getCallTime());
+    }
+
     public Order() {
     }
 

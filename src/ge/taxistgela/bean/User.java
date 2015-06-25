@@ -39,6 +39,12 @@ public class User extends GeneralCheckableInformation {
         setIsVerifiedPhone(isVerifiedPhone);
     }
 
+    public User(User user) {
+        this(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
+                user.getGender(), user.getFacebookID(), user.getGoogleID(), user.getRating(), user.getPreference(),
+                user.getIsVerifiedEmail(), user.getIsVerifiedPhone());
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof User)) return false;

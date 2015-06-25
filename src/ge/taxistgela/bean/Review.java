@@ -15,11 +15,16 @@ public class Review {
     public Review() {
     }
 
-    public Review(Integer reviewID, Integer orderID, Boolean orientationFlag, Double rating, String description) {        setReviewID(reviewID);
+    public Review(Integer reviewID, Integer orderID, Boolean orientationFlag, Double rating, String description) {
+        setReviewID(reviewID);
         setOrderID(orderID);
         setOrientationFlag(orientationFlag);
         setRating(rating);
         setDescription(description);
+    }
+
+    public Review(Review review) {
+        this(review.getReviewID(), review.getOrderID(), review.isOrientationFlag(), review.getRating(), review.getDescription());
     }
 
     @Override

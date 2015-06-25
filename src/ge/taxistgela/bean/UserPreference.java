@@ -14,13 +14,20 @@ public class UserPreference {
     private Integer passengersCount; // ramdeni kaci midian
     private Boolean wantsAlone;
 
-    public UserPreference(Integer userPreferenceID, Double minimumDriverRating, Boolean conditioning, Integer carYear, Integer timeLimit, Integer passengersCount, Boolean wantsAlone) {        setUserPreferenceID(userPreferenceID);
+    public UserPreference(Integer userPreferenceID, Double minimumDriverRating, Boolean conditioning, Integer carYear, Integer timeLimit, Integer passengersCount, Boolean wantsAlone) {
+        setUserPreferenceID(userPreferenceID);
         setMinimumDriverRating(minimumDriverRating);
         setConditioning(conditioning);
         setCarYear(carYear);
         setTimeLimit(timeLimit);
         setPassengersCount(passengersCount);
         setWantsAlone(wantsAlone);
+    }
+
+    public UserPreference(UserPreference userPreference) {
+        this(userPreference.getUserPreferenceID(), userPreference.getMinimumDriverRating(), userPreference.isConditioning(),
+                userPreference.getCarYear(), userPreference.getTimeLimit(), userPreference.getPassengersCount(),
+                userPreference.isWantsAlone());
     }
 
     public UserPreference() {

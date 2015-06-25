@@ -15,6 +15,10 @@ public class DriverPreference {
         setCoefficientPer(coefficientPer);
     }
 
+    public DriverPreference(DriverPreference driverPreference) {
+        this(driverPreference.getDriverPreferenceID(), driverPreference.getMinimumUserRating(), driverPreference.getCoefficientPer());
+    }
+
     public DriverPreference() {
     }
 

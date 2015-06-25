@@ -15,7 +15,9 @@ public class Car {
     public Car() {
     }
 
-
+    public Car(Car car) {
+        this(car.getCarID(), car.getCarDescription(), car.getCarYear(), car.hasConditioning(), car.getNumPassengers());
+    }
     public Car(String carID, String carDescription, Integer carYear, Boolean conditioning, Integer numPassengers) {
         setCarID(carID);
         setCarDescription(carDescription);

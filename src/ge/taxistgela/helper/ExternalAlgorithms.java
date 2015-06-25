@@ -10,7 +10,7 @@ public class ExternalAlgorithms {
     public final static BigDecimal EPS = new BigDecimal(0.000001);
     public static boolean DEBUGStrings = true;
     public static boolean DEBUGExceptions = true;
-    public static boolean DEBUGSelects = false;
+    public static boolean DEBUGSelects = true;
 
     /**
      * returns true if a and b are both null or equal(and non null(both))

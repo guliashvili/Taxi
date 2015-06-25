@@ -34,6 +34,12 @@ public class Company extends GeneralCheckableInformation {
         setIsVerifiedPhone(isVerifiedPhone);
     }
 
+    public Company(Company company) {
+        this(company.getCompanyID(), company.getCompanyCode(), company.getEmail(), company.getPassword(), company.getCompanyName(),
+                company.getPhoneNumber(), company.getFacebookID(), company.getGoogleID(), company.getIsVerifiedEmail(), company.getIsVerifiedPhone());
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof  Company)) return  false;
