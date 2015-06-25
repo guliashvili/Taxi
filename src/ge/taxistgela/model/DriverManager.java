@@ -10,8 +10,8 @@ import java.util.List;
  * Created by GIO on 5/25/2015.
  */
 public class DriverManager extends  DriverManagerAPI {
-    public  DriverManager(DriverDaoAPI driverDao){
-        super(driverDao);
+    public DriverManager(DriverDaoAPI driverDao, TaxRam taxRam) {
+        super(driverDao, taxRam);
     }
 
     @Override

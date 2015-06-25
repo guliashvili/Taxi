@@ -13,9 +13,11 @@ import java.util.List;
  */
 public abstract class UserManagerAPI implements SuperUserTokenedManager {
     protected UserDaoAPI userDao;
+    protected TaxRam taxRam;
 
-    public UserManagerAPI(UserDaoAPI userDao) {
+    public UserManagerAPI(UserDaoAPI userDao, TaxRam taxRam) {
         this.userDao = userDao;
+        this.taxRam = taxRam;
     }
 
     /**

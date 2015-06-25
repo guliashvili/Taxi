@@ -10,8 +10,11 @@ import java.util.List;
  */
 public abstract class DriverManagerAPI implements SuperUserTokenedManager {
     protected DriverDaoAPI driverDao;
-    public  DriverManagerAPI(DriverDaoAPI driverDao){
+    protected TaxRam taxRam;
+
+    public DriverManagerAPI(DriverDaoAPI driverDao, TaxRam taxRam) {
         this.driverDao = driverDao;
+        this.taxRam = taxRam;
     }
 
     /**

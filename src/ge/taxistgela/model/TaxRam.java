@@ -9,13 +9,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by GIO on 6/26/2015.
  */
 public class TaxRam {
-    private static Map<Integer, Location> driverIDLocation = new ConcurrentHashMap<>();
+    private Map<Integer, Location> driverIDLocation = new ConcurrentHashMap<>();
 
-    public static void updateDriverLocation(int driverID, Location location) {
+    public void updateDriverLocation(int driverID, Location location) {
         driverIDLocation.put(driverID, location);
     }
 
-    public static Location getDriverLocation(int driverID) {
-        driverIDLocation.get(driverID);
+    public Location getDriverLocation(int driverID) {
+        return driverIDLocation.get(driverID);
     }
 }
