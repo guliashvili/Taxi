@@ -14,7 +14,9 @@ public class CompanyManager extends   CompanyManagerAPI {
 
     @Override
     public Company login(String email, String password) {
-        return  companyDao.loginCompany(email, password);
+        Company ret = null;
+        if (email != null || password != null) ret = companyDao.loginCompany(email, password);
+        return ret;
     }
 
     private ErrorCode getErrors(Company company) {
@@ -35,7 +37,9 @@ public class CompanyManager extends   CompanyManagerAPI {
     @Override
     public ErrorCode register(GeneralCheckableInformation c) {
         ErrorCode ret = new ErrorCode();
-        if (!(c instanceof Company)) {
+        if (c == null)
+            ret.nullArgument();
+        else if (!(c instanceof Company)) {
             ret.wrongType();
         } else {
             Company company = (Company) c;
@@ -54,7 +58,7 @@ public class CompanyManager extends   CompanyManagerAPI {
         ErrorCode ret = new ErrorCode();
         token = HashGenerator.decryptAES(token);
         if (token == null) {
-            ret.setWrongToken();
+            ret.nullArgument();
         } else {
             Company u = companyDao.getCompanyByEmail(token);
             if (u.getIsVerifiedEmail()) ret.setAlreadyVerified();
@@ -71,7 +75,7 @@ public class CompanyManager extends   CompanyManagerAPI {
         ErrorCode ret = new ErrorCode();
         token = HashGenerator.decryptAES(token);
         if (token == null) {
-            ret.setWrongToken();
+            ret.nullArgument();
         } else {
             Company u = companyDao.getCompanyByPhoneNumber(token);
             if (u.getIsVerifiedPhone()) ret.setAlreadyVerified();
@@ -86,8 +90,9 @@ public class CompanyManager extends   CompanyManagerAPI {
     @Override
     public ErrorCode changePassword(GeneralCheckableInformation c) {
         ErrorCode ret = new ErrorCode();
-
-        if (!(c instanceof Company)) {
+        if (c == null)
+            ret.nullArgument();
+        else if (!(c instanceof Company)) {
             ret.wrongType();
         } else {
             Company company = (Company) c;
@@ -104,7 +109,9 @@ public class CompanyManager extends   CompanyManagerAPI {
     @Override
     public ErrorCode update(GeneralCheckableInformation c) {
         ErrorCode ret = new ErrorCode();
-        if (!(c instanceof Company)) {
+        if (c == null)
+            ret.nullArgument();
+        else if (!(c instanceof Company)) {
             ret.wrongType();
         } else {
             Company company = (Company) c;
@@ -121,31 +128,39 @@ public class CompanyManager extends   CompanyManagerAPI {
 
     @Override
     public Object getByID(Integer superUserID) {
-        return companyDao.getCompanyByID(superUserID);
+        Object ret = null;
+        if (superUserID != null)
+            ret = companyDao.getCompanyByID(superUserID);
+        return ret;
     }
 
     @Override
     public boolean checkEmail(String email) {
-        return companyDao.checkEmail(email);
+        if (email == null) return false;
+        else return companyDao.checkEmail(email);
     }
 
     @Override
     public boolean checkPhoneNumber(String phoneNumber) {
-        return companyDao.checkPhoneNumber(phoneNumber);
+        if (phoneNumber == null) return false;
+        else return companyDao.checkPhoneNumber(phoneNumber);
     }
 
     @Override
     public boolean checkCompanyCode(String companyCode) {
-        return companyDao.checkCompanyCode(companyCode);
+        if (companyCode == null) return false;
+        else return companyDao.checkCompanyCode(companyCode);
     }
 
     @Override
     public boolean checkFacebookID(String facebookID) {
-        return companyDao.checkFacebookID(facebookID);
+        if (facebookID == null) return false;
+        else return companyDao.checkFacebookID(facebookID);
     }
 
     @Override
     public boolean checkGoogleID(String googleID) {
-        return companyDao.checkGoogleID(googleID);
+        if (googleID == null) return false;
+        else return companyDao.checkGoogleID(googleID);
     }
 }

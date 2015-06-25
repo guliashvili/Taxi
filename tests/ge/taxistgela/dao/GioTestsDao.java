@@ -3,7 +3,6 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +29,7 @@ public class GioTestsDao {
 
 
     @Before
-    @After
+    //@After
     public void setup() {
         userDao = new UserDao();
         companyDao = new CompanyDao();
@@ -165,6 +164,8 @@ public class GioTestsDao {
                 assertTrue(userDao.checkGoogleID(elem.getGoogleID()));
             if (elem.getFacebookID() != null)
                 assertTrue(userDao.checkFacebookID(elem.getFacebookID()));
+            assertEquals(userDao.getUserTokenByID(elem.getUserID()), elem.getToken());
+            assertEquals(userDao.getUserIDByToken(elem.getToken()), elem.getUserID());
         }
     }
 
@@ -304,6 +305,9 @@ public class GioTestsDao {
             assertTrue(driverDao.checkPhoneNumber(elem.getPhoneNumber()));
             assertTrue(driverDao.checkCarID(elem.getCar().getCarID()));
             assertTrue(driverDao.checkEmail(elem.getEmail()));
+
+            assertEquals(driverDao.getDriverTokenByID(elem.getDriverID()), elem.getToken());
+            assertEquals(driverDao.getDriverIDByToken(elem.getToken()), elem.getDriverID());
         }
     }
     public  void testDrivers(){
@@ -396,6 +400,21 @@ public class GioTestsDao {
         user = userDao.getUserByID(user.getUserID());
         assertTrue(user.getIsVerifiedPhone());
 
+
+        user.setIsVerifiedEmail(false);
+        user.setIsVerifiedPhone(false);
+        assertFalse(userDao.updateUser(user));
+
+        user = userDao.getUserByID(user.getUserID());
+
+        assertFalse(userDao.verifyUserEmail(user.getEmail()));
+        assertFalse(userDao.verifyUserPhoneNumber(user.getPhoneNumber()));
+
+        user = userDao.getUserByID(user.getUserID());
+
+        assertTrue(user.getIsVerifiedEmail());
+        assertTrue(user.getIsVerifiedPhone());
+
         return user;
     }
 
@@ -411,6 +430,19 @@ public class GioTestsDao {
         driver = driverDao.getDriverByID(driver.getDriverID());
         assertTrue(driver.getIsVerifiedPhone());
 
+        driver.setIsVerifiedEmail(false);
+        driver.setIsVerifiedPhone(false);
+        assertFalse(driverDao.updateDriver(driver));
+
+        driver = driverDao.getDriverByID(driver.getDriverID());
+
+        assertFalse(driverDao.verifyDriverEmail(driver.getEmail()));
+        assertFalse(driverDao.verifyDriverPhoneNumber(driver.getPhoneNumber()));
+
+        driver = driverDao.getDriverByID(driver.getDriverID());
+
+        assertTrue(driver.getIsVerifiedEmail());
+        assertTrue(driver.getIsVerifiedPhone());
         return driver;
     }
 
@@ -424,6 +456,20 @@ public class GioTestsDao {
         company.setIsVerifiedPhone(true);
         assertFalse(companyDao.updateCompany(company));
         company = companyDao.getCompanyByID(company.getCompanyID());
+        assertTrue(company.getIsVerifiedPhone());
+
+        company.setIsVerifiedEmail(false);
+        company.setIsVerifiedPhone(false);
+        assertFalse(companyDao.updateCompany(company));
+
+        company = companyDao.getCompanyByID(company.getCompanyID());
+
+        assertFalse(companyDao.verifyCompanyEmail(company.getEmail()));
+        assertFalse(companyDao.verifyCompanyPhoneNumber(company.getPhoneNumber()));
+
+        company = companyDao.getCompanyByID(company.getCompanyID());
+
+        assertTrue(company.getIsVerifiedEmail());
         assertTrue(company.getIsVerifiedPhone());
 
         return company;

@@ -50,6 +50,10 @@ public class ErrorCode {
         errors.put(varName, info);
     }
 
+    public void nullArgument() {
+        put("nullArgument", "Some argument is null");
+    }
+
     public void wrongType() {
         put("wrongType", "Find out phone and fuck us coz we have too shitty error in code");
     }

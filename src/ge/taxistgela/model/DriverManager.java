@@ -16,27 +16,42 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public Integer getIDByToken(String token) {
-        return  driverDao.getDriverIDByToken(token);
+        if (token == null)
+            return null;
+        else
+            return driverDao.getDriverIDByToken(token);
     }
 
     @Override
     public String getTokenByID(Integer superUserID) {
-        return  driverDao.getDriverTokenByID(superUserID);
+        if (superUserID == null)
+            return null;
+        else
+            return driverDao.getDriverTokenByID(superUserID);
     }
 
     @Override
     public Driver getByID(Integer driverID) {
-        return  driverDao.getDriverByID(driverID);
+        if (driverID == null)
+            return null;
+        else
+            return driverDao.getDriverByID(driverID);
     }
 
     @Override
     public List<Driver> getDriverByCompanyID(Integer companyID) {
-        return driverDao.getDriverByCompanyID(companyID);
+        if (companyID == null)
+            return null;
+        else
+            return driverDao.getDriverByCompanyID(companyID);
     }
 
     @Override
     public Driver login(String email, String password) {
-        return driverDao.loginDriver(email, password);
+        Driver ret = null;
+        if (email != null && password != null)
+            ret = driverDao.loginDriver(email, password);
+        return ret;
     }
 
     private ErrorCode getErrorsDriver(Driver driver) {
@@ -55,7 +70,9 @@ public class DriverManager extends  DriverManagerAPI {
     @Override
     public ErrorCode register(GeneralCheckableInformation d) {
         ErrorCode ret = new ErrorCode();
-        if (!(d instanceof Driver)) {
+        if (d == null) {
+            ret.nullArgument();
+        } else if (!(d instanceof Driver)) {
             ret.wrongType();
         } else {
             Driver driver = (Driver) d;
@@ -70,7 +87,9 @@ public class DriverManager extends  DriverManagerAPI {
     @Override
     public ErrorCode changePassword(GeneralCheckableInformation d) {
         ErrorCode ret = new ErrorCode();
-        if (!(d instanceof Driver)) {
+        if (d == null) {
+            ret.nullArgument();
+        } else if (!(d instanceof Driver)) {
             ret.wrongType();
         } else {
             Driver driver = (Driver) d;
@@ -78,47 +97,56 @@ public class DriverManager extends  DriverManagerAPI {
             if (!ret.errorAccrued())
                 if (driverDao.changePassword(driver)) ret.unexpected();
         }
+
         return ret;
     }
 
     @Override
     public ErrorCode verifyEmail(String token) {
         ErrorCode ret = new ErrorCode();
-        token = HashGenerator.decryptAES(token);
         if (token == null) {
-            ret.setWrongToken();
+            ret.nullArgument();
         } else {
-            Driver u = driverDao.getDriverByEmail(token);
-            if (u.getIsVerifiedEmail()) ret.setAlreadyVerified();
-            else {
-                if (driverDao.verifyDriverEmail(token)) ret.unexpected();
+            token = HashGenerator.decryptAES(token);
+            if (token == null) {
+                ret.setWrongToken();
+            } else {
+                Driver u = driverDao.getDriverByEmail(token);
+                if (u.getIsVerifiedEmail()) ret.setAlreadyVerified();
+                else {
+                    if (driverDao.verifyDriverEmail(token)) ret.unexpected();
+                }
             }
         }
-
         return ret;
     }
 
     @Override
     public ErrorCode verifyPhoneNumber(String token) {
         ErrorCode ret = new ErrorCode();
-        token = HashGenerator.decryptAES(token);
-        if (token == null) {
-            ret.setWrongToken();
-        } else {
-            Driver u = driverDao.getDriverByPhoneNumber(token);
-            if (u.getIsVerifiedPhone()) ret.setAlreadyVerified();
-            else {
-                if (driverDao.verifyDriverPhoneNumber(token)) ret.unexpected();
+        if (token == null)
+            ret.nullArgument();
+        else {
+            token = HashGenerator.decryptAES(token);
+            if (token == null) {
+                ret.setWrongToken();
+            } else {
+                Driver u = driverDao.getDriverByPhoneNumber(token);
+                if (u.getIsVerifiedPhone()) ret.setAlreadyVerified();
+                else {
+                    if (driverDao.verifyDriverPhoneNumber(token)) ret.unexpected();
+                }
             }
         }
-
         return ret;
     }
 
     @Override
     public ErrorCode update(GeneralCheckableInformation d) {
         ErrorCode ret = new ErrorCode();
-        if (!(d instanceof Driver)) {
+        if (d == null)
+            ret.nullArgument();
+        else if (!(d instanceof Driver)) {
             ret.wrongType();
         } else {
             Driver driver = (Driver) d;
@@ -131,7 +159,10 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public Car getCarByID(String carID) {
-        return driverDao.getCarByID(carID);
+        Car ret = null;
+        if (carID != null)
+            ret = driverDao.getCarByID(carID);
+        return ret;
     }
 
     private ErrorCode getErrorsCar(Car car) {
@@ -143,81 +174,117 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public ErrorCode insertCar(Car car) {
-        ErrorCode ret = getErrorsCar(car);
-        if (!ret.errorAccrued())
-            if (driverDao.insertCar(car))
-                ret.unexpected();
+        ErrorCode ret = new ErrorCode();
+        if (car == null) {
+            ret.nullArgument();
+        } else {
+            ret.union(getErrorsCar(car));
+            if (!ret.errorAccrued())
+                if (driverDao.insertCar(car))
+                    ret.unexpected();
+        }
         return ret;
     }
 
     @Override
     public ErrorCode updateCar(Car car) {
-        ErrorCode ret = getErrorsCar(car);
-        if (!ret.errorAccrued())
-            if (driverDao.updateCar(car))
-                ret.unexpected();
+        ErrorCode ret = new ErrorCode();
+        if (car == null) {
+            ret.nullArgument();
+        } else {
+            ret.union(getErrorsCar(car));
+            if (!ret.errorAccrued())
+                if (driverDao.updateCar(car))
+                    ret.unexpected();
+        }
         return ret;
     }
 
     @Override
     public DriverPreference getDriverPreferenceByID(Integer driverPreferenceID) {
-        return driverDao.getDriverPreferenceByID(driverPreferenceID);
+        DriverPreference ret = null;
+        if (driverPreferenceID != null)
+            ret = driverDao.getDriverPreferenceByID(driverPreferenceID);
+        return ret;
 
     }
 
     private ErrorCode getErrorsDriverPreference(DriverPreference driverPreference) {
         ErrorCode ret = new ErrorCode();
+        if (driverPreference == null)
+            ret.nullArgument();
 
         return ret;
     }
 
     @Override
     public ErrorCode insertDriverPreference(DriverPreference driverPreference) {
-        ErrorCode ret = getErrorsDriverPreference(driverPreference);
-        if (!ret.errorAccrued())
-            if (driverDao.insertDriverPreference(driverPreference))
-                ret.unexpected();
+        ErrorCode ret = new ErrorCode();
+        if (driverPreference == null) {
+            ret.nullArgument();
+        } else {
+            ret.union(getErrorsDriverPreference(driverPreference));
+            if (!ret.errorAccrued())
+                if (driverDao.insertDriverPreference(driverPreference))
+                    ret.unexpected();
+        }
         return ret;
     }
 
     @Override
     public ErrorCode updateDriverPreference(DriverPreference driverPreference) {
-        ErrorCode ret = getErrorsDriverPreference(driverPreference);
-        if (!ret.errorAccrued())
-            if (driverDao.updateDriverPreference(driverPreference))
-                ret.unexpected();
+        ErrorCode ret = new ErrorCode();
+        if (driverPreference == null)
+            ret.nullArgument();
+        else {
+            ret.union(getErrorsDriverPreference(driverPreference));
+            if (!ret.errorAccrued())
+                if (driverDao.updateDriverPreference(driverPreference))
+                    ret.unexpected();
+        }
         return ret;
     }
 
     @Override
     public List<Driver> getDriverByPreferences(User user) {
-        List<Driver> ret = driverDao.getDriverByPreferences(user);
+        List<Driver> ret = null;
+
+        if (user != null) {
+            ret = driverDao.getDriverByPreferences(user);
+        }
+
+
         //TODO filter location
         return  ret;
     }
 
     @Override
     public boolean checkCarID(String carID) {
-        return driverDao.checkCarID(carID);
+        if (carID == null) return false;
+        else return driverDao.checkCarID(carID);
     }
 
     @Override
     public boolean checkEmail(String email) {
-        return driverDao.checkEmail(email);
+        if (email == null) return false;
+        else return driverDao.checkEmail(email);
     }
 
     @Override
     public boolean checkPhoneNumber(String phoneNumber) {
-        return driverDao.checkPhoneNumber(phoneNumber);
+        if (phoneNumber == null) return false;
+        else return driverDao.checkPhoneNumber(phoneNumber);
     }
 
     @Override
     public boolean checkFacebookID(String facebookID) {
-        return driverDao.checkFacebookID(facebookID);
+        if (facebookID == null) return false;
+        else return driverDao.checkFacebookID(facebookID);
     }
 
     @Override
     public boolean checkGoogleID(String googleID) {
-        return driverDao.checkGoogleID(googleID);
+        if (googleID == null) return false;
+        else return driverDao.checkGoogleID(googleID);
     }
 }

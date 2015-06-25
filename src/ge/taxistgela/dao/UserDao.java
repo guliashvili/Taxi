@@ -345,13 +345,13 @@ public class UserDao implements UserDaoAPI {
     public Integer getUserIDByToken(String token) {
         Integer output;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT driverID FROM Users WHERE token=?"))) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT userID FROM Users WHERE token=?"))) {
 
                 st.setString(1, token);
 
                 ExternalAlgorithms.debugPrintSelect("get userID by token \n" + st.toString());
                 ResultSetEnhanced res = st.executeQuery();
-                if (res.next()) output = res.getInt("Users.driverID");
+                if (res.next()) output = res.getInt("Users.userID");
                 else output = null;
             }
         } catch (SQLException e) {
