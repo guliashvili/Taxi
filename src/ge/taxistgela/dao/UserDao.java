@@ -99,12 +99,12 @@ public class UserDao implements UserDaoAPI {
     private boolean setStringsPreference(PreparedStatementEnhanced st, UserPreference up, boolean update) {
         boolean errorCode = false;
         try {
-            st.setDouble(1,up.getMinimumDriverRating());
-            st.setBoolean(2,up.isConditioning());
-            st.setInt(3,up.getCarYear());
-            st.setInt(4,up.getPassengersCount());
-            st.setBoolean(5,up.isWantsAlone());
-            st.setInt(6,up.getTimeLimit());
+            st.setDouble(1, up.getMinimumDriverRating());
+            st.setBoolean(2, up.isConditioning());
+            st.setInt(3, up.getCarYear());
+            st.setInt(4, up.getPassengersCount());
+            st.setBoolean(5, up.isWantsAlone());
+            st.setInt(6, up.getTimeLimit());
             if(update)
                 st.setInt(7,up.getUserPreferenceID());
         }catch(SQLException e){
@@ -341,6 +341,45 @@ public class UserDao implements UserDaoAPI {
     }
 
 
+    @Override
+    public Integer getUserIDByToken(String token) {
+        Integer output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT driverID FROM Users WHERE token=?"))) {
+
+                st.setString(1, token);
+
+                ExternalAlgorithms.debugPrintSelect("get userID by token \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = res.getInt("Users.driverID");
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
+
+    @Override
+    public String getUserTokenByID(Integer userID) {
+        String output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT token FROM Users WHERE userID=?"))) {
+
+                st.setInt(1, userID);
+
+                ExternalAlgorithms.debugPrintSelect("get User token by ID \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = res.getString("Users.token");
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
     @Override
     public User loginUser(String email, String password) {
         User user;

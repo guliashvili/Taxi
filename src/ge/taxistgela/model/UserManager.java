@@ -1,9 +1,6 @@
 package ge.taxistgela.model;
 
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.ErrorCode;
-import ge.taxistgela.bean.User;
-import ge.taxistgela.bean.UserPreference;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.UserDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
 
@@ -18,13 +15,14 @@ public class UserManager extends  UserManagerAPI{
     }
 
     @Override
-    public User getUserByID(Integer userID) {
+    public User getByID(Integer userID) {
         return userDao.getUserByID(userID);
     }
 
+
     @Override
-    public User loginUser(String username, String password) {
-        return userDao.loginUser(username,password);
+    public User login(String username, String password) {
+        return userDao.loginUser(username, password);
     }
 
     private ErrorCode getErrorsUser(User user) {
@@ -77,29 +75,50 @@ public class UserManager extends  UserManagerAPI{
     }
 
     @Override
-    public ErrorCode registerUser(User user) {
-        ErrorCode ret = getErrorsUser(user);
-        if (!ret.errorAccrued())
-            if (userDao.registerUser(user))
-                ret.unexpected();
+    public ErrorCode register(GeneralCheckableInformation u) {
+        ErrorCode ret = new ErrorCode();
+        if (!(u instanceof User))
+            ret.wrongType();
+        else {
+            User user = (User) u;
+            ret.union(getErrorsUser(user));
+            if (!ret.errorAccrued())
+                if (userDao.registerUser(user))
+                    ret.unexpected();
+        }
         return ret;
     }
 
     @Override
-    public ErrorCode changePassword(User user) {
-        ErrorCode ret = getErrorsUser(user);
-        if (!ret.errorAccrued())
-            if (userDao.changePassword(user))
-                ret.unexpected();
+    public ErrorCode changePassword(GeneralCheckableInformation u) {
+        ErrorCode ret = new ErrorCode();
+        if (!(u instanceof User))
+            ret.wrongType();
+        else {
+            User user = (User) u;
+            ret.union(getErrorsUser(user));
+            if (!ret.errorAccrued())
+                if (userDao.changePassword(user))
+                    ret.unexpected();
+
+        }
+
         return ret;
     }
 
     @Override
-    public ErrorCode updateUser(User user) {
-        ErrorCode ret = getErrorsUser(user);
-        if (!ret.errorAccrued())
-            if (userDao.updateUser(user))
-                ret.unexpected();
+    public ErrorCode update(GeneralCheckableInformation u) {
+        ErrorCode ret = new ErrorCode();
+        if (!(u instanceof User))
+            ret.wrongType();
+        else {
+            User user = (User) u;
+
+            ret.union(getErrorsUser(user));
+            if (!ret.errorAccrued())
+                if (userDao.updateUser(user))
+                    ret.unexpected();
+        }
         return ret;
     }
 

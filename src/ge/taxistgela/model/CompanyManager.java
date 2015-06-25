@@ -2,6 +2,7 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.bean.ErrorCode;
+import ge.taxistgela.bean.GeneralCheckableInformation;
 import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
 
@@ -12,7 +13,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     public  CompanyManager(CompanyDaoAPI companyDao){super(companyDao);}
 
     @Override
-    public Company loginCompany(String email, String password) {
+    public Company login(String email, String password) {
         return  companyDao.loginCompany(email, password);
     }
 
@@ -32,13 +33,18 @@ public class CompanyManager extends   CompanyManagerAPI {
 
 
     @Override
-    public ErrorCode registerCompany(Company company) {
+    public ErrorCode register(GeneralCheckableInformation c) {
         ErrorCode ret = new ErrorCode();
-        ret.union(getErrors(company));
+        if (!(c instanceof Company)) {
+            ret.wrongType();
+        } else {
+            Company company = (Company) c;
+            ret.union(getErrors(company));
 
-        if (!ret.errorAccrued())
-            if (companyDao.registerCompany(company))
-                ret.unexpected();
+            if (!ret.errorAccrued())
+                if (companyDao.registerCompany(company))
+                    ret.unexpected();
+        }
 
         return ret;
     }
@@ -78,27 +84,44 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(Company company) {
+    public ErrorCode changePassword(GeneralCheckableInformation c) {
         ErrorCode ret = new ErrorCode();
-        ret.union(getErrors(company));
 
-        if (!ret.errorAccrued())
-            if (companyDao.changePassword(company))
-                ret.unexpected();
+        if (!(c instanceof Company)) {
+            ret.wrongType();
+        } else {
+            Company company = (Company) c;
+            ret.union(getErrors(company));
+
+            if (!ret.errorAccrued())
+                if (companyDao.changePassword(company))
+                    ret.unexpected();
+        }
 
         return ret;
     }
 
     @Override
-    public ErrorCode updateCompany(Company company) {
+    public ErrorCode update(GeneralCheckableInformation c) {
         ErrorCode ret = new ErrorCode();
-        ret.union(getErrors(company));
+        if (!(c instanceof Company)) {
+            ret.wrongType();
+        } else {
+            Company company = (Company) c;
+            ret.union(getErrors(company));
 
-        if (!ret.errorAccrued())
-            if (companyDao.updateCompany(company))
-                ret.unexpected();
+            if (!ret.errorAccrued())
+                if (companyDao.updateCompany(company))
+                    ret.unexpected();
+        }
+
 
         return ret;
+    }
+
+    @Override
+    public Object getByID(Integer superUserID) {
+        return companyDao.getCompanyByID(superUserID);
     }
 
     @Override

@@ -336,6 +336,47 @@ public class DriverDao implements DriverDaoAPI {
         return output;
     }
 
+
+    @Override
+    public Integer getDriverIDByToken(String token) {
+        Integer output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT driverID FROM Drivers WHERE token=?"))) {
+
+                st.setString(1, token);
+
+                ExternalAlgorithms.debugPrintSelect("get DriverID by token \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = res.getInt("Drivers.driverID");
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
+
+    @Override
+    public String getDriverTokenByID(Integer driverID) {
+        String output;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT token FROM Drivers WHERE driverID=?"))) {
+
+                st.setInt(1, driverID);
+
+                ExternalAlgorithms.debugPrintSelect("get Driver token by ID \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) output = res.getString("Drivers.token");
+                else output = null;
+            }
+        } catch (SQLException e) {
+            output = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return output;
+    }
+
     @Override
     public Driver getDriverByID(int driverID) {
         Driver output;

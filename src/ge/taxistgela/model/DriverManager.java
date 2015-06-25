@@ -16,7 +16,7 @@ public class DriverManager extends  DriverManagerAPI {
 
 
     @Override
-    public Driver getDriverByID(Integer driverID) {
+    public Driver getByID(Integer driverID) {
         return  driverDao.getDriverByID(driverID);
     }
 
@@ -26,7 +26,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public Driver loginDriver(String email, String password) {
+    public Driver login(String email, String password) {
         return driverDao.loginDriver(email, password);
     }
 
@@ -44,18 +44,31 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public ErrorCode registerDriver(Driver driver) {
-        ErrorCode ret = getErrorsDriver(driver);
-        if (!ret.errorAccrued())
-            if (driverDao.registerDriver(driver)) ret.unexpected();
+    public ErrorCode register(GeneralCheckableInformation d) {
+        ErrorCode ret = new ErrorCode();
+        if (!(d instanceof Driver)) {
+            ret.wrongType();
+        } else {
+            Driver driver = (Driver) d;
+            ret.union(getErrorsDriver(driver));
+            if (!ret.errorAccrued())
+                if (driverDao.registerDriver(driver)) ret.unexpected();
+
+        }
         return ret;
     }
 
     @Override
-    public ErrorCode changePassword(Driver driver) {
-        ErrorCode ret = getErrorsDriver(driver);
-        if (!ret.errorAccrued())
-            if (driverDao.changePassword(driver)) ret.unexpected();
+    public ErrorCode changePassword(GeneralCheckableInformation d) {
+        ErrorCode ret = new ErrorCode();
+        if (!(d instanceof Driver)) {
+            ret.wrongType();
+        } else {
+            Driver driver = (Driver) d;
+            ret = getErrorsDriver(driver);
+            if (!ret.errorAccrued())
+                if (driverDao.changePassword(driver)) ret.unexpected();
+        }
         return ret;
     }
 
@@ -94,10 +107,16 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public ErrorCode updateDriver(Driver driver) {
-        ErrorCode ret = getErrorsDriver(driver);
-        if (!ret.errorAccrued())
-            if (driverDao.updateDriver(driver)) ret.unexpected();
+    public ErrorCode update(GeneralCheckableInformation d) {
+        ErrorCode ret = new ErrorCode();
+        if (!(d instanceof Driver)) {
+            ret.wrongType();
+        } else {
+            Driver driver = (Driver) d;
+            ret.union(getErrorsDriver(driver));
+            if (!ret.errorAccrued())
+                if (driverDao.updateDriver(driver)) ret.unexpected();
+        }
         return ret;
     }
 

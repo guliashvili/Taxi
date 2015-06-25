@@ -64,6 +64,9 @@ public interface DriverDaoAPI {
      */
     boolean updateDriverPreference(DriverPreference driverPreference);
 
+    Integer getDriverIDByToken(String token);
+
+    String getDriverTokenByID(Integer driverID);
 
     Driver getDriverByEmail(String email);
 

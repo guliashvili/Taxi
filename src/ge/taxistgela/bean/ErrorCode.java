@@ -31,6 +31,7 @@ public class ErrorCode {
             return null;
     }
 
+
     public boolean errorNotAccrued() {
         return !errorAccrued();
     }
@@ -44,6 +45,9 @@ public class ErrorCode {
         errors.put(varName, info);
     }
 
+    public void wrongType() {
+        put("wrongType", "Find out phone and fuck us coz we have too shitty error in code");
+    }
     public void unexpected() {
         put("unexpected", "unexpected error accrued");
     }

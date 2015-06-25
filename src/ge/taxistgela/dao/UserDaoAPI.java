@@ -87,6 +87,10 @@ public interface UserDaoAPI {
      */
     boolean verifyUserPhoneNumber(String phoneNumber);
 
+    Integer getUserIDByToken(String token);
+
+    String getUserTokenByID(Integer userID);
+
     /**
      * Tries to login with the certain email and password.
      * Returns null if no user exists.

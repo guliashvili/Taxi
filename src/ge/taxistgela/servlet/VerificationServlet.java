@@ -3,8 +3,8 @@ package ge.taxistgela.servlet;
 import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
+import ge.taxistgela.model.SuperUser;
 import ge.taxistgela.model.UserManagerAPI;
-import ge.taxistgela.model.Verifies;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ public class VerificationServlet extends ActionServlet {
 
     private final static String[] V_TYPE = {"phone number", "email"};
 
-    private void mainVerifyPhone(Verifies obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void mainVerifyPhone(SuperUser obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = request.getParameter("token");
 
@@ -38,7 +38,7 @@ public class VerificationServlet extends ActionServlet {
 
     }
 
-    private void mainVerifyEmail(Verifies obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void mainVerifyEmail(SuperUser obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
 
         if (obj != null && token != null) {
