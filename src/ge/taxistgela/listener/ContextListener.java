@@ -93,7 +93,7 @@ public class ContextListener implements ServletContextListener,
         sc.removeAttribute(UserManagerAPI.class.getName());
 
         // remove TaxRam.
-        sc.setAttribute(TaxRam.class.getName());
+        sc.removeAttribute(TaxRam.class.getName());
 
         // remove OrderDispatcher.
         OrderDispatcher orderDispatcher = (OrderDispatcher) sce.getServletContext().getAttribute(OrderDispatcher.class.getName());
