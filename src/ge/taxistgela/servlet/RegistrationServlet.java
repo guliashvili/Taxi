@@ -22,7 +22,11 @@ public class RegistrationServlet extends ActionServlet {
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         UserPreference userPreference = new UserPreference(-1, 0.1, false, 1900, Integer.MAX_VALUE, 5, false);
-
+        ErrorCode code = userManager.insertUserPreference(userPreference);
+        if(code!=null){
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         User user = new User(
                 -1,
                 request.getParameter("useremail"),
@@ -47,9 +51,17 @@ public class RegistrationServlet extends ActionServlet {
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
         DriverPreference driverPreference = new DriverPreference(-1, 0.1, 0.0);
-
+        ErrorCode code = driverManager.insertDriverPreference(driverPreference);
+        if(code!=null){
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         Car car = new Car("Unknown", "Untitled", 1900, false, 0);
-
+        code = driverManager.insertCar(car);
+        if(code!=null){
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         Driver driver = new Driver(
                 -1,
                 request.getParameter("driverpersonalID"),
@@ -122,9 +134,9 @@ public class RegistrationServlet extends ActionServlet {
 
         Gender gender = null;
 
-        if (usergender.equals("Male")) {
+        if (usergender.toUpperCase().equals("MALE")) {
             gender = Gender.MALE;
-        } else if (usergender.equals("Female")) {
+        } else if (usergender.toUpperCase().equals("FEMALE")) {
             gender = Gender.FEMALE;
         }
 

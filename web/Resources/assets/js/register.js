@@ -3,7 +3,7 @@
  */
 
 // Registration management goes here.
-$(function () {
+function createRegister () {
     $('#registerBtn').click(function () {
         var formData = $("#registrationForm").serialize();
 
@@ -24,4 +24,4 @@ $(function () {
 
         return false;
     });
-});
+}

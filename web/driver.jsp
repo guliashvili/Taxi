@@ -8,6 +8,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="Resources/assets/js/driver.js"/>
+<section id="map" style="position:absolute;width:100%;height:100%;">
+
+</section>
 <div class="prefPanel">
   <div class="row uniform" style="margin-left:10px">
     <br>
@@ -38,10 +41,10 @@
     <div id="cPass" class="5u$ hidden">
       <form action="" type="post">
         <span> New Password: </span>
-        <input name="password" type="password" value="" required></input>
+        <input name="password" type="password" value="" required/>
         <span> Repeat Password: </span>
-        <input type="password" value="" required></input><br>
-        <input type="submit" class="special button" value="Save"></input>
+        <input type="password" value="" /><br>
+        <input type="submit" class="special button" value="Save"/>
       </form>
     </div>
     <div style="float:right" class="4u$ (xsmall)">
@@ -54,8 +57,8 @@
     </div>
     <div id="cP" class="5u$ 12u$(small) hidden">
       <form action="" type="post">
-        <input type="text" placeholder="Company Code" required></input><br>
-        <input type="submit" style="float:right;"class="button special" value="register"></input>
+        <input type="text" placeholder="Company Code" /><br>
+        <input type="submit" style="float:right;"class="button special" value="register"/>
       </form>
     </div>
     <div class="5u$ 12u$(small)">

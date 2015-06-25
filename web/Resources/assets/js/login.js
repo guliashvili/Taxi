@@ -5,7 +5,7 @@
 
 // Login management goes here.
 
-$(function () {
+function createLogin () {
     $('#loginBtn').click(function () {
         var formData = $("#loginForm").serialize();
 
@@ -31,4 +31,4 @@ $(function () {
 
         return false;
     });
-});
+}
