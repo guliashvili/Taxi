@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by GIO on 5/25/2015.
  */
-public abstract class UserManagerAPI implements SuperUserManager {
+public abstract class UserManagerAPI implements SuperUserTokenedManager {
     protected UserDaoAPI userDao;
 
     public UserManagerAPI(UserDaoAPI userDao) {

@@ -123,7 +123,6 @@ public class GioTestsDao {
 
         assertFalse(userDao.updateUser(tmp));
 
-        to.setPreference(userPreference);
         to.setUserID(tmp.getUserID());
         assertEquals(tmp, to);
 
@@ -234,19 +233,57 @@ public class GioTestsDao {
     }
 
 
-    public Driver insertDriver(Driver blank,Driver target){
+    public Driver insertDriver(Driver blank,Driver target,DriverPreference pf,Car cr){
+        Driver tmp = new Driver(blank);
+        Driver to = new Driver(target);
+
+        assertFalse(driverDao.registerDriver(tmp));
+
+        to.setDriverID(tmp.getDriverID());
+        to.setPreferences(pf);
+        to.setCar(cr);
+
+
+        tmp.setPersonalID(to.getPersonalID());
+        tmp.setEmail(to.getEmail());
+        tmp.setPassword(to.getPassword());
+        tmp.setCompanyID(to.getCompanyID());
+        tmp.setFirstName(to.getFirstName());
+        tmp.setLastName(to.getLastName());
+        tmp.setGender(to.getGender());
+        tmp.setPhoneNumber(to.getPhoneNumber());
+        tmp.setCar(to.getCar());
+        tmp.setFacebookID(to.getFacebookID());
+        tmp.setGoogleID(to.getGoogleID());
+        tmp.setLocation(to.getLocation());
+        tmp.setRating(to.getRating());
+        tmp.setPreferences(to.getPreferences());
+        tmp.setIsActive(to.getIsActive());
+        tmp.setIsVerifiedEmail(to.getIsVerifiedEmail());
+        tmp.setIsVerifiedPhone(to.getIsVerifiedPhone());
+
+        assertFalse(driverDao.updateDriver(tmp));
+
+
+
         return  null;
     }
 
     public  void testDrivers(){
         DriverPreference blankPreference = new DriverPreference(-1,-1.0,-1.0);
 
-        driverPreference1 = insertDriverPreference(blankPreference,driverPreference1);
+        driverPreference1 = insertDriverPreference(blankPreference, driverPreference1);
         driverPreference2 = insertDriverPreference(blankPreference, driverPreference2);
 
         Car blank = new Car("JJJ-666","blanki var",0,false,-1);
         car1 = insertCar(blank,car1);
         car2 = insertCar(blank,car2);
+
+
+        Driver blankDriver = new Driver(-1,"66666669999","blank@blank.ge","blankpwd",null,"blank","blankiashvili",
+                Gender.MALE,"556667776",null,null,null,null,-1.0,null,false,false,false);
+        driver1 = insertDriver(blankDriver,driver1,driverPreference1,car1);
+        driver2 = insertDriver(blankDriver,driver2,driverPreference2,car2);
     }
 
     @Test
