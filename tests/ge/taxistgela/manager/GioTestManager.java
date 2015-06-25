@@ -25,6 +25,7 @@ public class GioTestManager {
     Driver driver1, driver2;
     Company company1;
 
+
     UserPreference userPreference1, userPreference2;
     DriverPreference driverPreference1, driverPreference2;
     // Location location1, location2;
@@ -32,6 +33,9 @@ public class GioTestManager {
     DriverManager driverManager;
     UserManager userManager;
     CompanyManager companyManager;
+    CompanyDao companyDao;
+    DriverDao driverDao;
+
 
     @Before
     @After
@@ -77,9 +81,6 @@ public class GioTestManager {
     }
 
     public void testCompany() {
-        Company tmp = new Company(company1);
-        tmp.setEmail("nofuckin.email");
-        ErrorCode er = companyManager.register(company1);
 
 
     }

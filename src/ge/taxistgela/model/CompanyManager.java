@@ -101,7 +101,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation c) {
+    public ErrorCode changePassword(GeneralCheckableInformation c, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (c == null)
             ret.nullArgument();
@@ -111,7 +111,9 @@ public class CompanyManager extends   CompanyManagerAPI {
             Company company = (Company) c;
             ret.union(getErrors(company));
 
-            if (!ret.errorAccrued())
+            if (companyDao.loginCompany(c.getEmail(), oldPassword) == null)
+                ret.wrongPassword();
+            else if (!ret.errorAccrued())
                 if (companyDao.changePassword(company))
                     ret.unexpected();
         }
