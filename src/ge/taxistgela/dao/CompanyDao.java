@@ -59,7 +59,7 @@ public class CompanyDao implements CompanyDaoAPI {
 
         Company ret;
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE companiID=?"))) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT * FROM companies WHERE companyID=?"))) {
 
                 st.setInt(1, companyID);
 

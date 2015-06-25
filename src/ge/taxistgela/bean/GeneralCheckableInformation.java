@@ -23,6 +23,13 @@ public abstract class GeneralCheckableInformation implements Checkable {
         return HashGenerator.encryptAES(getEmail());
     }
 
+    public abstract Boolean getIsVerifiedEmail();
+
+    public abstract void setIsVerifiedEmail(Boolean isVerifiedEmail);
+
+    public abstract Boolean getIsVerifiedPhone();
+
+    public abstract void setIsVerifiedPhone(Boolean isVerifiedPhone);
 
     public ErrorCode isValid() {
         ErrorCode ret = new ErrorCode();
