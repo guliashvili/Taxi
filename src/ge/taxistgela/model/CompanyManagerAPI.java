@@ -8,11 +8,12 @@ import ge.taxistgela.dao.CompanyDaoAPI;
 public abstract class CompanyManagerAPI implements SuperUserManager {
     protected CompanyDaoAPI companyDao;
     protected TaxRam taxRam;
-
     public CompanyManagerAPI(CompanyDaoAPI companyDao, TaxRam taxRam) {
         this.companyDao = companyDao;
         this.taxRam = taxRam;
     }
+
+    public abstract Double getCompanyScore(Integer companyID);
 
     public abstract Integer getCompanyIDByCode(String companyCode);
     /**

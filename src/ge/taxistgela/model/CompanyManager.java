@@ -15,6 +15,10 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
+    public Double getCompanyScore(Integer companyID) {
+        return companyDao.getCompanyScore(companyID);
+    }
+    @Override
     public Company login(String email, String password) {
         Company ret = null;
         if (email != null || password != null) ret = companyDao.loginCompany(email, password);

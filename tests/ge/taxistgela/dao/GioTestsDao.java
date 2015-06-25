@@ -28,6 +28,7 @@ public class GioTestsDao {
     Car car1, car2;
 
     Review review1, review2;
+    Order order1, order2;
 
     UserDao userDao;
     DriverDao driverDao;
@@ -54,6 +55,7 @@ public class GioTestsDao {
             System.out.println(e.toString());
             assertTrue(false);
         }
+
 
         userPreference1 = new UserPreference(-1, 4.0, true, 1995, 10, 2, true);
         userPreference2 = new UserPreference(-1, 3.9, false, 1990, 12, 1, true);
