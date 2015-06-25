@@ -120,15 +120,18 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div class="modal-body">
           <form id="registrationForm">
             <div class = "4u">
-              <input type="radio" class="regChange" showf="userRegistration" id="userReg" name="userReg">
+                <input type="radio" class="regChange" showf="userRegistration" id="userReg" name="action"
+                       value="registerUser">
               <label for="userReg">User</label>
             </div>
             <div class = "4u">
-              <input type="radio" class="regChange" showf="driverRegistration" id="driverReg" name="userReg">
+                <input type="radio" class="regChange" showf="driverRegistration" id="driverReg" name="action"
+                       value="registerDriver">
               <label for="driverReg">Driver</label>
             </div>
             <div class = "4u">
-              <input type="radio" class="regChange" showf="companyRegistration" id="companyReg" name="userReg">
+                <input type="radio" class="regChange" showf="companyRegistration" id="companyReg" name="action"
+                       value="registerCompany">
               <label for="companyReg">Company</label>
             </div>
             <br><br>
