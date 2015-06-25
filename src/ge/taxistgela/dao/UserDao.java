@@ -426,9 +426,9 @@ public class UserDao implements UserDaoAPI {
             st.setInt(x++, user.getPreference().getUserPreferenceID());
             st.setBoolean(x++, user.getIsVerifiedEmail());
             st.setBoolean(x++, user.getIsVerifiedPhone());
+            st.setString(x++, user.getToken());
             if (update)
                 st.setInt(x++, user.getUserID());
-            st.setString(x++, user.getToken());
 
         } catch (SQLException e) {
             errorCode = true;

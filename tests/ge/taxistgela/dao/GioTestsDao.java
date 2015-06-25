@@ -118,6 +118,7 @@ public class GioTestsDao {
         tmp.setPhoneNumber(to.getPhoneNumber());
         tmp.setGender(to.getGender());
         tmp.setRating(to.getRating());
+        tmp.setToken(to.getToken());
 
 
         assertFalse(userDao.updateUser(tmp));

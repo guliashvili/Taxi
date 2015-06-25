@@ -571,9 +571,10 @@ public class DriverDao implements DriverDaoAPI {
             st.setBoolean(x++, driver.isActive());
             st.setBoolean(x++, driver.getIsVerifiedEmail());
             st.setBoolean(x++, driver.getIsVerifiedPhone());
+            st.setString(x++, driver.getToken());
             if (update)
                 st.setInt(x++, driver.getDriverID());
-            st.setString(x++, driver.getToken());
+
         } catch (SQLException e) {
             errorCode = true;
             ExternalAlgorithms.debugPrint(e);
