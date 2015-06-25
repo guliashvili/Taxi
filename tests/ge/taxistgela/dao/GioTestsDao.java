@@ -246,7 +246,7 @@ public class GioTestsDao {
 
         tmp.setPersonalID(to.getPersonalID());
         tmp.setEmail(to.getEmail());
-        tmp.setPassword(to.getPassword());
+
         tmp.setCompanyID(to.getCompanyID());
         tmp.setFirstName(to.getFirstName());
         tmp.setLastName(to.getLastName());
@@ -261,8 +261,20 @@ public class GioTestsDao {
         tmp.setIsActive(to.getIsActive());
         tmp.setIsVerifiedEmail(to.getIsVerifiedEmail());
         tmp.setIsVerifiedPhone(to.getIsVerifiedPhone());
+        tmp.setToken(to.getToken());
 
         assertFalse(driverDao.updateDriver(tmp));
+
+        tmp.setPassword(to.getPassword());
+        driverDao.changePassword(tmp);
+
+        to.setDriverID(tmp.getDriverID());
+
+        assertEquals(tmp, to);
+        to.setPassword(HashGenerator.getSaltHash(to.getPassword()));
+        tmp = driverDao.getDriverByID(tmp.getDriverID());
+
+        assertEquals(tmp,to);
 
 
 
@@ -279,9 +291,9 @@ public class GioTestsDao {
         car1 = insertCar(blank,car1);
         car2 = insertCar(blank,car2);
 
-
+        Location blankLocation = new Location(0.0,0.0);
         Driver blankDriver = new Driver(-1,"66666669999","blank@blank.ge","blankpwd",null,"blank","blankiashvili",
-                Gender.MALE,"556667776",null,null,null,null,-1.0,null,false,false,false);
+                Gender.MALE,"556667776",car2,null,null,blankLocation,-1.0,driverPreference2,false,false,false);
         driver1 = insertDriver(blankDriver,driver1,driverPreference1,car1);
         driver2 = insertDriver(blankDriver,driver2,driverPreference2,car2);
     }

@@ -41,7 +41,7 @@ CREATE TABLE Drivers (
   lastName      VARCHAR(20)               NOT NULL,
   gender        ENUM('MALE', 'FEMALE') NOT NULL,
   phoneNumber   VARCHAR(13) UNIQUE NOT NULL,
-  carID         VARCHAR(8)  UNIQUE     NOT NULL,
+  carID         VARCHAR(20)  UNIQUE     NOT NULL,
   facebookID  VARCHAR(255) UNIQUE,
   googleID   VARCHAR(255) UNIQUE,
   rating        DOUBLE             NOT NULL,
