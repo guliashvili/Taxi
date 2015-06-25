@@ -7,41 +7,30 @@
     <script>
         $(document).ready(function () {
             var socket;
-
             $("#connectBtn").click(function () {
                 var token = $("#token").val();
-
                 socket = new WebSocket("ws://" + window.location.host + "/wsapp/1/" + token);
-
                 socket.onopen = function (arg) {
                     console.log("success", "connected");
-                }
-
+                };
                 socket.onmessage = function (arg) {
                     console.log("success", arg.data);
-
                     var $notifications = $("#notifications");
-
                     $notifications.append("<li>" + arg.data + "</li>");
-                }
-
+                };
                 socket.onclose = function (arg) {
                     console.log("success", "disconnected");
-                }
-
+                };
                 socket.error = function (arg) {
                     console.error(arg.data);
                 }
             });
-
             $("#disconnectBtn").click(function () {
                 socket.close();
             });
-
             $("#sendBtn").click(function () {
                 var token = $("#driverToken").val();
                 var msg = $("#message").val();
-
                 $.get("/send", {"action": "sendToDriver", "token": token, "message": msg})
                         .done(function () {
                             console.log("success", "Message Sent");

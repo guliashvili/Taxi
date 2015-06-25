@@ -1,5 +1,7 @@
 package ge.taxistgela.servlet;
 
+import ge.taxistgela.helper.ExternalAlgorithms;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +30,8 @@ public abstract class ActionServlet extends HttpServlet {
      * @param response
      */
     private void process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("process");
         String action = request.getParameter("action");
-        System.out.println(action);
+        ExternalAlgorithms.debugPrint(action);
         
         try {
             Method method = this.getClass().getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
