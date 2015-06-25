@@ -19,6 +19,7 @@ public interface DriverDaoAPI {
      */
     Car getCarByID(String carID);
 
+    Boolean setDriverActiveStatus(int driverID, boolean isActive);
 
     /**
      * Inserts the certain car.

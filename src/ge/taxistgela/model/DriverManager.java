@@ -232,6 +232,18 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
+    public ErrorCode setDriverActiveStatus(int driverID, boolean isActive) {
+        ErrorCode ret = new ErrorCode();
+        if (driverDao.getDriverByID(driverID) == null) {
+            ret.unexpected();
+        } else if (driverDao.setDriverActiveStatus(driverID, isActive)) {
+            ret.unexpected();
+        }
+
+        return ret;
+    }
+
+    @Override
     public ErrorCode updateDriverPreference(DriverPreference driverPreference) {
         ErrorCode ret = new ErrorCode();
         if (driverPreference == null)

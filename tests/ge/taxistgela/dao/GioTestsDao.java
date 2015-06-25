@@ -296,6 +296,9 @@ public class GioTestsDao {
         assertEquals(tmp, driverDao.getDriverByPhoneNumber(tmp.getPhoneNumber()));
         assertEquals(tmp, driverDao.loginDriver(target.getEmail(), target.getPassword()));
 
+        assertFalse(driverDao.setDriverActiveStatus(tmp.getDriverID(), true));
+        assertTrue(driverDao.getDriverByID(tmp.getDriverID()).getIsActive());
+
         return tmp;
     }
 

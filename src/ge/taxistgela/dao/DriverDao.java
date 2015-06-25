@@ -89,6 +89,25 @@ public class DriverDao implements DriverDaoAPI {
         return car;
     }
 
+    @Override
+    public Boolean setDriverActiveStatus(int driverID, boolean isActive) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Drivers SET isActive=? WHERE driverID=?"))) {
+
+                st.setBoolean(1, isActive);
+                st.setInt(2, driverID);
+                ExternalAlgorithms.debugPrintSelect("setDriverActiveStatus\n" + st.toString());
+
+                st.executeUpdate();
+            }
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
 
     @Override
     public boolean verifyDriverEmail(String email) {

@@ -22,6 +22,7 @@ public abstract class DriverManagerAPI implements SuperUserTokenedManager {
      */
     public abstract Car getCarByID(String carID);
 
+    public abstract ErrorCode setDriverActiveStatus(int driverID, boolean isActive);
 
     /**
      * Inserts the certain car.
