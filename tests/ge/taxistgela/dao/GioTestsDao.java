@@ -24,7 +24,7 @@ public class GioTestsDao {
 
     UserPreference userPreference1, userPreference2;
     DriverPreference driverPreference1, driverPreference2;
-    Location location1, location2;
+    // Location location1, location2;
     Car car1, car2;
 
     UserDao userDao;
@@ -53,17 +53,17 @@ public class GioTestsDao {
         driverPreference1 = new DriverPreference(-1, 2.0, 4.0);
         driverPreference2 = new DriverPreference(-1, 2.0, 3.0);
 
-        location1 = new Location(41.745984, 44.775832);
-        location2 = new Location(41.709599, 44.756885);
+        //location1 = new Location(41.745984, 44.775832);
+        //location2 = new Location(41.709599, 44.756885);
 
         car1 = new Car("JRJ-880", "jigri mdzgoli", 2000, true, 4);
         car2 = new Car("PK-990-AC", "mweveli", 1994, false, 4);
 
         driver1 = new Driver(-1, "01005030801", "vinmesmiti@gmail.com", "traki", null, "Giorgi", "Guliashvili", Gender.MALE, "557105511", car1,
-                null, "googleIDFOr traki", location1, 4.0, driverPreference1, true, false, false);
+                null, "googleIDFOr traki", 4.0, driverPreference1, true, false, false);
 
         driver2 = new Driver(-1, "01005030666", "gguli13@freeuni.edu.ge", "evtanazia", null, "Gela", "Meyleve", Gender.FEMALE, "557105666", car2,
-                "yleta jgro", null, location2, 4.0, driverPreference2, true, false, false);
+                "yleta jgro", null, 4.0, driverPreference2, true, false, false);
 
         company1 = new Company(-1, "code", "email@email.com", "123456(dumbpwd)", "lucifer", "566666666", "fbid", "glid", false, false);
 
@@ -265,7 +265,6 @@ public class GioTestsDao {
         tmp.setCar(to.getCar());
         tmp.setFacebookID(to.getFacebookID());
         tmp.setGoogleID(to.getGoogleID());
-        tmp.setLocation(to.getLocation());
         tmp.setRating(to.getRating());
         tmp.setPreferences(to.getPreferences());
         tmp.setIsActive(to.getIsActive());
@@ -326,9 +325,9 @@ public class GioTestsDao {
         car1 = insertCar(blank,car1);
         car2 = insertCar(blank,car2);
 
-        Location blankLocation = new Location(0.0,0.0);
+        //Location blankLocation = new Location(0.0,0.0);
         Driver blankDriver = new Driver(-1,"66666669999","blank@blank.ge","blankpwd",null,"blank","blankiashvili",
-                Gender.MALE,"556667776",car2,null,null,blankLocation,-1.0,driverPreference2,false,false,false);
+                Gender.MALE, "556667776", car2, null, null, -1.0, driverPreference2, false, false, false);
         driver1 = insertDriver(blankDriver,driver1,driverPreference1,car1);
         assertTrue(driverDao.registerDriver(driver1));
         driver2 = insertDriver(blankDriver,driver2,driverPreference2,car2);

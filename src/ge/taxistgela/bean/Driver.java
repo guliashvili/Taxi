@@ -19,7 +19,6 @@ public class Driver extends GeneralCheckableInformation {
     private Car car;
     private String facebookID;
     private String googleID;
-    private Location location;
     private Double rating;
     private DriverPreference preferences;
     private Boolean isActive;
@@ -31,7 +30,7 @@ public class Driver extends GeneralCheckableInformation {
         token = RandomStringUtils.randomAscii(20);
     }
 
-    public Driver(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+    public Driver(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
         this();
 
         setDriverID(driverID);
@@ -46,7 +45,6 @@ public class Driver extends GeneralCheckableInformation {
         setCar(car);
         setFacebookID(facebookID);
         setGoogleID(googleID);
-        setLocation(location);
         setRating(rating);
         setPreferences(preferences);
         setIsActive(isActive);
@@ -57,7 +55,7 @@ public class Driver extends GeneralCheckableInformation {
     public Driver(Driver driver) {
         this(driver.getDriverID(), driver.getPersonalID(), driver.getEmail(), driver.getPassword(), driver.getCompanyID(),
                 driver.getFirstName(), driver.getLastName(), driver.getGender(), driver.getPhoneNumber(), driver.getCar(),
-                driver.getFacebookID(), driver.getGoogleID(), driver.getLocation(), driver.getRating(), driver.getPreferences(),
+                driver.getFacebookID(), driver.getGoogleID(), driver.getRating(), driver.getPreferences(),
                 driver.isActive(), driver.getIsVerifiedEmail(), driver.getIsVerifiedPhone());
         token = driver.token;
     }
@@ -99,7 +97,6 @@ public class Driver extends GeneralCheckableInformation {
                 ExternalAlgorithms.equalsNull(getFacebookID(), o.getFacebookID()) &&
                 ExternalAlgorithms.equalsNull(getGoogleID(), o.getGoogleID()) &&
 
-                ExternalAlgorithms.equalsNull(getLocation(), o.getLocation()) &&
                 ExternalAlgorithms.equalsNull(getRating(), o.getRating()) &&
                 ExternalAlgorithms.equalsNull(getPreferences(), o.getPreferences()) &&
                 ExternalAlgorithms.equalsNull(isActive(), o.isActive()) &&
@@ -209,14 +206,6 @@ public class Driver extends GeneralCheckableInformation {
 
     public void setGoogleID(String googleID) {
         this.googleID = googleID;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public Double getRating() {

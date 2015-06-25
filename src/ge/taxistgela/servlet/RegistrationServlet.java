@@ -75,7 +75,6 @@ public class RegistrationServlet extends ActionServlet {
                 car,
                 null,
                 null,
-                new Location(0.0, 0.0),
                 5.0,
                 driverPreference,
                 false,

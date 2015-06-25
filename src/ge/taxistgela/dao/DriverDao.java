@@ -25,11 +25,11 @@ public class DriverDao implements DriverDaoAPI {
     private final static String driverByCompanyId_STMT = base_select_STMT + "WHERE companyID=?";
     private final static String register_STMT = "INSERT INTO " +
             "Drivers (personalID,password,email,companyID,firstName,lastName,gender,phoneNumber,carID," +
-            "facebookID,googleID,rating,DriverPreferenceID,latitude,longitude,isActive,isVerifiedEmail,isVerifiedPhone,token)" +
-            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            "facebookID,googleID,rating,DriverPreferenceID,isActive,isVerifiedEmail,isVerifiedPhone,token)" +
+            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Drivers " +
             "SET personalID=?,email=?,companyID=?,firstName=?,lastName=?,gender=?,phoneNumber=?,carID=?,facebookID=?,googleID=?," +
-            "rating=?,driverPreferenceID=?,latitude=?,longitude=?,isActive=?,isVerifiedEmail=?,isVerifiedPhone=?,token=? " +
+            "rating=?,driverPreferenceID=?,isActive=?,isVerifiedEmail=?,isVerifiedPhone=?,token=? " +
             " WHERE driverID = ?";
 
     private final static String preferences_STMT = base_join_select_STMT +
@@ -343,7 +343,6 @@ public class DriverDao implements DriverDaoAPI {
             DriverPreference pref = getDriverPreferenceByID(driverPreferenceID);
             output.setPreferences(pref);
 
-            output.setLocation(new Location(res.getDouble("Drivers.latitude"), res.getDouble("Drivers.longitude")));
             output.setIsActive(res.getBoolean("Drivers.isActive"));
             output.setIsVerifiedEmail(res.getBoolean("Drivers.isVerifiedEmail"));
             output.setIsVerifiedPhone(res.getBoolean("Drivers.isVerifiedPhone"));
@@ -586,8 +585,6 @@ public class DriverDao implements DriverDaoAPI {
             st.setString(x++, driver.getGoogleID());
             st.setDouble(x++, driver.getRating());
             st.setInt(x++, driver.getPreferences().getDriverPreferenceID());
-            st.setDouble(x++, driver.getLocation().getLatitude());
-            st.setDouble(x++, driver.getLocation().getLongitude());
             st.setBoolean(x++, driver.isActive());
             st.setBoolean(x++, driver.getIsVerifiedEmail());
             st.setBoolean(x++, driver.getIsVerifiedPhone());

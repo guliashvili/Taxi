@@ -46,8 +46,6 @@ CREATE TABLE Drivers (
   googleID   VARCHAR(255) UNIQUE,
   rating        DOUBLE             NOT NULL,
   driverPreferenceID INT                NOT NULL,
-  latitude  DECIMAL(10, 7) NOT NULL,
-  longitude DECIMAL(10, 7) NOT NULL,
   isActive      BOOLEAN            NOT NULL,
   isVerifiedEmail BOOLEAN NOT NULL,
   isVerifiedPhone BOOLEAN NOT NULL,
