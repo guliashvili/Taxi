@@ -14,9 +14,8 @@ public class DBConnectionProvider {
 
     static {
         dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER
-                + ":3306/" + DBInfo.MYSQL_DATABASE_NAME + "?characterEncoding=UTF8");
+        dataSource.setDriverClassName(DBInfo.MYSQL_DATABASE_SERVER);
+        dataSource.setUrl(DBInfo.MYSQL_DATABASE_NAME);
         dataSource.setUsername(DBInfo.MYSQL_USERNAME);
         dataSource.setPassword(DBInfo.MYSQL_PASSWORD);
     }

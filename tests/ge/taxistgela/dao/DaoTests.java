@@ -244,7 +244,7 @@ public class DaoTests {
         Location l = new Location(new Double(2.234), new Double(3.1245));
         Driver driver = new Driver(-1, "01010101011", "gela@taxistgela.ge", "Madridista1", null, "gela", "magaltadze", Gender.MALE, "555696996", car, "gelandara95", "bozandara", l, 2.2, pref, true, true, true);
 
-        man.registerDriver(driver);
+        assertFalse(man.registerDriver(driver));
         Driver driver1=man.loginDriver(driver.getEmail(),driver.getPassword());
         compareDrivers(driver,driver1);
         //Register + login test

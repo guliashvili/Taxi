@@ -19,10 +19,12 @@ public class EmailSenderTest {
             User user = new User();
             user.setFirstName("Rmertochemo");
             user.setEmail("vinmesmiti@gmail.com");
-            EmailSender.verifyEmail(user, HashGenerator.getSaltHash("asdf"));
+            user.setToken(HashGenerator.getSaltHash("asdf"));
+            EmailSender.verifyEmail(user);
             user.setFirstName("Azo");
             user.setEmail("alex.r.azizian@gmail.com");
-            EmailSender.verifyEmail(user, HashGenerator.getSaltHash("asdfk"));
+            user.setToken(HashGenerator.getSaltHash("asdfk"));
+            EmailSender.verifyEmail(user);
         }catch (Exception e){
             System.out.println(e.toString());
             assertTrue(false);

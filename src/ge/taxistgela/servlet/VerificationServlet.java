@@ -34,7 +34,7 @@ public class VerificationServlet extends ActionServlet {
 
         }
 
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
     }
 
@@ -52,7 +52,7 @@ public class VerificationServlet extends ActionServlet {
 
         }
 
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 
     // /verify?action=uPhone&token=
