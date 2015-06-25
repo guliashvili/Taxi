@@ -27,7 +27,7 @@ public class Driver extends GeneralCheckableInformation {
     private String token;
 
     public Driver() {
-        token = RandomStringUtils.randomAscii(20);
+        token = RandomStringUtils.randomAlphanumeric(20);
     }
 
     public Driver(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {

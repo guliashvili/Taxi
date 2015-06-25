@@ -24,7 +24,7 @@ public class HashGeneratorTest {
         s = "traki";
         assertEquals("98ccab148f07b22e761434aa4c552dad",HashGenerator.getSaltHash(s));
 
-        s = "azo@freeuni.edu.ge";
+        s = "rmach13@freeuni.edu.ge";
         String s1 = HashGenerator.encryptAES(s);
         s1 = HashGenerator.decryptAES(s1);
         assertEquals(s, s1);
