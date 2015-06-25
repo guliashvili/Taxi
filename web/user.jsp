@@ -11,8 +11,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="Resources/assets/js/user.js"/>
-<section id="map" style="width:100%;height:100%;">
+<script src="Resources/assets/js/user.js"></script>
+<section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
 <% User user = (User) session.getAttribute(User.class.getName());%>
@@ -26,7 +26,7 @@
             <a href="#"><h3>Your Current Rating: <%= user.getRating()%>
             </h3></a>
             <% for (int i = 1; i <= 5; ++i) { %>
-            <% if (user.getRating() > i) { %>
+            <% if (user.getRating() >= i) { %>
             <li class="fa fa-star"></li>
             <% } else { %>
             <% if (Math.ceil(user.getRating()) > i) { %>
@@ -44,18 +44,18 @@
         <br><br><br><br>
 
         <div class="6u 12u$(xsmall)">
-            <input type="email" disabled value="rmach13@freeuni.edu.ge">
+            <input type="email" disabled value="<%=user.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.isVerified()){out.println("disalbed");}%> verified">
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disalbed");}%> verified">
                 Verified
             </button>
         </div>
         <div class="6u 12u$(xsmall)">
-            <input type="text" disabled value="+995558677895">
+            <input type="text" disabled value="<%=user.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.isVerified()){out.println("disalbed");}%> special">
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disalbed");}%> special">
                 Verify
             </button>
         </div>
@@ -128,7 +128,7 @@
                 <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
                     if (man != null) {
                         List<Order> orders = man.getOrderByUserID(user.getUserID());
-                        for (Order ord : orders){
+                        for (Order ord : orders) {
 
                         }
                     }

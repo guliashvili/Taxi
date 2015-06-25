@@ -571,3 +571,6 @@ input[type="radio"] + label:before {
     top:0;
     position:fixed;
 }
+#panel{
+    height:100%;
+}
