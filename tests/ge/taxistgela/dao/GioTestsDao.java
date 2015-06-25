@@ -3,6 +3,7 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class GioTestsDao {
 
 
     @Before
-    //@After
+    @After
     public void setup() {
         userDao = new UserDao();
         companyDao = new CompanyDao();
