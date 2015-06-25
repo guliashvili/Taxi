@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by GIO on 5/25/2015.
  */
-public abstract class DriverManagerAPI implements SuperUserManager {
+public abstract class DriverManagerAPI implements SuperUserTokenedManager {
     protected DriverDaoAPI driverDao;
     public  DriverManagerAPI(DriverDaoAPI driverDao){
         this.driverDao = driverDao;
