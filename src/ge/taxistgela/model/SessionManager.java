@@ -1,9 +1,8 @@
 package ge.taxistgela.model;
 
 import javax.websocket.Session;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Alex on 6/5/2015.
@@ -17,8 +16,8 @@ public class SessionManager implements SessionManagerAPI {
     private Map<String, Session> driverSessions;
 
     public SessionManager() {
-        this.userSessions = Collections.synchronizedMap(new HashMap<>());
-        this.driverSessions = Collections.synchronizedMap(new HashMap<>());
+        this.userSessions = new ConcurrentHashMap<>();
+        this.driverSessions = new ConcurrentHashMap<>();
     }
 
     @Override

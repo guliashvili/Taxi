@@ -30,10 +30,12 @@ public class UserDao implements UserDaoAPI {
     private final static String base_joined_select_STMT = "SELECT * FROM Users INNER JOIN UserPreferences ON " +"UserPreferences.userPreferenceID=Users.userPreferenceID ";
     private final static String login_STMT = base_select_STMT + " WHERE Users.email=? AND Users.password=?";
     private final static String userByID_STMT = base_select_STMT + " WHERE Users.userID = ?";
-    private final static String register_STMT = "INSERT INTO Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID,isVerifiedEmail,isVerifiedPhone) " +
-            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String register_STMT = "INSERT INTO " +
+            "Users(password,email,firstName,lastName,phoneNumber,gender,rating,facebookID,googleID,userPreferenceID," +
+            "isVerifiedEmail,isVerifiedPhone,token) " +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String update_STMT = "UPDATE Users SET email=?,firstName=?,lastName=?," +
-            "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=?,isVerifiedEmail=?,isVerifiedPhone=? " +
+            "phoneNumber=?,gender=?,rating=?,facebookID=?,googleID=?,Users.userPreferenceID=?,isVerifiedEmail=?,isVerifiedPhone=?,token=? " +
             "WHERE Users.userID=?";
     private final static String preferences_STMT = base_joined_select_STMT +
             " WHERE " +
@@ -176,6 +178,7 @@ public class UserDao implements UserDaoAPI {
             ret.setGoogleID(res.getString("Users.googleID"));
             ret.setIsVerifiedEmail(res.getBoolean("Users.isVerifiedEmail"));
             ret.setIsVerifiedPhone(res.getBoolean("Users.isVerifiedPhone"));
+            ret.setToken(res.getString("Users.token"));
 
             int userPreferenceID = res.getInt("Users.userPreferenceID");
 
@@ -386,6 +389,7 @@ public class UserDao implements UserDaoAPI {
             st.setBoolean(x++, user.getIsVerifiedPhone());
             if (update)
                 st.setInt(x++, user.getUserID());
+            st.setString(x++, user.getToken());
 
         } catch (SQLException e) {
             errorCode = true;

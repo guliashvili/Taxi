@@ -1,6 +1,7 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * Created by Alex on 5/25/2015.
@@ -24,8 +25,15 @@ public class Driver extends GeneralCheckableInformation {
     private Boolean isActive;
     private Boolean isVerifiedEmail;
     private Boolean isVerifiedPhone;
+    private String token;
+
+    public Driver() {
+        token = RandomStringUtils.randomAscii(20);
+    }
 
     public Driver(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Location location, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+        this();
+
         setDriverID(driverID);
         setPersonalID(personalID);
         setEmail(email);
@@ -51,11 +59,24 @@ public class Driver extends GeneralCheckableInformation {
                 driver.getFirstName(), driver.getLastName(), driver.getGender(), driver.getPhoneNumber(), driver.getCar(),
                 driver.getFacebookID(), driver.getGoogleID(), driver.getLocation(), driver.getRating(), driver.getPreferences(),
                 driver.isActive(), driver.getIsVerifiedEmail(), driver.getIsVerifiedPhone());
+        token = driver.token;
     }
 
-    public Driver() {
+    public Boolean getIsActive() {
+        return isActive;
     }
 
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -216,10 +237,6 @@ public class Driver extends GeneralCheckableInformation {
 
     public Boolean isActive() {
         return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
     }
 
     public Boolean getIsVerifiedEmail() {

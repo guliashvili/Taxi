@@ -51,6 +51,7 @@ CREATE TABLE Drivers (
   isActive      BOOLEAN            NOT NULL,
   isVerifiedEmail BOOLEAN NOT NULL,
   isVerifiedPhone BOOLEAN NOT NULL,
+  token VARCHAR(255) NOT NULL,
   FOREIGN KEY (carID) REFERENCES Cars (carID),
   FOREIGN KEY (driverPreferenceID) REFERENCES DriverPreferences (driverPreferenceID),
   FOREIGN KEY (companyID) REFERENCES Companies (companyID)
@@ -80,6 +81,7 @@ CREATE TABLE Users (
   userPreferenceID INT                    NOT NULL,
   isVerifiedEmail BOOLEAN NOT NULL,
   isVerifiedPhone BOOLEAN NOT NULL,
+  token VARCHAR(255) NOT NULL,
   FOREIGN KEY (userPreferenceID) REFERENCES UserPreferences (userPreferenceID)
 );
 

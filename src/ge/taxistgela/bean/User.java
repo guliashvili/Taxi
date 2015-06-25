@@ -1,7 +1,7 @@
 package ge.taxistgela.bean;
 
 import ge.taxistgela.helper.ExternalAlgorithms;
-
+import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Created by Alex on 5/25/2015.
  */
@@ -19,11 +19,15 @@ public class User extends GeneralCheckableInformation {
     private UserPreference preference;
     private Boolean isVerifiedEmail;
     private Boolean isVerifiedPhone;
+    private String token;
 
     public User() {
+        token = RandomStringUtils.randomAscii(20);
     }
 
     public User(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+        this();
+
         setUserID(userID);
         setEmail(email);
         setPassword(password);
@@ -43,6 +47,15 @@ public class User extends GeneralCheckableInformation {
         this(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
                 user.getGender(), user.getFacebookID(), user.getGoogleID(), user.getRating(), user.getPreference(),
                 user.getIsVerifiedEmail(), user.getIsVerifiedPhone());
+        token = user.token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
@@ -64,7 +77,8 @@ public class User extends GeneralCheckableInformation {
                 ExternalAlgorithms.equalsNull(getRating(), o.getRating()) &&
                 ExternalAlgorithms.equalsNull(getPreference(), o.getPreference()) &&
                 ExternalAlgorithms.equalsNull(getIsVerifiedEmail(), o.getIsVerifiedEmail()) &&
-                ExternalAlgorithms.equalsNull(getIsVerifiedPhone(), o.getIsVerifiedPhone());
+                ExternalAlgorithms.equalsNull(getIsVerifiedPhone(), o.getIsVerifiedPhone()) &&
+                ExternalAlgorithms.equalsNull(getToken(), o.getToken());
     }
 
     @Override
