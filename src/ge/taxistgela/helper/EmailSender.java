@@ -5,6 +5,7 @@ import ge.taxistgela.bean.GeneralCheckableInformation;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 /**
@@ -20,19 +21,6 @@ public class EmailSender {
     private final static String subject="Taxist Gela Service Verification";
     private final static String verificationURL="http://localhost:8080/verify?action=uEmail&token=";
     private final static String message_t[] = {"Thank You! "," For registration, Please Follow to the URL: ",verificationURL," And enter code given:"};
-
-    private static String encodeKey(String str){
-        String output="";
-        for(int i=0;i<str.length();++i){
-            char c = str.charAt(i);
-            if(((c <= 'a') && (c <='z')) || ((c >= 'A') && (c <='Z')) || ((c >= '0') && (c <='9'))){
-                output+=c;
-            }else{
-                output+='\\'+c;
-            }
-        }
-        return output;
-    }
     /**
      * Sends verification email specified in user given
      * @param user user to verify email
@@ -60,12 +48,12 @@ public class EmailSender {
                     StringBuilder b = new StringBuilder();
                     for (int i = 0; i < message_t.length; ++i) {
                         //if (i == 1) b.append(user.);
-                        if (i == 3) b.append(encodeKey(user.getEmailToken()));
+                        if (i == 3) b.append(URLEncoder.encode(user.getEmailToken(),"UTF-8"));
                         b.append(message_t[i]);
                     }
                     message.setText(b.toString());
                     Transport.send(message);
-                } catch (MessagingException e) {
+                } catch (Exception e) {
                     throw new RuntimeException();
                 }
             }
