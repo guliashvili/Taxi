@@ -27,9 +27,15 @@ public class GioTestsDao {
     // Location location1, location2;
     Car car1, car2;
 
+    Review review1, review2;
+
     UserDao userDao;
     DriverDao driverDao;
     CompanyDao companyDao;
+    ReviewDao reviewDao;
+    OrderDao orderDao;
+
+
 
 
     @Before
@@ -38,6 +44,8 @@ public class GioTestsDao {
         userDao = new UserDao();
         companyDao = new CompanyDao();
         driverDao = new DriverDao();
+        reviewDao = new ReviewDao();
+        orderDao = new OrderDao();
 
         AdminDatabase db = new AdminDatabase();
         try {
@@ -71,7 +79,6 @@ public class GioTestsDao {
                 null, 5.0, userPreference1, false, false);
         user2 = new User(-1, "uxucesi@mta.ge", "xmali", "mtian", "balaxadze", "511223344", Gender.MALE, null,
                 "glid", 5.5, userPreference2, false, false);
-
 
     }
 
@@ -535,6 +542,9 @@ public class GioTestsDao {
 
     }
 
+    public void testReview() {
+
+    }
 
     @Test
     public void superTest() {
@@ -545,6 +555,8 @@ public class GioTestsDao {
         testDrivers();
 
         interaction();
+
+        testReview();
 
 
     }

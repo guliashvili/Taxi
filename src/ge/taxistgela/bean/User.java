@@ -22,7 +22,7 @@ public class User extends GeneralCheckableInformation {
     private String token;
 
     public User() {
-        token = RandomStringUtils.randomAscii(20);
+        token = RandomStringUtils.randomAlphanumeric(20);
     }
 
     public User(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
