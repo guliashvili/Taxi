@@ -128,41 +128,41 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                         <div id="companyRegistration" class="hidden">
                             <input type="text" name="companyCode" value="" placeholder="Company Code"/><br>
-                            <input type="email" name="email" value="" placeholder="Company Email"/><br>
-                            <input type="password" name="password" value="" placeholder="Company Password"/><br>
-                            <input type="password" name="password" value="" placeholder="Repeat Password"/><br>
+                            <input type="email" name="companyemail" value="" placeholder="Company Email"/><br>
+                            <input type="password" name="companypassword" value="" placeholder="Company Password"/><br>
+                            <input type="password" name="companyrepassword" value="" placeholder="Repeat Password"/><br>
                             <input type="text" name="companyName" value="" placeholder="Company Name"/><br>
-                            <input type="text" name="phoneNumber" value="" placeholder="Company Phone Number"/><br>
+                            <input type="text" name="companyphoneNumber" value="" placeholder="Company Phone Number"/><br>
                             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                         <div id="userRegistration" class="hidden">
-                            <input type="text" name="firstName" value="" placeholder="First Name"/><br>
-                            <input type="text" name="lastName" value="" placeholder="Last Name"/><br>
-                            <input type="email" name="email" value="" placeholder="Email"/><br>
-                            <input type="password" name="password" value="" placeholder="Password"/><br>
-                            <input type="password" name="password" value="" placeholder="Repeat Password"/><br>
-                            <select name="gender">
+                            <input type="text" name="userfirstName" value="" placeholder="First Name"/><br>
+                            <input type="text" name="userlastName" value="" placeholder="Last Name"/><br>
+                            <input type="email" name="useremail" value="" placeholder="Email"/><br>
+                            <input type="password" name="userpassword" value="" placeholder="Password"/><br>
+                            <input type="password" name="userrepassword" value="" placeholder="Repeat Password"/><br>
+                            <select name="usergender">
                                 <option value="MALE">Male</option>
                                 <option value="FEMALE">Female</option>
                             </select><br>
-                            <input type="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
+                            <input type="text" name="userphoneNumber" value="" placeholder="Phone Number"/><br>
                             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                         <div id="driverRegistration" class="hidden">
-                            <input type="text" name="firstName" value="" placeholder="First Name"/><br>
-                            <input type="text" name="lastName" value="" placeholder="Last Name"/><br>
-                            <input type="text" name="personalID" value="" placeholder="Personal ID"/><br>
-                            <input type="text" name="companyCode" value="" placeholder="Company Code"/><br>
-                            <input type="email" name="email" value="" placeholder="Email"/><br>
-                            <input type="password" name="password" value="" placeholder="Password"/><br>
-                            <input type="password" name="password" value="" placeholder="Repeat Password"/><br>
-                            <select name="gender">
+                            <input type="text" name="driverfirstName" value="" placeholder="First Name"/><br>
+                            <input type="text" name="driverlastName" value="" placeholder="Last Name"/><br>
+                            <input type="text" name="driverpersonalID" value="" placeholder="Personal ID"/><br>
+                            <input type="text" name="drivercompanyCode" value="" placeholder="Company Code"/><br>
+                            <input type="email" name="driveremail" value="" placeholder="Email"/><br>
+                            <input type="password" name="driverpassword" value="" placeholder="Password"/><br>
+                            <input type="password" name="driverrepassword" value="" placeholder="Repeat Password"/><br>
+                            <select name="drivergender">
                                 <option value="MALE">Male</option>
                                 <option value="FEMALE">Female</option>
                             </select><br>
-                            <input type="text" name="phoneNumber" value="" placeholder="Phone Number"/><br>
+                            <input type="text" name="driverphoneNumber" value="" placeholder="Phone Number"/><br>
                             <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
