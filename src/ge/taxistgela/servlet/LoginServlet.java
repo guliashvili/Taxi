@@ -33,24 +33,18 @@ public class LoginServlet extends ActionServlet {
     };
 
     public void loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ExternalAlgorithms.debugPrint("Login User " + request.getParameter("email") + " " + request.getParameter("password"));
-
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         loginSuper(userManager, 0, request, response);
     }
 
     public void loginDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ExternalAlgorithms.debugPrint("Login Driver " + request.getParameter("email") + " " + request.getParameter("password"));
-
         DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
 
         loginSuper(driverManager, 1, request, response);
     }
 
     public void loginCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ExternalAlgorithms.debugPrint("Login Company " + request.getParameter("email") + " " + request.getParameter("password"));
-
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
         loginSuper(companyManager, 2, request, response);
@@ -60,6 +54,8 @@ public class LoginServlet extends ActionServlet {
     private void loginSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+
+        ExternalAlgorithms.debugPrint("Login " + A_TYPE[type] + " " + email + " " + password);
 
         if (man != null) {
             Object obj = man.login(email, password);

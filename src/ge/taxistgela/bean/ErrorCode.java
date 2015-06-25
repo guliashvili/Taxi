@@ -1,5 +1,7 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.Gson;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,9 @@ public class ErrorCode {
             return null;
     }
 
+    public String toJson() {
+        return new Gson().toJson(errors);
+    }
 
     public boolean errorNotAccrued() {
         return !errorAccrued();
