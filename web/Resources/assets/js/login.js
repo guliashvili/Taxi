@@ -20,9 +20,9 @@ $(function () {
                 //$("#panel").load(data);
                 $("footer").hide();
                 $("#panel").html(data);
-                initializeMap();
                 $("#loginModal").modal('hide');
                 $("#banner").hide();
+                initializeMap();
             },
             error: function (data) {
                 console.error("Couldn't log in\n" + JSON.stringify(formData));

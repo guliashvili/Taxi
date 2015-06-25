@@ -3,3 +3,6 @@
  */
 
 // Here goes user panel management.
+$(document).ready(function(){
+    initializeMap();
+});
