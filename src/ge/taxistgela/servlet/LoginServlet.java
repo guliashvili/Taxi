@@ -64,12 +64,12 @@ public class LoginServlet extends ActionServlet {
                 request.getSession().setAttribute(A_TYPE[type], obj);
 
                 response.setStatus(HttpServletResponse.SC_OK);
+                System.out.println("redirected");
                 response.sendRedirect(P_TYPE[type]);
 
                 return;
             }
         }
-
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 }

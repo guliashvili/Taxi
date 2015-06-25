@@ -18,7 +18,7 @@ public class EmailSender {
     private final static String host="localhost";
 
     private final static String subject="Taxist Gela Service Verification";
-    private final static String verificationURL="127.0.0.1/verify";
+    private final static String verificationURL="127.0.0.1/verify?action=uEmail&token=";
     private final static String message_t[] = {"Thank You! "," For registration, Please Follow to the URL: ",verificationURL," And enter code given:"};
 
     /**
@@ -49,6 +49,7 @@ public class EmailSender {
                     StringBuilder b = new StringBuilder();
                     for (int i = 0; i < message_t.length; ++i) {
                         if (i == 1) b.append(user.getFirstName());
+                        if (i == 2) b.append(user.getEmailToken());
                         b.append(message_t[i]);
                     }
                     b.append(key);
