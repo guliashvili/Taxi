@@ -23,36 +23,44 @@ public class VerificationServlet extends ActionServlet {
 
         String token = request.getParameter("token");
 
-        if (obj != null && token != null) {
-            ErrorCode errorCode = obj.verifyPhoneNumber(token);
+        if (obj == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            if (token != null) {
+                ErrorCode errorCode = obj.verifyPhoneNumber(token);
 
-            if (errorCode.errorNotAccrued()) {
-                printAccepted(response, 0);
+                if (errorCode.errorNotAccrued()) {
+                    printAccepted(response, 0);
 
-                return;
+                    return;
+                }
+
             }
 
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
     }
 
     private void mainVerifyEmail(SuperUserManager obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getParameter("token");
 
-        if (obj != null && token != null) {
-            ErrorCode errorCode = obj.verifyEmail(token);
+        if (obj == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            if (token != null) {
+                ErrorCode errorCode = obj.verifyEmail(token);
 
-            if (errorCode.errorNotAccrued()) {
-                printAccepted(response, 1);
+                if (errorCode.errorNotAccrued()) {
+                    printAccepted(response, 1);
 
-                return;
+                    return;
+                }
+
             }
 
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 
     // /verify?action=uPhone&token=

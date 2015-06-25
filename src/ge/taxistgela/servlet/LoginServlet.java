@@ -57,7 +57,9 @@ public class LoginServlet extends ActionServlet {
 
         ExternalAlgorithms.debugPrint("Login " + A_TYPE[type] + " " + email + " " + password);
 
-        if (man != null) {
+        if (man == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
             Object obj = man.login(email, password);
 
             if (obj != null) {
@@ -68,7 +70,8 @@ public class LoginServlet extends ActionServlet {
 
                 return;
             }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 }
