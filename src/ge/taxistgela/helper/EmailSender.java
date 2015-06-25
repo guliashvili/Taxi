@@ -1,6 +1,6 @@
 package ge.taxistgela.helper;
 
-import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.GeneralCheckableInformation;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -24,9 +24,8 @@ public class EmailSender {
     /**
      * Sends verification email specified in user given
      * @param user user to verify email
-     * @param key key to be sent
      */
-    public static void verifyEmail(User user, String key) throws RuntimeException {
+    public static void verifyEmail(GeneralCheckableInformation user) throws RuntimeException {
         Thread thread = new Thread(() -> {
 
                 try {
@@ -48,11 +47,10 @@ public class EmailSender {
                     message.setSubject(subject);
                     StringBuilder b = new StringBuilder();
                     for (int i = 0; i < message_t.length; ++i) {
-                        if (i == 1) b.append(user.getFirstName());
+                        //if (i == 1) b.append(user.);
                         if (i == 2) b.append(user.getEmailToken());
                         b.append(message_t[i]);
                     }
-                    b.append(key);
                     message.setText(b.toString());
                     Transport.send(message);
                 } catch (MessagingException e) {

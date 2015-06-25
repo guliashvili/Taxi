@@ -1,6 +1,7 @@
 package ge.taxistgela.servlet;
 
 import ge.taxistgela.bean.*;
+import ge.taxistgela.helper.EmailSender;
 import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
@@ -100,6 +101,8 @@ public class RegistrationServlet extends ActionServlet {
 
             if (errorCode.errorNotAccrued()) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
+
+                EmailSender.verifyEmail(obj);
 
                 return;
             }
