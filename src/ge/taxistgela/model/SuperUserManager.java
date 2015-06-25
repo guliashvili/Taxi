@@ -60,6 +60,10 @@ public interface SuperUserManager {
      */
     Object getByID(Integer superUserID);
 
+    String getTokenByID(Integer superUserID);
+
+    Integer getIDByToken(String token);
+
 
     /**
      * Updates the SuperUserManager order with the new data.

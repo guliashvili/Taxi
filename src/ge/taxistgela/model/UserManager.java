@@ -39,7 +39,15 @@ public class UserManager extends UserManagerAPI {
 
         return ret;
     }
+    @Override
+    public Integer getIDByToken(String token) {
+        return  userDao.getUserIDByToken(token);
+    }
 
+    @Override
+    public String getTokenByID(Integer superUserID) {
+        return  userDao.getUserTokenByID(superUserID);
+    }
     @Override
     public ErrorCode verifyEmail(String token) {
         ErrorCode ret = new ErrorCode();

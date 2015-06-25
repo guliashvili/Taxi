@@ -90,7 +90,7 @@ public class GioTestsDao {
 
         assertTrue(realUserPreference1.equals(userPreference));
 
-        userDao.updateUserPreference(realUserPreference1);
+        assertFalse(userDao.updateUserPreference(realUserPreference1));
 
         realUserPreference1 = userDao.getUserPreferenceByID(userPreference.getUserPreferenceID());
 
@@ -170,11 +170,11 @@ public class GioTestsDao {
     }
 
 
-    public void insertUsers() {
+    public void testUsers() {
         UserPreference blankPreference = new UserPreference(-1, 0.0, false, 0, 0, 0, false);
 
-        userPreference1 = insertUserPreference(blankPreference, userPreference2);
-        userPreference2 = insertUserPreference(blankPreference, userPreference1);
+        userPreference1 = insertUserPreference(blankPreference, userPreference1);
+        userPreference2 = insertUserPreference(blankPreference, userPreference2);
 
         User blankUser = new User(-1, "a@a.ge", "a", "a", "a", "555555555", Gender.MALE, null,
                 null, 0.0, userPreference2, false, false);
@@ -187,9 +187,74 @@ public class GioTestsDao {
         checksUsers(new User[]{user1, user2});
     }
 
+    public DriverPreference insertDriverPreference(DriverPreference blank,DriverPreference target){
+        DriverPreference tmp = new DriverPreference(blank);
+        DriverPreference to = new DriverPreference(target);
+
+        assertFalse(driverDao.insertDriverPreference(tmp));
+
+        tmp.setMinimumUserRating(to.getMinimumUserRating());
+        tmp.setCoefficientPer(to.getCoefficientPer());
+
+        assertFalse(driverDao.updateDriverPreference(tmp));
+        to.setDriverPreferenceID(tmp.getDriverPreferenceID());
+
+        assertEquals(to, tmp);
+
+        tmp = driverDao.getDriverPreferenceByID(tmp.getDriverPreferenceID());
+
+        assertEquals(to, tmp);
+
+        return  tmp;
+    }
+
+    public Car insertCar(Car blank,Car target){
+        Car tmp = new Car(blank);
+        Car to = new Car(target);
+        tmp.setCarID(target.getCarID());
+
+        assertFalse(driverDao.insertCar(tmp));
+
+        tmp.setConditioning(to.hasConditioning());
+        tmp.setCarDescription(to.getCarDescription());
+        tmp.setCarYear(to.getCarYear());
+        tmp.setNumPassengers(to.getNumPassengers());
+
+        assertFalse(driverDao.updateCar(tmp));
+
+        to.setCarID(tmp.getCarID());
+
+        assertEquals(to,tmp);
+
+        tmp = driverDao.getCarByID(tmp.getCarID());
+
+        assertEquals(to,tmp);
+
+        return  tmp;
+    }
+
+
+    public Driver insertDriver(Driver blank,Driver target){
+        return  null;
+    }
+
+    public  void testDrivers(){
+        DriverPreference blankPreference = new DriverPreference(-1,-1.0,-1.0);
+
+        driverPreference1 = insertDriverPreference(blankPreference,driverPreference1);
+        driverPreference2 = insertDriverPreference(blankPreference, driverPreference2);
+
+        Car blank = new Car("JJJ-666","blanki var",0,false,-1);
+        car1 = insertCar(blank,car1);
+        car2 = insertCar(blank,car2);
+    }
+
     @Test
     public void superTest() {
-        insertUsers();
+
+        testUsers();
+
+        testDrivers();
     }
 
 

@@ -14,6 +14,15 @@ public class DriverManager extends  DriverManagerAPI {
         super(driverDao);
     }
 
+    @Override
+    public Integer getIDByToken(String token) {
+        return  driverDao.getDriverIDByToken(token);
+    }
+
+    @Override
+    public String getTokenByID(Integer superUserID) {
+        return  driverDao.getDriverTokenByID(superUserID);
+    }
 
     @Override
     public Driver getByID(Integer driverID) {
