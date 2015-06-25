@@ -43,7 +43,8 @@ public class UserDao implements UserDaoAPI {
             "(NOT UserPreferences.conditioning OR ?) AND " +
             "? >= UserPreferences.carYear AND " +
             "? >= UserPreferences.passengersCount AND " +
-            "Users.rating >= ?";
+            "Users.rating >= ? AND " +
+            "Users.isVerifiedEmail=TRUE AND Users.isVerifiedPhone=TRUE";
 
     private final static String preference_insert_STMT =
             "INSERT INTO UserPreferences(minimumDriverRating,conditioning,carYear,passengersCount,wantsAlone,timeLimit) " +

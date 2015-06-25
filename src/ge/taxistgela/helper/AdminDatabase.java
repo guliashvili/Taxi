@@ -18,10 +18,11 @@ public class AdminDatabase {
 
         try(Connection con = DBConnectionProvider.getConnection()){
 
-            con.createStatement().execute("DELETE  FROM Companies");
+
             con.createStatement().execute("DELETE  FROM Reviews");
             con.createStatement().execute("DELETE  FROM Orders");
             con.createStatement().execute("DELETE  FROM Drivers");
+            con.createStatement().execute("DELETE  FROM Companies");
             con.createStatement().execute("DELETE  FROM Cars");
             con.createStatement().execute("DELETE  FROM DriverPreferences");
             con.createStatement().execute("DELETE  FROM Users");

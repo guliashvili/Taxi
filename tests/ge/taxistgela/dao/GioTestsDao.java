@@ -3,8 +3,12 @@ package ge.taxistgela.dao;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -29,7 +33,7 @@ public class GioTestsDao {
 
 
     @Before
-    //@After
+    @After
     public void setup() {
         userDao = new UserDao();
         companyDao = new CompanyDao();
@@ -66,7 +70,7 @@ public class GioTestsDao {
         user1 = new User(-1, "daltoniki@tvali.ge", "shavitetria", "mwvane", "yvitladze", "511123123", Gender.MALE, "fbb sun",
                 null, 5.0, userPreference1, false, false);
         user2 = new User(-1, "uxucesi@mta.ge", "xmali", "mtian", "balaxadze", "511223344", Gender.MALE, null,
-                null, 5.5, userPreference2, false, false);
+                "glid", 5.5, userPreference2, false, false);
 
 
     }
@@ -111,6 +115,7 @@ public class GioTestsDao {
         tmp.setIsVerifiedEmail(to.getIsVerifiedEmail());
         tmp.setEmail(to.getEmail());
         tmp.setFacebookID(to.getFacebookID());
+        tmp.setGoogleID(to.getGoogleID());
         tmp.setPassword(to.getPassword());
         tmp.setFirstName(to.getFirstName());
         tmp.setLastName(to.getLastName());
@@ -289,8 +294,6 @@ public class GioTestsDao {
             assertEquals(tmp, driverDao.getDriverByGoogleID(tmp.getGoogleID()));
         assertEquals(tmp, driverDao.getDriverByID(tmp.getDriverID()));
         assertEquals(tmp, driverDao.getDriverByPhoneNumber(tmp.getPhoneNumber()));
-        if (tmp.getCompanyID() != null)
-            assertEquals(tmp, driverDao.getDriverByCompanyID(tmp.getCompanyID()));
         assertEquals(tmp, driverDao.loginDriver(target.getEmail(), target.getPassword()));
 
         return tmp;
@@ -490,6 +493,43 @@ public class GioTestsDao {
     }
 
     public void interaction() {
+        List<Driver> ls = driverDao.getDriverByCompanyID(company1.getCompanyID());
+        ls.sort((o1, o2) -> o1.getDriverID() - o2.getDriverID());
+        List<Driver> cmp1 = new ArrayList<>();
+        cmp1.add(driver1);
+        assertEquals(ls, cmp1);
+
+
+        List<Driver> ls2 = driverDao.getDriverByPreferences(user1);
+        ls2.sort((o1, o2) -> o1.getDriverID() - o2.getDriverID());
+
+        List<Driver> cmp2 = new ArrayList<>();
+        cmp2.add(driver1);
+        assertEquals(ls2, cmp2);
+
+        List<Driver> ls3 = driverDao.getDriverByPreferences(user2);
+        ls3.sort((o1, o2) -> o1.getDriverID() - o2.getDriverID());
+
+        List<Driver> cmp3 = new ArrayList<>();
+        cmp3.add(driver1);
+        cmp3.add(driver2);
+        assertEquals(ls3, cmp3);
+
+
+        List<User> us1 = userDao.getUsersByPreferences(driver1);
+        List<User> us2 = userDao.getUsersByPreferences(driver2);
+
+        us1.sort((o1, o2) -> o1.getUserID() - o2.getUserID());
+        us2.sort((o1, o2) -> o1.getUserID() - o2.getUserID());
+
+        List<User> tar1 = new ArrayList<>();
+        List<User> tar2 = new ArrayList<>();
+        tar1.add(user1);
+        tar1.add(user2);
+        tar2.add(user2);
+
+        assertEquals(us1, tar1);
+        assertEquals(us2, tar2);
 
     }
 
@@ -497,10 +537,12 @@ public class GioTestsDao {
     @Test
     public void superTest() {
         testCompanies();
-
+        driver1.setCompanyID(company1.getCompanyID());
         testUsers();
 
         testDrivers();
+
+        interaction();
 
 
     }
