@@ -49,25 +49,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <body class="landing">
 
 <div id="page-wrapper">
-  <header id="header" class="alt">
-    <h1><a href="index.html">Taxist Gela</a></h1>
-    <nav id="nav">
-      <ul>
-        <li class="special">
-          <a href="#menu" class="menuToggle"><span>Menu</span></a>
-          <div id="menu">
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="generic.html">Generic</a></li>
-              <li><a href="elements.html">Elements</a></li>
-              <li><a href="#" data-toggle="modal" data-target="#myModal">Sign Up</a></li>
-              <li><a href="#">Log In</a></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <jsp:include page="Resources/header.html"/>
   <%
     User user = (User) session.getAttribute(User.class.getName());
     Company company = (Company) session.getAttribute(Company.class.getName());
@@ -230,11 +212,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   <% }else{%>
     <section id="panel">
         <% if (user != null) { %>
-        <jsp:include page="user.jsp"/>
+          <jsp:include page="user.jsp"/>
         <% } else if (driver != null) { %>
-        <jsp:include page="driver.jsp"/>
+          <jsp:include page="driver.jsp"/>
         <% } else if (company != null) { %>
-        <jsp:include page="company.jsp"/>
+          <jsp:include page="company.jsp"/>
         <% } %>
     </section>
   <% }%>
