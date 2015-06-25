@@ -23,7 +23,7 @@ public class RegistrationServlet extends ActionServlet {
 
         UserPreference userPreference = new UserPreference(-1, 0.1, false, 1900, Integer.MAX_VALUE, 5, false);
         ErrorCode code = userManager.insertUserPreference(userPreference);
-        if (code != null) {
+        if(code!=null){
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
@@ -52,13 +52,13 @@ public class RegistrationServlet extends ActionServlet {
 
         DriverPreference driverPreference = new DriverPreference(-1, 0.1, 0.0);
         ErrorCode code = driverManager.insertDriverPreference(driverPreference);
-        if (code != null) {
+        if(code!=null){
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
         Car car = new Car("Unknown", "Untitled", 1900, false, 0);
         code = driverManager.insertCar(car);
-        if (code != null) {
+        if(code!=null){
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
@@ -105,12 +105,10 @@ public class RegistrationServlet extends ActionServlet {
     }
 
     private void registerSuper(SuperUserManager man, GeneralCheckableInformation obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ErrorCode errorCode = null;
 
-
-        if (man == null) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        } else {
-            ErrorCode errorCode = man.register(obj);
+        if (man != null) {
+            errorCode = man.register(obj);
 
             if (errorCode.errorNotAccrued()) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
@@ -119,8 +117,11 @@ public class RegistrationServlet extends ActionServlet {
 
                 return;
             }
+        }
 
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+        if (errorCode != null) {
             response.getWriter().print(errorCode.toJson());
         }
     }
