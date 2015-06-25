@@ -19,7 +19,7 @@ public class EmailSender {
 
     private final static String subject="Taxist Gela Service Verification";
     private final static String verificationURL="http://localhost:8080/verify?action=uEmail&token=";
-    private final static String message_t[] = {"Thank You! "," For registration, Please Follow to the URL: <a href='",verificationURL,"'> And enter code given:"};
+    private final static String message_t[] = {"Thank You! "," For registration, Please Follow to the URL: ",verificationURL," And enter code given:"};
 
     /**
      * Sends verification email specified in user given

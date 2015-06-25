@@ -22,11 +22,13 @@ public class RegistrationServlet extends ActionServlet {
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         UserPreference userPreference = new UserPreference(-1, 0.1, false, 1900, Integer.MAX_VALUE, 5, false);
+
         ErrorCode code = userManager.insertUserPreference(userPreference);
-        if(code.errorAccrued()){
+        if (code.errorAccrued()) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
+
         User user = new User(
                 -1,
                 request.getParameter("useremail"),
@@ -37,7 +39,7 @@ public class RegistrationServlet extends ActionServlet {
                 getGender(request.getParameter("usergender")),
                 null,
                 null,
-                0.0,
+                5.0,
                 userPreference,
                 false,
                 false
@@ -51,17 +53,21 @@ public class RegistrationServlet extends ActionServlet {
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
         DriverPreference driverPreference = new DriverPreference(-1, 0.1, 0.0);
+
         ErrorCode code = driverManager.insertDriverPreference(driverPreference);
-        if(code.errorAccrued()){
+        if (code.errorAccrued()) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
+
         Car car = new Car("Unknown", "Untitled", 1900, false, 0);
+
         code = driverManager.insertCar(car);
-        if(code.errorAccrued()){
+        if (code.errorAccrued()) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
+
         Driver driver = new Driver(
                 -1,
                 request.getParameter("driverpersonalID"),
@@ -105,10 +111,10 @@ public class RegistrationServlet extends ActionServlet {
     }
 
     private void registerSuper(SuperUserManager man, GeneralCheckableInformation obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ErrorCode errorCode = null;
-
-        if (man != null) {
-            errorCode = man.register(obj);
+        if (man == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            ErrorCode errorCode = man.register(obj);
 
             if (errorCode.errorNotAccrued()) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
@@ -117,11 +123,8 @@ public class RegistrationServlet extends ActionServlet {
 
                 return;
             }
-        }
 
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
-        if (errorCode != null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().print(errorCode.toJson());
         }
     }

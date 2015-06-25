@@ -68,6 +68,7 @@ public class UserManager extends UserManagerAPI {
         if (token == null) {
             ret.nullArgument();
         } else {
+            System.out.println(token);
             token = HashGenerator.decryptAES(token);
             if (token == null) {
                 ret.setWrongToken();
