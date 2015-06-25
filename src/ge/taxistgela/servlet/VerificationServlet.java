@@ -4,7 +4,7 @@ import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
-import ge.taxistgela.model.UserManagerManagerAPI;
+import ge.taxistgela.model.UserManagerAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +57,7 @@ public class VerificationServlet extends ActionServlet {
 
     // /verify?action=uPhone&token=
     public void uPhone(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserManagerManagerAPI userManager = (UserManagerManagerAPI) request.getServletContext().getAttribute(UserManagerManagerAPI.class.getName());
+        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         mainVerifyPhone(userManager, request, response);
 
@@ -65,7 +65,7 @@ public class VerificationServlet extends ActionServlet {
 
     // /verify?action=uEmail&token=
     public void uEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserManagerManagerAPI userManager = (UserManagerManagerAPI) request.getServletContext().getAttribute(UserManagerManagerAPI.class.getName());
+        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         mainVerifyEmail(userManager, request, response);
     }

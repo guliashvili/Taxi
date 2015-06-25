@@ -572,7 +572,7 @@ public class ManagerTests{
     @Test
     public void userManagerTests(){
         UserDao dao = Mockito.mock(UserDao.class);
-        UserManagerManager man = new UserManagerManager(dao);
+        UserManager man = new UserManager(dao);
         //Email
         when(dao.checkEmail("asd@asd.com")).thenReturn(true);
         when(dao.checkEmail("gelaasd@gela.ge")).thenReturn(true);

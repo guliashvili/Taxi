@@ -11,10 +11,10 @@ import java.util.List;
 /**
  * Created by GIO on 5/25/2015.
  */
-public abstract class UserManagerManagerAPI implements SuperUserManager {
+public abstract class UserManagerAPI implements SuperUserManager {
     protected UserDaoAPI userDao;
 
-    public UserManagerManagerAPI(UserDaoAPI userDao) {
+    public UserManagerAPI(UserDaoAPI userDao) {
         this.userDao = userDao;
     }
 
