@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface OrderDaoAPI {
 
+    List<Order> getOrdersByCompanyID(Integer companyID);
+
     /**
      * Adds new order into database (still pending status).
      *

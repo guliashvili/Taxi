@@ -600,6 +600,13 @@ public class GioTestsDao {
         tmp.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
         assertEquals(ls1, tmp);
 
+        ls1 = orderDao.getOrdersByCompanyID(company1.getCompanyID());
+        ls1.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        tmp = new ArrayList<>();
+        tmp.add(order1);
+        tmp.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        assertEquals(ls1, tmp);
+
         order1.setNumPassengers(3);
         assertFalse(orderDao.updateOrder(order1));
         order1 = orderDao.getOrderByID(order1.getOrderID());

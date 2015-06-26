@@ -21,6 +21,9 @@ public abstract class OrderManagerAPI {
      */
     public abstract boolean addOrder(Order order);
 
+    public abstract List<Order> getOrdersByCompanyID(Integer companyID);
+
+
     /**
      * Updates the certain order with the new data. (status active).
      *
