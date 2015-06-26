@@ -89,12 +89,36 @@
             </form>
         </div>
         <div class="5u$ 12u$(small)">
-            <a href="#" data-toggle="modal" data-target="#preferenceModal" class="button special small fa fa-adjust">
-                Edit Your Preferences</a>
+            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+        </div>
+        <div class="5u$ 12u$(small)">
+            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+        </div>
+        <div id="cPref" class="6u$ hidden">
+            <form id="cPrefForm">
+                <label for="minimumUserRating"> Minimum User Rating </label>
+                <input type="number" id="minimumUserRating" name="minimumUserRating" value="<%=driver.getPreferences().getMinimumUserRating()%>" step="1"/>
+                <label for="coefficientPer"> Coefficient Per KM. </label>
+                <input type="number" id="coefficientPer" name="coefficientPer" value="<%=driver.getPreferences().getCoefficientPer()%>" step=".1"/>
+            </form>
+            <button id="cPrefBtn" class="button special small fa fa-adjust"> Save </button>
         </div>
         <div class="12u$(small)">
-            <a href="#" data-toggle="modal" data-target="#preferenceModal" class="button special small fa fa-adjust">
-                Edit Your Car Details</a>
+            <a href="#" onclick="$('#cCar').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Car Details</a>
+        </div><br>
+        <div id="cCar" class="12u hidden">
+            <form id="cCarForm">
+                <input type="checkbox" id="conditioning" name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked")}%>>
+                <label for="conditioning"> Conditioning </label>
+                </input><br>
+                <label for="conditioning"> Car Description </label>
+                <textarea id="carDescription" name="carDescription" style="width:60%;font-size:1em"><%=driver.getCar().getCarDescription()%></textarea>
+                <label for="conditioning"> Car Year </label>
+                <input type="number" id="carYear" name="carYear" value="<%=driver.getCar().getCarYear()%>" step="1"/>
+                <label for="conditioning"> Max. Number Of Passengers </label>
+                <input type="number" id="numPassengers" name="numPassengers" value="<%=driver.getCar().getNumPassengers()%>" step="1"/><br>
+            </form>
+            <button id="cCarBtn" class="button special small fa fa-adjust"> Save </button>
         </div>
         <div class="12u 1u$(small)" style="float:left">
             <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart">
