@@ -13,6 +13,8 @@ public abstract class GeneralCheckableInformation implements Checkable {
 
     public abstract String getPassword();
 
+    public abstract void setPassword(String password);
+
     public abstract String getPhoneNumber();
 
     public String getPhoneNumberToken() {

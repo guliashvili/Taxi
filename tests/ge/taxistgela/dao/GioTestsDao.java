@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class GioTestsDao {
 
     Review review1, review2;
     Order order1, order2;
+
+    Location location1, location2;
 
     UserDao userDao;
     DriverDao driverDao;
@@ -62,8 +65,27 @@ public class GioTestsDao {
         driverPreference1 = new DriverPreference(-1, 2.0, 4.0);
         driverPreference2 = new DriverPreference(-1, 2.0, 3.0);
 
-        //location1 = new Location(41.745984, 44.775832);
-        //location2 = new Location(41.709599, 44.756885);
+        location1 = new Location(41.745984, 44.775832);
+        location2 = new Location(41.709599, 44.756885);
+
+        try {
+            order1 = new Order(-1, -1, -1, 2, location1, location2,
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1995"),
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/2000"),
+                    2.0,
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"));
+            order2 = new Order(-1, -1, -1, 2, location1, location2,
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/2001"),
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/2002"),
+                    2.0,
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1999"));
+        } catch (Exception e) {
+            order1 = null;
+        }
+
+        review1 = new Review(-1, -1, true, 2.0, "review1");
+        review1 = new Review(-1, -1, false, 1.0, "review2");
+
 
         car1 = new Car("JRJ-880", "jigri mdzgoli", 2000, true, 4);
         car2 = new Car("PK-990-AC", "mweveli", 1994, false, 4);
@@ -560,6 +582,10 @@ public class GioTestsDao {
         interaction();
 
         testReview();
+
+        order1.setDriverID(driver1.getDriverID());
+        order1.setUserID(user1.getUserID());
+
 
 
     }
