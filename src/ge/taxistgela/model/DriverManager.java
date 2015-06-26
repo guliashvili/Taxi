@@ -54,7 +54,30 @@ public class DriverManager extends  DriverManagerAPI {
         return ret;
     }
 
-    private ErrorCode getErrorsDriver(Driver driver) {
+    private ErrorCode getErrorsDriverLogin(Driver driver) {
+        ErrorCode ret = new ErrorCode();
+        if (driver == null) ret.unexpected();
+        else {
+            ret.union(driver.isValid());
+            if (!checkEmail(driver.getEmail())) ret.emailDoesNotExists();
+            if (!checkPhoneNumber(driver.getPhoneNumber())) ret.phoneNumberDoesNotExists();
+            if (!checkFacebookID(driver.getFacebookID())) ret.facebookIDDoesNotExists();
+            if (!checkGoogleID(driver.getGoogleID())) ret.googleIDDoesNotExists();
+        }
+        return ret;
+    }
+
+    private ErrorCode getErrorsDriverUpdate(Driver driver) {
+        ErrorCode ret = new ErrorCode();
+        if (driver == null) ret.unexpected();
+        else {
+            ret.union(driver.isValid());
+
+        }
+        return ret;
+    }
+
+    private ErrorCode getErrorsDriverRegister(Driver driver) {
         ErrorCode ret = new ErrorCode();
         if (driver == null) ret.unexpected();
         else {
@@ -66,7 +89,6 @@ public class DriverManager extends  DriverManagerAPI {
         }
         return ret;
     }
-
     @Override
     public ErrorCode register(GeneralCheckableInformation d) {
         ErrorCode ret = new ErrorCode();
@@ -76,7 +98,7 @@ public class DriverManager extends  DriverManagerAPI {
             ret.wrongType();
         } else {
             Driver driver = (Driver) d;
-            ret.union(getErrorsDriver(driver));
+            ret.union(getErrorsDriverRegister(driver));
             if (!ret.errorAccrued())
                 if (driverDao.registerDriver(driver)) ret.unexpected();
 
@@ -93,7 +115,7 @@ public class DriverManager extends  DriverManagerAPI {
             ret.wrongType();
         } else {
             Driver driver = (Driver) d;
-            ret = getErrorsDriver(driver);
+            ret = getErrorsDriverLogin(driver);
             if (driverDao.loginDriver(d.getEmail(), oldPassword) == null)
                 ret.wrongPassword();
             else if (!ret.errorAccrued())
@@ -152,7 +174,7 @@ public class DriverManager extends  DriverManagerAPI {
             ret.wrongType();
         } else {
             Driver driver = (Driver) d;
-            ret.union(getErrorsDriver(driver));
+            ret.union(getErrorsDriverUpdate(driver));
             if (!ret.errorAccrued())
                 if (driverDao.updateDriver(driver)) ret.unexpected();
         }

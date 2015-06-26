@@ -25,7 +25,7 @@ public class CompanyManager extends   CompanyManagerAPI {
         return ret;
     }
 
-    private ErrorCode getErrors(Company company) {
+    private ErrorCode getErrorsRegister(Company company) {
         ErrorCode ret = new ErrorCode();
         if (company == null) ret.unexpected();
         else {
@@ -39,6 +39,30 @@ public class CompanyManager extends   CompanyManagerAPI {
         return ret;
     }
 
+    private ErrorCode getErrorsLogin(Company company) {
+        ErrorCode ret = new ErrorCode();
+        if (company == null) ret.unexpected();
+        else {
+            ret.union(company.isValid());
+            if (!checkEmail(company.getEmail())) ret.emailDoesNotExists();
+            if (!checkCompanyCode(company.getCompanyCode())) ret.companyCodeDoesNotExists();
+            if (!checkPhoneNumber(company.getPhoneNumber())) ret.phoneNumberDoesNotExists();
+            if (company.getFacebookID() != null && !checkFacebookID(company.getFacebookID()))
+                ret.facebookIDDoesNotExists();
+            if (checkGoogleID(company.getGoogleID())) ret.googleIDDoesNotExists();
+        }
+        return ret;
+    }
+
+    private ErrorCode getErrorsUpdate(Company company) {
+        ErrorCode ret = new ErrorCode();
+        if (company == null) ret.unexpected();
+        else {
+            ret.union(company.isValid());
+
+        }
+        return ret;
+    }
     @Override
     public Integer getCompanyIDByCode(String companyCode) {
         if (companyCode == null)
@@ -56,7 +80,7 @@ public class CompanyManager extends   CompanyManagerAPI {
             ret.wrongType();
         } else {
             Company company = (Company) c;
-            ret.union(getErrors(company));
+            ret.union(getErrorsRegister(company));
 
             if (!ret.errorAccrued())
                 if (companyDao.registerCompany(company))
@@ -109,7 +133,7 @@ public class CompanyManager extends   CompanyManagerAPI {
             ret.wrongType();
         } else {
             Company company = (Company) c;
-            ret.union(getErrors(company));
+            ret.union(getErrorsLogin(company));
 
             if (companyDao.loginCompany(c.getEmail(), oldPassword) == null)
                 ret.wrongPassword();
@@ -130,7 +154,7 @@ public class CompanyManager extends   CompanyManagerAPI {
             ret.wrongType();
         } else {
             Company company = (Company) c;
-            ret.union(getErrors(company));
+            ret.union(getErrorsUpdate(company));
 
             if (!ret.errorAccrued())
                 if (companyDao.updateCompany(company))
