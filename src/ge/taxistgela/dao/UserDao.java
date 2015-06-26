@@ -277,7 +277,7 @@ public class UserDao implements UserDaoAPI {
 
                 ExternalAlgorithms.debugPrintSelect("getUserByFacebookID \n" + st.toString());
 
-
+                System.out.println(st.toString());
                 ResultSetEnhanced res = st.executeQuery();
                 if (res.next())
                     user = getUser(res);

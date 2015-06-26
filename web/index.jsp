@@ -23,6 +23,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/Resources/assets/js/facebookLogin.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Resources/assets/css/taxi.css">
@@ -209,6 +210,10 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="text" name="email" placeholder="Email"><br>
                             <input type="password" name="password" placeholder="Password"><br>
                             <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
+                            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                            <div id="status">
+                            </div>
+                            <a href="#" class="icon fa-google"><span class="label">Google+</span></a>
                             <br><br>
                         </div>
                     </form>
