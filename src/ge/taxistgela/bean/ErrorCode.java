@@ -77,6 +77,10 @@ public class ErrorCode {
         put("companyCode", "this companyCode already exists");
     }
 
+    public void companyCodeDoesNotExists() {
+        put("companyCode", "company code does not exists");
+    }
+
     public void companyCodeFormat() {
         put("companyCode", "Not correct format");
     }
@@ -89,6 +93,9 @@ public class ErrorCode {
         put("email", "this email already exists");
     }
 
+    public void emailDoesNotExists() {
+        put("email", "email does not exists");
+    }
     public void passwordFormat() {
         put("password", "wrong format. password length is more then 50 or null");
     }
@@ -109,6 +116,9 @@ public class ErrorCode {
         put("phoneNumber", "Phone number already exists");
     }
 
+    public void phoneNumberDoesNotExists() {
+        put("phoneNumber", "Phone number does not exists");
+    }
     public void firstNameLong() {
         put("firstName", "first name is long");
     }
@@ -125,8 +135,16 @@ public class ErrorCode {
         put("facebookID", "this facebook account already exists");
     }
 
+    public void facebookIDDoesNotExists() {
+        put("facebookID", "this facebook account does not exists");
+    }
+
     public void googleIDDuplicate() {
         put("googleID", "this google account already exists");
+    }
+
+    public void googleIDDoesNotExists() {
+        put("googleID", "this google account does not exists");
     }
 
     public void setWrongToken() {

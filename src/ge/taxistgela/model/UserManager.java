@@ -32,7 +32,30 @@ public class UserManager extends UserManagerAPI {
             return userDao.loginUser(username, password);
     }
 
-    private ErrorCode getErrorsUser(User user) {
+    private ErrorCode getErrorsUserLogin(User user) {
+        ErrorCode ret = new ErrorCode();
+        ret.union(user.isValid());
+        if (!checkEmail(user.getEmail()))
+            ret.emailDoesNotExists();
+        if (!checkPhoneNumber(user.getPhoneNumber()))
+            ret.phoneNumberDoesNotExists();
+        if (!checkGoogleID(user.getGoogleID()))
+            ret.googleIDDoesNotExists();
+        if (!checkFacebookID(user.getFacebookID()))
+            ret.facebookIDDoesNotExists();
+
+        return ret;
+    }
+
+    private ErrorCode getErrorsUserUpdate(User user) {
+        ErrorCode ret = new ErrorCode();
+        ret.union(user.isValid());
+
+
+        return ret;
+    }
+
+    private ErrorCode getErrorsUserRegister(User user) {
         ErrorCode ret = new ErrorCode();
         ret.union(user.isValid());
         if (checkEmail(user.getEmail()))
@@ -113,7 +136,7 @@ public class UserManager extends UserManagerAPI {
             ret.wrongType();
         else {
             User user = (User) u;
-            ret.union(getErrorsUser(user));
+            ret.union(getErrorsUserRegister(user));
             if (!ret.errorAccrued())
                 if (userDao.registerUser(user))
                     ret.unexpected();
@@ -130,7 +153,7 @@ public class UserManager extends UserManagerAPI {
             ret.wrongType();
         else {
             User user = (User) u;
-            ret.union(getErrorsUser(user));
+            ret.union(getErrorsUserLogin(user));
             if (userDao.loginUser(u.getEmail(), oldPassword) == null)
                 ret.wrongPassword();
             else if (!ret.errorAccrued())
@@ -152,7 +175,7 @@ public class UserManager extends UserManagerAPI {
         else {
             User user = (User) u;
 
-            ret.union(getErrorsUser(user));
+            ret.union(getErrorsUserUpdate(user));
             if (!ret.errorAccrued())
                 if (userDao.updateUser(user))
                     ret.unexpected();

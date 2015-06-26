@@ -22,9 +22,6 @@ function createLogin () {
                 $("#panel").html(data);
                 $("#loginModal").modal('hide');
                 $("#banner").hide();
-                initializeMap();
-                createPreferencesSaves();
-                generateGrid();
             },
             error: function (data) {
                 console.error("Couldn't log in\n" + JSON.stringify(formData));
