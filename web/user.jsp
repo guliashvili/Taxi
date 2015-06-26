@@ -14,9 +14,10 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
-<section id="order" class="hidden" style="position: absolute; top: 10px; left: 10px; z-index: 99;">
+<section id="order" class="hidden" style="background-color:#FFD800;padding:10px;position: absolute; top: 10px; left: 10px; z-index: 99;">
     <div class='input-group date' id='datetimepicker10'>
-        <input type='text' class="form-control" />
+        <label for="startDate">Please Desired Time Of Departure</label>
+        <input type='text' id="startDate" name="startDate" class="form-control" />
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar">
             </span>
@@ -55,7 +56,7 @@
             <input type="email" disabled value="<%=user.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(!user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
                 <% if (user.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -67,7 +68,7 @@
             <input type="text" disabled value="<%=user.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(!user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
                 <% if (user.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {
