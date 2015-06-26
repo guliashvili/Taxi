@@ -94,7 +94,9 @@ function testAPI_Register() {
         if (nameAndSurname.indexOf(' ') != -1)
             surname = nameAndSurname.substr(nameAndSurname.indexOf(' ') + 1, nameAndSurname.length - name.length - 1);
         if ($("#userReg:checked").val() != undefined) {
-
+            if (facebookId != undefined){
+                $("#userfacebookId").val(facebookId);
+            }
             if (sex != undefined){
                 if (sex == "male") {
                     $("#usergender").val('Male');
@@ -117,6 +119,9 @@ function testAPI_Register() {
             }
         } else
         if ($("#driverReg:checked").val() != undefined) {
+            if (facebookId != undefined){
+                $("#driverfacebookId").val(facebookId);
+            }
             if (name != "undefined") {
                 $("#driverfirstName").val(name);
             }
@@ -139,6 +144,9 @@ function testAPI_Register() {
             }
         }else
         if ($("#companyReg:checked").val() != undefined) {
+            if (facebookId != undefined){
+                $("#companyfacebookId").val(facebookId);
+            }
             if (name != "undefined") {
                 $("#companyName").val(name);
             }

@@ -43,7 +43,7 @@ window.fbAsyncInit = function() {
         version    : 'v2.2' // use version 2.2
     });
 
-    
+
     // Now that we've initialized the JavaScript SDK, we call
     // FB.getLoginStatus().  This function gets the state of the
     // person visiting this page and can return one of three states to

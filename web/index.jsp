@@ -134,6 +134,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         <div id="companyRegistration" class="hidden">
                             <input id="companyCode" type="text" name="companyCode" value="" placeholder="Company Code"/><br>
                             <input id="companyemail" type="email" name="companyemail" value="" placeholder="Company Email"/><br>
+                            <input id="companyfacebookId" type="hidden" name="companyfacebookId" value="" placeholder="Facebook Id"/>
+                            <input id="companygoogleplusId" type="hidden" name="companygoogleplusId" value="" placeholder="Google Plus Id"/>
                             <input id="companypassword" type="password" name="companypassword" value="" placeholder="Company Password"/><br>
                             <input id="companyrepassword" type="password" name="companyrepassword" value="" placeholder="Repeat Password"/><br>
                             <input id="companyName" type="text" name="companyName" value="" placeholder="Company Name"/><br>
@@ -143,6 +145,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         </div>
                         <div id="userRegistration" class="hidden">
                             <input id="userfirstName" type="text" name="userfirstName" value="" placeholder="First Name"/><br>
+                            <input id="userfacebookId" type="hidden" name="userfacebookId" value="" placeholder="Facebook Id"/>
+                            <input id="usergoogleplusId" type="hidden" name="usergoogleplusId" value="" placeholder="Google Plus Id"/>
                             <input id="userlastName" type="text" name="userlastName" value="" placeholder="Last Name"/><br>
                             <input id="useremail" type="email" name="useremail" value="" placeholder="Email"/><br>
                             <input id="userpassword" type="password" name="userpassword" value="" placeholder="Password"/><br>
@@ -158,6 +162,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         <div id="driverRegistration" class="hidden">
                             <input id="driverfirstName" type="text" name="driverfirstName" value="" placeholder="First Name"/><br>
                             <input id="driverlastName" type="text" name="driverlastName" value="" placeholder="Last Name"/><br>
+                            <input id="driverfacebookId" type="hidden" name="driverfacebookId" value="" placeholder="Facebook Id"/>
+                            <input id="drivergoogleplusId" type="hidden" name="drivergoogleplusId" value="" placeholder="Google Plus Id"/>
                             <input id="driverpersonalID" type="text" name="driverpersonalID" value="" placeholder="Personal ID"/><br>
                             <input id="drivercompanyCode" type="text" name="drivercompanyCode" value="" placeholder="Company Code"/><br>
                             <input id="driveremail" type="email" name="driveremail" value="" placeholder="Email"/><br>
