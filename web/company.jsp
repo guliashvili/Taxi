@@ -91,10 +91,10 @@
       name: 'grid',
       header: 'List of Names',
       columns: [
-        { field: 'Date', caption: 'Date', size: '30%' },
-        { field: 'Date', caption: 'DateEnded', size: '30%' },
+        { field: 'Date', caption: 'Started', size: '30%' },
+        { field: 'DateEnded', caption: 'Ended', size: '30%' },
         { field: 'callTime', caption: 'Call Time', size: '30%' },
-        { field: 'User', caption: 'Date', size: '30px' },
+        { field: 'User', caption: 'User', size: '30px' },
         { field: 'Driver', caption: 'Driver', size: '30px' },
         { field: 'StLoc', caption: 'Start', size: '30px' },
         { field: 'EndLoc', caption: 'End', size: '30px' },
@@ -103,9 +103,9 @@
       records: [
           <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
               if (man != null) {
-                  List<Order> orders = man.getorder
+                  List<Order> orders = man.getOrdersByCompanyID(company.getCompanyID());
                   for (Order ord : orders) {
-                      %>{ Date: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, Driver: <%=ord.getDriverID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
+                      %>{ Date: <%=ord.getStartTime()%>,{ DateEnded: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, Driver: <%=ord.getDriverID()%>,User: <%=ord.getUserID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
                     }
                 }
             %>

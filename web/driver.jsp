@@ -1,4 +1,7 @@
 <%@ page import="ge.taxistgela.bean.Driver" %>
+<%@ page import="ge.taxistgela.model.OrderManager" %>
+<%@ page import="ge.taxistgela.bean.Order" %>
+<%@ page import="java.util.List" %>
 \<%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -133,3 +136,29 @@
         </div>
     </div>
 </div>
+<script>
+    function generateGrid(){
+        $('#grid').w2grid({
+            name: 'grid',
+            header: 'List of Names',
+            columns: [
+                { field: 'Date', caption: 'Date', size: '30%' },
+                { field: 'callTime', caption: 'Call Time', size: '30%' },
+                { field: 'User', caption: 'User', size: '30px' },
+                { field: 'StLoc', caption: 'Start', size: '30px' },
+                { field: 'EndLoc', caption: 'End', size: '30px' },
+                { field: 'paymentAmount', caption: 'Amount', size: '30px' }
+            ],
+            records: [
+                    <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
+                        if (man != null) {
+                            List<Order> orders = man.getOrderByUserID(driver.getDriverID());
+                            for (Order ord : orders) {
+                                %>{ Date: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, User: <%=ord.getUserID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
+                    }
+                }
+            %>
+            ]
+        });
+    }
+</script>
