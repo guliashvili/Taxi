@@ -1,6 +1,6 @@
+<%@ page import="ge.taxistgela.bean.Order" %>
 <%@ page import="ge.taxistgela.bean.User" %>
 <%@ page import="ge.taxistgela.model.OrderManager" %>
-<%@ page import="ge.taxistgela.bean.Order" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
@@ -56,7 +56,7 @@
             <input type="email" disabled value="<%=user.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(!user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
                 <% if (user.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -68,7 +68,7 @@
             <input type="text" disabled value="<%=user.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(!user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
                 <% if (user.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {
