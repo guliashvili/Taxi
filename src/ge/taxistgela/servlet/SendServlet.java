@@ -1,11 +1,5 @@
 package ge.taxistgela.servlet;
 
-import com.google.gson.Gson;
-import ge.taxistgela.bean.Order;
-import ge.taxistgela.dispatcher.OrderDispatcher;
-import ge.taxistgela.model.SessionManager;
-import ge.taxistgela.model.SessionManagerAPI;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +13,7 @@ public class SendServlet extends ActionServlet {
     // TODO Replace with real implementations.
 
     protected void sendToDriver(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("sendToDriver");
+        /*System.out.println("sendToDriver");
 
         OrderDispatcher orderDispatcher = (OrderDispatcher) getServletContext().getAttribute(OrderDispatcher.class.getName());
 
@@ -29,11 +23,11 @@ public class SendServlet extends ActionServlet {
 
         orderDispatcher.addToQueue(new Gson().fromJson(message, Order.class));
 
-        response.setStatus(HttpServletResponse.SC_OK);
+        response.setStatus(HttpServletResponse.SC_OK);*/
     }
 
     protected void sendToUser(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("sendToUser");
+        /*System.out.println("sendToUser");
 
         SessionManagerAPI sessionManager = (SessionManagerAPI) getServletContext().getAttribute(SessionManagerAPI.class.getName());
 
@@ -44,6 +38,6 @@ public class SendServlet extends ActionServlet {
 
         sessionManager.sendMessage(SessionManager.USER_SESSION, token, message);
 
-        response.setStatus(HttpServletResponse.SC_OK);
+        response.setStatus(HttpServletResponse.SC_OK);*/
     }
 }

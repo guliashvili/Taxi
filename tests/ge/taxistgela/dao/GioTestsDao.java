@@ -2,6 +2,7 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.AdminDatabase;
+import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.HashGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -501,6 +502,7 @@ public class GioTestsDao {
 
         company1 = verifyCompany(company1);
 
+
     }
 
     public void interaction() {
@@ -555,6 +557,7 @@ public class GioTestsDao {
         testUsers();
 
         testDrivers();
+        assertTrue(ExternalAlgorithms.equalsNull(driver1.getRating(), companyDao.getCompanyScore(company1.getCompanyID())));
 
         interaction();
 
