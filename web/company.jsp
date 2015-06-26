@@ -49,10 +49,12 @@
     </div>
     <div id="cPass" class="5u$ hidden">
       <form id="passForm" action="" type="post">
+        <span> Current Password: </span>
+        <input name="oldPassword" type="password" value=""/>
         <span> New Password: </span>
-        <input name="password" type="password" value="" required/>
+        <input name="password" type="password" value=""/>
         <span> Repeat Password: </span>
-        <input type="password" value="" required/><br>
+        <input type="password" value=""/><br>
         <button id="passChange" class="special button">Save</button>
       </form>
     </div>
