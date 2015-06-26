@@ -85,7 +85,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation d) {
+    public ErrorCode changePassword(GeneralCheckableInformation d, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (d == null) {
             ret.nullArgument();
@@ -94,7 +94,9 @@ public class DriverManager extends  DriverManagerAPI {
         } else {
             Driver driver = (Driver) d;
             ret = getErrorsDriver(driver);
-            if (!ret.errorAccrued())
+            if (driverDao.loginDriver(d.getEmail(), oldPassword) == null)
+                ret.wrongPassword();
+            else if (!ret.errorAccrued())
                 if (driverDao.changePassword(driver)) ret.unexpected();
         }
 

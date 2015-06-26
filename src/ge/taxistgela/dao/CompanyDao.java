@@ -358,6 +358,27 @@ public class CompanyDao implements CompanyDaoAPI {
     }
 
     @Override
+    public Double getCompanyScore(Integer companyID) {
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "SELECT avg(Driver.rating)  FROM drivers WHERE  drivers.companyID = ?"))) {
+
+                st.setInt(1, companyID);
+
+                ExternalAlgorithms.debugPrintSelect("getCompanyScore\n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next()) {
+                    return res.getDouble(1);
+                }
+            }
+        } catch (SQLException e) {
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return null;
+    }
+
+    @Override
     public boolean checkPhoneNumber(String phoneNumber) {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT companyID FROM companies WHERE  phoneNumber = ?"))) {

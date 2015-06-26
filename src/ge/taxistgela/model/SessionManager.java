@@ -15,9 +15,12 @@ public class SessionManager implements SessionManagerAPI {
     private Map<String, Session> userSessions;
     private Map<String, Session> driverSessions;
 
-    public SessionManager() {
+    private SuperUserTokenedManager[] managers;
+
+    public SessionManager(SuperUserTokenedManager[] managers) {
         this.userSessions = new ConcurrentHashMap<>();
         this.driverSessions = new ConcurrentHashMap<>();
+        this.managers = managers;
     }
 
     @Override
@@ -26,6 +29,7 @@ public class SessionManager implements SessionManagerAPI {
 
         if (sessions != null) {
             sessions.put(token, session);
+            updateDriverStatusIfNeeded(sessionType, token, true);
         }
     }
 
@@ -35,12 +39,21 @@ public class SessionManager implements SessionManagerAPI {
 
         if (sessions != null) {
             sessions.remove(token);
+            updateDriverStatusIfNeeded(sessionType, token, false);
+        }
+    }
+
+    private void updateDriverStatusIfNeeded(int sessionType, String token, boolean status) {
+        if (sessionType == DRIVER_SESSION) {
+            DriverManagerAPI dm = (DriverManagerAPI) managers[sessionType];
+            dm.setDriverActiveStatus(dm.getIDByToken(token), status);
         }
     }
 
     @Override
-    public void sendMessage(int sessionType, String token, String message) {
+    public void sendMessage(int sessionType, Integer ID, String message) {
         Map<String, Session> remotes = getMap(sessionType);
+        String token = managers[sessionType].getTokenByID(ID);
 
         if (remotes != null && remotes.containsKey(token)) {
             Session session = remotes.get(token);

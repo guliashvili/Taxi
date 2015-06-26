@@ -93,6 +93,10 @@ public class ErrorCode {
         put("password", "wrong format. password length is more then 50 or null");
     }
 
+    public void wrongPassword() {
+        put("password", "Old password is wrong");
+    }
+
     public void companyNameLong() {
         put("companyName", "Company name is too long");
     }

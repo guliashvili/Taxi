@@ -8,99 +8,121 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="Resources/assets/js/driver.js"/>
+<% Driver driver = (Driver) session.getAttribute(Driver.class.getName());%>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
 <div class="prefPanel">
-  <div class="row uniform" style="margin-left:10px">
-    <br>
-    <h2> Greetings Rati <br> </h2>
-    <div class="5u$">
-      <a href="#"><h3>Your Current Rating: 4.3</h3></a>
-      <li class="fa fa-star"></li>
-      <li class="fa fa-star"></li>
-      <li class="fa fa-star"></li>
-      <li class="fa fa-star-half-o"></li>
-      <li class="fa fa-star-o"></li>
-    </div>
-    <div class="6u 12u$(xsmall)">
-      <input type="email" disabled value="rmach13@freeuni.edu.ge">
-    </div>
-    <div class="6u$ 12u$(xsmall)">
-      <button class="fa fa-check-circle button small disabled verified">Verified</button>
-    </div>
-    <div class="6u 12u$(xsmall)">
-      <input type="text" disabled value="+995558677895">
-    </div>
-    <div class="6u$ 12u$(xsmall)">
-      <button class="fa fa-check-circle button small special">Verify</button>
-    </div>
-    <div class="12u$">
-      <button onclick="$('#cPass').toggleClass('hidden');" class="button special fa fa-key"> Change Password </button>
-    </div>
-    <div id="cPass" class="5u$ hidden">
-      <form action="" type="post">
-        <span> New Password: </span>
-        <input name="password" type="password" value="" required/>
-        <span> Repeat Password: </span>
-        <input type="password" value="" /><br>
-        <input type="submit" class="special button" value="Save"/>
-      </form>
-    </div>
-    <div style="float:right" class="4u$ (xsmall)">
-      <li style="float:left" class="disabled icon fa-google"><span class="label">Google+</span></li>
-      <br><br>
-      <a href="#" style="float:left" class="icon fa-facebook"><span class="label">Facebook</span></a>
-    </div>
-    <div class="5u$ 12u$(small)">
-      <a href="#" onclick="$('#cP').toggleClass('hidden');"class="button special small fa fa-adjust"> Register To Company</a>
-    </div>
-    <div id="cP" class="5u$ 12u$(small) hidden">
-      <form action="" type="post">
-        <input type="text" placeholder="Company Code" /><br>
-        <input type="submit" style="float:right;"class="button special" value="register"/>
-      </form>
-    </div>
-    <div class="5u$ 12u$(small)">
-      <a href="#" data-toggle="modal" data-target="#preferenceModal" class="button special small fa fa-adjust"> Edit Your Preferences</a>
-    </div>
-    <div class="12u$(small)">
-      <a href="#" data-toggle="modal" data-target="#preferenceModal" class="button special small fa fa-adjust"> Edit Your Car Details</a>
-    </div>
-    <div class="12u 1u$(small)" style="float:left">
-      <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart"> View Order History</a>
-    </div>
-  </div>
-</div>
-<div id="preferenceModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+    <div class="row uniform" style="margin-left:10px">
+        <br>
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Preferences</h5>
-      </div>
-      <div class="modal-body">
-        <!-- history goes here -->
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-<div id="historyModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+        <h2> Greetings <%=driver.getFirstName()%> <br></h2>
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">History</h5>
-      </div>
-      <div class="modal-body">
-        <!-- history goes here -->
-      </div>
-      <div class="modal-footer">
-      </div>
+        <div class="5u$">
+            <a href="#"><h3>Your Current Rating: <%= driver.getRating()%>
+            </h3></a>
+            <% for (int i = 1; i <= 5; ++i) { %>
+            <% if (driver.getRating() >= i) { %>
+            <li class="fa fa-star"></li>
+            <% } else { %>
+            <% if (Math.ceil(driver.getRating()) > i) { %>
+            <li class="fa fa-star-half-o"></li>
+            <% } else { %>
+            <li class="fa fa-star-o"></li>
+            <%} %>
+            <%} %>
+            <%} %>
+        </div>
+        <div class="6u 12u$(xsmall)">
+            <input type="email" disabled value="<%=driver.getEmail()%>">
+        </div>
+        <div class="6u$ 12u$(xsmall)">
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+                <% if (driver.getIsVerifiedEmail()) {
+                    out.println("Verified");
+                } else {
+                    out.println("Verify");
+                } %>
+            </button>
+        </div>
+        <div class="6u 12u$(xsmall)">
+            <input type="text" disabled value="<%=driver.getPhoneNumber()%>">
+        </div>
+        <div class="6u$ 12u$(xsmall)">
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+                <% if (driver.getIsVerifiedPhone()) {
+                    out.println("Verified");
+                } else {
+                    out.println("Verify");
+                } %>
+            </button>
+        </div>
+        <div class="12u$">
+            <button onclick="$('#cPass').toggleClass('hidden');" class="button special fa fa-key"> Change Password
+            </button>
+        </div>
+        <div id="cPass" class="5u$ hidden">
+            <form id="passForm" action="" type="post">
+                <span> New Password: </span>
+                <input name="password" type="password" value="" required/>
+                <span> Repeat Password: </span>
+                <input type="password" value=""/><br>
+                <button id="passChange" class="special button">Save</button>
+            </form>
+        </div>
+        <div style="float:right" class="4u$ (xsmall)">
+            <a href="#" style="float:left"
+               class="<%if(driver.getGoogleID()!=null){ %> disabled <%}%> icon fa-facebook"><span
+                    class="label">getGoogleID</span></a>
+            <br><br>
+            <a href="#" style="float:left" class="<%if(driver.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
+                    class="label">Facebook</span></a>
+        </div>
+        <div class="5u$ 12u$(small)">
+            <a href="#" onclick="$('#cP').toggleClass('hidden');" class="button special small fa fa-adjust"> Register To
+                Company</a>
+        </div>
+        <div id="cP" class="5u$ 12u$(small) hidden">
+            <form id="companyCodeForm" action="" type="post">
+                <input name="companyCode" type="text" placeholder="Company Code"/><br>
+                <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
+            </form>
+        </div>
+        <div class="5u$ 12u$(small)">
+            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+        </div>
+        <div class="5u$ 12u$(small)">
+            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+        </div>
+        <div id="cPref" class="6u$ hidden">
+            <form id="cPrefForm">
+                <label for="minimumUserRating"> Minimum User Rating </label>
+                <input type="number" id="minimumUserRating" name="minimumUserRating" value="<%=driver.getPreferences().getMinimumUserRating()%>" step="1"/>
+                <label for="coefficientPer"> Coefficient Per KM. </label>
+                <input type="number" id="coefficientPer" name="coefficientPer" value="<%=driver.getPreferences().getCoefficientPer()%>" step=".1"/>
+            </form>
+            <button id="cPrefBtn" class="button special small fa fa-adjust"> Save </button>
+        </div>
+        <div class="12u$(small)">
+            <a href="#" onclick="$('#cCar').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Car Details</a>
+        </div><br>
+        <div id="cCar" class="12u hidden">
+            <form id="cCarForm">
+                <input type="checkbox" id="conditioning" name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked")}%>>
+                <label for="conditioning"> Conditioning </label>
+                </input><br>
+                <label for="conditioning"> Car Description </label>
+                <textarea id="carDescription" name="carDescription" style="width:60%;font-size:1em"><%=driver.getCar().getCarDescription()%></textarea>
+                <label for="conditioning"> Car Year </label>
+                <input type="number" id="carYear" name="carYear" value="<%=driver.getCar().getCarYear()%>" step="1"/>
+                <label for="conditioning"> Max. Number Of Passengers </label>
+                <input type="number" id="numPassengers" name="numPassengers" value="<%=driver.getCar().getNumPassengers()%>" step="1"/><br>
+            </form>
+            <button id="cCarBtn" class="button special small fa fa-adjust"> Save </button>
+        </div>
+        <div class="12u 1u$(small)" style="float:left">
+            <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart">
+                View Order History</a>
+        </div>
     </div>
-  </div>
 </div>

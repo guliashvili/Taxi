@@ -17,6 +17,8 @@ public interface CompanyDaoAPI {
 
     Company getCompanyByFacebookID(String facebookID);
 
+    Double getCompanyScore(Integer companyID);
+
     Integer getCompanyIDByCode(String companyCode);
     /**
      * verifies company email

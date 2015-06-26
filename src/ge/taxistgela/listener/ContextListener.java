@@ -39,7 +39,8 @@ public class ContextListener implements ServletContextListener,
         sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(new CompanyDao(), ram));
 
         // add DriverManager.
-        sc.setAttribute(DriverManagerAPI.class.getName(), new DriverManager(new DriverDao(), ram));
+        DriverManager dm = new DriverManager(new DriverDao(), ram);
+        sc.setAttribute(DriverManagerAPI.class.getName(), dm);
 
         // add OrderManager.
         sc.setAttribute(OrderManagerAPI.class.getName(), new OrderManager(new OrderDao()));
@@ -47,12 +48,14 @@ public class ContextListener implements ServletContextListener,
         // add ReviewManager.
         sc.setAttribute(ReviewManagerAPI.class.getName(), new ReviewManager(new ReviewDao()));
 
-        // add SessionManager.
-        sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager());
-
         // add UserManager.
-        sc.setAttribute(UserManagerAPI.class.getName(), new UserManager(new UserDao(), ram));
+        UserManager um = new UserManager(new UserDao(), ram);
+        sc.setAttribute(UserManagerAPI.class.getName(), um);
 
+        // add SessionManager.
+        sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager(new SuperUserTokenedManager[]{um, dm}));
+
+        // add TaxRam.
         sc.setAttribute(TaxRam.class.getName(), ram);
 
         // add OrderDispatcher.
@@ -88,6 +91,9 @@ public class ContextListener implements ServletContextListener,
 
         // remove UserManager.
         sc.removeAttribute(UserManagerAPI.class.getName());
+
+        // remove TaxRam.
+        sc.removeAttribute(TaxRam.class.getName());
 
         // remove OrderDispatcher.
         OrderDispatcher orderDispatcher = (OrderDispatcher) sce.getServletContext().getAttribute(OrderDispatcher.class.getName());

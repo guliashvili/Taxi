@@ -28,7 +28,8 @@ public interface SessionManagerAPI {
      * Sends the message to session's remote endpoint depending on the session type and token.
      *
      * @param sessionType
+     * @param ID
      * @param message
      */
-    void sendMessage(int sessionType, String token, String message);
+    void sendMessage(int sessionType, Integer ID, String message);
 }

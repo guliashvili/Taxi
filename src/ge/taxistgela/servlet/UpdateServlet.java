@@ -30,7 +30,7 @@ public class UpdateServlet extends ActionServlet {
 
     }
 
-    public void dStatus(HttpServletRequest request, HttpServletResponse response) {
+    public void dLocation(HttpServletRequest request, HttpServletResponse response) {
 
     }
 }

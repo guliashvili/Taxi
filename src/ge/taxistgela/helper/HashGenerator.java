@@ -5,7 +5,6 @@ import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import java.net.URLEncoder;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -69,7 +68,8 @@ public class HashGenerator {
             c.init(Cipher.ENCRYPT_MODE, key);
             encr = c.doFinal(text.getBytes());
 
-            ret = URLEncoder.encode(new BASE64Encoder().encode(encr), "UTF-8");
+            //ret = URLEncoder.encode(new BASE64Encoder().encode(encr), "UTF-8");
+            ret = new BASE64Encoder().encode(encr);
 
         } catch (Exception e) {
             return null;
@@ -81,7 +81,7 @@ public class HashGenerator {
         String ret = null;
 
         try {
-            text = java.net.URLDecoder.decode(text, "UTF-8");
+            //text = java.net.URLDecoder.decode(text, "UTF-8");
             Key key = new SecretKeySpec(HashGenerator.key, "AES");
             Cipher c = Cipher.getInstance("AES");
             c.init(Cipher.DECRYPT_MODE, key);

@@ -50,7 +50,7 @@ public interface SuperUserManager {
      * @param SuperUser
      * @return operationCode
      */
-    ErrorCode changePassword(GeneralCheckableInformation SuperUser);
+    ErrorCode changePassword(GeneralCheckableInformation SuperUser, String oldPassword);
 
     /**
      * Returns SuperUserManager selected by the certain superUserID.

@@ -122,7 +122,7 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation u) {
+    public ErrorCode changePassword(GeneralCheckableInformation u, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (u == null)
             ret.nullArgument();
@@ -131,7 +131,9 @@ public class UserManager extends UserManagerAPI {
         else {
             User user = (User) u;
             ret.union(getErrorsUser(user));
-            if (!ret.errorAccrued())
+            if (userDao.loginUser(u.getEmail(), oldPassword) == null)
+                ret.wrongPassword();
+            else if (!ret.errorAccrued())
                 if (userDao.changePassword(user))
                     ret.unexpected();
 
