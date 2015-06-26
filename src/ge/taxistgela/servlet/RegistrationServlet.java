@@ -6,6 +6,7 @@ import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
 import ge.taxistgela.model.UserManagerAPI;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +61,7 @@ public class RegistrationServlet extends ActionServlet {
             return;
         }
 
-        Car car = new Car("Unknown", "Untitled", 1900, false, 0);
+        Car car = new Car(RandomStringUtils.randomAlphanumeric(20), "Untitled", 1900, false, 0);
 
         code = driverManager.insertCar(car);
         if (code.errorAccrued()) {
