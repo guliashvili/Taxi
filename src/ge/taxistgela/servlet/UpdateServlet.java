@@ -50,6 +50,7 @@ public class UpdateServlet extends ActionServlet {
                 if (errorCode.errorNotAccrued()) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
+                    user.setPreference(userPreference);
                     return;
                 }
             }
@@ -89,6 +90,7 @@ public class UpdateServlet extends ActionServlet {
                 if (errorCode.errorNotAccrued()) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
+                    driver.setPreferences(driverPreference);
                     return;
                 }
             }
