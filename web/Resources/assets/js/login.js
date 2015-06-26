@@ -13,7 +13,6 @@ function createLogin () {
             url: "/login",
             method: "post",
             data: formData,
-            dataType: 'script',
             cache: false,
             success: function (data) {
                 console.log("Logged in\n" + JSON.stringify(formData));
