@@ -84,7 +84,7 @@ public class GioTestsDao {
         }
 
         review1 = new Review(-1, -1, true, 2.0, "review1");
-        review1 = new Review(-1, -1, false, 1.0, "review2");
+        review2 = new Review(-1, -1, false, 1.0, "review2");
 
 
         car1 = new Car("JRJ-880", "jigri mdzgoli", 2000, true, 4);
@@ -566,7 +566,78 @@ public class GioTestsDao {
 
     }
 
+    public void testOrder() {
+        assertFalse(orderDao.addOrder(order1));
+        assertFalse(orderDao.addOrder(order2));
+
+        assertEquals(orderDao.getOrderByID(order1.getOrderID()), order1);
+        assertEquals(orderDao.getOrderByID(order2.getOrderID()), order2);
+
+        List<Order> ls1 = orderDao.getOrderByUserID(user1.getUserID());
+        ls1.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        List<Order> tmp = new ArrayList<>();
+        tmp.add(order1);
+        tmp.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        assertEquals(ls1, tmp);
+
+        ls1 = orderDao.getOrderByUserID(user2.getUserID());
+        ls1.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        tmp = new ArrayList<>();
+        tmp.add(order2);
+        tmp.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        assertEquals(ls1, tmp);
+
+        ls1 = orderDao.getOrdersByDriverID(driver1.getDriverID());
+        ls1.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        tmp = new ArrayList<>();
+        tmp.add(order1);
+        tmp.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        assertEquals(ls1, tmp);
+
+        ls1 = orderDao.getOrdersByDriverID(driver2.getDriverID());
+        ls1.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        tmp = new ArrayList<>();
+        tmp.add(order2);
+        tmp.sort((o1, o2) -> o1.getOrderID() - o2.getOrderID());
+        assertEquals(ls1, tmp);
+
+        order1.setNumPassengers(3);
+        assertFalse(orderDao.updateOrder(order1));
+        order1 = orderDao.getOrderByID(order1.getOrderID());
+        assertEquals(new Integer(3), order1.getNumPassengers());
+
+
+    }
+
     public void testReview() {
+        assertFalse(reviewDao.addReview(review1));
+        assertFalse(reviewDao.addReview(review2));
+        assertEquals(reviewDao.getReviewByID(review1.getReviewID()), review1);
+        assertEquals(reviewDao.getReviewByID(review2.getReviewID()), review2);
+
+        List<Review> ls1 = reviewDao.getReviewByDriverID(driver1.getDriverID());
+        ls1.sort((o1, o2) -> o1.getReviewID() - o2.getReviewID());
+        List<Review> exp = new ArrayList<>();
+        exp.add(review1);
+        assertEquals(ls1, exp);
+
+        ls1 = reviewDao.getReviewByDriverID(driver2.getDriverID());
+        ls1.sort((o1, o2) -> o1.getReviewID() - o2.getReviewID());
+        exp = new ArrayList<>();
+        exp.add(review2);
+        assertEquals(ls1, exp);
+
+        ls1 = reviewDao.getReviewByUserID(user1.getUserID());
+        ls1.sort((o1, o2) -> o1.getReviewID() - o2.getReviewID());
+        exp = new ArrayList<>();
+        exp.add(review1);
+        assertEquals(ls1, exp);
+
+        ls1 = reviewDao.getReviewByUserID(user2.getUserID());
+        ls1.sort((o1, o2) -> o1.getReviewID() - o2.getReviewID());
+        exp = new ArrayList<>();
+        exp.add(review2);
+        assertEquals(ls1, exp);
 
     }
 
@@ -581,10 +652,18 @@ public class GioTestsDao {
 
         interaction();
 
-        testReview();
 
         order1.setDriverID(driver1.getDriverID());
         order1.setUserID(user1.getUserID());
+        order2.setDriverID(driver2.getDriverID());
+        order2.setUserID(user2.getUserID());
+
+        testOrder();
+
+        review1.setOrderID(order1.getOrderID());
+        review2.setOrderID(order2.getOrderID());
+
+        testReview();
 
 
 

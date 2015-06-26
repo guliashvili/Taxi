@@ -28,10 +28,10 @@ public class ReviewDao implements ReviewDaoAPI {
     private static final String GET_REVIEW_BY_ID = "SELECT * FROM Reviews WHERE reviewID = ?";
 
     private static final String GET_REVIEW_BY_USER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
-            "FROM Reviews r INNER JOIN Orders o ON o.userID = ?";
+            "FROM Reviews r INNER JOIN Orders o ON o.orderID=r.orderID AND o.userID = ?";
 
     private static final String GET_REVIEW_BY_DRIVER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
-            "FROM Reviews r INNER JOIN Orders o ON o.driverID = ?";
+            "FROM Reviews r INNER JOIN Orders o ON o.orderID=r.orderID AND o.driverID = ?";
 
 
     private boolean setStrings(PreparedStatementEnhanced st, Review review, boolean update) {
