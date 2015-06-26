@@ -56,4 +56,36 @@ function createPreferencesSaves(){
             }
         });
     });
+    $("#cPrefBtn").click(function(e){
+        var formDate = $("#cPrefForm").serialize();
+        $.ajax({
+            url: "/update",
+            action:"dPreferences",
+            method: "post",
+            data: formData,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error("Couldn't log in\n" + JSON.stringify(formData));
+            }
+        });
+    });
+    $("#cCarBtn").click(function(e){
+        var formDate = $("#cCarForm").serialize();
+        $.ajax({
+            url: "/update",
+            action:"dCar",
+            method: "post",
+            data: formData,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error("Couldn't log in\n" + JSON.stringify(formData));
+            }
+        });
+    });
 }
