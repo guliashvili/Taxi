@@ -11,6 +11,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="Resources/assets/js/user.js"></script>
+<script src="/Resources/assets/js/addFacebookAccount.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
@@ -84,11 +86,13 @@
         </div>
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
-               class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-facebook"><span
-                    class="label">getGoogleID</span></a>
+               class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google"><span
+                    class="label">Google+</span></a>
             <br><br>
             <a href="#" style="float:left" class="<%if(user.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
                     class="label">Facebook</span></a>
+            <br>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         </div>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit

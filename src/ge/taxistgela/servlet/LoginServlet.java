@@ -100,7 +100,6 @@ public class LoginServlet extends ActionServlet {
 
             if (obj != null) {
                 request.getSession().setAttribute(A_TYPE[type], obj);
-
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.sendRedirect(P_TYPE[type]);
 

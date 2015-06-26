@@ -240,6 +240,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <li><a href="#" class="icon fa-twitter"><span class="label">Follow us</span></a></li>
             <li><a href="#" class="icon fa-facebook"><span class="label">Like Us</span></a></li>
             <li><a href="#" class="icon fa-envelope-o"><span class="label">Email Us</span></a></li>
+            <!-- TODO es ragaca ar chans dasamtavrebels gavs -->
         </ul>
         <ul class="copyright">
             <li>&copy; ღმერთჩემა & co.</li>
