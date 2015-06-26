@@ -1,6 +1,9 @@
 package ge.taxistgela.servlet;
 
-import ge.taxistgela.bean.*;
+import ge.taxistgela.bean.Company;
+import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.GeneralCheckableInformation;
+import ge.taxistgela.bean.User;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SessionManagerAPI;
 
@@ -40,8 +43,8 @@ public class LogoutServlet extends HttpServlet {
                     dm.setDriverActiveStatus(((Driver) info).getDriverID(), false);
                 }
 
-                if (i < 2)
-                    sm.removeSession(i, ((GeneralCheckableInformationTokened) info).getToken());
+                // if (i < 2)
+                //   sm.removeSession(i, ((GeneralCheckableInformationTokened) info).getToken());
 
                 session.removeAttribute(A_TYPE[i]);
             }

@@ -47,9 +47,8 @@ public class CompanyManager extends   CompanyManagerAPI {
             if (!checkEmail(company.getEmail())) ret.emailDoesNotExists();
             if (!checkCompanyCode(company.getCompanyCode())) ret.companyCodeDoesNotExists();
             if (!checkPhoneNumber(company.getPhoneNumber())) ret.phoneNumberDoesNotExists();
-            if (company.getFacebookID() != null && !checkFacebookID(company.getFacebookID()))
-                ret.facebookIDDoesNotExists();
-            if (checkGoogleID(company.getGoogleID())) ret.googleIDDoesNotExists();
+            if (!checkFacebookID(company.getFacebookID())) ret.facebookIDDoesNotExists();
+            if (!checkGoogleID(company.getGoogleID())) ret.googleIDDoesNotExists();
         }
         return ret;
     }
