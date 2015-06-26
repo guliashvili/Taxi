@@ -10,7 +10,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="Resources/assets/js/company.js"/>
+<script src="Resources/assets/js/company.js"> </script>
 <% Company company = (Company) session.getAttribute(Company.class.getName());%>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
@@ -89,7 +89,7 @@
 <script>
   function generateGrid(){
     $('#grid').w2grid({
-      name: 'grid',
+      name: 'historyGrid',
       header: 'List of Names',
       columns: [
         { field: 'Date', caption: 'Started', size: '30%' },

@@ -13,6 +13,7 @@ function createLogin () {
             url: "/login",
             method: "post",
             data: formData,
+            dataType: 'script',
             cache: false,
             success: function (data) {
                 console.log("Logged in\n" + JSON.stringify(formData));
@@ -22,9 +23,6 @@ function createLogin () {
                 $("#panel").html(data);
                 $("#loginModal").modal('hide');
                 $("#banner").hide();
-                initializeMap();
-                createPreferencesSaves();
-                generateGrid();
             },
             error: function (data) {
                 console.error("Couldn't log in\n" + JSON.stringify(formData));
