@@ -50,10 +50,6 @@ public class LogoutServlet extends HttpServlet {
         }
     }
 
-    private void removeSocketSession(SessionManagerAPI sm, GeneralCheckableInformationTokened info, int sessionType) {
-        sm.removeSession(sessionType, info.getToken());
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException();
     }
