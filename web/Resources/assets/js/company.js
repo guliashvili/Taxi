@@ -10,6 +10,7 @@
 $(document).ready(function(){
     initializeMap();
     createPreferencesSaves();
+    generateGrid();
 });
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
