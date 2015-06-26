@@ -6,7 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Driver extends GeneralCheckableInformation {
+public class Driver extends GeneralCheckableInformationTokened {
     private Integer driverID;
     private String personalID;
     private String email;

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class User extends GeneralCheckableInformation {
+public class User extends GeneralCheckableInformationTokened {
     private Integer userID;
     private String email;
     private String password;
