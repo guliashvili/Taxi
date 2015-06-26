@@ -49,7 +49,7 @@ public class Server {
         try {
             session.close();
         } catch (IOException e) {
-            ExternalAlgorithms.debugPrint(t.toString());
+            ExternalAlgorithms.debugPrint(e.toString());
         }
 
         if (sm != null) {
