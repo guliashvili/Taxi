@@ -127,28 +127,34 @@
             <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-    </div>
-</div>
-<div id="historyModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+        <div class="12 1u$">
 
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h5 class="modal-title">History</h5>
-            </div>
-            <div class="modal-body">
-                <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
-                    if (man != null) {
-                        List<Order> orders = man.getOrderByUserID(user.getUserID());
-                        for (Order ord : orders) {
-
-                        }
-                    }
-                %>
-            </div>
-            <div class="modal-footer">
-            </div>
         </div>
     </div>
 </div>
+<script>
+    function generateGrid(){
+        $('#grid').w2grid({
+            name: 'grid',
+            header: 'List of Names',
+            columns: [
+                { field: 'Date', caption: 'Date', size: '30%' },
+                { field: 'callTime', caption: 'Call Time', size: '30%' },
+                { field: 'Driver', caption: 'Driver', size: '30px' },
+                { field: 'StLoc', caption: 'Start', size: '30px' },
+                { field: 'EndLoc', caption: 'End', size: '30px' },
+                { field: 'paymentAmount', caption: 'Amount', size: '30px' }
+            ],
+            records: [
+            <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
+                if (man != null) {
+                    List<Order> orders = man.getOrderByUserID(user.getUserID());
+                    for (Order ord : orders) {
+                        %>{ Date: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, Driver: <%=ord.getDriverID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
+                    }
+                }
+            %>
+            ]
+        });
+    }
+</script>
