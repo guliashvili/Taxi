@@ -193,13 +193,13 @@ public class CompanyManager extends   CompanyManagerAPI {
 
     @Override
     public boolean checkFacebookID(String facebookID) {
-        if (facebookID == null) return false;
+        if (facebookID == null) return true;
         else return companyDao.checkFacebookID(facebookID);
     }
 
     @Override
     public boolean checkGoogleID(String googleID) {
-        if (googleID == null) return false;
+        if (googleID == null) return true;
         else return companyDao.checkGoogleID(googleID);
     }
 }

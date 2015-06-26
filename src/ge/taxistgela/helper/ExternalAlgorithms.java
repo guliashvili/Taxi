@@ -37,10 +37,13 @@ public class ExternalAlgorithms {
     }
     static public void debugPrint(String s){
         if (DEBUGStrings)
-          System.err.println(s);
+            System.out.println(s);
+
+        System.out.flush();
     }
     static public void debugPrint(Exception e){
         if (DEBUGExceptions)
          e.printStackTrace();
+
     }
 }

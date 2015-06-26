@@ -314,13 +314,13 @@ public class DriverManager extends  DriverManagerAPI {
 
     @Override
     public boolean checkFacebookID(String facebookID) {
-        if (facebookID == null) return false;
+        if (facebookID == null) return true;
         else return driverDao.checkFacebookID(facebookID);
     }
 
     @Override
     public boolean checkGoogleID(String googleID) {
-        if (googleID == null) return false;
+        if (googleID == null) return true;
         else return driverDao.checkGoogleID(googleID);
     }
 }
