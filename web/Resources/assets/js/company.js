@@ -14,10 +14,9 @@ $(document).ready(function(){
 });
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
-        var formDate = $("#passForm").serialize();
+        var formData = $("#passForm").serialize();
         $.ajax({
             url: "/update",
-            action:"cPassword",
             method: "post",
             data: formData,
             cache: false,

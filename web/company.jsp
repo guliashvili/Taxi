@@ -1,4 +1,7 @@
 <%@ page import="ge.taxistgela.bean.Company" %>
+<%@ page import="ge.taxistgela.model.OrderManager" %>
+<%@ page import="ge.taxistgela.bean.Order" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -9,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="Resources/assets/js/company.js"/>
 <% Company company = (Company) session.getAttribute(Company.class.getName());%>
-<section id="map" style="width:100%;height:100%;">
+<section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
 <div class="prefPanel">
@@ -53,115 +56,61 @@
         <input name="oldPassword" type="password" value=""/>
         <span> New Password: </span>
         <input name="password" type="password" value=""/>
+        <input type="text" name="action" value="cPassword" class="hidden"/>
         <span> Repeat Password: </span>
         <input type="password" value=""/><br>
-        <button id="passChange" class="special button">Save</button>
       </form>
+      <button id="passChange" class="special button">Save</button>
     </div>
     <div style="float:right" class="4u$ (xsmall)">
       <a href="#" style="float:left" class="<%if(company.getGoogleID()!=null){ %> disabled <%}%> icon fa-facebook"><span
-              class="label">getGoogleID</span></a>
+              class="label">GoogleID</span></a>
       <br><br>
       <a href="#" style="float:left" class="<%if(company.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
               class="label">Facebook</span></a>
     </div>
     <div class="12u 1u$(small)" style="float:left">
-      <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart"> View Order History</a>
+      <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
+        View Order History</a>
+    </div>
+    <div id="history" class="12 1u$ hidden" >
+      <div id="grid">
+
+      </div>
     </div>
     <div class="12u 1u$(small)" style="float:left">
-      <a href="#" data-toggle="modal" data-target="#driversModal" class="button special small fa fa-bar-chart"> View Drivers</a>
+      <a href="#" class="button special small fa fa-bar-chart"> View Drivers</a>
     </div>
     <div class="12u 1u$(small)" style="float:left">
-      <a href="#" data-toggle="modal" data-target="#statisticsModal" class="button special small fa fa-bar-chart"> View Statistics</a>
+      <a href="#" class="button special small fa fa-bar-chart"> View Statistics</a>
     </div>
   </div>
 </div>
-<div id="historyModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">History</h5>
-      </div>
-      <div class="modal-body">
-        <!-- history goes here -->
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-<div id="driversModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Drivers</h5>
-      </div>
-      <div class="modal-body">
-        <table id="driversTable" class="display" cellspacing="0" width="100%">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Last name</th>
-            <th>Personal ID</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th>Location</th>
-            <th>Rating</th>
-            <th>isActive</th>
-            <th>isVerified</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td data-search="გელა">გელა</td>
-            <td data-search="მაღალთაძე">მაღალთაძე</td>
-            <td data-search="01010101011">01010101011</td>
-            <td data-search="558555569">558555569</td>
-            <td data-search="gmagh13@freeuni.edu.ge">gmagh13@freeuni.edu.ge</td>
-            <td data-search="Male">Male</td>
-            <td data-search="unknown">unknown</td>
-            <td data-search="3.1">3.1</td>
-            <td data-search="+">+</td>
-            <td data-search="+">+</td>
-          </tr>
-
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-<div id="statisticsModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title">Statistics</h5>
-      </div>
-      <div class="modal-body">
-        <!-- statistics goes here -->
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-<div id="helperModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        "Company Code" is unique code given to company account<br>
-        via this code Drivers can be registered under given company<br>
-        in order for you to see them in total statistics
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+  function generateGrid(){
+    $('#grid').w2grid({
+      name: 'grid',
+      header: 'List of Names',
+      columns: [
+        { field: 'Date', caption: 'Started', size: '30%' },
+        { field: 'DateEnded', caption: 'Ended', size: '30%' },
+        { field: 'callTime', caption: 'Call Time', size: '30%' },
+        { field: 'User', caption: 'User', size: '30px' },
+        { field: 'Driver', caption: 'Driver', size: '30px' },
+        { field: 'StLoc', caption: 'Start', size: '30px' },
+        { field: 'EndLoc', caption: 'End', size: '30px' },
+        { field: 'paymentAmount', caption: 'Amount', size: '30px' }
+      ],
+      records: [
+          <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
+              if (man != null) {
+                  List<Order> orders = man.getOrdersByCompanyID(company.getCompanyID());
+                  for (Order ord : orders) {
+                      %>{ Date: <%=ord.getStartTime()%>,{ DateEnded: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, Driver: <%=ord.getDriverID()%>,User: <%=ord.getUserID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
+                    }
+                }
+            %>
+      ]
+    });
+  }
+</script>

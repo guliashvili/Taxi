@@ -75,8 +75,9 @@
                 <input name="password" type="password" value=""/>
                 <span> Repeat Password: </span>
                 <input type="password" value=""/><br>
-                <button id="passChange" class="special button">Save</button>
+                <input type="text" name="action" value="uPassword" class="hidden"/>
             </form>
+            <button id="passChange" class="special button">Save</button>
         </div>
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
@@ -92,6 +93,7 @@
         </div>
         <div id="cPref" class="6u$ hidden">
             <form id="prefForm" action="" type="post">
+                <input type="text" name="action" value="uPreferences" class="hidden"/>
                 <input type="number" id="minimumDriverRating" name="minimumDriverRating"
                        value="<%=user.getPreference().getPassengersCount()%>"
                        style="color:black;padding-left:5px" value="1" step="1">
@@ -120,11 +122,13 @@
             </form>
         </div>
         <div class="12u 1u$(small)" style="float:left">
-            <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart">
+            <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div class="12 1u$">
+        <div id="history" class="12 1u$ hidden" >
+            <div id="grid">
 
+            </div>
         </div>
     </div>
 </div>

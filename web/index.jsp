@@ -22,8 +22,10 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="/Resources/assets/js/facebookLogin.js"></script>
+    <script src="/Resources/assets/js/facebookRegister.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Resources/assets/css/taxi.css">
@@ -39,6 +41,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="Resources/assets/js/login.js"></script>
     <script src="Resources/assets/js/register.js"></script>
     <script src="Resources/assets/js/index.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="Resources/assets/css/ie8.css"/><![endif]-->
@@ -129,43 +132,43 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         <br><br>
 
                         <div id="companyRegistration" class="hidden">
-                            <input type="text" name="companyCode" value="" placeholder="Company Code"/><br>
-                            <input type="email" name="companyemail" value="" placeholder="Company Email"/><br>
-                            <input type="password" name="companypassword" value="" placeholder="Company Password"/><br>
-                            <input type="password" name="companyrepassword" value="" placeholder="Repeat Password"/><br>
-                            <input type="text" name="companyName" value="" placeholder="Company Name"/><br>
-                            <input type="text" name="companyphoneNumber" value="" placeholder="Company Phone Number"/><br>
-                            <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+                            <input id="companyCode" type="text" name="companyCode" value="" placeholder="Company Code"/><br>
+                            <input id="companyemail" type="email" name="companyemail" value="" placeholder="Company Email"/><br>
+                            <input id="companypassword" type="password" name="companypassword" value="" placeholder="Company Password"/><br>
+                            <input id="companyrepassword" type="password" name="companyrepassword" value="" placeholder="Repeat Password"/><br>
+                            <input id="companyName" type="text" name="companyName" value="" placeholder="Company Name"/><br>
+                            <input id="companyphoneNumber" type="text" name="companyphoneNumber" value="" placeholder="Company Phone Number"/><br>
+                            <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                         <div id="userRegistration" class="hidden">
-                            <input type="text" name="userfirstName" value="" placeholder="First Name"/><br>
-                            <input type="text" name="userlastName" value="" placeholder="Last Name"/><br>
-                            <input type="email" name="useremail" value="" placeholder="Email"/><br>
-                            <input type="password" name="userpassword" value="" placeholder="Password"/><br>
-                            <input type="password" name="userrepassword" value="" placeholder="Repeat Password"/><br>
-                            <select name="usergender">
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
+                            <input id="userfirstName" type="text" name="userfirstName" value="" placeholder="First Name"/><br>
+                            <input id="userlastName" type="text" name="userlastName" value="" placeholder="Last Name"/><br>
+                            <input id="useremail" type="email" name="useremail" value="" placeholder="Email"/><br>
+                            <input id="userpassword" type="password" name="userpassword" value="" placeholder="Password"/><br>
+                            <input id="userrepassword" type="password" name="userrepassword" value="" placeholder="Repeat Password"/><br>
+                            <select id="usergender" name="usergender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select><br>
-                            <input type="text" name="userphoneNumber" value="" placeholder="Phone Number"/><br>
-                            <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+                            <input id="userphoneNumber" type="text" name="userphoneNumber" value="" placeholder="Phone Number"/><br>
+                            <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                         <div id="driverRegistration" class="hidden">
-                            <input type="text" name="driverfirstName" value="" placeholder="First Name"/><br>
-                            <input type="text" name="driverlastName" value="" placeholder="Last Name"/><br>
-                            <input type="text" name="driverpersonalID" value="" placeholder="Personal ID"/><br>
-                            <input type="text" name="drivercompanyCode" value="" placeholder="Company Code"/><br>
-                            <input type="email" name="driveremail" value="" placeholder="Email"/><br>
-                            <input type="password" name="driverpassword" value="" placeholder="Password"/><br>
-                            <input type="password" name="driverrepassword" value="" placeholder="Repeat Password"/><br>
-                            <select name="drivergender">
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
+                            <input id="driverfirstName" type="text" name="driverfirstName" value="" placeholder="First Name"/><br>
+                            <input id="driverlastName" type="text" name="driverlastName" value="" placeholder="Last Name"/><br>
+                            <input id="driverpersonalID" type="text" name="driverpersonalID" value="" placeholder="Personal ID"/><br>
+                            <input id="drivercompanyCode" type="text" name="drivercompanyCode" value="" placeholder="Company Code"/><br>
+                            <input id="driveremail" type="email" name="driveremail" value="" placeholder="Email"/><br>
+                            <input id="driverpassword" type="password" name="driverpassword" value="" placeholder="Password"/><br>
+                            <input id="driverrepassword" type="password" name="driverrepassword" value="" placeholder="Repeat Password"/><br>
+                            <select id="drivergender" name="drivergender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select><br>
-                            <input type="text" name="driverphoneNumber" value="" placeholder="Phone Number"/><br>
-                            <a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+                            <input id="driverphoneNumber" type="text" name="driverphoneNumber" value="" placeholder="Phone Number"/><br>
+                            <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                     </form>
@@ -211,7 +214,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="password" name="password" placeholder="Password"><br>
                             <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
                             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-                            <div id="status">
+                            <div id="loginStatus">
                             </div>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a>
                             <br><br>

@@ -10,17 +10,17 @@ function statusChangeCallback(response) {
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
-    if (response.status === 'connected') {
+    if (response.loginStatus === 'connected') {
         // Logged into your app and Facebook.
-        testAPI();
-    } else if (response.status === 'not_authorized') {
+        testAPI_Login();
+    } else if (response.loginStatus === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
-        document.getElementById('status').innerHTML = 'Please log ' +
+        document.getElementById('loginStatus').innerHTML = 'Please log ' +
         'into this app.';
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
-        document.getElementById('status').innerHTML = 'Please log ' +
+        document.getElementById('loginStatus').innerHTML = 'Please log ' +
         'into Facebook.';
     }
 }
@@ -43,6 +43,7 @@ window.fbAsyncInit = function() {
         version    : 'v2.2' // use version 2.2
     });
 
+    
     // Now that we've initialized the JavaScript SDK, we call
     // FB.getLoginStatus().  This function gets the state of the
     // person visiting this page and can return one of three states to
@@ -72,11 +73,11 @@ window.fbAsyncInit = function() {
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
+function testAPI_Login() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
         console.log('Successful login for: ' + response.name);
-        document.getElementById('status').innerHTML =
+        document.getElementById('loginStatus').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
         var facebookId = response.id;
         createFbLogin(facebookId);
@@ -89,7 +90,8 @@ function createFbLogin (facebookId) {
     } else
     if ($("#driverLogin:checked").val() != undefined) {
         objectName = "loginFbDriver";
-    }else{
+    }else
+    if ($("#companyLogin:checked").val() != undefined) {
         objectName = "loginFbCompany";
     }
     console.log(objectName);

@@ -1,4 +1,7 @@
 <%@ page import="ge.taxistgela.bean.Driver" %>
+<%@ page import="ge.taxistgela.model.OrderManager" %>
+<%@ page import="ge.taxistgela.bean.Order" %>
+<%@ page import="java.util.List" %>
 \<%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -70,6 +73,7 @@
                 <span> Repeat Password: </span>
                 <input type="password" value=""/><br>
                 <button id="passChange" class="special button">Save</button>
+                <input type="text" name="action" value="dPassword" class="hidden"/>
             </form>
         </div>
         <div style="float:right" class="4u$ (xsmall)">
@@ -88,6 +92,7 @@
             <form id="companyCodeForm" action="" type="post">
                 <input name="companyCode" type="text" placeholder="Company Code"/><br>
                 <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
+                <input type="text" name="action" value="dCompanyCode" class="hidden"/>
             </form>
         </div>
         <div class="5u$ 12u$(small)">
@@ -98,6 +103,7 @@
         </div>
         <div id="cPref" class="6u$ hidden">
             <form id="cPrefForm">
+                <input type="text" name="action" value="dPreferences" class="hidden"/>
                 <label for="minimumUserRating"> Minimum User Rating </label>
                 <input type="number" id="minimumUserRating" name="minimumUserRating" value="<%=driver.getPreferences().getMinimumUserRating()%>" step="1"/>
                 <label for="coefficientPer"> Coefficient Per KM. </label>
@@ -110,6 +116,7 @@
         </div><br>
         <div id="cCar" class="12u hidden">
             <form id="cCarForm">
+                <input type="text" name="action" value="dCar" class="hidden"/>
                 <input type="checkbox" id="conditioning" name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked")}%>>
                     <label for="conditioning"> Conditioning </label>
                 </input><br>
@@ -133,3 +140,29 @@
         </div>
     </div>
 </div>
+<script>
+    function generateGrid(){
+        $('#grid').w2grid({
+            name: 'grid',
+            header: 'List of Names',
+            columns: [
+                { field: 'Date', caption: 'Date', size: '30%' },
+                { field: 'callTime', caption: 'Call Time', size: '30%' },
+                { field: 'User', caption: 'User', size: '30px' },
+                { field: 'StLoc', caption: 'Start', size: '30px' },
+                { field: 'EndLoc', caption: 'End', size: '30px' },
+                { field: 'paymentAmount', caption: 'Amount', size: '30px' }
+            ],
+            records: [
+                    <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
+                        if (man != null) {
+                            List<Order> orders = man.getOrderByUserID(driver.getDriverID());
+                            for (Order ord : orders) {
+                                %>{ Date: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, User: <%=ord.getUserID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
+                    }
+                }
+            %>
+            ]
+        });
+    }
+</script>
