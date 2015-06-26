@@ -17,7 +17,6 @@ function createPreferencesSaves(){
         var formData = $("#passForm").serialize();
         $.ajax({
             url: "/update",
-            action:"cPassword",
             method: "post",
             data: formData,
             cache: false,

@@ -56,6 +56,7 @@
         <input name="oldPassword" type="password" value=""/>
         <span> New Password: </span>
         <input name="password" type="password" value=""/>
+        <input type="text" name="action" value="cPassword" class="hidden"/>
         <span> Repeat Password: </span>
         <input type="password" value=""/><br>
       </form>

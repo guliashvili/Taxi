@@ -75,6 +75,7 @@
                 <input name="password" type="password" value=""/>
                 <span> Repeat Password: </span>
                 <input type="password" value=""/><br>
+                <input type="text" name="action" value="uPassword" class="hidden"/>
             </form>
             <button id="passChange" class="special button">Save</button>
         </div>
@@ -92,6 +93,7 @@
         </div>
         <div id="cPref" class="6u$ hidden">
             <form id="prefForm" action="" type="post">
+                <input type="text" name="action" value="uPreferences" class="hidden"/>
                 <input type="number" id="minimumDriverRating" name="minimumDriverRating"
                        value="<%=user.getPreference().getPassengersCount()%>"
                        style="color:black;padding-left:5px" value="1" step="1">

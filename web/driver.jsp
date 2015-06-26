@@ -73,6 +73,7 @@
                 <span> Repeat Password: </span>
                 <input type="password" value=""/><br>
                 <button id="passChange" class="special button">Save</button>
+                <input type="text" name="action" value="dPassword" class="hidden"/>
             </form>
         </div>
         <div style="float:right" class="4u$ (xsmall)">
@@ -91,6 +92,7 @@
             <form id="companyCodeForm" action="" type="post">
                 <input name="companyCode" type="text" placeholder="Company Code"/><br>
                 <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
+                <input type="text" name="action" value="dCompanyCode" class="hidden"/>
             </form>
         </div>
         <div class="5u$ 12u$(small)">
@@ -101,6 +103,7 @@
         </div>
         <div id="cPref" class="6u$ hidden">
             <form id="cPrefForm">
+                <input type="text" name="action" value="dPreferences" class="hidden"/>
                 <label for="minimumUserRating"> Minimum User Rating </label>
                 <input type="number" id="minimumUserRating" name="minimumUserRating" value="<%=driver.getPreferences().getMinimumUserRating()%>" step="1"/>
                 <label for="coefficientPer"> Coefficient Per KM. </label>
@@ -113,6 +116,7 @@
         </div><br>
         <div id="cCar" class="12u hidden">
             <form id="cCarForm">
+                <input type="text" name="action" value="dCar" class="hidden"/>
                 <input type="checkbox" id="conditioning" name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked")}%>>
                     <label for="conditioning"> Conditioning </label>
                 </input><br>

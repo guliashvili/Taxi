@@ -13,7 +13,6 @@ function createPreferencesSaves(){
         var formData = $("#passForm").serialize();
         $.ajax({
             url: "/update",
-            action:"uPassword",
             method: "post",
             data: formData,
             cache: false,
@@ -29,7 +28,6 @@ function createPreferencesSaves(){
         var formData = $("#prefForm").serialize();
         $.ajax({
             url: "/update",
-            action:"uPreferences",
             method: "post",
             data: formData,
             cache: false,
