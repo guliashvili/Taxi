@@ -220,8 +220,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="password" name="password" placeholder="Password"><br>
                             <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
                             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-                            <div id="loginStatus">
+                            <!--  <div id="loginStatus">
                             </div>
+                            -->
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a>
                             <br><br>
                         </div>

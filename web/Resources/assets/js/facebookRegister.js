@@ -7,7 +7,7 @@
  */
 
 // This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
+function statusChangeCallbackRegister(response) {
     console.log('statusChangeCallback');
     console.log(response);
     // The response object is returned with a status field that lets the
@@ -34,7 +34,7 @@ function statusChangeCallback(response) {
 // code below.
 function checkRegisterState() {
     FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
+        statusChangeCallbackRegister(response);
     });
 }
 
@@ -60,9 +60,8 @@ window.fbAsyncInit = function() {
     // These three cases are handled in the callback function.
 
     FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
+        statusChangeCallbackRegister(response);
     });
-
 };
 
 // Load the SDK asynchronously
@@ -79,10 +78,8 @@ window.fbAsyncInit = function() {
 function testAPI_Register() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-        console.log('Successful login for: ' + response.name);
      /*   document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + response.name + '!'; */
-        console.log("vax chemee");
         var facebookId = response.id;
         var nameAndSurname = response.name;
         var email = response.email;
