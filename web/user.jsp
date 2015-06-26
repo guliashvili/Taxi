@@ -75,8 +75,8 @@
                 <input name="password" type="password" value=""/>
                 <span> Repeat Password: </span>
                 <input type="password" value=""/><br>
-                <button id="passChange" class="special button">Save</button>
             </form>
+            <button id="passChange" class="special button">Save</button>
         </div>
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"

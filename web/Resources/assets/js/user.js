@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
-        var formDate = $("#passForm").serialize();
+        var formData = $("#passForm").serialize();
         $.ajax({
             url: "/update",
             action:"uPassword",
@@ -26,7 +26,7 @@ function createPreferencesSaves(){
         });
     });
     $("#savePref").click(function(e){
-        var formDate = $("#prefForm").serialize();
+        var formData = $("#prefForm").serialize();
         $.ajax({
             url: "/update",
             action:"uPreferences",

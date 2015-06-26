@@ -12,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="Resources/assets/js/company.js"/>
 <% Company company = (Company) session.getAttribute(Company.class.getName());%>
-<section id="map" style="width:100%;height:100%;">
+<section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
 <div class="prefPanel">
@@ -58,12 +58,12 @@
         <input name="password" type="password" value=""/>
         <span> Repeat Password: </span>
         <input type="password" value=""/><br>
-        <button id="passChange" class="special button">Save</button>
       </form>
+      <button id="passChange" class="special button">Save</button>
     </div>
     <div style="float:right" class="4u$ (xsmall)">
       <a href="#" style="float:left" class="<%if(company.getGoogleID()!=null){ %> disabled <%}%> icon fa-facebook"><span
-              class="label">getGoogleID</span></a>
+              class="label">GoogleID</span></a>
       <br><br>
       <a href="#" style="float:left" class="<%if(company.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
               class="label">Facebook</span></a>

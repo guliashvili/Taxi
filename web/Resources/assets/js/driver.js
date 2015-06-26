@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
-        var formDate = $("#passForm").serialize();
+        var formData = $("#passForm").serialize();
         $.ajax({
             url: "/update",
             action:"dPassword",
@@ -26,7 +26,7 @@ function createPreferencesSaves(){
         });
     });
     $("#savePref").click(function(e){
-        var formDate = $("#prefForm").serialize();
+        var formData = $("#prefForm").serialize();
         $.ajax({
             url: "/update",
             action:"dPreferences",
@@ -42,7 +42,7 @@ function createPreferencesSaves(){
         });
     });
     $("#companyCodeBtn").click(function(e){
-        var formDate = $("#companyCodeForm").serialize();
+        var formData = $("#companyCodeForm").serialize();
         $.ajax({
             url: "/update",
             action:"dCompanyCode",
@@ -58,7 +58,7 @@ function createPreferencesSaves(){
         });
     });
     $("#cPrefBtn").click(function(e){
-        var formDate = $("#cPrefForm").serialize();
+        var formData = $("#cPrefForm").serialize();
         $.ajax({
             url: "/update",
             action:"dPreferences",
@@ -74,7 +74,7 @@ function createPreferencesSaves(){
         });
     });
     $("#cCarBtn").click(function(e){
-        var formDate = $("#cCarForm").serialize();
+        var formData = $("#cCarForm").serialize();
         $.ajax({
             url: "/update",
             action:"dCar",
