@@ -33,8 +33,10 @@ public class CompanyManager extends   CompanyManagerAPI {
             if (checkEmail(company.getEmail())) ret.emailDuplicate();
             if (checkCompanyCode(company.getCompanyCode())) ret.companyCodeDuplicate();
             if (checkPhoneNumber(company.getPhoneNumber())) ret.phoneNumberDuplicate();
-            if (checkFacebookID(company.getFacebookID())) ret.facebookIDDuplicate();
-            if (checkGoogleID(company.getGoogleID())) ret.googleIDDuplicate();
+            if (company.getFacebookID() != null)
+                if (checkFacebookID(company.getFacebookID())) ret.facebookIDDuplicate();
+            if (company.getGoogleID() != null)
+                if (checkGoogleID(company.getGoogleID())) ret.googleIDDuplicate();
         }
         return ret;
     }
@@ -47,9 +49,10 @@ public class CompanyManager extends   CompanyManagerAPI {
             if (!checkEmail(company.getEmail())) ret.emailDoesNotExists();
             if (!checkCompanyCode(company.getCompanyCode())) ret.companyCodeDoesNotExists();
             if (!checkPhoneNumber(company.getPhoneNumber())) ret.phoneNumberDoesNotExists();
-            if (company.getFacebookID() != null && !checkFacebookID(company.getFacebookID()))
-                ret.facebookIDDoesNotExists();
-            if (checkGoogleID(company.getGoogleID())) ret.googleIDDoesNotExists();
+            if (company.getFacebookID() != null)
+                if (!checkFacebookID(company.getFacebookID())) ret.facebookIDDoesNotExists();
+            if (company.getGoogleID() != null)
+                if (!checkGoogleID(company.getGoogleID())) ret.googleIDDoesNotExists();
         }
         return ret;
     }
@@ -192,14 +195,14 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public boolean checkFacebookID(String facebookID) {
-        if (facebookID == null) return false;
+    public Boolean checkFacebookID(String facebookID) {
+        if (facebookID == null) return null;
         else return companyDao.checkFacebookID(facebookID);
     }
 
     @Override
-    public boolean checkGoogleID(String googleID) {
-        if (googleID == null) return false;
+    public Boolean checkGoogleID(String googleID) {
+        if (googleID == null) return null;
         else return companyDao.checkGoogleID(googleID);
     }
 }

@@ -39,10 +39,10 @@ public class UserManager extends UserManagerAPI {
             ret.emailDoesNotExists();
         if (!checkPhoneNumber(user.getPhoneNumber()))
             ret.phoneNumberDoesNotExists();
-        if (!checkGoogleID(user.getGoogleID()))
-            ret.googleIDDoesNotExists();
-        if (!checkFacebookID(user.getFacebookID()))
-            ret.facebookIDDoesNotExists();
+        if (user.getGoogleID() != null)
+            if (!checkGoogleID(user.getGoogleID())) ret.googleIDDoesNotExists();
+        if (user.getFacebookID() != null)
+            if (!checkFacebookID(user.getFacebookID())) ret.facebookIDDoesNotExists();
 
         return ret;
     }
@@ -62,10 +62,10 @@ public class UserManager extends UserManagerAPI {
             ret.emailDuplicate();
         if (checkPhoneNumber(user.getPhoneNumber()))
             ret.phoneNumberDuplicate();
-        if (checkGoogleID(user.getGoogleID()))
-            ret.googleIDDuplicate();
-        if (checkFacebookID(user.getFacebookID()))
-            ret.facebookIDDuplicate();
+        if (user.getGoogleID() != null)
+            if (checkGoogleID(user.getGoogleID())) ret.googleIDDuplicate();
+        if (user.getFacebookID() != null)
+            if (checkFacebookID(user.getFacebookID())) ret.facebookIDDuplicate();
 
         return ret;
     }
@@ -237,25 +237,25 @@ public class UserManager extends UserManagerAPI {
 
     @Override
     public boolean checkEmail(String email) {
-        if (email != null) return false;
+        if (email == null) return false;
         else return userDao.checkEmail(email);
     }
 
     @Override
     public boolean checkPhoneNumber(String phoneNumber) {
-        if (phoneNumber != null) return false;
+        if (phoneNumber == null) return false;
         else return userDao.checkPhoneNumber(phoneNumber);
     }
 
     @Override
-    public boolean checkFacebookID(String facebookID) {
-        if (facebookID != null) return false;
+    public Boolean checkFacebookID(String facebookID) {
+        if (facebookID == null) return null;
         else return userDao.checkFacebookID(facebookID);
     }
 
     @Override
-    public boolean checkGoogleID(String googleID) {
-        if (googleID != null) return false;
+    public Boolean checkGoogleID(String googleID) {
+        if (googleID == null) return null;
         else return userDao.checkGoogleID(googleID);
     }
 }

@@ -1,6 +1,6 @@
+<%@ page import="ge.taxistgela.bean.Order" %>
 <%@ page import="ge.taxistgela.bean.User" %>
 <%@ page import="ge.taxistgela.model.OrderManager" %>
-<%@ page import="ge.taxistgela.bean.Order" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
@@ -16,6 +16,16 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
+<section id="order" class="hidden" style="background-color:#FFD800;padding:10px;position: absolute; top: 10px; left: 10px; z-index: 99;">
+    <div class='input-group date' id='datetimepicker10'>
+        <label for="startDate">Please Desired Time Of Departure</label>
+        <input type='text' id="startDate" name="startDate" class="form-control" />
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar">
+            </span>
+        </span>
+    </div>
+</section><!-- TOOD -->
 <% User user = (User) session.getAttribute(User.class.getName());%>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">

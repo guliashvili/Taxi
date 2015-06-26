@@ -61,8 +61,10 @@ public class DriverManager extends  DriverManagerAPI {
             ret.union(driver.isValid());
             if (!checkEmail(driver.getEmail())) ret.emailDoesNotExists();
             if (!checkPhoneNumber(driver.getPhoneNumber())) ret.phoneNumberDoesNotExists();
-            if (!checkFacebookID(driver.getFacebookID())) ret.facebookIDDoesNotExists();
-            if (!checkGoogleID(driver.getGoogleID())) ret.googleIDDoesNotExists();
+            if (driver.getFacebookID() != null)
+                if (!checkFacebookID(driver.getFacebookID())) ret.facebookIDDoesNotExists();
+            if (driver.getGoogleID() != null)
+                if (!checkGoogleID(driver.getGoogleID())) ret.googleIDDoesNotExists();
         }
         return ret;
     }
@@ -84,8 +86,10 @@ public class DriverManager extends  DriverManagerAPI {
             ret.union(driver.isValid());
             if (checkEmail(driver.getEmail())) ret.emailDuplicate();
             if (checkPhoneNumber(driver.getPhoneNumber())) ret.phoneNumberDuplicate();
-            if (checkFacebookID(driver.getFacebookID())) ret.facebookIDDuplicate();
-            if (checkGoogleID(driver.getGoogleID())) ret.googleIDDuplicate();
+            if (driver.getFacebookID() != null)
+                if (checkFacebookID(driver.getFacebookID())) ret.facebookIDDuplicate();
+            if (driver.getGoogleID() != null)
+                if (checkGoogleID(driver.getGoogleID())) ret.googleIDDuplicate();
         }
         return ret;
     }
@@ -313,14 +317,14 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public boolean checkFacebookID(String facebookID) {
-        if (facebookID == null) return false;
+    public Boolean checkFacebookID(String facebookID) {
+        if (facebookID == null) return null;
         else return driverDao.checkFacebookID(facebookID);
     }
 
     @Override
-    public boolean checkGoogleID(String googleID) {
-        if (googleID == null) return false;
+    public Boolean checkGoogleID(String googleID) {
+        if (googleID == null) return null;
         else return driverDao.checkGoogleID(googleID);
     }
 }

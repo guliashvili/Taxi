@@ -1,13 +1,19 @@
 /**
  * Created by Alex on 6/18/2015.
  */
-
-// Here goes user panel management.
 $(document).ready(function(){
-    initializeMap();
+    initializeO();
+});
+function initializeO(){
+    initializeMap(true);
     createPreferencesSaves();
     generateGrid();
-});
+}
+
+function askForDate(){
+    $("#order").removeClass("hidden");
+}
+
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
         var formData = $("#passForm").serialize();

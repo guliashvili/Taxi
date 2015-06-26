@@ -52,11 +52,11 @@ public class SessionManager implements SessionManagerAPI {
 
     @Override
     public void sendMessage(int sessionType, Integer ID, String message) {
-        Map<String, Session> remotes = getMap(sessionType);
+        Map<String, Session> sessions = getMap(sessionType);
         String token = managers[sessionType].getTokenByID(ID);
 
-        if (remotes != null && remotes.containsKey(token)) {
-            Session session = remotes.get(token);
+        if (sessions != null && sessions.containsKey(token)) {
+            Session session = sessions.get(token);
 
             if (session.isOpen()) {
                 session.getAsyncRemote().sendText(message);

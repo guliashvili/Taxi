@@ -38,7 +38,7 @@ public class RegistrationServlet extends ActionServlet {
                 request.getParameter("userlastName"),
                 request.getParameter("userphoneNumber"),
                 getGender(request.getParameter("usergender")),
-                request.getParameter("userfacebookId"),
+                null,//TODO request.getParameter("userfacebookId"),
                 null,
                 5.0,
                 userPreference,
@@ -68,19 +68,27 @@ public class RegistrationServlet extends ActionServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
+        Integer companyID = null;
+        if (request.getParameter("drivercompanyCode") != "") {
+            companyID = companyManager.getCompanyIDByCode(request.getParameter("drivercompanyCode"));
+            if (companyID == null) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                return;
+            }
+        }
 
         Driver driver = new Driver(
                 -1,
                 request.getParameter("driverpersonalID"),
                 request.getParameter("driveremail"),
                 request.getParameter("driverpassword"),
-                companyManager.getCompanyIDByCode(request.getParameter("drivercompanyCode")),
+                companyID,
                 request.getParameter("driverfirstName"),
                 request.getParameter("driverlastName"),
                 getGender(request.getParameter("drivergender")),
                 request.getParameter("driverphoneNumber"),
                 car,
-                request.getParameter("driverfacebookId"),
+                null,//TODO request.getParameter("userfacebookId"),
                 null,
                 5.0,
                 driverPreference,
@@ -102,7 +110,7 @@ public class RegistrationServlet extends ActionServlet {
                 request.getParameter("companypassword"),
                 request.getParameter("companyName"),
                 request.getParameter("companyphoneNumber"),
-                request.getParameter("companyfacebookId"),
+                null,//TODO request.getParameter("userfacebookId"),
                 null,
                 false,
                 false
