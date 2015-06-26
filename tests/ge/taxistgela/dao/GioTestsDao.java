@@ -4,7 +4,6 @@ import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.HashGenerator;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,7 +41,7 @@ public class GioTestsDao {
 
 
     @Before
-    @After
+    //@After
     public void setup() {
         userDao = new UserDao();
         companyDao = new CompanyDao();
@@ -639,6 +638,15 @@ public class GioTestsDao {
         exp.add(review2);
         assertEquals(ls1, exp);
 
+        ls1 = reviewDao.getReviewByOrderID(order1.getOrderID());
+        ls1.sort((o1, o2) -> o1.getReviewID() - o2.getReviewID());
+        exp = new ArrayList<>();
+        exp.add(review1);
+        assertEquals(ls1, exp);
+
+        review1.setDescription("gio traki");
+        assertFalse(reviewDao.updateReview(review1));
+        assertEquals(reviewDao.getReviewByID(review1.getReviewID()), review1);
     }
 
     @Test
