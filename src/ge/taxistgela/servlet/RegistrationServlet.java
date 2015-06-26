@@ -68,13 +68,21 @@ public class RegistrationServlet extends ActionServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
+        Integer companyID = null;
+        if (request.getParameter("drivercompanyCode") != "") {
+            companyID = companyManager.getCompanyIDByCode(request.getParameter("drivercompanyCode"));
+            if (companyID == null) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                return;
+            }
+        }
 
         Driver driver = new Driver(
                 -1,
                 request.getParameter("driverpersonalID"),
                 request.getParameter("driveremail"),
                 request.getParameter("driverpassword"),
-                companyManager.getCompanyIDByCode(request.getParameter("drivercompanyCode")),
+                companyID,
                 request.getParameter("driverfirstName"),
                 request.getParameter("driverlastName"),
                 getGender(request.getParameter("drivergender")),

@@ -33,7 +33,7 @@ public interface SuperUserManager {
      * @param facebookID
      * @return true/false
      */
-    boolean checkFacebookID(String facebookID);
+    Boolean checkFacebookID(String facebookID);
 
 
     /**
@@ -42,7 +42,7 @@ public interface SuperUserManager {
      * @param googleID
      * @return true/false
      */
-    boolean checkGoogleID(String googleID);
+    Boolean checkGoogleID(String googleID);
 
     /**
      * changes password to whats written in SuperUserManager(it should be in plain text not  hash)
