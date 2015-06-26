@@ -29,6 +29,10 @@ public class OrderDao implements OrderDaoAPI {
             "userID = ?, driverID = ?, numPassengers = ?, startLocation_long = ?, startLocation_lat = ?, " +
             "endLocation_long = ?, endLocation_lat = ?, startTime = ?, endTime = ?, paymentAmount = ?, callTime = ?" +
             "WHERE orderID = ?";
+    private static final String GET_ORDER_BY_COMPANY_ID = "SELECT o.orderID, o.userID, o.driverID, o.numPassengers, " +
+            " o.startLocation_long, o.startLocation_lat, o.endLocation_long," +
+            " o.endLocation_lat, o.startTime, o.endTime, o.paymentAmount, o.callTime FROM orders o INNER JOIN drivers " +
+            " ON drivers.driverID=o.driverID AND drivers.companyID=?";
 
     private static final String GET_ORDER_BY_ID = "SELECT * FROM Orders WHERE orderID = ?";
 
@@ -165,6 +169,29 @@ public class OrderDao implements OrderDaoAPI {
                 st.setInt(1, userID);
 
                 ExternalAlgorithms.debugPrintSelect("getOrderByUserID \n" + st.toString());
+
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
+                    while (rslt.next())
+                        orders.add(fetchOrder(rslt));
+                }
+            }
+        } catch (SQLException e) {
+            orders = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> getOrdersByCompanyID(Integer companyID) {
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection conn = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_ORDER_BY_COMPANY_ID))) {
+                st.setInt(1, companyID);
+
+                ExternalAlgorithms.debugPrintSelect("getOrdersByCompanyID \n" + st.toString());
 
                 try (ResultSetEnhanced rslt = st.executeQuery()) {
                     while (rslt.next())

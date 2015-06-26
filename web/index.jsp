@@ -22,6 +22,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="/Resources/assets/js/facebookLogin.js"></script>
     <script src="/Resources/assets/js/facebookRegister.js"></script>
@@ -40,6 +41,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="Resources/assets/js/login.js"></script>
     <script src="Resources/assets/js/register.js"></script>
     <script src="Resources/assets/js/index.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="Resources/assets/css/ie8.css"/><![endif]-->

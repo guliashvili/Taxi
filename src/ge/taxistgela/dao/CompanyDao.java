@@ -361,7 +361,7 @@ public class CompanyDao implements CompanyDaoAPI {
     public Double getCompanyScore(Integer companyID) {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
-                    "SELECT avg(Driver.rating)  FROM drivers WHERE  drivers.companyID = ?"))) {
+                    "SELECT avg(drivers.rating)  FROM drivers WHERE  drivers.companyID = ?"))) {
 
                 st.setInt(1, companyID);
 

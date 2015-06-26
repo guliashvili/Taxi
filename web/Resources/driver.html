@@ -3,6 +3,7 @@
 		<title>Taxist Gela</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -16,6 +17,7 @@
 		<script src="assets/js/util.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 		<script src="assets/js/main.js"></script>
+		<script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
 
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -129,6 +131,7 @@
 					<div class="12u 1u$(small)" style="float:left">
 						<a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart"> View Order History</a>
 					</div>
+					<div class="12u 1u$(small)" id="grid" style="width: 100%;color:black; height: 250px;"></div>
 				</div>
 		</div>
 		<div id="historyModal" class="modal fade" role="dialog">
@@ -148,4 +151,24 @@
 			</div>
 		</div>
 	</body>
+	<script>
+		$('#grid').w2grid({
+			name: 'grid',
+			header: 'List of Names',
+			columns: [
+				{ field: 'fname', caption: 'First Name', size: '30%' },
+				{ field: 'lname', caption: 'Last Name', size: '30%' },
+				{ field: 'email', caption: 'Email', size: '40%' },
+				{ field: 'sdate', caption: 'Start Date', size: '120px' }
+			],
+			records: [
+				{ recid: 1, fname: "Peter", lname: "Jeremia", email: 'peter@mail.com', sdate: '2/1/2010' },
+				{ recid: 2, fname: "Bruce", lname: "Wilkerson", email: 'bruce@mail.com', sdate: '6/1/2010' },
+				{ recid: 3, fname: "John", lname: "McAlister", email: 'john@mail.com', sdate: '1/16/2010' },
+				{ recid: 4, fname: "Ravi", lname: "Zacharies", email: 'ravi@mail.com', sdate: '3/13/2007' },
+				{ recid: 5, fname: "William", lname: "Dembski", email: 'will@mail.com', sdate: '9/30/2011' },
+				{ recid: 6, fname: "David", lname: "Peterson", email: 'david@mail.com', sdate: '4/5/2010' }
+			]
+		});
+	</script>
 </html>

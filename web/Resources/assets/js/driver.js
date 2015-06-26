@@ -6,13 +6,13 @@
 $(document).ready(function(){
     initializeMap();
     createPreferencesSaves();
+    generateGrid();
 });
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
-        var formDate = $("#passForm").serialize();
+        var formData = $("#passForm").serialize();
         $.ajax({
             url: "/update",
-            action:"dPassword",
             method: "post",
             data: formData,
             cache: false,
@@ -25,10 +25,9 @@ function createPreferencesSaves(){
         });
     });
     $("#savePref").click(function(e){
-        var formDate = $("#prefForm").serialize();
+        var formData = $("#prefForm").serialize();
         $.ajax({
             url: "/update",
-            action:"dPreferences",
             method: "post",
             data: formData,
             cache: false,
@@ -41,10 +40,9 @@ function createPreferencesSaves(){
         });
     });
     $("#companyCodeBtn").click(function(e){
-        var formDate = $("#companyCodeForm").serialize();
+        var formData = $("#companyCodeForm").serialize();
         $.ajax({
             url: "/update",
-            action:"dCompanyCode",
             method: "post",
             data: formData,
             cache: false,
@@ -57,10 +55,9 @@ function createPreferencesSaves(){
         });
     });
     $("#cPrefBtn").click(function(e){
-        var formDate = $("#cPrefForm").serialize();
+        var formData = $("#cPrefForm").serialize();
         $.ajax({
             url: "/update",
-            action:"dPreferences",
             method: "post",
             data: formData,
             cache: false,
@@ -73,10 +70,9 @@ function createPreferencesSaves(){
         });
     });
     $("#cCarBtn").click(function(e){
-        var formDate = $("#cCarForm").serialize();
+        var formData = $("#cCarForm").serialize();
         $.ajax({
             url: "/update",
-            action:"dCar",
             method: "post",
             data: formData,
             cache: false,

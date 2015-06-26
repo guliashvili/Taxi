@@ -22,17 +22,19 @@ public class ReviewDao implements ReviewDaoAPI {
             "VALUES (?, ?, ?, ?)";
 
     private static final String UPDATE_REVIEW = "UPDATE Reviews SET " +
-            "orderID = ?, orientationFlag = ?, rating = ?, description = ?" +
-            "WHERE orderID = ?";
+            "orderID = ?, orientationFlag = ?, rating = ?, description = ? " +
+            "WHERE reviewID = ?";
 
     private static final String GET_REVIEW_BY_ID = "SELECT * FROM Reviews WHERE reviewID = ?";
 
     private static final String GET_REVIEW_BY_USER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
-            "FROM Reviews r INNER JOIN Orders o ON o.userID = ?";
+            "FROM Reviews r INNER JOIN Orders o ON o.orderID=r.orderID AND o.userID = ?";
 
     private static final String GET_REVIEW_BY_DRIVER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
-            "FROM Reviews r INNER JOIN Orders o ON o.driverID = ?";
+            "FROM Reviews r INNER JOIN Orders o ON o.orderID=r.orderID AND o.driverID = ?";
 
+    private static final String GET_REVIEW_BY_ORDER_ID = "SELECT * " +
+            "FROM Reviews WHERE Reviews.orderID = ?";
 
     private boolean setStrings(PreparedStatementEnhanced st, Review review, boolean update) {
         boolean errorCode = false;
@@ -117,6 +119,30 @@ public class ReviewDao implements ReviewDaoAPI {
         }
 
         return review;
+    }
+
+    public List<Review> getReviewByOrderID(int orderID) {
+        List<Review> reviews = new ArrayList<>();
+
+        try (Connection conn = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_REVIEW_BY_ORDER_ID))) {
+
+                st.setInt(1, orderID);
+
+                ExternalAlgorithms.debugPrintSelect("getReviewByOrderID \n" + st.toString());
+
+
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
+                    while (rslt.next())
+                        reviews.add(fetchReview(rslt));
+                }
+            }
+        } catch (SQLException e) {
+            reviews = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+
+        return reviews;
     }
 
     @Override

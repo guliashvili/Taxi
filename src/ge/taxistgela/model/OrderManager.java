@@ -16,6 +16,11 @@ public class OrderManager extends OrderManagerAPI {
     }
 
     @Override
+    public List<Order> getOrdersByCompanyID(Integer companyID) {
+        return orderDaoAPI.getOrdersByDriverID(companyID);
+    }
+
+    @Override
     public boolean updateOrder(Order order) {
         return orderDaoAPI.updateOrder(order);
     }

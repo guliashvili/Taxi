@@ -1,8 +1,4 @@
 <%@ page import="ge.taxistgela.bean.User" %>
-<%@ page import="ge.taxistgela.model.OrderManager" %>
-<%@ page import="ge.taxistgela.bean.Order" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -79,8 +75,9 @@
                 <input name="password" type="password" value=""/>
                 <span> Repeat Password: </span>
                 <input type="password" value=""/><br>
-                <button id="passChange" class="special button">Save</button>
+                <input type="text" name="action" value="uPassword" class="hidden"/>
             </form>
+            <button id="passChange" class="special button">Save</button>
         </div>
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
@@ -96,6 +93,7 @@
         </div>
         <div id="cPref" class="6u$ hidden">
             <form id="prefForm" action="" type="post">
+                <input type="text" name="action" value="uPreferences" class="hidden"/>
                 <input type="number" id="minimumDriverRating" name="minimumDriverRating"
                        value="<%=user.getPreference().getPassengersCount()%>"
                        style="color:black;padding-left:5px" value="1" step="1">
@@ -115,8 +113,8 @@
                        style="color:black;padding-left:5px" value="1" step="1">
                 <label for="passengerCount"> Passenger Count </label><br>
                 <input type="checkbox" name="wantsAlone" id="wantsAlone"
-                       value="<%=user.getPreference().isWantsAlone()%>"
-                       name="wantsAlone" checked>
+                       value="<%=user.getPreference().isWantsAlone(){%>checked<%}%>"
+                       name="wantsAlone">
                 <label for="wantsAlone"> Want To Travel Alone </label>
                 </input>
                 <button id="savePref" style="margin-top:5px" class="button special"> Save</button>
@@ -124,31 +122,39 @@
             </form>
         </div>
         <div class="12u 1u$(small)" style="float:left">
-            <a href="#" data-toggle="modal" data-target="#historyModal" class="button special small fa fa-bar-chart">
+            <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-    </div>
-</div>
-<div id="historyModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+        <div id="history" class="12 1u$ hidden" >
+            <div id="grid">
 
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h5 class="modal-title">History</h5>
-            </div>
-            <div class="modal-body">
-                <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
-                    if (man != null) {
-                        List<Order> orders = man.getOrderByUserID(user.getUserID());
-                        for (Order ord : orders) {
-
-                        }
-                    }
-                %>
-            </div>
-            <div class="modal-footer">
             </div>
         </div>
     </div>
 </div>
+<script>
+    function generateGrid(){
+        $('#grid').w2grid({
+            name: 'grid',
+            header: 'List of Names',
+            columns: [
+                { field: 'Date', caption: 'Date', size: '30%' },
+                { field: 'callTime', caption: 'Call Time', size: '30%' },
+                { field: 'Driver', caption: 'Driver', size: '30px' },
+                { field: 'StLoc', caption: 'Start', size: '30px' },
+                { field: 'EndLoc', caption: 'End', size: '30px' },
+                { field: 'paymentAmount', caption: 'Amount', size: '30px' }
+            ],
+            records: [
+            <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
+                if (man != null) {
+                    List<Order> orders = man.getOrderByUserID(user.getUserID());
+                    for (Order ord : orders) {
+                        %>{ Date: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, Driver: <%=ord.getDriverID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
+                    }
+                }
+            %>
+            ]
+        });
+    }
+</script>
