@@ -47,16 +47,24 @@
             <input type="email" disabled value="<%=user.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disalbed");}%> verified">
-                Verified
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+                <% if (user.getIsVerifiedEmail()) {
+                    out.println("Verified");
+                } else {
+                    out.println("Verify");
+                } %>
             </button>
         </div>
         <div class="6u 12u$(xsmall)">
             <input type="text" disabled value="<%=user.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disalbed");}%> special">
-                Verify
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+                <% if (user.getIsVerifiedPhone()) {
+                    out.println("Verified");
+                } else {
+                    out.println("Verify");
+                } %>
             </button>
         </div>
         <div class="12u$">
@@ -64,19 +72,20 @@
             </button>
         </div>
         <div id="cPass" class="5u$ hidden">
-            <form action="" type="post">
+            <form id="passForm" action="" type="post">
                 <span> Current Password: </span>
-                <input name="oldPassword" type="password" value="" required/>
+                <input name="oldPassword" type="password" value=""/>
                 <span> New Password: </span>
-                <input name="password" type="password" value="" required/>
+                <input name="password" type="password" value=""/>
                 <span> Repeat Password: </span>
-                <input type="password" value="" required/><br>
-                <input type="submit" class="special button" value="Save"/>
+                <input type="password" value=""/><br>
+                <button id="passChange" class="special button">Save</button>
             </form>
         </div>
         <div style="float:right" class="4u$ (xsmall)">
-            <li style="float:left" class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google"><span
-                    class="label">Google+</span></li>
+            <a href="#" style="float:left"
+               class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-facebook"><span
+                    class="label">getGoogleID</span></a>
             <br><br>
             <a href="#" style="float:left" class="<%if(user.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
                     class="label">Facebook</span></a>
@@ -86,28 +95,32 @@
                 Your Preferences</a>
         </div>
         <div id="cPref" class="6u$ hidden">
-            <form action="" type="post">
-                <span> Minimum Driver Rating </span>
-                <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i
-                    class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+            <form id="prefForm" action="" type="post">
+                <input type="number" id="minimumDriverRating" name="minimumDriverRating"
+                       value="<%=user.getPreference().getPassengersCount()%>"
+                       style="color:black;padding-left:5px" value="1" step="1">
+                <label for="minimumDriverRating"> Minimum Driver Rating </label><br>
                 <input type="checkbox" id="conditioning"
                        name="conditioning" <% if(user.getPreference().isConditioning()){%> checked <%}%>>
                 <label for="conditioning"> Conditioning Required </label>
                 </input><br>
-                <input type="number" value="<%=user.getPreference().getCarYear()%>" id="carYear"
+                <input type="number" name="carYear" value="<%=user.getPreference().getCarYear()%>" id="carYear"
                        style="color:black;padding-left:5px" value="1990" step="1">
                 <label for="carYear"> Minimum Car Year </label>
-                <input type="number" id="timeLimit" value="<%=user.getPreference().getTimeLimit()%>"
+                <input type="number" name="timeLimit" id="timeLimit" value="<%=user.getPreference().getTimeLimit()%>"
                        style="color:black;padding-left:5px" value="10" step="1">
                 <label for="timeLimit"> Maximum Time Limit (Minutes) </label>
-                <input type="number" id="passengerCount" value="<%=user.getPreference().getPassengersCount()%>"
+                <input type="number" name="passengerCount" id="passengerCount"
+                       value="<%=user.getPreference().getPassengersCount()%>"
                        style="color:black;padding-left:5px" value="1" step="1">
                 <label for="passengerCount"> Passenger Count </label><br>
-                <input type="checkbox" id="wantsAlone" value="<%=user.getPreference().isWantsAlone()%>"
+                <input type="checkbox" name="wantsAlone" id="wantsAlone"
+                       value="<%=user.getPreference().isWantsAlone()%>"
                        name="wantsAlone" checked>
                 <label for="wantsAlone"> Want To Travel Alone </label>
                 </input>
-                <input type="submit" style="margin-top:5px" class="button special"><br>
+                <button id="savePref" style="margin-top:5px" class="button special"> Save</button>
+                <br>
             </form>
         </div>
         <div class="12u 1u$(small)" style="float:left">
