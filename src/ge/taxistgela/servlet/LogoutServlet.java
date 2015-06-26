@@ -1,10 +1,8 @@
 package ge.taxistgela.servlet;
 
-import ge.taxistgela.bean.Company;
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.GeneralCheckableInformation;
-import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.model.DriverManagerAPI;
+import ge.taxistgela.model.SessionManagerAPI;
 
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
@@ -30,21 +28,30 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         ServletContext sc = request.getServletContext();
         DriverManagerAPI dm = (DriverManagerAPI) sc.getAttribute(DriverManagerAPI.class.getName());
+        SessionManagerAPI sm = (SessionManagerAPI) sc.getAttribute(SessionManagerAPI.class.getName());
 
-        if (dm == null) {
+        if (dm == null || sm == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-            for (String s : A_TYPE) {
-                GeneralCheckableInformation info = (GeneralCheckableInformation) session.getAttribute(s);
+            for (int i = 0; i < A_TYPE.length; i++) {
+                GeneralCheckableInformation info = (GeneralCheckableInformation) session.getAttribute(A_TYPE[i]);
+
                 if (info instanceof Driver) {
                     dm.setDriverActiveStatus(((Driver) info).getDriverID(), false);
                 }
-                //TODO remove socket session
-                session.removeAttribute(s);
+
+                if (i < 2)
+                    sm.removeSession(i, ((GeneralCheckableInformationTokened) info).getToken());
+
+                session.removeAttribute(A_TYPE[i]);
             }
             response.setStatus(HttpServletResponse.SC_OK);
             response.sendRedirect("/");
         }
+    }
+
+    private void removeSocketSession(SessionManagerAPI sm, GeneralCheckableInformationTokened info, int sessionType) {
+        sm.removeSession(sessionType, info.getToken());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
