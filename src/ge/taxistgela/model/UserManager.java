@@ -237,25 +237,25 @@ public class UserManager extends UserManagerAPI {
 
     @Override
     public boolean checkEmail(String email) {
-        if (email != null) return false;
+        if (email == null) return false;
         else return userDao.checkEmail(email);
     }
 
     @Override
     public boolean checkPhoneNumber(String phoneNumber) {
-        if (phoneNumber != null) return false;
+        if (phoneNumber == null) return false;
         else return userDao.checkPhoneNumber(phoneNumber);
     }
 
     @Override
     public boolean checkFacebookID(String facebookID) {
-        if (facebookID != null) return false;
+        if (facebookID == null) return true;
         else return userDao.checkFacebookID(facebookID);
     }
 
     @Override
     public boolean checkGoogleID(String googleID) {
-        if (googleID != null) return false;
+        if (googleID == null) return true;
         else return userDao.checkGoogleID(googleID);
     }
 }
