@@ -1,4 +1,7 @@
 <%@ page import="ge.taxistgela.bean.User" %>
+<%@ page import="ge.taxistgela.model.OrderManager" %>
+<%@ page import="ge.taxistgela.bean.Order" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -113,7 +116,7 @@
                        style="color:black;padding-left:5px" value="1" step="1">
                 <label for="passengerCount"> Passenger Count </label><br>
                 <input type="checkbox" name="wantsAlone" id="wantsAlone"
-                       value="<%=user.getPreference().isWantsAlone(){%>checked<%}%>"
+                       value="<%if(user.getPreference().isWantsAlone()){%>checked<%}%>"
                        name="wantsAlone">
                 <label for="wantsAlone"> Want To Travel Alone </label>
                 </input>
