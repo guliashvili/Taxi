@@ -117,7 +117,7 @@
         <div id="cCar" class="12u hidden">
             <form id="cCarForm">
                 <input type="text" name="action" value="dCar" class="hidden"/>
-                <input type="checkbox" id="conditioning" name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked")}%>>
+                <input type="checkbox" id="conditioning" name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked");}%>>
                     <label for="conditioning"> Conditioning </label>
                 </input><br>
                 <label for="carDescription"> Car Description </label>
