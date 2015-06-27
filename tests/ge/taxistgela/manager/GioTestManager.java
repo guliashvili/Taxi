@@ -40,7 +40,7 @@ public class GioTestManager {
     @Before
     //@After
     public void setup() {
-        TaxRam taxRam = new TaxRam();
+        TaxRam taxRam = new TaxRam(null,null,null);
         driverManager = new DriverManager(new DriverDao(), taxRam);
         userManager = new UserManager(new UserDao(), taxRam);
         companyManager = new CompanyManager(new CompanyDao(), taxRam);
