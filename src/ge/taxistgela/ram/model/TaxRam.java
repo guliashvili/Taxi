@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by GIO on 6/26/2015.
  */
+
 public class TaxRam implements TaxRamAPI {
     OrderDao orderDao;
     UserDao userDao;
