@@ -17,16 +17,6 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
-<section id="order" class="hidden" style="background-color:#FFD800;padding:10px;position: absolute; top: 10px; left: 10px; z-index: 99;">
-    <div class='input-group date' id='datetimepicker10'>
-        <label for="startDate">Please Desired Time Of Departure</label>
-        <input type='text' id="startDate" name="startDate" class="form-control" />
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar">
-            </span>
-        </span>
-    </div>
-</section><!-- TODO -->
 <% User user = (User) session.getAttribute(User.class.getName());%>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
@@ -71,13 +61,13 @@
             <input type="text" disabled value="<%=user.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedPhone()){out.println("disabled verified");}else{out.println("special");}%>">
                 <%
                     if (user.getIsVerifiedPhone()) {
-                    out.println("Verified");
-                } else {
-                    out.println("Verify");
-                } %>
+                        out.println("Verified");
+                    } else {
+                        out.println("Verify");
+                    } %>
             </button>
         </div>
         <div class="12u$">
@@ -95,17 +85,15 @@
                 <input type="text" name="action" value="uPassword" class="hidden"/>
             </form>
             <button id="passChange" class="special button">Save</button>
-        </div>
+        </div><br>
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
                class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
             <br><br>
-            <a href="#" style="float:left" class="<%if(user.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
-                    class="label">Facebook</span></a>
+            <%if(user.getFacebookID()!=null || user.getFacebookID().equals("")){ %> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> <%}%>
             <br>
         </div>
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
                 Your Preferences</a>

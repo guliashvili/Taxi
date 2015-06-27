@@ -11,7 +11,9 @@ function initializeO(){
 }
 
 function askForDate(){
-    $("#order").removeClass("hidden");
+    if(endMarker!=null){
+        askWindow.open(map,startMarker);
+    }
 }
 
 function createPreferencesSaves(){

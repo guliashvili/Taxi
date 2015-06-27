@@ -7,6 +7,7 @@ var map;
 var isUser;
 var startMarker=null;
 var endMarker=null;
+var askWindow=null;
 function initializeMap(isUser1) {
 	//geolocation
 	isUser=isUser1;
@@ -36,6 +37,19 @@ function showPosition(position) {
 		google.maps.event.addListener(map, 'click', function(event) {
 			placeMarker(event.latLng);
 		});
+		var dateAsker = '<div id="order" style="width:300px;height:auto;background-color:#FFD800;padding:10px;"> \
+			<div class="input-group date" id="datetimepicker10">\
+			<label for="startDate">Please Desired Time Of Departure</label>\
+			<input type="text" id="startDate" name="startDate" class="form-control" />\
+			<span class="input-group-addon">\
+			<span class="glyphicon glyphicon-calendar">\
+			</span>\
+			</span>\
+			</div>\
+			</div>';
+		askWindow = new google.maps.InfoWindow({
+			content: dateAsker
+		});
 	}
 	for (var i=0;i<randomdrivers.length;++i){
 		var driver = new google.maps.Marker({
@@ -56,12 +70,24 @@ function placeMarker(loc){
 			draggable:true,
 			animation: google.maps.Animation.DROP
 		});
+		google.maps.event.addListener(startMarker, 'dragend', function() {
+			askForDate();
+		});
+		google.maps.event.addListener(startMarker, 'click', function() {
+			askForDate();
+		});
 	}else if(endMarker==null){
 		endMarker = new google.maps.Marker({
 			position: loc,
 			map: map,
 			draggable:true,
 			animation: google.maps.Animation.DROP
+		});
+		google.maps.event.addListener(endMarker, 'dragend', function() {
+			askForDate();
+		});
+		google.maps.event.addListener(endMarker, 'click', function() {
+			askForDate();
 		});
 		askForDate();
 	}else{
