@@ -65,6 +65,9 @@ public class ErrorCode {
         put("carDescription", "Car description is very long");
     }
 
+    public void wrongCaptcha() {
+        put("wrongCaptcha", "user did wrong capthca");
+    }
     public void carYearOutOfRange() {
         put("carYear", "Car Year is too small or too big");
     }
