@@ -7,12 +7,12 @@ $(document).ready(function(){
 function initializeO(){
     initializeMap(true);
     createPreferencesSaves();
-    generateGrid();
 }
 
 function askForDate(){
     if(endMarker!=null){
         askWindow.open(map,startMarker);
+        $('#startDate').datepicker();
     }
 }
 
