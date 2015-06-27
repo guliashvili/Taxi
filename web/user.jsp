@@ -2,6 +2,7 @@
 <%@ page import="ge.taxistgela.bean.User" %>
 <%@ page import="ge.taxistgela.model.OrderManager" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.io.PrintWriter" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -25,7 +26,7 @@
             </span>
         </span>
     </div>
-</section><!-- TOOD -->
+</section><!-- TODO -->
 <% User user = (User) session.getAttribute(User.class.getName());%>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
@@ -71,7 +72,8 @@
         </div>
         <div class="6u$ 12u$(xsmall)">
             <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
-                <% if (user.getIsVerifiedPhone()) {
+                <%
+                    if (user.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {
                     out.println("Verify");
@@ -96,14 +98,14 @@
         </div>
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
-               class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google"><span
+               class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
             <br><br>
             <a href="#" style="float:left" class="<%if(user.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
                     class="label">Facebook</span></a>
             <br>
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         </div>
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
                 Your Preferences</a>
@@ -149,29 +151,3 @@
         </div>
     </div>
 </div>
-<script>
-    function generateGrid(){
-        $('#grid').w2grid({
-            name: 'grid',
-            header: 'List of Names',
-            columns: [
-                { field: 'Date', caption: 'Date', size: '30%' },
-                { field: 'callTime', caption: 'Call Time', size: '30%' },
-                { field: 'Driver', caption: 'Driver', size: '30px' },
-                { field: 'StLoc', caption: 'Start', size: '30px' },
-                { field: 'EndLoc', caption: 'End', size: '30px' },
-                { field: 'paymentAmount', caption: 'Amount', size: '30px' }
-            ],
-            records: [
-            <% OrderManager man = (OrderManager) application.getAttribute(OrderManager.class.getName());
-                if (man != null) {
-                    List<Order> orders = man.getOrderByUserID(user.getUserID());
-                    for (Order ord : orders) {
-                        %>{ Date: <%=ord.getStartTime()%>, callTime: <%=ord.getCallTime()%>, Driver: <%=ord.getDriverID()%>, StLoc: <%=ord.getStartLocation()%>, EndLoc: <%=ord.getEndLocation()%>,paymentAmount:<%=ord.getPaymentAmount()%> },<%
-                    }
-                }
-            %>
-            ]
-        });
-    }
-</script>

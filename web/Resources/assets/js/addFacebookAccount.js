@@ -89,6 +89,7 @@ function testAPI_Login() {
 }
 
 function addFbAccount(facebookId){
+    console.log(facebookId);
     $.ajax({
         url: "/social",
         method: "post",

@@ -23,7 +23,7 @@ import java.io.IOException;
 @WebServlet("/social")
 public class SocialNetworkServlet extends ActionServlet {
 
-    public void addFbAccount(HttpServletRequest request, HttpServletResponse response){
+    public void addFbAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String facebookId = request.getParameter("facebookID");
         if (request.getSession().getAttribute(User.class.getName()) != null)
             addUserFb((User)request.getSession().getAttribute(User.class.getName()), facebookId, request, response);
@@ -33,39 +33,44 @@ public class SocialNetworkServlet extends ActionServlet {
             addCompanyFb((Company)request.getSession().getAttribute(Company.class.getName()), facebookId, request, response);
     }
 
-    private void addUserFb(User user, String facebookId, HttpServletRequest request, HttpServletResponse response){
+    private void addUserFb(User user, String facebookId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println(user);
+        System.out.println(facebookId);
         ServletContext sc = request.getServletContext();
-        UserManager um = (UserManager) sc.getAttribute(UserManager.class.getName());
+        UserManagerAPI um = (UserManagerAPI) sc.getAttribute(UserManagerAPI.class.getName());
         if (um == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             user.setFacebookID(facebookId);
             um.update(user);
             response.setStatus(HttpServletResponse.SC_OK);
+            response.sendRedirect("/");
         }
     }
 
-    private void addDriverFb(Driver driver, String facebookId, HttpServletRequest request, HttpServletResponse response){
+    private void addDriverFb(Driver driver, String facebookId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         ServletContext sc = request.getServletContext();
-        DriverManagerAPI dm = (DriverManagerAPI) sc.getAttribute(DriverManager.class.getName());
+        DriverManagerAPI dm = (DriverManagerAPI) sc.getAttribute(DriverManagerAPI.class.getName());
         if (dm == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             driver.setFacebookID(facebookId);
             dm.update(driver);
             response.setStatus(HttpServletResponse.SC_OK);
+            response.sendRedirect("/");
         }
     }
 
-    private void addCompanyFb(Company company, String facebookId, HttpServletRequest request, HttpServletResponse response){
+    private void addCompanyFb(Company company, String facebookId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         ServletContext sc = request.getServletContext();
-        CompanyManagerAPI cm = (CompanyManagerAPI) sc.getAttribute(CompanyManager.class.getName());
+        CompanyManagerAPI cm = (CompanyManagerAPI) sc.getAttribute(CompanyManagerAPI.class.getName());
         if (cm == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             company.setFacebookID(facebookId);
             cm.update(company);
             response.setStatus(HttpServletResponse.SC_OK);
+            response.sendRedirect("/");
         }
     }
 
