@@ -5,6 +5,7 @@ import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.GeneralCheckableInformation;
 import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
+import ge.taxistgela.ram.TaxRam;
 
 /**
  * Created by GIO on 5/25/2015.

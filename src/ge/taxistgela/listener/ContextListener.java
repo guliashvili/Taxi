@@ -6,6 +6,7 @@ import ge.taxistgela.dao.*;
 import ge.taxistgela.dispatcher.OrderDispatcher;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.model.*;
+import ge.taxistgela.ram.TaxRam;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -32,24 +33,30 @@ public class ContextListener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
+        DriverDao driverDao = new DriverDao();
+        UserDao userDao = new UserDao();
+        CompanyDao companyDao = new CompanyDao();
+        OrderDao orderDao = new OrderDao();
+        ReviewDao reviewDao = new ReviewDao();
+
         ServletContext sc = sce.getServletContext();
-        TaxRam ram = new TaxRam();
+        TaxRam ram = new TaxRam(orderDao, userDao, driverDao);
 
         // add CompanyManager.
-        sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(new CompanyDao(), ram));
+        sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(companyDao, ram));
 
         // add DriverManager.
-        DriverManager dm = new DriverManager(new DriverDao(), ram);
+        DriverManager dm = new DriverManager(driverDao, ram);
         sc.setAttribute(DriverManagerAPI.class.getName(), dm);
 
         // add OrderManager.
-        sc.setAttribute(OrderManagerAPI.class.getName(), new OrderManager(new OrderDao()));
+        sc.setAttribute(OrderManagerAPI.class.getName(), new OrderManager(orderDao));
 
         // add ReviewManager.
-        sc.setAttribute(ReviewManagerAPI.class.getName(), new ReviewManager(new ReviewDao()));
+        sc.setAttribute(ReviewManagerAPI.class.getName(), new ReviewManager(reviewDao));
 
         // add UserManager.
-        UserManager um = new UserManager(new UserDao(), ram);
+        UserManager um = new UserManager(userDao, ram);
         sc.setAttribute(UserManagerAPI.class.getName(), um);
 
         // add SessionManager.

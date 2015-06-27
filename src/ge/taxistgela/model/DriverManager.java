@@ -3,6 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
+import ge.taxistgela.ram.TaxRam;
 
 import java.util.List;
 

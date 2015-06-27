@@ -169,6 +169,7 @@ public interface DriverDaoAPI {
      */
     boolean checkCarID(String carID);
 
+    boolean checkDriverID(int driverID);
     /**
      * Checks if the driver exists with the certain email.
      *

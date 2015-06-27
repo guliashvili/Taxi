@@ -707,6 +707,24 @@ public class DriverDao implements DriverDaoAPI {
     }
 
     @Override
+    public boolean checkDriverID(int driverID) {
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT driverID FROM drivers WHERE  driverID = ?"))) {
+
+                st.setInt(1, driverID);
+
+                ExternalAlgorithms.debugPrintSelect("checkDriverID \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+                return res.next();
+            }
+        } catch (SQLException e) {
+            ExternalAlgorithms.debugPrint(e);
+
+        }
+        return false;
+    }
+
+    @Override
     public boolean checkPhoneNumber(String phoneNumber) {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("SELECT driverID FROM drivers WHERE  phoneNumber = ?"))) {

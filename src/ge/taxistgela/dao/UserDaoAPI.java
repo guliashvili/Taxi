@@ -144,6 +144,8 @@ public interface UserDaoAPI {
     boolean checkPhoneNumber(String phoneNumber);
 
 
+    boolean checkUserID(int userID);
+
     /**
      * Check if the user exists with the certain facebookID. null if he has not linked to profile.
      *

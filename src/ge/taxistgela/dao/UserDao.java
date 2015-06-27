@@ -566,6 +566,26 @@ public class UserDao implements UserDaoAPI {
     }
 
     @Override
+    public boolean checkUserID(int userID) {
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "SELECT userID FROM users WHERE userID=?"))) {
+
+                st.setInt(1, userID);
+
+                ExternalAlgorithms.debugPrintSelect("checkUserID User \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                return res.next();
+            }
+        } catch (SQLException e) {
+
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return false;
+    }
+
+    @Override
     public boolean checkPhoneNumber(String phoneNumber) {
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(checkPhoneNumber_STM))) {
