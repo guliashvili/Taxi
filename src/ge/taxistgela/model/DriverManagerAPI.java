@@ -2,7 +2,7 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
-import ge.taxistgela.ram.TaxRamAPI;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import java.util.List;
 

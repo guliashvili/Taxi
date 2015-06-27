@@ -3,7 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.UserDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import java.util.List;
 
@@ -11,8 +11,33 @@ import java.util.List;
  * Created by GIO on 5/25/2015.
  */
 public class UserManager extends UserManagerAPI {
-    public UserManager(UserDaoAPI userDao, TaxRam taxRam) {
+    public UserManager(UserDaoAPI userDao, TaxRamAPI taxRam) {
         super(userDao, taxRam);
+    }
+
+    @Override
+    public User getByEmail(String userEmail) {
+        if (userEmail == null) return null;
+        else return userDao.getUserByEmail(userEmail);
+    }
+
+    @Override
+    public User getByFacebookID(String userFacebookID) {
+        if (userFacebookID == null) return null;
+        else return userDao.getUserByFacebookID(userFacebookID);
+    }
+
+    @Override
+    public User getByGoogleID(String userGoogleID) {
+        if (userGoogleID == null) return null;
+        else return userDao.getUserByGoogleID(userGoogleID);
+    }
+
+    @Override
+    public User getByPhoneNumber(String userPhoneNumber) {
+        if (userPhoneNumber == null)
+            return null;
+        else return userDao.getUserByPhoneNumber(userPhoneNumber);
     }
 
     @Override

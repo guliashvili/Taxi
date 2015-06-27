@@ -5,7 +5,7 @@ import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  */
 public abstract class UserManagerAPI implements SuperUserTokenedManager {
     protected UserDaoAPI userDao;
-    protected TaxRam taxRam;
+    protected TaxRamAPI taxRam;
 
-    public UserManagerAPI(UserDaoAPI userDao, TaxRam taxRam) {
+    public UserManagerAPI(UserDaoAPI userDao, TaxRamAPI taxRam) {
         this.userDao = userDao;
         this.taxRam = taxRam;
     }

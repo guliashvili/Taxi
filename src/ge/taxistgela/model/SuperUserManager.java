@@ -58,15 +58,15 @@ public interface SuperUserManager {
      * @param superUserID
      * @return User generated from database.
      */
-    Object getByID(Integer superUserID);
+    GeneralCheckableInformation getByID(Integer superUserID);
 
-    Object getByFacebookID(String superUserFacebookID);
+    GeneralCheckableInformation getByFacebookID(String superUserFacebookID);
 
-    Object getByGoogleID(String superUserGoogleID);
+    GeneralCheckableInformation getByGoogleID(String superUserGoogleID);
 
-    Object getByEmail(String superUserEmail);
+    GeneralCheckableInformation getByEmail(String superUserEmail);
 
-    Object getByPhoneNumber(String superUserPhoneNumber);
+    GeneralCheckableInformation getByPhoneNumber(String superUserPhoneNumber);
 
 
     /**
