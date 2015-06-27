@@ -4,23 +4,28 @@
 $(document).ready(function(){
     initializeO();
 });
-var records;
+var records=[];
 function initializeO(){
     initializeMap(true);
     createPreferencesSaves();
     $.ajax({
         url: "/order",
         method: "post",
-        data: {action:"getUserOrders"},
+        data: {action:"getOrders"},
         cache: false,
         success: function (data) {
-            records=JSON.parse(data);
+            records=data;
+            for (var i=0;i<records.length;++i){
+                records[i]['recid']= records[i].orderID;
+            }
+            console.log(data);
             generateGrid();
         },
         error: function (data) {
-            console.error("Couldn't log in\n" + JSON.stringify(formData));
+            console.error(data);
         }
     });
+    console.log("ajax request sent");
 }
 function generateGrid(){
     $('#grid').w2grid({
@@ -31,7 +36,7 @@ function generateGrid(){
             footer: true
         },
         columns: [
-            { field: 'orderID', caption: 'orderID', size: '50px', sortable: true, attr: 'align=center' },
+            { field: 'recid', caption: 'orderID', size: '50px', sortable: true, attr: 'align=center' },
             { field: 'userID', caption: 'userID', size: '30%', sortable: true, resizable: false },
             { field: 'driverID', caption: 'driverID', size: '30%', sortable: true, resizable: false },
             { field: 'numPassengers', caption: 'numPassengers', size: '40%', resizable: true },
@@ -49,7 +54,12 @@ function generateGrid(){
             { field: 'orderID', caption: 'orderID', type: 'text' },
         ],
         sortData: [{ field: 'orderID', direction: 'ASC' }],
-        records: records
+        records: records,
+        onLoad: function(e){
+            //because i am too lazy to read docs, hoping to make a difference
+            console.log("loaded");
+            $($("#grid").children()[0]).css("width","90%");
+        }
     });
 }
 function askForDate(){

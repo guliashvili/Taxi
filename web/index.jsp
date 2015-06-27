@@ -28,7 +28,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="/Resources/assets/js/facebookRegister.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="Resources/assets/css/taxi.css">
     <link rel="stylesheet" href="Resources/assets/css/main.css"/>
     <script src="Resources/assets/js/jquery.scrollex.min.js"></script>
     <script src="Resources/assets/js/jquery.scrolly.min.js"></script>
@@ -54,6 +53,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
     <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+    <link rel="stylesheet" href="Resources/assets/css/taxi.css">
 </head>
 <body class="landing">
 

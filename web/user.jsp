@@ -131,10 +131,8 @@
             <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden" >
-            <div id="grid">
-
-            </div>
+        <div id="history" class="12 1u$ hidden" style="width:90%;color:black">
+            <div id="grid" style="width: 100%; height: 250px;"></div>
         </div>
     </div>
 </div>
