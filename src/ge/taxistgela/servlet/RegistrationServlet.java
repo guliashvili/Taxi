@@ -52,8 +52,8 @@ public class RegistrationServlet extends ActionServlet {
                 request.getParameter("userlastName"),
                 request.getParameter("userphoneNumber"),
                 getGender(request.getParameter("usergender")),
-                null,//TODO request.getParameter("userfacebookId"),
-                null,
+                filterSocialID(request.getParameter("userfacebookId")),
+                filterSocialID(request.getParameter("usergoogleplusId")),
                 5.0,
                 userPreference,
                 false,
@@ -104,8 +104,8 @@ public class RegistrationServlet extends ActionServlet {
                 getGender(request.getParameter("drivergender")),
                 request.getParameter("driverphoneNumber"),
                 car,
-                null,//TODO request.getParameter("userfacebookId"),
-                null,
+                filterSocialID(request.getParameter("driverfacebookId")),
+                filterSocialID(request.getParameter("drivergoogleplusId")),
                 5.0,
                 driverPreference,
                 false,
@@ -128,8 +128,8 @@ public class RegistrationServlet extends ActionServlet {
                 request.getParameter("companypassword"),
                 request.getParameter("companyName"),
                 request.getParameter("companyphoneNumber"),
-                null,//TODO request.getParameter("userfacebookId"),
-                null,
+                filterSocialID(request.getParameter("companyfacebookId")),
+                filterSocialID(request.getParameter("companygoogleplusId")),
                 false,
                 false
         );
@@ -175,5 +175,13 @@ public class RegistrationServlet extends ActionServlet {
         }
 
         return gender;
+    }
+
+    private String filterSocialID(String socialID) {
+        if (socialID != null && socialID.equals("")) {
+            return null;
+        }
+
+        return socialID;
     }
 }

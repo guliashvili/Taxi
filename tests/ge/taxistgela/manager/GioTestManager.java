@@ -3,13 +3,10 @@ package ge.taxistgela.manager;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.CompanyDao;
 import ge.taxistgela.dao.DriverDao;
-import ge.taxistgela.dao.UserDao;
-import ge.taxistgela.helper.AdminDatabase;
 import ge.taxistgela.helper.HashGenerator;
 import ge.taxistgela.model.CompanyManager;
 import ge.taxistgela.model.DriverManager;
 import ge.taxistgela.model.UserManager;
-import ge.taxistgela.ram.TaxRam;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,7 +37,7 @@ public class GioTestManager {
     @Before
     //@After
     public void setup() {
-        TaxRam taxRam = new TaxRam();
+        /*TaxRamAPI taxRam = new TaxRam();
         driverManager = new DriverManager(new DriverDao(), taxRam);
         userManager = new UserManager(new UserDao(), taxRam);
         companyManager = new CompanyManager(new CompanyDao(), taxRam);
@@ -77,7 +74,7 @@ public class GioTestManager {
                 null, 5.0, userPreference1, false, false);
         user2 = new User(-1, "uxucesi@mta.ge", "xmali", "mtian", "balaxadze", "511223344", Gender.MALE, null,
                 "glid", 5.5, userPreference2, false, false);
-
+*/
     }
 
     public Company addCompany(Company blankI, Company toI) {
