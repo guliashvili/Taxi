@@ -90,7 +90,7 @@
                class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
             <br><br>
-            <%if(user.getFacebookID()!=null || user.getFacebookID().equals("")){ %> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> <%}%>
+            <%if(user.getFacebookID()!=null){ %> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> <%}%>
             <br>
         </div>
         <div class="5u$ 12u$(small)">

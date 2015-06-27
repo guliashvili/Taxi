@@ -110,5 +110,5 @@ CREATE TABLE Reviews (
   description VARCHAR(1000) NOT NULL,
   FOREIGN KEY (orderID) REFERENCES Orders (orderID)
 );
-SELECT  * FROM users WHERE facebookID='1060613423966132';
-select * from users;
+#SELECT  * FROM users WHERE facebookID='1060613423966132';
+#select * from users;
