@@ -40,9 +40,7 @@ public class OrderServlet extends ActionServlet {
             Company company = (Company) request.getSession().getAttribute(Company.class.getName());
             List<Order> orders = orderManager.getOrdersByCompanyID(company.getCompanyID());
 
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            response.getWriter().print(new Gson().toJson(orders));
+            printResponse(response, orders);
         }
     }
 
@@ -53,9 +51,7 @@ public class OrderServlet extends ActionServlet {
             Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
             List<Order> orders = orderManager.getOrdersByDriverID(driver.getDriverID());
 
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            response.getWriter().print(new Gson().toJson(orders));
+            printResponse(response, orders);
         }
     }
 
@@ -66,10 +62,14 @@ public class OrderServlet extends ActionServlet {
             User user = (User) request.getSession().getAttribute(User.class.getName());
             List<Order> orders = orderManager.getOrderByUserID(user.getUserID());
 
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            response.getWriter().print(new Gson().toJson(orders));
+            printResponse(response, orders);
         }
+    }
+
+    private void printResponse(HttpServletResponse response, List<Order> orders) throws IOException {
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        response.getWriter().print(new Gson().toJson(orders));
     }
 
 }
