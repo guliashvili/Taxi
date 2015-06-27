@@ -1,9 +1,6 @@
 package ge.taxistgela.servlet;
 
-import ge.taxistgela.bean.Company;
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.GeneralCheckableInformation;
-import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
@@ -50,13 +47,55 @@ public class SocialNetworkServlet extends ActionServlet {
         if (um == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
+            // TODO maybe we need to make superUser immutable.
             superUser.setFacebookID(facebookId);
-            um.update(superUser);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.sendRedirect("/");
+
+            ErrorCode errorCode = um.update(superUser);
+
+            if (errorCode.errorNotAccrued()) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.sendRedirect("/");
+
+                return;
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().print(errorCode.toJson());
         }
     }
 
+    public void addGGAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String googleID = request.getParameter("googleID");
 
+        for (int i = 0; i < A_TYPE.length; i++) {
+            if (request.getSession().getAttribute(A_TYPE[i]) != null)
+                addGGAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), googleID,
+                        (SuperUserManager) request.getServletContext().getAttribute(C_TYPE[i]),
+                        response);
+        }
+    }
+
+    private void addGGAccount(GeneralCheckableInformation superUser, String googleID, SuperUserManager um, HttpServletResponse response) throws IOException {
+        System.out.println(superUser);
+        System.out.println(googleID);
+        if (um == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            // TODO maybe we need to make superUser immutable.
+            superUser.setGoogleID(googleID);
+
+            ErrorCode errorCode = um.update(superUser);
+
+            if (errorCode.errorNotAccrued()) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.sendRedirect("/");
+
+                return;
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().print(errorCode.toJson());
+        }
+    }
 
 }
