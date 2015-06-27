@@ -5,15 +5,15 @@ import ge.taxistgela.dao.CompanyDao;
 import ge.taxistgela.dao.DriverDao;
 import ge.taxistgela.dao.UserDao;
 import ge.taxistgela.helper.AdminDatabase;
+import ge.taxistgela.helper.HashGenerator;
 import ge.taxistgela.model.CompanyManager;
 import ge.taxistgela.model.DriverManager;
 import ge.taxistgela.model.TaxRam;
 import ge.taxistgela.model.UserManager;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by GIO on 6/26/2015.
@@ -38,7 +38,7 @@ public class GioTestManager {
 
 
     @Before
-    @After
+    //@After
     public void setup() {
         TaxRam taxRam = new TaxRam();
         driverManager = new DriverManager(new DriverDao(), taxRam);
@@ -80,8 +80,79 @@ public class GioTestManager {
 
     }
 
+    public Company addCompany(Company blankI, Company toI) {
+        Company blank = new Company(blankI);
+        Company company = new Company(toI);
+
+        Company bla = new Company(blank);
+        bla.setEmail("cudi email");
+        assertEquals(true, companyManager.register(bla).errorAccrued());
+
+        bla = new Company(blank);
+        bla.setCompanyCode(null);
+        assertTrue(companyManager.register(bla).errorAccrued());
+
+        bla = new Company(blank);
+        bla.setPhoneNumber("557");
+        assertTrue(companyManager.register(bla).errorAccrued());
+
+        assertTrue(companyManager.register(blank).errorNotAccrued());
+        String oldpwd = blank.getPassword();
+
+        blank.setCompanyCode(company.getCompanyCode());
+        blank.setEmail(company.getEmail());
+        blank.setPassword(company.getPassword());
+        blank.setCompanyName(company.getCompanyName());
+        blank.setPhoneNumber(company.getPhoneNumber());
+        blank.setFacebookID(company.getFacebookID());
+        blank.setGoogleID(company.getGoogleID());
+        blank.setIsVerifiedEmail(company.getIsVerifiedEmail());
+        blank.setIsVerifiedPhone(company.getIsVerifiedPhone());
+
+        company.setCompanyID(blank.getCompanyID());
+
+        assertEquals(blank, company);
+
+        assertTrue(companyManager.update(blank).errorNotAccrued());
+
+        blank.setPassword(toI.getPassword());
+        assertTrue(companyManager.changePassword(blank, oldpwd).errorNotAccrued());
+
+        blank = companyManager.login(blank.getEmail(), company.getPassword());
+        company.setPassword(HashGenerator.getSaltHash(company.getPassword()));
+        assertEquals(blank, company);
+
+        assertTrue(companyManager.checkEmail(blank.getEmail()));
+        assertTrue(blank.getFacebookID() == null || companyManager.checkFacebookID(blank.getFacebookID()));
+        assertTrue(blank.getGoogleID() == null || companyManager.checkGoogleID(blank.getGoogleID()));
+        assertTrue(companyManager.checkPhoneNumber(blank.getPhoneNumber()));
+        assertTrue(companyManager.checkCompanyCode(blank.getCompanyCode()));
+
+        assertFalse(companyManager.checkEmail("wrong type email"));
+
+        companyManager.verifyEmail(blank.getEmailToken());
+        companyManager.verifyPhoneNumber(blank.getPhoneNumberToken());
+
+        blank = companyManager.login(blank.getEmail(), toI.getPassword());
+        assertTrue(blank.getIsVerifiedEmail());
+        assertTrue(blank.getIsVerifiedPhone());
+
+        assertEquals(blank, companyManager.getByID(blank.getCompanyID()));
+        assertEquals(blank.getCompanyID(), companyManager.getCompanyIDByCode(blank.getCompanyCode()));
+
+
+        return blank;
+    }
+
     public void testCompany() {
 
+        Company blank = new Company(-1, "blankcode", "blank@company.ge", "blankPWd", "blankGmert", "559101010", "fb comp blank", "gl comp blank",
+                false, false);
+
+        addCompany(blank, company1);
+    }
+
+    public void testDriver() {
 
     }
 

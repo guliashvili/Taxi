@@ -51,6 +51,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYaoDG8Mj-4FtjBn1p18va0taQyb0KwBk">
     </script>
     <script src="Resources/assets/js/map.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body class="landing">
 
@@ -177,6 +178,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
                             <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
+                        <div class="g-recaptcha" data-sitekey="6LcS8QgTAAAAAP98JRVGsRNt0uKxnX_LDKRiWN70"></div>
                     </form>
                     <button id="registerBtn" class="hidden button special">Register</button>
                 </div>

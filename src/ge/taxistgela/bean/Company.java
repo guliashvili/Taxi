@@ -82,6 +82,7 @@ public class Company extends GeneralCheckableInformation {
         return email;
     }
 
+    @Override
     public void setEmail(String email) {
         this.email = email;
     }
@@ -109,38 +110,47 @@ public class Company extends GeneralCheckableInformation {
         return phoneNumber;
     }
 
+    @Override
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
     public String getFacebookID() {
         return facebookID;
     }
 
+    @Override
     public void setFacebookID(String facebookID) {
         this.facebookID = facebookID;
     }
 
+    @Override
     public String getGoogleID() {
         return googleID;
     }
 
+    @Override
     public void setGoogleID(String googleID) {
         this.googleID = googleID;
     }
 
+    @Override
     public Boolean getIsVerifiedEmail() {
         return isVerifiedEmail;
     }
 
+    @Override
     public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
         this.isVerifiedEmail = isVerifiedEmail;
     }
 
+    @Override
     public Boolean getIsVerifiedPhone() {
         return isVerifiedPhone;
     }
 
+    @Override
     public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
         this.isVerifiedPhone = isVerifiedPhone;
     }

@@ -2,6 +2,7 @@ package ge.taxistgela.servlet;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.EmailSender;
+import ge.taxistgela.helper.GoogleReCaptchaValidation;
 import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
@@ -18,8 +19,21 @@ import java.io.IOException;
  */
 @WebServlet("/register")
 public class RegistrationServlet extends ActionServlet {
-
+    private boolean verify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ErrorCode errorCode = new ErrorCode();
+        String gRecaptchaResponse = request
+                .getParameter("g-recaptcha-response");
+        if (!GoogleReCaptchaValidation.verify(gRecaptchaResponse)) {
+            errorCode.wrongCaptcha();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().print(errorCode.toJson());
+            return false;
+        }
+        return true;
+    }
     public void registerUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!verify(request, response)) return;
+
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         UserPreference userPreference = new UserPreference(-1, 0.1, false, 1900, Integer.MAX_VALUE, 5, false);
@@ -50,6 +64,8 @@ public class RegistrationServlet extends ActionServlet {
     }
 
     public void registerDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!verify(request, response)) return;
+
         DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
@@ -101,6 +117,8 @@ public class RegistrationServlet extends ActionServlet {
     }
 
     public void registerCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!verify(request, response)) return;
+
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
         Company company = new Company(
@@ -123,7 +141,12 @@ public class RegistrationServlet extends ActionServlet {
         if (man == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-            ErrorCode errorCode = man.register(obj);
+
+
+            ErrorCode errorCode = new ErrorCode();
+
+            errorCode.union(man.register(obj));
+
 
             if (errorCode.errorNotAccrued()) {
                 response.setStatus(HttpServletResponse.SC_CREATED);

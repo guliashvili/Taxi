@@ -11,11 +11,15 @@ import javax.mail.internet.InternetAddress;
 public abstract class GeneralCheckableInformation implements Checkable {
     public abstract String getEmail();
 
+    public abstract void setEmail(String email);
+
     public abstract String getPassword();
 
     public abstract void setPassword(String password);
 
     public abstract String getPhoneNumber();
+
+    public abstract void setPhoneNumber(String phoneNumber);
 
     public String getPhoneNumberToken() {
         return HashGenerator.encryptAES(getPhoneNumber());
@@ -33,6 +37,13 @@ public abstract class GeneralCheckableInformation implements Checkable {
 
     public abstract void setIsVerifiedPhone(Boolean isVerifiedPhone);
 
+    public abstract String getFacebookID();
+
+    public abstract void setFacebookID(String facebookID);
+
+    public abstract String getGoogleID();
+
+    public abstract void setGoogleID(String googleID);
     public ErrorCode isValid() {
         ErrorCode ret = new ErrorCode();
         ret.union(isValidEmail(getEmail()));
