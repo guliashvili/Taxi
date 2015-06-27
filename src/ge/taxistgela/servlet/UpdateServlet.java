@@ -5,7 +5,7 @@ import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
 import ge.taxistgela.model.UserManagerAPI;
-import ge.taxistgela.ram.TaxRamAPI;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
