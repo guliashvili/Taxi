@@ -5,13 +5,13 @@ import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.GeneralCheckableInformation;
 import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.TaxRamAPI;
 
 /**
  * Created by GIO on 5/25/2015.
  */
 public class CompanyManager extends   CompanyManagerAPI {
-    public CompanyManager(CompanyDaoAPI companyDao, TaxRam taxRam) {
+    public CompanyManager(CompanyDaoAPI companyDao, TaxRamAPI taxRam) {
         super(companyDao, taxRam);
     }
 

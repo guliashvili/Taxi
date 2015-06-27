@@ -2,7 +2,7 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.TaxRamAPI;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
  */
 public abstract class DriverManagerAPI implements SuperUserTokenedManager {
     protected DriverDaoAPI driverDao;
-    protected TaxRam taxRam;
+    protected TaxRamAPI taxRam;
 
-    public DriverManagerAPI(DriverDaoAPI driverDao, TaxRam taxRam) {
+    public DriverManagerAPI(DriverDaoAPI driverDao, TaxRamAPI taxRam) {
         this.driverDao = driverDao;
         this.taxRam = taxRam;
     }

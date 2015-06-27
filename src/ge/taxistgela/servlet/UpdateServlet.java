@@ -5,7 +5,7 @@ import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
 import ge.taxistgela.model.UserManagerAPI;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.TaxRamAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -157,7 +157,7 @@ public class UpdateServlet extends ActionServlet {
     }
 
     public void dLocation(HttpServletRequest request, HttpServletResponse response) {
-        TaxRam taxRam = (TaxRam) request.getSession().getAttribute(TaxRam.class.getName());
+        TaxRamAPI taxRam = (TaxRamAPI) request.getSession().getAttribute(TaxRamAPI.class.getName());
 
         if (taxRam == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
