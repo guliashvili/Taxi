@@ -1,7 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.dao.CompanyDaoAPI;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.model.TaxRam;
 
 /**
  * Created by GIO on 5/25/2015.

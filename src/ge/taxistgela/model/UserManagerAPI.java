@@ -5,7 +5,7 @@ import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.bean.UserPreference;
 import ge.taxistgela.dao.UserDaoAPI;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.model.TaxRam;
 
 import java.util.List;
 

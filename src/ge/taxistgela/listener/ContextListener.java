@@ -6,7 +6,7 @@ import ge.taxistgela.dao.*;
 import ge.taxistgela.dispatcher.OrderDispatcher;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.model.*;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.model.TaxRam;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

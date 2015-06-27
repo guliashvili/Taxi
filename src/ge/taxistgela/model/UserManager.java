@@ -3,7 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.UserDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.model.TaxRam;
 
 import java.util.List;
 
