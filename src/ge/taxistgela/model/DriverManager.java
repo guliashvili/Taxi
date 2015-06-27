@@ -16,6 +16,42 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
+    public Object getByFacebookID(String facebookID) {
+        if (facebookID == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByFacebookID(facebookID);
+    }
+
+    @Override
+    public Object getByGoogleID(String googleID) {
+        if (googleID == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByGoogleID(googleID);
+    }
+
+    @Override
+    public Object getByEmail(String email) {
+        if (email == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByEmail(email);
+    }
+
+    @Override
+    public Object getByPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByPhoneNumber(phoneNumber);
+    }
+
+    @Override
     public Integer getIDByToken(String token) {
         if (token == null)
             return null;

@@ -16,6 +16,42 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
+    public Object getByFacebookID(String facebookID) {
+        if (facebookID == null) {
+            return null;
+        }
+
+        return companyDao.getCompanyByFacebookID(facebookID);
+    }
+
+    @Override
+    public Object getByGoogleID(String googleID) {
+        if (googleID == null) {
+            return null;
+        }
+
+        return companyDao.getCompanyByGoogleID(googleID);
+    }
+
+    @Override
+    public Object getByEmail(String email) {
+        if (email == null) {
+            return null;
+        }
+
+        return companyDao.getCompanyByEmail(email);
+    }
+
+    @Override
+    public Object getByPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) {
+            return null;
+        }
+
+        return companyDao.getCompanyByPhoneNumber(phoneNumber);
+    }
+
+    @Override
     public Double getCompanyScore(Integer companyID) {
         return companyDao.getCompanyScore(companyID);
     }

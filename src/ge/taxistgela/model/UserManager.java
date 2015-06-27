@@ -16,6 +16,42 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
+    public Object getByFacebookID(String facebookID) {
+        if (facebookID == null) {
+            return null;
+        }
+
+        return userDao.getUserByFacebookID(facebookID);
+    }
+
+    @Override
+    public Object getByGoogleID(String googleID) {
+        if (googleID == null) {
+            return null;
+        }
+
+        return userDao.getUserByGoogleID(googleID);
+    }
+
+    @Override
+    public Object getByEmail(String email) {
+        if (email == null) {
+            return null;
+        }
+
+        return userDao.getUserByEmail(email);
+    }
+
+    @Override
+    public Object getByPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) {
+            return null;
+        }
+
+        return userDao.getUserByPhoneNumber(phoneNumber);
+    }
+
+    @Override
     public User getByID(Integer userID) {
         if (userID == null)
             return null;

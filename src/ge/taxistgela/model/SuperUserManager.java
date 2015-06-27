@@ -60,7 +60,13 @@ public interface SuperUserManager {
      */
     Object getByID(Integer superUserID);
 
+    Object getByFacebookID(String superUserFacebookID);
 
+    Object getByGoogleID(String superUserGoogleID);
+
+    Object getByEmail(String superUserEmail);
+
+    Object getByPhoneNumber(String superUserPhoneNumber);
 
 
     /**
@@ -111,6 +117,5 @@ public interface SuperUserManager {
      * @return Loggedin SuperUserManager.
      */
     Object login(String email, String password);
-
 
 }
