@@ -18,8 +18,17 @@ public class Order {
     private Date endTime;
     private Double paymentAmount;
     private Date callTime;
+    private Boolean revokedByUser;
+    private Boolean revokedByDriver;
 
-    public Order(Integer orderID, Integer userID, Integer driverID, Integer numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime, Double paymentAmount, Date callTime) {
+    public Order() {
+
+    }
+
+    public Order(Integer orderID, Integer userID, Integer driverID, Integer numPassengers, Location startLocation, Location endLocation, Date startTime, Date endTime,
+                 Double paymentAmount, Date callTime, Boolean revokedByUser, Boolean revokedByDriver) {
+        this();
+
         setOrderID(orderID);
         setUserID(userID);
         setDriverID(driverID);
@@ -30,15 +39,16 @@ public class Order {
         setEndTime(endTime);
         setPaymentAmount(paymentAmount);
         setCallTime(callTime);
+        setRevokedByUser(revokedByUser);
+        setRevokedByDriver(revokedByDriver);
     }
 
     public Order(Order ord) {
         this(ord.getOrderID(), ord.getUserID(), ord.getDriverID(), ord.getNumPassengers(), ord.getStartLocation(),
-                ord.getEndLocation(), ord.getStartTime(), ord.getEndTime(), ord.getPaymentAmount(), ord.getCallTime());
+                ord.getEndLocation(), ord.getStartTime(), ord.getEndTime(), ord.getPaymentAmount(), ord.getCallTime(),
+                ord.getRevokedByUser(), ord.getRevokedByDriver());
     }
 
-    public Order() {
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -53,12 +63,30 @@ public class Order {
                 ExternalAlgorithms.equalsNull(getStartLocation(), o.getStartLocation()) &&
                 ExternalAlgorithms.equalsNull(getEndTime(), o.getEndTime()) &&
                 ExternalAlgorithms.equalsNull(getPaymentAmount(), o.getPaymentAmount()) &&
-                ExternalAlgorithms.equalsNull(getCallTime(), o.getCallTime());
+                ExternalAlgorithms.equalsNull(getCallTime(), o.getCallTime()) &&
+                ExternalAlgorithms.equalsNull(getRevokedByDriver(), o.getRevokedByDriver()) &&
+                ExternalAlgorithms.equalsNull(getRevokedByUser(), o.getRevokedByUser());
     }
 
     @Override
     public int hashCode() {
         return getOrderID();
+    }
+
+    public Boolean getRevokedByDriver() {
+        return revokedByDriver;
+    }
+
+    public void setRevokedByDriver(Boolean revokedByDriver) {
+        this.revokedByDriver = revokedByDriver;
+    }
+
+    public Boolean getRevokedByUser() {
+        return revokedByUser;
+    }
+
+    public void setRevokedByUser(Boolean revokedByUser) {
+        this.revokedByUser = revokedByUser;
     }
 
     public Integer getOrderID() {

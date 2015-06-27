@@ -22,17 +22,16 @@ public class OrderDao implements OrderDaoAPI {
 
     private static final String ADD_ORDER = "INSERT INTO Orders " +
             "(userID, driverID, numPassengers, startLocation_long, startLocation_lat, endLocation_long, " +
-            "endLocation_lat, startTime, endTime, paymentAmount, callTime) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "endLocation_lat, startTime, endTime, paymentAmount, callTime,revokedByUser,revokedByDriver) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
 
     private static final String UPDATE_ORDER = "UPDATE Orders SET " +
             "userID = ?, driverID = ?, numPassengers = ?, startLocation_long = ?, startLocation_lat = ?, " +
-            "endLocation_long = ?, endLocation_lat = ?, startTime = ?, endTime = ?, paymentAmount = ?, callTime = ?" +
+            "endLocation_long = ?, endLocation_lat = ?, startTime = ?, endTime = ?, paymentAmount = ?, callTime = ?, " +
+            "revokedByUser=?, revokedByDriver=? " +
             "WHERE orderID = ?";
-    private static final String GET_ORDER_BY_COMPANY_ID = "SELECT o.orderID, o.userID, o.driverID, o.numPassengers, " +
-            " o.startLocation_long, o.startLocation_lat, o.endLocation_long," +
-            " o.endLocation_lat, o.startTime, o.endTime, o.paymentAmount, o.callTime FROM orders o INNER JOIN drivers " +
-            " ON drivers.driverID=o.driverID AND drivers.companyID=?";
+    private static final String GET_ORDER_BY_COMPANY_ID = "SELECT * FROM orders INNER JOIN drivers " +
+            " ON drivers.driverID=orders.driverID AND drivers.companyID=?";
 
     private static final String GET_ORDER_BY_ID = "SELECT * FROM Orders WHERE orderID = ?";
 
@@ -53,16 +52,22 @@ public class OrderDao implements OrderDaoAPI {
     private static Order fetchOrder(ResultSetEnhanced rslt) {
         Order order = new Order();
         try {
-            order.setOrderID(rslt.getInt(1));
-            order.setUserID(rslt.getInt(2));
-            order.setDriverID(rslt.getInt(3));
-            order.setNumPassengers(rslt.getInt(4));
-            order.setStartLocation(new Location(rslt.getDouble(6), rslt.getDouble(5)));
-            order.setEndLocation(new Location(rslt.getDouble(8), rslt.getDouble(7)));
-            order.setStartTime(simpleDateFormat.parse(rslt.getString(9)));
-            order.setEndTime(simpleDateFormat.parse(rslt.getString(10)));
-            order.setPaymentAmount(rslt.getDouble(11));
-            order.setCallTime(simpleDateFormat.parse(rslt.getString(12)));
+            order.setOrderID(rslt.getInt("Orders.orderID"));
+            order.setUserID(rslt.getInt("Orders.userID"));
+            order.setDriverID(rslt.getInt("Orders.driverID"));
+            order.setNumPassengers(rslt.getInt("Orders.numPassengers"));
+            order.setStartLocation(new Location(
+                    rslt.getDouble("Orders.startLocation_lat"),
+                    rslt.getDouble("Orders.startLocation_long")));
+            order.setEndLocation(new Location(
+                    rslt.getDouble("Orders.endLocation_lat"),
+                    rslt.getDouble("Orders.endLocation_long")));
+            order.setStartTime(simpleDateFormat.parse(rslt.getString("Orders.startTime")));
+            order.setEndTime(simpleDateFormat.parse(rslt.getString("Orders.endTime")));
+            order.setPaymentAmount(rslt.getDouble("Orders.paymentAmount"));
+            order.setCallTime(simpleDateFormat.parse(rslt.getString("Orders.callTime")));
+            order.setRevokedByUser(rslt.getBoolean("Orders.revokedByUser"));
+            order.setRevokedByDriver(rslt.getBoolean("Orders.revokedByDriver"));
         } catch (SQLException e) {
             order = null;
             ExternalAlgorithms.debugPrint(e);
@@ -87,8 +92,10 @@ public class OrderDao implements OrderDaoAPI {
             st.setString(9, simpleDateFormat.format(order.getEndTime()));
             st.setDouble(10, order.getPaymentAmount());
             st.setString(11, simpleDateFormat.format(order.getCallTime()));
+            st.setBoolean(12, order.getRevokedByUser());
+            st.setBoolean(13, order.getRevokedByDriver());
             if (update)
-                st.setInt(12, order.getOrderID());
+                st.setInt(14, order.getOrderID());
         } catch (SQLException e) {
             ExternalAlgorithms.debugPrint(e);
             errorCode = true;

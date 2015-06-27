@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by GIO on 6/26/2015.
  */
-public class TaxRam {
+public class TaxRam implements TaxRamAPI {
     private Map<Integer, Location> driverIDLocation = new ConcurrentHashMap<>();
 
     public void updateDriverLocation(int driverID, Location location) {
@@ -18,4 +18,6 @@ public class TaxRam {
     public Location getDriverLocation(int driverID) {
         return driverIDLocation.get(driverID);
     }
+
+
 }

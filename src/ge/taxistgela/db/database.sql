@@ -96,6 +96,8 @@ CREATE TABLE Orders (
   endTime            DATETIME,
   paymentAmount      Decimal(10, 7) NOT NULL,
   callTime           DATETIME NOT NULL,
+  revokedByUser   BOOL NOT NULL,
+  revokedByDriver BOOL NOT NULL,
   FOREIGN KEY (userID) REFERENCES Users (userID),
   FOREIGN KEY (driverID) REFERENCES Drivers (driverID)
 );

@@ -72,12 +72,13 @@ public class GioTestsDao {
                     new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1995"),
                     new SimpleDateFormat("dd/MM/yyyy").parse("21/10/2000"),
                     2.0,
-                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"));
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1994"), false, false);
             order2 = new Order(-1, -1, -1, 2, location1, location2,
                     new SimpleDateFormat("dd/MM/yyyy").parse("21/10/2001"),
                     new SimpleDateFormat("dd/MM/yyyy").parse("21/10/2002"),
                     2.0,
-                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1999"));
+                    new SimpleDateFormat("dd/MM/yyyy").parse("21/10/1999"),
+                    false, false);
         } catch (Exception e) {
             order1 = null;
         }
