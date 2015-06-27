@@ -3,7 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.model.TaxRam;
+import ge.taxistgela.ram.TaxRamAPI;
 
 import java.util.List;
 
@@ -11,8 +11,44 @@ import java.util.List;
  * Created by GIO on 5/25/2015.
  */
 public class DriverManager extends  DriverManagerAPI {
-    public DriverManager(DriverDaoAPI driverDao, TaxRam taxRam) {
+    public DriverManager(DriverDaoAPI driverDao, TaxRamAPI taxRam) {
         super(driverDao, taxRam);
+    }
+
+    @Override
+    public Object getByFacebookID(String facebookID) {
+        if (facebookID == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByFacebookID(facebookID);
+    }
+
+    @Override
+    public Object getByGoogleID(String googleID) {
+        if (googleID == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByGoogleID(googleID);
+    }
+
+    @Override
+    public Object getByEmail(String email) {
+        if (email == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByEmail(email);
+    }
+
+    @Override
+    public Object getByPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) {
+            return null;
+        }
+
+        return driverDao.getDriverByPhoneNumber(phoneNumber);
     }
 
     @Override

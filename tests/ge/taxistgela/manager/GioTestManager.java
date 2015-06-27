@@ -9,7 +9,7 @@ import ge.taxistgela.helper.HashGenerator;
 import ge.taxistgela.model.CompanyManager;
 import ge.taxistgela.model.DriverManager;
 import ge.taxistgela.model.UserManager;
-import ge.taxistgela.ram.model.TaxRam;
+import ge.taxistgela.ram.TaxRam;
 import org.junit.Before;
 import org.junit.Test;
 

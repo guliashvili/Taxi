@@ -3,9 +3,6 @@ package ge.taxistgela.servlet;
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.User;
-import ge.taxistgela.dao.CompanyDao;
-import ge.taxistgela.dao.DriverDao;
-import ge.taxistgela.dao.UserDao;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
@@ -35,37 +32,84 @@ public class LoginServlet extends ActionServlet {
             "/company.jsp"
     };
 
-    public void loginBySocialNetwork(Object obj, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (obj == null){
+    public void loginGPUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+
+        loginGPSuper(userManager, 0, request, response);
+    }
+
+    public void loginGPDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
+
+        loginGPSuper(driverManager, 1, request, response);
+    }
+
+    public void loginGPCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
+
+        loginGPSuper(companyManager, 2, request, response);
+    }
+
+    public void loginGPSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String googleID = request.getParameter("googleID");
+
+        ExternalAlgorithms.debugPrint("LoginGP " + A_TYPE[type] + " " + googleID);
+
+        if (man == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            Object obj = man.getByGoogleID(googleID);
+
+            if (obj != null) {
+                request.getSession().setAttribute(A_TYPE[type], obj);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.sendRedirect(P_TYPE[type]);
+
+                return;
+            }
+
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }else{
-            response.setStatus(HttpServletResponse.SC_OK);
-            request.getSession().setAttribute(A_TYPE[type], obj);
-            response.sendRedirect(P_TYPE[type]);
         }
     }
 
-    public void loginFbUser(HttpServletRequest request, HttpServletResponse response) throws  IOException{
-        String facebookId = request.getParameter("facebookID");
-        System.out.println(facebookId + " GELAAA ");
-        UserDao dao = new UserDao();
-        User u = dao.getUserByFacebookID(facebookId);
-        System.out.println(u);
-        loginBySocialNetwork(u, 0, request, response);
+    public void loginFbUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+
+        loginFbSuper(userManager, 0, request, response);
     }
 
-    public void loginFbDriver(HttpServletRequest request, HttpServletResponse response) throws  IOException{
-        String facebookId = request.getParameter("facebookID");
-        DriverDao dao = new DriverDao();
-        Driver d = dao.getDriverByFacebookID(facebookId);
-        loginBySocialNetwork(d, 1, request, response);
+    public void loginFbDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
+
+        loginFbSuper(driverManager, 1, request, response);
     }
 
-    public void loginFbCompany(HttpServletRequest request, HttpServletResponse response) throws  IOException{
-        String facebookId = request.getParameter("facebookID");
-        CompanyDao dao = new CompanyDao();
-        Company c = dao.getCompanyByFacebookID(facebookId);
-        loginBySocialNetwork(c, 2, request, response);
+    public void loginFbCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
+
+        loginFbSuper(companyManager, 2, request, response);
+    }
+
+    private void loginFbSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String facebookID = request.getParameter("facebookID");
+
+        ExternalAlgorithms.debugPrint("LoginFb " + A_TYPE[type] + " " + facebookID);
+
+        if (man == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            Object obj = man.getByFacebookID(facebookID);
+
+            if (obj != null) {
+                request.getSession().setAttribute(A_TYPE[type], obj);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.sendRedirect(P_TYPE[type]);
+
+                return;
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     public void loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -6,7 +6,8 @@ import ge.taxistgela.dao.*;
 import ge.taxistgela.dispatcher.OrderDispatcher;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.model.*;
-import ge.taxistgela.ram.model.TaxRam;
+import ge.taxistgela.ram.TaxRam;
+import ge.taxistgela.ram.TaxRamAPI;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -40,7 +41,7 @@ public class ContextListener implements ServletContextListener,
         ReviewDao reviewDao = new ReviewDao();
 
         ServletContext sc = sce.getServletContext();
-        TaxRam ram = new TaxRam(orderDao, userDao, driverDao);
+        TaxRamAPI ram = new TaxRam(orderDao, userDao, driverDao);
 
         // add CompanyManager.
         sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(companyDao, ram));
@@ -63,7 +64,7 @@ public class ContextListener implements ServletContextListener,
         sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager(new SuperUserTokenedManager[]{um, dm}));
 
         // add TaxRam.
-        sc.setAttribute(TaxRam.class.getName(), ram);
+        sc.setAttribute(TaxRamAPI.class.getName(), ram);
 
         // add OrderDispatcher.
         OrderDispatcher orderDispatcher = new OrderDispatcher(sc);
@@ -100,7 +101,7 @@ public class ContextListener implements ServletContextListener,
         sc.removeAttribute(UserManagerAPI.class.getName());
 
         // remove TaxRam.
-        sc.removeAttribute(TaxRam.class.getName());
+        sc.removeAttribute(TaxRamAPI.class.getName());
 
         // remove OrderDispatcher.
         OrderDispatcher orderDispatcher = (OrderDispatcher) sce.getServletContext().getAttribute(OrderDispatcher.class.getName());
