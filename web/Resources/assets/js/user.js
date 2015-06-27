@@ -12,7 +12,7 @@ function initializeO(){
 function askForDate(){
     if(endMarker!=null){
         askWindow.open(map,startMarker);
-        $('#startDate').datepicker();
+        $('#datetimepicker1').datetimepicker();
     }
 }
 
