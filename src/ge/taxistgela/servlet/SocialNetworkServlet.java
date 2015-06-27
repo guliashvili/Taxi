@@ -64,18 +64,18 @@ public class SocialNetworkServlet extends ActionServlet {
         }
     }
 
-    public void addGGAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void addGPAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String googleID = request.getParameter("googleID");
 
         for (int i = 0; i < A_TYPE.length; i++) {
             if (request.getSession().getAttribute(A_TYPE[i]) != null)
-                addGGAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), googleID,
+                addGPAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), googleID,
                         (SuperUserManager) request.getServletContext().getAttribute(C_TYPE[i]),
                         response);
         }
     }
 
-    private void addGGAccount(GeneralCheckableInformation superUser, String googleID, SuperUserManager um, HttpServletResponse response) throws IOException {
+    private void addGPAccount(GeneralCheckableInformation superUser, String googleID, SuperUserManager um, HttpServletResponse response) throws IOException {
         System.out.println(superUser);
         System.out.println(googleID);
         if (um == null) {

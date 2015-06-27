@@ -32,28 +32,28 @@ public class LoginServlet extends ActionServlet {
             "/company.jsp"
     };
 
-    public void loginGGUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginGPUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
-        loginFbSuper(userManager, 0, request, response);
+        loginGPSuper(userManager, 0, request, response);
     }
 
-    public void loginGGDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginGPDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
         DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
 
-        loginSuper(driverManager, 1, request, response);
+        loginGPSuper(driverManager, 1, request, response);
     }
 
-    public void loginGGCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginGPCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
-        loginSuper(companyManager, 2, request, response);
+        loginGPSuper(companyManager, 2, request, response);
     }
 
-    public void loginGGSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginGPSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String googleID = request.getParameter("googleID");
 
-        ExternalAlgorithms.debugPrint("LoginGG " + A_TYPE[type] + " " + googleID);
+        ExternalAlgorithms.debugPrint("LoginGP " + A_TYPE[type] + " " + googleID);
 
         if (man == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -81,13 +81,13 @@ public class LoginServlet extends ActionServlet {
     public void loginFbDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
         DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
 
-        loginSuper(driverManager, 1, request, response);
+        loginFbSuper(driverManager, 1, request, response);
     }
 
     public void loginFbCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
-        loginSuper(companyManager, 2, request, response);
+        loginFbSuper(companyManager, 2, request, response);
     }
 
     private void loginFbSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
