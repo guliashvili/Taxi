@@ -20,20 +20,28 @@ import java.io.IOException;
 @WebServlet("/social")
 public class SocialNetworkServlet extends ActionServlet {
 
+    private static final String[] A_TYPE = {
+            User.class.getName(),
+            Driver.class.getName(),
+            Company.class.getName()
+    };
+
+    private static final String[] C_TYPE = {
+            UserManagerAPI.class.getName(),
+            DriverManagerAPI.class.getName(),
+            CompanyManagerAPI.class.getName()
+    };
+
+
     public void addFbAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String facebookId = request.getParameter("facebookID");
-        if (request.getSession().getAttribute(User.class.getName()) != null)
-            addFbAccount((User) request.getSession().getAttribute(User.class.getName()), facebookId,
-                    (SuperUserManager) request.getServletContext().getAttribute(UserManagerAPI.class.getName()),
-                    response);
-        if (request.getSession().getAttribute(Driver.class.getName()) != null)
-            addFbAccount((Driver) request.getSession().getAttribute(Driver.class.getName()), facebookId,
-                    (SuperUserManager) request.getServletContext().getAttribute(DriverManagerAPI.class.getName()),
-                    response);
-        if (request.getSession().getAttribute(Company.class.getName()) != null)
-            addFbAccount((Company) request.getSession().getAttribute(Company.class.getName()), facebookId,
-                    (SuperUserManager) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName()),
-                    response);
+
+        for (int i = 0; i < A_TYPE.length; i++) {
+            if (request.getSession().getAttribute(A_TYPE[i]) != null)
+                addFbAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), facebookId,
+                        (SuperUserManager) request.getServletContext().getAttribute(C_TYPE[i]),
+                        response);
+        }
     }
 
     private void addFbAccount(GeneralCheckableInformation superUser, String facebookId, SuperUserManager um, HttpServletResponse response) throws IOException {
