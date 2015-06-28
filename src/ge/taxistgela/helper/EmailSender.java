@@ -29,9 +29,10 @@ public class EmailSender {
     private final static String[] verificationActions = {
             "action=uEmail&token=",
             "action=dEmail&token=",
-            "action=cEmail&token="
+            "action=cEmail&token=",
+            "action=dCompany&token="
     };
-    private final static String message_t[] = {"Thank You! ", " For registration, Please Follow to the URL: ", verificationURL, " And enter code given:"};
+    private final static String message_t[] = {"Thank You! ", " For registration, Please Follow to the URL: ", verificationURL};
 
     /**
      * Sends verification email specified in user given
@@ -87,5 +88,50 @@ public class EmailSender {
         }
 
         return -1;
+    }
+
+    public static void verifyCompany(Driver driver, Company company) {
+        Thread thread = new Thread(() -> {
+
+            try {
+                Properties properties = System.getProperties();
+                properties.put("mail.smtp.auth", "true");
+                properties.put("mail.smtp.starttls.enable", "true");
+                properties.put("mail.smtp.host", stmphost);
+                properties.put("mail.smtp.port", "587");
+
+                Session session = Session.getDefaultInstance(properties,
+                        new javax.mail.Authenticator() {
+                            protected PasswordAuthentication getPasswordAuthentication() {
+                                return new PasswordAuthentication(username, password);
+                            }
+                        });
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(from);
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(company.getEmail()));
+                message.setSubject(subject);
+
+                String token = HashGenerator.encryptAES(driver.getDriverID() + "#" + company.getCompanyID());
+
+                String url = verificationURL + verificationActions[3] + URLEncoder.encode(token, "UTF-8");
+
+                StringBuilder b = new StringBuilder();
+
+                b.append("Driver wants to work for you.\n");
+                b.append("Driver Info.\n");
+                b.append("Name: ").append(driver.getFirstName()).append(" ").append(driver.getLastName());
+                b.append("Personal ID: ").append(driver.getPersonalID()).append("\n");
+                b.append("Please Follow to the URL for confirmation: ").append(url);
+
+                message.setText(b.toString());
+                Transport.send(message);
+            } catch (Exception e) {
+                throw new RuntimeException();
+            }
+        }
+
+        );
+
+        thread.start();
     }
 }

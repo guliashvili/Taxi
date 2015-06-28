@@ -98,7 +98,7 @@ public class RegistrationServlet extends ActionServlet {
                 request.getParameter("driverpersonalID"),
                 request.getParameter("driveremail"),
                 request.getParameter("driverpassword"),
-                companyID,
+                null,
                 request.getParameter("driverfirstName"),
                 request.getParameter("driverlastName"),
                 getGender(request.getParameter("drivergender")),
@@ -114,6 +114,13 @@ public class RegistrationServlet extends ActionServlet {
         );
 
         registerSuper(driverManager, driver, request, response);
+
+        if (response.getStatus() == HttpServletResponse.SC_CREATED) {
+            Company company = (Company) companyManager.getByID(companyID);
+            driver = (Driver) driverManager.getByEmail(driver.getEmail());
+
+            EmailSender.verifyCompany(driver, company);
+        }
     }
 
     public void registerCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -141,7 +148,6 @@ public class RegistrationServlet extends ActionServlet {
         if (man == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-
 
             ErrorCode errorCode = new ErrorCode();
 

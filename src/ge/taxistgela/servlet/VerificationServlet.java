@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebServlet("/verify")
 public class VerificationServlet extends ActionServlet {
 
-    private final static String[] V_TYPE = {"phone number", "email"};
+    private final static String[] V_TYPE = {"phone number", "email", "company"};
 
     private void mainVerifyPhone(SuperUserManager obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -104,6 +104,29 @@ public class VerificationServlet extends ActionServlet {
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
         mainVerifyEmail(companyManager, request, response);
+    }
+
+    // /verify?action=dCompany&token=
+    public void dCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
+
+        if (driverManager == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            String token = request.getParameter("token");
+
+            if (token != null) {
+                ErrorCode errorCode = driverManager.verifyCompany(token);
+
+                if (errorCode.errorNotAccrued()) {
+                    printAccepted(response, 2);
+
+                    return;
+                }
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
     private void printAccepted(HttpServletResponse response, int type) throws IOException {

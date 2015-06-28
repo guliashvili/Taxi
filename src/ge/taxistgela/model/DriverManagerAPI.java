@@ -105,4 +105,12 @@ public abstract class DriverManagerAPI implements SuperUserTokenedManager {
      * @return true/false
      */
     public abstract boolean checkCarID(String carID);
+
+    /**
+     * Verify driver companyID.
+     *
+     * @param token
+     * @return
+     */
+    public abstract ErrorCode verifyCompany(String token);
 }

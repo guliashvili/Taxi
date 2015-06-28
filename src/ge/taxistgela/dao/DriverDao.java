@@ -110,6 +110,25 @@ public class DriverDao implements DriverDaoAPI {
     }
 
     @Override
+    public boolean verifyDriverCompanyID(Integer driverID, Integer companyID) {
+        boolean errorCode = false;
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +
+                    "UPDATE Drivers SET companyID=? WHERE driverID=?"))) {
+
+                st.setInt(1, companyID);
+                st.setInt(2, driverID);
+
+                ExternalAlgorithms.debugPrintSelect("Verify Driver companyID\n" + st.toString());
+            }
+        } catch (SQLException e) {
+            errorCode = true;
+            ExternalAlgorithms.debugPrint(e);
+        }
+        return errorCode;
+    }
+
+    @Override
     public boolean verifyDriverEmail(String email) {
         boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {

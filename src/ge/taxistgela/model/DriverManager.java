@@ -167,6 +167,35 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
+    public ErrorCode verifyCompany(String token) {
+        ErrorCode ret = new ErrorCode();
+        if (token == null) {
+            ret.nullArgument();
+        } else {
+            token = HashGenerator.decryptAES(token);
+            if (token == null) {
+                ret.setWrongToken();
+            } else {
+                String[] parts = token.split("#");
+
+                Integer driverID = Integer.parseInt(parts[0]);
+                Integer companyID = Integer.parseInt(parts[1]);
+
+                Driver u = driverDao.getDriverByID(driverID);
+
+                if (u.getCompanyID() != null) {
+                    ret.setAlreadyVerified();
+                } else {
+                    if (driverDao.verifyDriverCompanyID(driverID, companyID)) {
+                        ret.unexpected();
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+    @Override
     public ErrorCode verifyEmail(String token) {
         ErrorCode ret = new ErrorCode();
         if (token == null) {

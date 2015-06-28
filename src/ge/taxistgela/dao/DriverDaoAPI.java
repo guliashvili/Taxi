@@ -78,6 +78,15 @@ public interface DriverDaoAPI {
     Driver getDriverByFacebookID(String facebookID);
 
     /**
+     * verifies driver companyID.
+     *
+     * @param driverID
+     * @param companyID
+     * @return
+     */
+    boolean verifyDriverCompanyID(Integer driverID, Integer companyID);
+
+    /**
      * verifies driver email
      *
      * @param email
