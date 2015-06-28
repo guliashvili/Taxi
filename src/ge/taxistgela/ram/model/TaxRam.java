@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class TaxRam implements TaxRamAPI {
+
     private OrderDao orderDao;
     private UserDao userDao;
     private DriverDao driverDao;
