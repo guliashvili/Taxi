@@ -13,7 +13,7 @@ $(document).ready(function(){
 function resendEmail(){
 
 }
-function resenPhone(){
+function resendPhone(){
 
 }
 function initializeO(){
