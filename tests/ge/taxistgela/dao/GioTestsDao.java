@@ -99,7 +99,7 @@ public class GioTestsDao {
         company1 = new Company(-1, "code", "email@email.com", "123456(dumbpwd)", "lucifer", "566666666", "fbid", "glid", false, false);
 
         user1 = new User(-1, "daltoniki@tvali.ge", "shavitetria", "mwvane", "yvitladze", "511123123", Gender.MALE, "fbb sun",
-                null, 5.0, userPreference1, false, false);
+                "107104058097106142619", 5.0, userPreference1, false, false);
         user2 = new User(-1, "uxucesi@mta.ge", "xmali", "mtian", "balaxadze", "511223344", Gender.MALE, null,
                 "glid", 5.5, userPreference2, false, false);
 
