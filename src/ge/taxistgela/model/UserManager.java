@@ -154,7 +154,7 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public ErrorCode register(GeneralCheckableInformation u) {
+    public ErrorCode register(SuperDaoUser u) {
         ErrorCode ret = new ErrorCode();
         if (u == null)
             ret.nullArgument();
@@ -171,7 +171,7 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation u, String oldPassword) {
+    public ErrorCode changePassword(SuperDaoUser u, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (u == null)
             ret.nullArgument();
@@ -192,7 +192,7 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public ErrorCode update(GeneralCheckableInformation u) {
+    public ErrorCode update(SuperDaoUser u) {
         ErrorCode ret = new ErrorCode();
         if (u == null)
             ret.nullArgument();

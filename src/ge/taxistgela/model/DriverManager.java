@@ -131,7 +131,7 @@ public class DriverManager extends  DriverManagerAPI {
         return ret;
     }
     @Override
-    public ErrorCode register(GeneralCheckableInformation d) {
+    public ErrorCode register(SuperDaoUser d) {
         ErrorCode ret = new ErrorCode();
         if (d == null) {
             ret.nullArgument();
@@ -148,7 +148,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation d, String oldPassword) {
+    public ErrorCode changePassword(SuperDaoUser d, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (d == null) {
             ret.nullArgument();
@@ -207,7 +207,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public ErrorCode update(GeneralCheckableInformation d) {
+    public ErrorCode update(SuperDaoUser d) {
         ErrorCode ret = new ErrorCode();
         if (d == null)
             ret.nullArgument();

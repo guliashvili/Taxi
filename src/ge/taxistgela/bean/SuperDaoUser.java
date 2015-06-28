@@ -8,18 +8,71 @@ import javax.mail.internet.InternetAddress;
 /**
  * Created by GIO on 6/5/2015.
  */
-public abstract class GeneralCheckableInformation implements Checkable {
-    public abstract String getEmail();
+public abstract class SuperDaoUser implements Checkable {
+    private String email;
+    private String password;
+    private String facebookID;
+    private String googleID;
+    private String phoneNumber;
+    private Boolean isVerifiedEmail;
+    private Boolean isVerifiedPhone;
 
-    public abstract void setEmail(String email);
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public abstract String getPassword();
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public abstract void setPassword(String password);
+    public Boolean getIsVerifiedEmail() {
+        return isVerifiedEmail;
+    }
 
-    public abstract String getPhoneNumber();
+    public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
+        this.isVerifiedEmail = isVerifiedEmail;
+    }
 
-    public abstract void setPhoneNumber(String phoneNumber);
+    public Boolean getIsVerifiedPhone() {
+        return isVerifiedPhone;
+    }
+
+    public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
+        this.isVerifiedPhone = isVerifiedPhone;
+    }
+
+    public String getFacebookID() {
+        return facebookID;
+    }
+
+    public void setFacebookID(String facebookID) {
+        this.facebookID = facebookID;
+    }
+
+    public String getGoogleID() {
+        return googleID;
+    }
+
+    public void setGoogleID(String googleID) {
+        this.googleID = googleID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     public String getPhoneNumberToken() {
         return HashGenerator.encryptAES(getPhoneNumber());
@@ -29,21 +82,7 @@ public abstract class GeneralCheckableInformation implements Checkable {
         return HashGenerator.encryptAES(getEmail());
     }
 
-    public abstract Boolean getIsVerifiedEmail();
 
-    public abstract void setIsVerifiedEmail(Boolean isVerifiedEmail);
-
-    public abstract Boolean getIsVerifiedPhone();
-
-    public abstract void setIsVerifiedPhone(Boolean isVerifiedPhone);
-
-    public abstract String getFacebookID();
-
-    public abstract void setFacebookID(String facebookID);
-
-    public abstract String getGoogleID();
-
-    public abstract void setGoogleID(String googleID);
     public ErrorCode isValid() {
         ErrorCode ret = new ErrorCode();
         ret.union(isValidEmail(getEmail()));

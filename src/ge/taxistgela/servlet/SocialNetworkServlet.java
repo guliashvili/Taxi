@@ -35,13 +35,13 @@ public class SocialNetworkServlet extends ActionServlet {
 
         for (int i = 0; i < A_TYPE.length; i++) {
             if (request.getSession().getAttribute(A_TYPE[i]) != null)
-                addFbAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), facebookId,
+                addFbAccount((SuperDaoUser) request.getSession().getAttribute(A_TYPE[i]), facebookId,
                         (SuperUserManager) request.getServletContext().getAttribute(C_TYPE[i]),
                         response);
         }
     }
 
-    private void addFbAccount(GeneralCheckableInformation superUser, String facebookId, SuperUserManager um, HttpServletResponse response) throws IOException {
+    private void addFbAccount(SuperDaoUser superUser, String facebookId, SuperUserManager um, HttpServletResponse response) throws IOException {
         System.out.println(superUser);
         System.out.println(facebookId);
         if (um == null) {
@@ -69,13 +69,13 @@ public class SocialNetworkServlet extends ActionServlet {
 
         for (int i = 0; i < A_TYPE.length; i++) {
             if (request.getSession().getAttribute(A_TYPE[i]) != null)
-                addGPAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), googleID,
+                addGPAccount((SuperDaoUser) request.getSession().getAttribute(A_TYPE[i]), googleID,
                         (SuperUserManager) request.getServletContext().getAttribute(C_TYPE[i]),
                         response);
         }
     }
 
-    private void addGPAccount(GeneralCheckableInformation superUser, String googleID, SuperUserManager um, HttpServletResponse response) throws IOException {
+    private void addGPAccount(SuperDaoUser superUser, String googleID, SuperUserManager um, HttpServletResponse response) throws IOException {
         System.out.println(superUser);
         System.out.println(googleID);
         if (um == null) {

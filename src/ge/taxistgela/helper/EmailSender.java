@@ -1,8 +1,11 @@
 package ge.taxistgela.helper;
 
-import ge.taxistgela.bean.GeneralCheckableInformation;
+import ge.taxistgela.bean.SuperDaoUser;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.net.URLEncoder;
@@ -25,7 +28,7 @@ public class EmailSender {
      * Sends verification email specified in user given
      * @param user user to verify email
      */
-    public static void verifyEmail(GeneralCheckableInformation user) throws RuntimeException {
+    public static void verifyEmail(SuperDaoUser user) throws RuntimeException {
         Thread thread = new Thread(() -> {
 
                 try {

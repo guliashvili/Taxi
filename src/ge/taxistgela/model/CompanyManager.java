@@ -2,7 +2,7 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.bean.ErrorCode;
-import ge.taxistgela.bean.GeneralCheckableInformation;
+import ge.taxistgela.bean.SuperDaoUser;
 import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
 import ge.taxistgela.ram.model.TaxRamAPI;
@@ -112,7 +112,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode register(GeneralCheckableInformation c) {
+    public ErrorCode register(SuperDaoUser c) {
         ErrorCode ret = new ErrorCode();
         if (c == null)
             ret.nullArgument();
@@ -165,7 +165,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation c, String oldPassword) {
+    public ErrorCode changePassword(SuperDaoUser c, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (c == null)
             ret.nullArgument();
@@ -186,7 +186,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode update(GeneralCheckableInformation c) {
+    public ErrorCode update(SuperDaoUser c) {
         ErrorCode ret = new ErrorCode();
         if (c == null)
             ret.nullArgument();

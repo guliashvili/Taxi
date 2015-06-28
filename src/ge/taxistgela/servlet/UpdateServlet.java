@@ -129,7 +129,7 @@ public class UpdateServlet extends ActionServlet {
         if (man == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-            GeneralCheckableInformation obj = (GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[type]);
+            SuperDaoUser obj = (SuperDaoUser) request.getSession().getAttribute(A_TYPE[type]);
 
             ErrorCode errorCode = null;
 
