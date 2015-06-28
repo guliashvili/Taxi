@@ -1,8 +1,4 @@
-<%@ page import="ge.taxistgela.bean.Order" %>
 <%@ page import="ge.taxistgela.bean.User" %>
-<%@ page import="ge.taxistgela.model.OrderManager" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.io.PrintWriter" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -39,7 +35,8 @@
             <%} %>
         </div>
         <div class="12u$ (small) fit" style="float:left">
-            <a href="#" onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');"
+            <a href="#"
+               onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');"
                class="button special small fa fa-bar-chart"> Add Order</a>
         </div>
         <br><br><br><br>
@@ -84,13 +81,16 @@
                 <input type="text" name="action" value="uPassword" class="hidden"/>
             </form>
             <button id="passChange" class="special button">Save</button>
-        </div><br>
+        </div>
+        <br>
+
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
                class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
             <br><br>
-            <%if(user.getFacebookID()!=null){ %> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> <%}%>
+            <%if (user.getFacebookID() != null) { %> <fb:login-button scope="public_profile,email"
+                                                                      onlogin="checkLoginState();"></fb:login-button> <%}%>
             <br>
         </div>
         <div class="5u$ 12u$(small)">
