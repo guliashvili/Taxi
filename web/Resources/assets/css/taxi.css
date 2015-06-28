@@ -588,3 +588,11 @@ input[type="radio"] + label:before {
 #panel{
     height:100%;
 }
+
+.fb-login-button {
+    display: none;
+}
+
+.fb_iframe_widget {
+    display: block !important;
+}
