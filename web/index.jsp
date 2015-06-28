@@ -28,7 +28,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="/Resources/assets/js/facebookLogin.js"></script>
     <script src="/Resources/assets/js/facebookRegister.js"></script>
     <script src="/Resources/assets/js/googleplusLogin.js"></script>
@@ -37,7 +36,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Resources/assets/css/taxi.css">
     <link rel="stylesheet" href="Resources/assets/css/main.css"/>
-    <script src="Resources/assets/js/jquery.min.js"></script>
     <script src="Resources/assets/js/jquery.scrollex.min.js"></script>
     <script src="Resources/assets/js/jquery.scrolly.min.js"></script>
     <script src="Resources/assets/js/skel.min.js"></script>

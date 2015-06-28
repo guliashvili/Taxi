@@ -17,6 +17,7 @@ function resendPhone(){
 
 }
 function initializeO(){
+    $(".headCaption").removeClass("hidden");
     initializeMap();
     createPreferencesSaves();
     generateGrid();

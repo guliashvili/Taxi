@@ -7,6 +7,7 @@ $(document).ready(function(){
 var records=[];
 var travel=null;
 function initializeO(){
+    $(".headCaption").removeClass("hidden");
     initializeMap(true);
     createPreferencesSaves();
     $.ajax({
