@@ -9,13 +9,29 @@ import java.util.List;
 /**
  * Created by GIO on 6/27/2015.
  */
-public class driverInfo {
-    public List<userInfo> timetable = Collections.synchronizedList(new ArrayList<>());
-    public List<userInfo> inTheCar = Collections.synchronizedList(new ArrayList<>());
+public class DriverInfo {
+    public List<UserInfo> timetable = Collections.synchronizedList(new ArrayList<>());
+    public List<UserInfo> inTheCar = Collections.synchronizedList(new ArrayList<>());
     public Object lock = new Object();
     private Location location = null;
-    private Integer numOfPassengers;
-    private Integer maxNumOfPassengers;
+    private int numOfPassengers;
+    private int maxNumOfPassengers;
+    private int driverID;
+    private double costPerKM;
+
+
+    public void update(DriverInfo driverInfo) {
+        maxNumOfPassengers = driverInfo.getNumOfPassengers();
+        costPerKM = driverInfo.getCostPerKM();
+    }
+
+    public double getCostPerKM() {
+        return costPerKM;
+    }
+
+    public void setCostPerKM(double costPerKM) {
+        this.costPerKM = costPerKM;
+    }
 
     public Location getLocation() {
         return location;
@@ -25,19 +41,27 @@ public class driverInfo {
         this.location = location;
     }
 
-    public Integer getNumOfPassengers() {
+    public int getDriverID() {
+        return driverID;
+    }
+
+    public void setDriverID(int driverID) {
+        this.driverID = driverID;
+    }
+
+    public int getNumOfPassengers() {
         return numOfPassengers;
     }
 
-    public void setNumOfPassengers(Integer numOfPassengers) {
+    public void setNumOfPassengers(int numOfPassengers) {
         this.numOfPassengers = numOfPassengers;
     }
 
-    public Integer getMaxNumOfPassengers() {
+    public int getMaxNumOfPassengers() {
         return maxNumOfPassengers;
     }
 
-    public void setMaxNumOfPassengers(Integer maxNumOfPassengers) {
+    public void setMaxNumOfPassengers(int maxNumOfPassengers) {
         this.maxNumOfPassengers = maxNumOfPassengers;
     }
 }
