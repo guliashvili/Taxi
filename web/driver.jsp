@@ -126,6 +126,8 @@
         <div id="cCar" class="12u hidden">
             <form id="cCarForm">
                 <input type="text" name="action" value="dCar" class="hidden"/>
+                <label for="carID"> Car Plate Number </label>
+                <input type="text" id="carID" name="carID" value="<%=driver.getCar().getCarID()%>"/>
                 <input type="checkbox" id="conditioning"
                        name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked");}%>>
                 <label for="conditioning"> Conditioning </label>
@@ -142,13 +144,9 @@
             <button id="cCarBtn" class="button special small fa fa-adjust"> Save</button>
         </div>
         <div class="12u 1u$(small)" style="float:left">
-            <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
+            <a href="#" onclick="$('#grid').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden">
-            <div id="grid">
-
-            </div>
-        </div>
+        <div id="grid" class="hidden" style="color:black;width: 100%;padding:0px; height: 250px;"></div>
     </div>
 </div>

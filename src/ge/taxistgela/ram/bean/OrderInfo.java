@@ -8,7 +8,9 @@ import ge.taxistgela.bean.Location;
 public class OrderInfo{
     public final  static int MAXIMUM_ORDER_LIFETIME = 30;
     private int driverID;
-    private double price;
+    private double maxPrice;
+    private double distance;
+    private double pricePer;
     private  int userID;
     private long createTime;
     private Location start,end;
@@ -16,18 +18,57 @@ public class OrderInfo{
     private long startTime;
     private long timeLimit;
 
-    public OrderInfo(long createTime, int driverID, Location end, int nPassengers, double price, Location start, int userID,long startTime,long timeLimit) {
+
+    public OrderInfo(long createTime, int driverID, Location end, int nPassengers, double maxPrice, Location start, int userID, long startTime, long timeLimit, double distance, double pricePer) {
         this.createTime = createTime;
         this.driverID = driverID;
         this.end = end;
         this.nPassengers = nPassengers;
-        this.price = price;
+        this.maxPrice = maxPrice;
         this.start = start;
         this.userID = userID;
         this.startTime = startTime;
         this.timeLimit = timeLimit;
+        this.distance = distance;
+        this.pricePer = pricePer;
+
     }
 
+    public synchronized void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public synchronized void setTimeLimit(long timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+
+    public synchronized void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public synchronized double getDistance() {
+        return distance;
+    }
+
+    public synchronized void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public synchronized double getMaxPrice() {
+        return maxPrice;
+    }
+
+    public synchronized void setMaxPrice(double maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
+    public synchronized double getPricePer() {
+        return pricePer;
+    }
+
+    public synchronized void setPricePer(double pricePer) {
+        this.pricePer = pricePer;
+    }
 
     public synchronized Long getStartTime() {
         return startTime;
@@ -77,13 +118,6 @@ public class OrderInfo{
         this.end = end;
     }
 
-    public synchronized double getPrice() {
-        return price;
-    }
-
-    public synchronized void setPrice(double price) {
-        this.price = price;
-    }
 
     public synchronized Location getStart() {
         return start;

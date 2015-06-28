@@ -59,11 +59,11 @@ public class Driver extends SuperPersonalTokenUser {
         setLastName(lastName);
         setGender(gender);
         setPhoneNumber(phoneNumber);
-        setCar(car);
+        setCar(new Car(car));
         setFacebookID(facebookID);
         setGoogleID(googleID);
         setRating(rating);
-        setPreferences(preferences);
+        setPreferences(new DriverPreference(preferences));
         setIsActive(isActive);
         setIsVerifiedEmail(isVerifiedEmail);
         setIsVerifiedPhone(isVerifiedPhone);

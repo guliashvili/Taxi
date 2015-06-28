@@ -53,7 +53,7 @@ public class User extends SuperPersonalTokenUser {
         setFacebookID(facebookID);
         setGoogleID(googleID);
         setRating(rating);
-        setPreference(preference);
+        setPreference(new UserPreference(preference));
         setIsVerifiedEmail(isVerifiedEmail);
         setIsVerifiedPhone(isVerifiedPhone);
     }
