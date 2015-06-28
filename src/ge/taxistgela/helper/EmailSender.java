@@ -32,7 +32,7 @@ public class EmailSender {
             "action=cEmail&token=",
             "action=dCompany&token="
     };
-    private final static String message_t[] = {"Thank You! ", " For registration, Please Follow to the URL: ", verificationURL, "And enter code given:"};
+    private final static String message_t[] = {"Thank You! ", " For registration, Please Follow to the URL: ", verificationURL, " And enter code given:"};
 
     /**
      * Sends verification email specified in user given
