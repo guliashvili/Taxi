@@ -33,7 +33,6 @@ public class TaxRam implements TaxRamAPI {
     private ConcurrentHashMap<Integer, DriverInfo> drivers = new ConcurrentHashMap<>();
     private ConcurrentHashMap<Integer, UserInfo> users = new ConcurrentHashMap<>();
 
-
     public TaxRam(OrderDao orderDao, UserDao userDao, DriverDao driverDao) {
         this.driverDao = driverDao;
         this.userDao = userDao;

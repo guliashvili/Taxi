@@ -54,7 +54,6 @@ public class ExternalAlgorithms {
     static public void debugPrint(Exception e){
         if (DEBUGExceptions)
          e.printStackTrace();
-
     }
 
     public static String verify(String id_token) throws GeneralSecurityException, IOException {
