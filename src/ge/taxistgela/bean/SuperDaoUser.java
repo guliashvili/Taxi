@@ -130,4 +130,8 @@ public abstract class SuperDaoUser implements Checkable {
             ret.passwordFormat();
         return ret;
     }
+
+    public boolean isVerified() {
+        return getIsVerifiedEmail() && getIsVerifiedPhone();
+    }
 }
