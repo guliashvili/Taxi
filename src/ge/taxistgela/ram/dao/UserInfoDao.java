@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.dao;
 
+import ge.taxistgela.bean.User;
 import ge.taxistgela.dao.DriverDao;
 import ge.taxistgela.dao.UserDao;
 import ge.taxistgela.ram.bean.DriverInfo;
@@ -21,5 +22,12 @@ public class UserInfoDao {
         this.users  = users;
     }
 
+    public UserInfo getUserInfoByID(int userID){
+        User user = userDao.getUserByID(userID);
+        if(user == null || !user.isVerified()) return  null;
+        UserInfo userInfo = new UserInfo(user);
+
+        return  userInfo;
+    }
 
 }

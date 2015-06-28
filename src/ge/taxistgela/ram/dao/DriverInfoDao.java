@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.dao;
 
+import ge.taxistgela.bean.Driver;
 import ge.taxistgela.dao.DriverDao;
 import ge.taxistgela.ram.bean.DriverInfo;
 import ge.taxistgela.ram.bean.UserInfo;
@@ -18,6 +19,14 @@ public class DriverInfoDao {
         this.driverDao = driverDao;
         this.drivers  = drivers;
         this.users  = users;
+    }
+
+    public DriverInfo getDriverInfoByID(int driverID){
+        Driver driver = driverDao.getDriverByID(driverID);
+        if(driver == null || !driver.isVerified() || !driver.getIsActive()) return  null;
+        DriverInfo driverInfo = new DriverInfo(driver);
+
+        return  driverInfo;
     }
 
 }

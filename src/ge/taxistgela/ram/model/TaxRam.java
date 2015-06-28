@@ -1,6 +1,7 @@
 package ge.taxistgela.ram.model;
 
 import ge.taxistgela.bean.Location;
+import ge.taxistgela.bean.Order;
 import ge.taxistgela.dao.DriverDao;
 import ge.taxistgela.dao.OrderDao;
 import ge.taxistgela.dao.UserDao;
@@ -36,5 +37,33 @@ public class TaxRam implements TaxRamAPI {
         this.driverInfoDao = new DriverInfoDao(driverDao, drivers, users);
         this.userInfoDao = new UserInfoDao(userDao, drivers, users);
     }
+
+    @Override
+    public Location getDriverLocation(int driverID) {
+        if(!drivers.containsKey(driverID)) return null;
+        return  drivers.get(driverID).getLocation();
+    }
+
+    @Override
+    public void updateDriverLocation(int driverID, Location location) {
+        DriverInfo driverInfo = driverInfoDao.getDriverInfoByID(driverID);
+        if(driverInfo == null) return;
+
+        drivers.putIfAbsent(driverID,driverInfo);
+        drivers.get(driverID).setLocation(location);
+
+    }
+
+
+    public void addOrder(Order order){
+        UserInfo userInfo = userInfoDao.getUserInfoByID(order.getUserID());
+        if(userInfo == null) return;
+
+
+
+
+
+    }
+
 
 }
