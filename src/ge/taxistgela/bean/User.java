@@ -39,6 +39,29 @@ public class User extends SuperPersonalTokenUser {
                 user.getIsVerifiedEmail(), user.getIsVerifiedPhone());
         token = user.token;
     }
+    public void update(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+
+
+        setUserID(userID);
+        setEmail(email);
+        setPassword(password);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPhoneNumber(phoneNumber);
+        setGender(gender);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setRating(rating);
+        setPreference(preference);
+        setIsVerifiedEmail(isVerifiedEmail);
+        setIsVerifiedPhone(isVerifiedPhone);
+    }
+    public void update(User user){
+        update(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
+                user.getGender(), user.getFacebookID(), user.getGoogleID(), user.getRating(), user.getPreference(),
+                user.getIsVerifiedEmail(), user.getIsVerifiedPhone());
+        token = user.token;
+    }
 
     public String getToken() {
         return token;

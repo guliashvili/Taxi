@@ -22,6 +22,7 @@ public class UserInfo extends User {
 
 
 
+
     public UserInfo() {
         super();
     }

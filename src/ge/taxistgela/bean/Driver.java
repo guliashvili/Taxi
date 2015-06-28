@@ -49,6 +49,33 @@ public class Driver extends SuperPersonalTokenUser {
         token = driver.token;
     }
 
+    public void update(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+        setDriverID(driverID);
+        setPersonalID(personalID);
+        setEmail(email);
+        setPassword(password);
+        setCompanyID(companyID);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setGender(gender);
+        setPhoneNumber(phoneNumber);
+        setCar(car);
+        setFacebookID(facebookID);
+        setGoogleID(googleID);
+        setRating(rating);
+        setPreferences(preferences);
+        setIsActive(isActive);
+        setIsVerifiedEmail(isVerifiedEmail);
+        setIsVerifiedPhone(isVerifiedPhone);
+    }
+    public void update(Driver driver){
+        update(driver.getDriverID(), driver.getPersonalID(), driver.getEmail(), driver.getPassword(), driver.getCompanyID(),
+                driver.getFirstName(), driver.getLastName(), driver.getGender(), driver.getPhoneNumber(), driver.getCar(),
+                driver.getFacebookID(), driver.getGoogleID(), driver.getRating(), driver.getPreferences(),
+                driver.isActive(), driver.getIsVerifiedEmail(), driver.getIsVerifiedPhone());
+        token = driver.token;
+    }
+
     public Boolean getIsActive() {
         return isActive;
     }

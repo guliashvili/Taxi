@@ -7,6 +7,7 @@ import ge.taxistgela.dao.DriverDao;
 import ge.taxistgela.dao.OrderDao;
 import ge.taxistgela.dao.UserDao;
 import ge.taxistgela.helper.ExternalAlgorithms;
+import ge.taxistgela.helper.GoogleMapUtils;
 import ge.taxistgela.ram.bean.DriverInfo;
 import ge.taxistgela.ram.bean.OrderInfo;
 import ge.taxistgela.ram.bean.UserInfo;
@@ -56,6 +57,11 @@ public class TaxRam implements TaxRamAPI {
         drivers.get(driverID).setLocation(location);
 
     }
+    public double getPrice(DriverInfo driverInfo,UserInfo userInfo,OrderInfo orderInfo){
+        return  (GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
+                GoogleMapUtils.getRoad(orderInfo.getStart(),orderInfo.getEnd()).distance.inMeters)/1000.0 *
+                driverInfo.getPreferences().getCoefficientPer();//TODO
+    }
 
 
     public void addOrder(Order order){
@@ -69,6 +75,22 @@ public class TaxRam implements TaxRamAPI {
                         userInfo.getPreference().getTimeLimit());
 
 
+        List<DriverInfo> queue = driverInfoDao.getDriversByUserPreference(userInfo,orderInfo);
+
+
+        for(DriverInfo driverInfo : queue) {
+            orderInfo.setPrice(getPrice(driverInfo, userInfo, orderInfo));
+            orderInfo.setDriverID(driverInfo.getDriverID());
+
+            driverInfo.waitingList.add(orderInfo);
+
+            for (OrderInfo tmp : driverInfo.waitingList) {
+                if (TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()) - tmp.getCreateTime() > OrderInfo.MAXIMUM_ORDER_LIFETIME)
+                    driverInfo.waitingList.remove(tmp);
+            }
+
+            //TODO
+        }
 
 
 

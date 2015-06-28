@@ -6,6 +6,7 @@ import ge.taxistgela.bean.Location;
  * Created by GIO on 6/28/2015.
  */
 public class OrderInfo{
+    public final  static int MAXIMUM_ORDER_LIFETIME = 30;
     private int driverID;
     private double price;
     private  int userID;
