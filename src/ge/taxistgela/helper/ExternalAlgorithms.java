@@ -64,6 +64,7 @@ public class ExternalAlgorithms {
                 .setAudience(Arrays.asList(SNInfo.googleClientID))
                 .build();
 
+
         GoogleIdToken idToken = verifier.verify(id_token);
         if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();
