@@ -93,7 +93,7 @@ function askForDate(){
 function resendEmail(){
 
 }
-function resenPhone(){
+function resendPhone(){
 
 }
 function createPreferencesSaves(){

@@ -14,7 +14,7 @@ function initializeO(){
 function resendEmail(){
 
 }
-function resenPhone(){
+function resendPhone(){
 
 }
 function createPreferencesSaves(){

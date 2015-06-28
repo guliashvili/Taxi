@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * Created by Alex on 6/22/2015.
@@ -32,26 +33,32 @@ public class LoginServlet extends ActionServlet {
             "/company.jsp"
     };
 
-    public void loginGPUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginGPUser(HttpServletRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         loginGPSuper(userManager, 0, request, response);
     }
 
-    public void loginGPDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginGPDriver(HttpServletRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
         DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
 
         loginGPSuper(driverManager, 1, request, response);
     }
 
-    public void loginGPCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void loginGPCompany(HttpServletRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
         CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
         loginGPSuper(companyManager, 2, request, response);
     }
 
-    public void loginGPSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String googleID = request.getParameter("googleID");
+
+    public void loginGPSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
+        String id_token = request.getParameter("id_token");
+        String googleID = ExternalAlgorithms.verify(id_token);
+        if (googleID == null){
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
 
         ExternalAlgorithms.debugPrint("LoginGP " + A_TYPE[type] + " " + googleID);
 
@@ -153,4 +160,6 @@ public class LoginServlet extends ActionServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
+
+
 }
