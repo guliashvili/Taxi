@@ -29,76 +29,75 @@ public class OrderInfo{
     }
 
 
-
-    public Long getStartTime() {
+    public synchronized Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Long startTime) {
+    public synchronized void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 
-    public Long getTimeLimit() {
+    public synchronized Long getTimeLimit() {
         return timeLimit;
     }
 
-    public void setTimeLimit(Long timeLimit) {
+    public synchronized void setTimeLimit(Long timeLimit) {
         this.timeLimit = timeLimit;
     }
 
-    public int getnPassengers() {
+    public synchronized int getnPassengers() {
         return nPassengers;
     }
 
-    public void setnPassengers(int nPassengers) {
+    public synchronized void setnPassengers(int nPassengers) {
         this.nPassengers = nPassengers;
     }
 
-    public Long getCreateTime() {
+    public synchronized Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Long createTime) {
+    public synchronized void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public int getDriverID() {
+    public synchronized int getDriverID() {
         return driverID;
     }
 
-    public void setDriverID(int driverID) {
+    public synchronized void setDriverID(int driverID) {
         this.driverID = driverID;
     }
 
-    public Location getEnd() {
+    public synchronized Location getEnd() {
         return end;
     }
 
-    public void setEnd(Location end) {
+    public synchronized void setEnd(Location end) {
         this.end = end;
     }
 
-    public double getPrice() {
+    public synchronized double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public synchronized void setPrice(double price) {
         this.price = price;
     }
 
-    public Location getStart() {
+    public synchronized Location getStart() {
         return start;
     }
 
-    public void setStart(Location start) {
+    public synchronized void setStart(Location start) {
         this.start = start;
     }
 
-    public int getUserID() {
+    public synchronized int getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public synchronized void setUserID(int userID) {
         this.userID = userID;
     }
 }

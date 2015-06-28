@@ -5,7 +5,7 @@ CREATE DATABASE taxistGela
 USE taxistGela;
 
 CREATE TABLE Cars (
-  carID         VARCHAR(20) PRIMARY KEY,
+  carID VARCHAR(7) PRIMARY KEY,
   carDescription VARCHAR(500),
   carYear       INT NOT NULL,
   conditioning  BOOLEAN    NOT NULL,

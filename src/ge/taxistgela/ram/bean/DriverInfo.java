@@ -1,6 +1,7 @@
 package ge.taxistgela.ram.bean;
 
-import ge.taxistgela.bean.*;
+import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.Location;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +14,9 @@ import java.util.List;
 public class DriverInfo extends Driver {
 
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<OrderInfo>());
-    private Location location;
     public Object block = new Object();
     public int nPassengers;
+    private Location location;
 
     public DriverInfo() {
         super();
@@ -25,11 +26,11 @@ public class DriverInfo extends Driver {
         super(driver);
     }
 
-    public int getnPassengers() {
+    public synchronized int getnPassengers() {
         return nPassengers;
     }
 
-    public void setnPassengers(int nPassengers) {
+    public synchronized void setnPassengers(int nPassengers) {
         this.nPassengers = nPassengers;
     }
 
