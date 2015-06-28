@@ -186,7 +186,7 @@ public class DriverManager extends  DriverManagerAPI {
                 if (u.getCompanyID() != null) {
                     ret.setAlreadyVerified();
                 } else {
-                    if (driverDao.verifyDriverCompanyID(driverID, companyID)) {
+                    if (driverDao.verifyDriverCompany(driverID, companyID)) {
                         ret.unexpected();
                     }
                 }
