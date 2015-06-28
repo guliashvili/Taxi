@@ -1,6 +1,7 @@
 <%@ page import="ge.taxistgela.bean.Company" %>
 <%@ page import="ge.taxistgela.bean.Driver" %>
 <%@ page import="ge.taxistgela.bean.User" %>
+<%@ page import="ge.taxistgela.socialNetwork.SNInfo" %>
 <%--
   Created by IntelliJ IDEA.
   ge.taxistgela.bean.User: Alex
