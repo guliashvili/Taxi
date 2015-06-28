@@ -39,7 +39,7 @@
             <%} %>
         </div>
         <div class="12u$ (small) fit" style="float:left">
-            <a href="#" onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');"
+            <a href="#" onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');"
                class="button special small fa fa-bar-chart"> Add Order</a>
         </div>
         <br><br><br><br>
@@ -128,11 +128,10 @@
             </form>
         </div>
         <div class="12u 1u$(small)" style="float:left">
-            <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
+            <a href="#" onclick="$('#grid').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden" style="width:90%;color:black">
-            <div id="grid" style="width: 100%; height: 250px;"></div>
-        </div>
+        <div id="grid" class="hidden" style="color:black;width: 100%;padding:0px; height: 250px;"></div>
     </div>
+</div>
 </div>

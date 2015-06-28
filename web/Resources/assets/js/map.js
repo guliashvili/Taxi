@@ -40,15 +40,15 @@ function showPosition(position) {
 		google.maps.event.addListener(map, 'click', function (event) {
 			placeMarker(event.latLng);
 		});
-		var dateAsker = '<div id="order" style="overflow-y:scroll;width:300px;height:450px; color:black;background-color:#FFD800;padding:10px;"> \
-			<div class="input-group date" id="datetimepicker10">\
+		var dateAsker = '<div id="order" style="overflow-y:scroll;width:300px;height:450px; color:black;background-color:#FFD800;padding:10px"> \
+			<form id="prefForm" action="" type="post">\
+			<div class="input-group date" id="datetimepicker10" style="margin-bottom:5px">\
 			<label for="startDate">Please Select Desired Time Of Departure</label>\
 			<input type="text" id="startDate" name="startDate" class="form-control" />\
 			<span class="input-group-addon">\
 			<span class="glyphicon glyphicon-calendar">\
 			</span>\
-			</span>\
-			<form id="prefForm" action="" type="post">\
+			</span></div>\
             <input type="text" name="action" value="uPreferences" class="hidden"/>\
             <input type="number" id="minimumDriverRating" name="minimumDriverRating"\
         value="0.0"\
@@ -75,8 +75,7 @@ function showPosition(position) {
         </input>\
         <button id="ProceedOrder" style="margin-top:5px" class="button special"> Proceed</button>\
             <br>\
-            </form>\
-            </div>';
+            </form>';
 		askWindow = new google.maps.InfoWindow({
 			content: dateAsker
 		});
@@ -147,5 +146,37 @@ function updateMapLocations() {
 		error: function (data) {
 			console.error("fetch Data");
 		}
+	});
+}
+function pinpoint(lat,lng,lat1,lng1){
+	console.log("pinpointing:"+lat+" "+lng+" "+lat1+" "+lng1+" ");
+	$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');
+	var coords=[
+		new google.maps.LatLng(lat, lng),
+		new google.maps.LatLng(lat1, lng1)
+	];
+	var travel=new google.maps.Polyline({
+		path: coords,
+		geodesic: true,
+		strokeColor: '#FF0000',
+		strokeOpacity: 1.0,
+		strokeWeight: 2
+	});
+	travel.setMap(map);
+	map.setCenter(new google.maps.LatLng(lat,lng));
+	var marker1 = new google.maps.Marker({
+		position: new google.maps.LatLng(lat,lng),
+		map: map,
+		title: 'Start Position'
+	});
+	var marker2 = new google.maps.Marker({
+		position: new google.maps.LatLng(lat1,lng1),
+		map: map,
+		title: 'End Position'
+	});
+	google.maps.event.addListener(map, 'click', function (event) {
+		marker1.setMap(null);
+		marker2.setMap(null);
+		travel.setMap(null);
 	});
 }
