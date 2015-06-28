@@ -110,7 +110,7 @@ public class DriverDao implements DriverDaoAPI {
     }
 
     @Override
-    public boolean verifyDriverCompanyID(Integer driverID, Integer companyID) {
+    public boolean verifyDriverCompany(Integer driverID, Integer companyID) {
         boolean errorCode = false;
         try (Connection con = DBConnectionProvider.getConnection()) {
             try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement("" +

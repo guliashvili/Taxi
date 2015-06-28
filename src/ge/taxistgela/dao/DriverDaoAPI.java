@@ -84,7 +84,7 @@ public interface DriverDaoAPI {
      * @param companyID
      * @return
      */
-    boolean verifyDriverCompanyID(Integer driverID, Integer companyID);
+    boolean verifyDriverCompany(Integer driverID, Integer companyID);
 
     /**
      * verifies driver email

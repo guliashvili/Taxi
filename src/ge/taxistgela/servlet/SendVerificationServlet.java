@@ -26,7 +26,7 @@ public class SendVerificationServlet extends ActionServlet {
 
     }
 
-    public void dCompanyCode(HttpServletRequest request, HttpServletResponse response) {
+    public void dCompany(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
