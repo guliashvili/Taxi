@@ -87,17 +87,16 @@ public class TaxRam implements TaxRamAPI {
 
             driverInfo.removeOldOrders();
 
-            //TODO
+            //TODO sheatyobine driverebs
         }
 
+    }
 
-
-
-
-
-
-
-
+    List<OrderInfo> getWaitingUsers(int driverID) {
+        DriverInfo driverInfo = drivers.get(driverID);
+        if (driverInfo == null) return null;
+        driverInfo.removeOldOrders();
+        return driverInfo.waitingList;
     }
 
 
