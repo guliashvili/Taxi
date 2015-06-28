@@ -120,6 +120,8 @@ public class DriverDao implements DriverDaoAPI {
                 st.setInt(2, driverID);
 
                 ExternalAlgorithms.debugPrintSelect("Verify Driver companyID\n" + st.toString());
+
+                st.executeUpdate();
             }
         } catch (SQLException e) {
             errorCode = true;

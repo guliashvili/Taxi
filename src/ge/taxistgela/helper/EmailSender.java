@@ -32,7 +32,7 @@ public class EmailSender {
             "action=cEmail&token=",
             "action=dCompany&token="
     };
-    private final static String message_t[] = {"Thank You! ", " For registration, Please Follow to the URL: ", verificationURL};
+    private final static String message_t[] = {"Thank You! ", " For registration, Please Follow to the URL: ", verificationURL, "And enter code given:"};
 
     /**
      * Sends verification email specified in user given
@@ -120,7 +120,7 @@ public class EmailSender {
                 b.append("Driver wants to work for you.\n");
                 b.append("Driver Info.\n");
                 b.append("Name: ").append(driver.getFirstName()).append(" ").append(driver.getLastName());
-                b.append("Personal ID: ").append(driver.getPersonalID()).append("\n");
+                b.append(" Personal ID: ").append(driver.getPersonalID()).append("\n");
                 b.append("Please Follow to the URL for confirmation: ").append(url);
 
                 message.setText(b.toString());
