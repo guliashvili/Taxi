@@ -39,7 +39,8 @@ public class User extends SuperPersonalTokenUser {
                 user.getIsVerifiedEmail(), user.getIsVerifiedPhone());
         token = user.token;
     }
-    public void update(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+
+    public synchronized void update(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
 
 
         setUserID(userID);
@@ -56,23 +57,24 @@ public class User extends SuperPersonalTokenUser {
         setIsVerifiedEmail(isVerifiedEmail);
         setIsVerifiedPhone(isVerifiedPhone);
     }
-    public void update(User user){
+
+    public synchronized void update(User user) {
         update(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
                 user.getGender(), user.getFacebookID(), user.getGoogleID(), user.getRating(), user.getPreference(),
                 user.getIsVerifiedEmail(), user.getIsVerifiedPhone());
         token = user.token;
     }
 
-    public String getToken() {
+    public synchronized String getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public synchronized void setToken(String token) {
         this.token = token;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public synchronized boolean equals(Object obj) {
         if (!(obj instanceof User)) return false;
         User o = (User) obj;
         return ExternalAlgorithms.equalsNull(getUserID(), o.getUserID()) &&
@@ -95,33 +97,32 @@ public class User extends SuperPersonalTokenUser {
     }
 
     @Override
-    public int hashCode() {
+    public synchronized int hashCode() {
         return getUserID();
     }
 
-    public Integer getUserID() {
+    public synchronized Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public synchronized void setUserID(Integer userID) {
         this.userID = userID;
     }
 
 
-
-    public Double getRating() {
+    public synchronized Double getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public synchronized void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public UserPreference getPreference() {
+    public synchronized UserPreference getPreference() {
         return preference;
     }
 
-    public void setPreference(UserPreference preference) {
+    public synchronized void setPreference(UserPreference preference) {
         this.preference = preference;
     }
 

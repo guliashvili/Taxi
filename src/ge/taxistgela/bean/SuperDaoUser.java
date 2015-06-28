@@ -17,73 +17,73 @@ public abstract class SuperDaoUser implements Checkable {
     private Boolean isVerifiedEmail;
     private Boolean isVerifiedPhone;
 
-    public String getPhoneNumber() {
+    public synchronized String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public synchronized void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Boolean getIsVerifiedEmail() {
+    public synchronized Boolean getIsVerifiedEmail() {
         return isVerifiedEmail;
     }
 
-    public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
+    public synchronized void setIsVerifiedEmail(Boolean isVerifiedEmail) {
         this.isVerifiedEmail = isVerifiedEmail;
     }
 
-    public Boolean getIsVerifiedPhone() {
+    public synchronized Boolean getIsVerifiedPhone() {
         return isVerifiedPhone;
     }
 
-    public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
+    public synchronized void setIsVerifiedPhone(Boolean isVerifiedPhone) {
         this.isVerifiedPhone = isVerifiedPhone;
     }
 
-    public String getFacebookID() {
+    public synchronized String getFacebookID() {
         return facebookID;
     }
 
-    public void setFacebookID(String facebookID) {
+    public synchronized void setFacebookID(String facebookID) {
         this.facebookID = facebookID;
     }
 
-    public String getGoogleID() {
+    public synchronized String getGoogleID() {
         return googleID;
     }
 
-    public void setGoogleID(String googleID) {
+    public synchronized void setGoogleID(String googleID) {
         this.googleID = googleID;
     }
 
-    public String getEmail() {
+    public synchronized String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public synchronized void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPassword() {
+    public synchronized String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public synchronized void setPassword(String password) {
         this.password = password;
     }
 
 
-    public String getPhoneNumberToken() {
+    public synchronized String getPhoneNumberToken() {
         return HashGenerator.encryptAES(getPhoneNumber());
     }
 
-    public String getEmailToken() {
+    public synchronized String getEmailToken() {
         return HashGenerator.encryptAES(getEmail());
     }
 
 
-    public ErrorCode isValid() {
+    public synchronized ErrorCode isValid() {
         ErrorCode ret = new ErrorCode();
         ret.union(isValidEmail(getEmail()));
         ret.union(isValidPassword(getPassword()));
@@ -98,7 +98,7 @@ public abstract class SuperDaoUser implements Checkable {
      * @param phoneNumber
      * @return returns true if number is in format noted
      */
-    private ErrorCode isValidPhoneNumber(String phoneNumber) {
+    private synchronized ErrorCode isValidPhoneNumber(String phoneNumber) {
         ErrorCode ret = new ErrorCode();
         if (phoneNumber == null) ret.phoneNumberFormat();
         else {
@@ -109,7 +109,7 @@ public abstract class SuperDaoUser implements Checkable {
         return ret;
     }
 
-    private ErrorCode isValidEmail(String email) {
+    private synchronized ErrorCode isValidEmail(String email) {
         ErrorCode ret = new ErrorCode();
         if (email == null || email.length() > 50)
             ret.emailFormat();
@@ -124,14 +124,14 @@ public abstract class SuperDaoUser implements Checkable {
         return ret;
     }
 
-    private ErrorCode isValidPassword(String password) {
+    private synchronized ErrorCode isValidPassword(String password) {
         ErrorCode ret = new ErrorCode();
         if (password == null || password.length() > 50)
             ret.passwordFormat();
         return ret;
     }
 
-    public boolean isVerified() {
+    public synchronized boolean isVerified() {
         return getIsVerifiedEmail() && getIsVerifiedPhone();
     }
 }

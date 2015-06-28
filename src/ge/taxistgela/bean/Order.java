@@ -51,7 +51,7 @@ public class Order {
 
 
     @Override
-    public boolean equals(Object obj) {
+    public synchronized boolean equals(Object obj) {
         if (!(obj instanceof Order)) return false;
         Order o = (Order) obj;
         return ExternalAlgorithms.equalsNull(getOrderID(), o.getOrderID()) &&
@@ -69,103 +69,103 @@ public class Order {
     }
 
     @Override
-    public int hashCode() {
+    public synchronized int hashCode() {
         return getOrderID();
     }
 
-    public Boolean getRevokedByDriver() {
+    public synchronized Boolean getRevokedByDriver() {
         return revokedByDriver;
     }
 
-    public void setRevokedByDriver(Boolean revokedByDriver) {
+    public synchronized void setRevokedByDriver(Boolean revokedByDriver) {
         this.revokedByDriver = revokedByDriver;
     }
 
-    public Boolean getRevokedByUser() {
+    public synchronized Boolean getRevokedByUser() {
         return revokedByUser;
     }
 
-    public void setRevokedByUser(Boolean revokedByUser) {
+    public synchronized void setRevokedByUser(Boolean revokedByUser) {
         this.revokedByUser = revokedByUser;
     }
 
-    public Integer getOrderID() {
+    public synchronized Integer getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(Integer orderID) {
+    public synchronized void setOrderID(Integer orderID) {
         this.orderID = orderID;
     }
 
-    public Integer getUserID() {
+    public synchronized Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public synchronized void setUserID(Integer userID) {
         this.userID = userID;
     }
 
-    public Integer getDriverID() {
+    public synchronized Integer getDriverID() {
         return driverID;
     }
 
-    public void setDriverID(Integer driverID) {
+    public synchronized void setDriverID(Integer driverID) {
         this.driverID = driverID;
     }
 
-    public Integer getNumPassengers() {
+    public synchronized Integer getNumPassengers() {
         return numPassengers;
     }
 
-    public void setNumPassengers(Integer numPassengers) {
+    public synchronized void setNumPassengers(Integer numPassengers) {
         this.numPassengers = numPassengers;
     }
 
-    public Location getStartLocation() {
+    public synchronized Location getStartLocation() {
         return startLocation;
     }
 
-    public void setStartLocation(Location startLocation) {
+    public synchronized void setStartLocation(Location startLocation) {
         this.startLocation = startLocation;
     }
 
-    public Location getEndLocation() {
+    public synchronized Location getEndLocation() {
         return endLocation;
     }
 
-    public void setEndLocation(Location endLocation) {
+    public synchronized void setEndLocation(Location endLocation) {
         this.endLocation = endLocation;
     }
 
-    public Date getStartTime() {
+    public synchronized Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public synchronized void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public synchronized Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public synchronized void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
-    public Double getPaymentAmount() {
+    public synchronized Double getPaymentAmount() {
         return paymentAmount;
     }
 
-    public void setPaymentAmount(Double paymentAmount) {
+    public synchronized void setPaymentAmount(Double paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
 
-    public Date getCallTime() {
+    public synchronized Date getCallTime() {
         return callTime;
     }
 
-    public void setCallTime(Date callTime) {
+    public synchronized void setCallTime(Date callTime) {
         this.callTime = callTime;
     }
 }
