@@ -1,10 +1,10 @@
 package ge.taxistgela.helper;
-
+/*
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.json.gson.GsonFactory;*/
 import ge.taxistgela.socialNetwork.SNInfo;
 
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class ExternalAlgorithms {
     }
 
     public static String verify(String id_token) throws GeneralSecurityException, IOException {
-        NetHttpTransport transport = new NetHttpTransport();
+/*        NetHttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new GsonFactory();
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                 .setAudience(Arrays.asList(SNInfo.googleClientID))
@@ -71,7 +71,7 @@ public class ExternalAlgorithms {
             return payload.getSubject();
         } else {
             ExternalAlgorithms.debugPrint("Invalid ID token.");
-        }
+        }*/
         return null;
     }
 }
