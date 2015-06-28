@@ -5,11 +5,12 @@
 // Add map element to the background.
 var map;
 var isUser;
-var startMarker=null;
-var endMarker=null;
+var startMarker = null;
+var endMarker = null;
+var askWindow = null;
 function initializeMap(isUser1) {
 	//geolocation
-	isUser=isUser1;
+	isUser = isUser1;
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition);
 	} else {
@@ -20,7 +21,10 @@ function initializeMap(isUser1) {
 		map = new google.maps.Map(document.getElementById('map'), mapOptions);
 	}
 }
-var randomdrivers = [{lat:41.732539, lang: 44.768887},{lat:41.721457, lang: 44.769402},{lat:41.732039, lang: 44.768587},{lat:41.732000, lang: 44.768187}];
+var randomdrivers = [{lat: 41.732539, lang: 44.768887}, {lat: 41.721457, lang: 44.769402}, {
+	lat: 41.732039,
+	lang: 44.768587
+}, {lat: 41.732000, lang: 44.768187}];
 function showPosition(position) {
 	var mapOptions = { //your location
 		center: {lat: position.coords.latitude, lng: position.coords.longitude},
@@ -32,12 +36,51 @@ function showPosition(position) {
 		map: map,
 		title: 'Taxi Map'
 	});
-	if(isUser){
-		google.maps.event.addListener(map, 'click', function(event) {
+	if (isUser) {
+		google.maps.event.addListener(map, 'click', function (event) {
 			placeMarker(event.latLng);
 		});
+		var dateAsker = '<div id="order" style="overflow-y:scroll;width:300px;height:450px; color:black;background-color:#FFD800;padding:10px"> \
+			<form id="prefForm" action="" type="post">\
+			<div class="input-group date" id="datetimepicker10" style="margin-bottom:5px">\
+			<label for="startDate">Please Select Desired Time Of Departure</label>\
+			<input type="text" id="startDate" name="startDate" class="form-control" />\
+			<span class="input-group-addon">\
+			<span class="glyphicon glyphicon-calendar">\
+			</span>\
+			</span></div>\
+            <input type="text" name="action" value="uPreferences" class="hidden"/>\
+            <input type="number" id="minimumDriverRating" name="minimumDriverRating"\
+        value="0.0"\
+        style="color:black;padding-left:5px" value="1" step=".1">\
+            <label for="minimumDriverRating"> Minimum Driver Rating </label><br>\
+        <input type="checkbox" id="conditioning"\
+        name="conditioning">\
+    <label for="conditioning"> Conditioning Required </label>\
+        </input><br>\
+        <input type="number" name="carYear" value="0" id="carYear"\
+        style="color:black;padding-left:5px" value="1990" step="1">\
+            <label for="carYear"> Minimum Car Year </label>\
+        <input type="number" name="timeLimit" id="timeLimit" value="100"\
+        style="color:black;padding-left:5px" value="10" step="1">\
+            <label for="timeLimit"> Maximum Time Limit (Minutes) </label>\
+        <input type="number" name="passengerCount" id="passengerCount"\
+        value="0"\
+        style="color:black;padding-left:5px" value="1" step="1">\
+            <label for="passengerCount"> Passenger Count </label><br>\
+        <input type="checkbox" name="wantsAlone" id="wantsAlone"\
+        value="0"\
+        name="wantsAlone">\
+            <label for="wantsAlone"> Want To Travel Alone </label>\
+        </input>\
+        <button id="ProceedOrder" style="margin-top:5px" class="button special"> Proceed</button>\
+            <br>\
+            </form>';
+		askWindow = new google.maps.InfoWindow({
+			content: dateAsker
+		});
 	}
-	for (var i=0;i<randomdrivers.length;++i){
+	for (var i = 0; i < randomdrivers.length; ++i) {
 		var driver = new google.maps.Marker({
 			position: {lat: randomdrivers[i].lat, lng: randomdrivers[i].lang},
 			raiseOnDrag: true,
@@ -48,23 +91,35 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
-function placeMarker(loc){
-	if(startMarker==null){
+function placeMarker(loc) {
+	if (startMarker == null) {
 		startMarker = new google.maps.Marker({
 			position: loc,
 			map: map,
-			draggable:true,
+			draggable: true,
 			animation: google.maps.Animation.DROP
 		});
-	}else if(endMarker==null){
+		google.maps.event.addListener(startMarker, 'dragend', function () {
+			askForDate();
+		});
+		google.maps.event.addListener(startMarker, 'click', function () {
+			askForDate();
+		});
+	} else if (endMarker == null) {
 		endMarker = new google.maps.Marker({
 			position: loc,
 			map: map,
-			draggable:true,
+			draggable: true,
 			animation: google.maps.Animation.DROP
 		});
+		google.maps.event.addListener(endMarker, 'dragend', function () {
+			askForDate();
+		});
+		google.maps.event.addListener(endMarker, 'click', function () {
+			askForDate();
+		});
 		askForDate();
-	}else{
+	} else {
 		askForDate();
 	}
 }
@@ -79,7 +134,7 @@ function getIcon(glyph, color) {
 	ctx.fillText(glyph, 0, 16);
 	return canvas.toDataURL();
 }
-function updateMapLocations(){
+function updateMapLocations() {
 	$.ajax({
 		url: "/updateMap",
 		method: "post",
@@ -91,5 +146,37 @@ function updateMapLocations(){
 		error: function (data) {
 			console.error("fetch Data");
 		}
+	});
+}
+function pinpoint(lat,lng,lat1,lng1){
+	console.log("pinpointing:"+lat+" "+lng+" "+lat1+" "+lng1+" ");
+	$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');
+	var coords=[
+		new google.maps.LatLng(lat, lng),
+		new google.maps.LatLng(lat1, lng1)
+	];
+	var travel=new google.maps.Polyline({
+		path: coords,
+		geodesic: true,
+		strokeColor: '#FF0000',
+		strokeOpacity: 1.0,
+		strokeWeight: 2
+	});
+	travel.setMap(map);
+	map.setCenter(new google.maps.LatLng(lat,lng));
+	var marker1 = new google.maps.Marker({
+		position: new google.maps.LatLng(lat,lng),
+		map: map,
+		title: 'Start Position'
+	});
+	var marker2 = new google.maps.Marker({
+		position: new google.maps.LatLng(lat1,lng1),
+		map: map,
+		title: 'End Position'
+	});
+	google.maps.event.addListener(map, 'click', function (event) {
+		marker1.setMap(null);
+		marker2.setMap(null);
+		travel.setMap(null);
 	});
 }

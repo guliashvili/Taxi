@@ -1,4 +1,4 @@
-package ge.taxistgela.ram;
+package ge.taxistgela.ram.model;
 
 import ge.taxistgela.bean.Location;
 

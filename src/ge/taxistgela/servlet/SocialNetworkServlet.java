@@ -35,19 +35,18 @@ public class SocialNetworkServlet extends ActionServlet {
 
         for (int i = 0; i < A_TYPE.length; i++) {
             if (request.getSession().getAttribute(A_TYPE[i]) != null)
-                addFbAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), facebookId,
+                addFbAccount(A_TYPE[i], facebookId,
                         (SuperUserManager) request.getServletContext().getAttribute(C_TYPE[i]),
-                        response);
+                        request, response);
         }
     }
 
-    private void addFbAccount(GeneralCheckableInformation superUser, String facebookId, SuperUserManager um, HttpServletResponse response) throws IOException {
-        System.out.println(superUser);
-        System.out.println(facebookId);
+    private void addFbAccount(String aType, String facebookId, SuperUserManager um, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (um == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-            // TODO maybe we need to make superUser immutable.
+            SuperDaoUser superUser = (SuperDaoUser) request.getSession().getAttribute(aType);
+
             superUser.setFacebookID(facebookId);
 
             ErrorCode errorCode = um.update(superUser);
@@ -55,12 +54,12 @@ public class SocialNetworkServlet extends ActionServlet {
             if (errorCode.errorNotAccrued()) {
                 response.setStatus(HttpServletResponse.SC_ACCEPTED);
                 response.sendRedirect("/");
-
-                return;
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().print(errorCode.toJson());
             }
 
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().print(errorCode.toJson());
+            updateSessionUser(aType, um, request, superUser);
         }
     }
 
@@ -69,19 +68,17 @@ public class SocialNetworkServlet extends ActionServlet {
 
         for (int i = 0; i < A_TYPE.length; i++) {
             if (request.getSession().getAttribute(A_TYPE[i]) != null)
-                addGPAccount((GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[i]), googleID,
+                addGPAccount(A_TYPE[i], googleID,
                         (SuperUserManager) request.getServletContext().getAttribute(C_TYPE[i]),
-                        response);
+                        request, response);
         }
     }
 
-    private void addGPAccount(GeneralCheckableInformation superUser, String googleID, SuperUserManager um, HttpServletResponse response) throws IOException {
-        System.out.println(superUser);
-        System.out.println(googleID);
+    private void addGPAccount(String aType, String googleID, SuperUserManager um, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (um == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-            // TODO maybe we need to make superUser immutable.
+            SuperDaoUser superUser = (SuperDaoUser) request.getSession().getAttribute(aType);
             superUser.setGoogleID(googleID);
 
             ErrorCode errorCode = um.update(superUser);
@@ -89,13 +86,18 @@ public class SocialNetworkServlet extends ActionServlet {
             if (errorCode.errorNotAccrued()) {
                 response.setStatus(HttpServletResponse.SC_ACCEPTED);
                 response.sendRedirect("/");
-
-                return;
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().print(errorCode.toJson());
             }
 
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().print(errorCode.toJson());
+            updateSessionUser(aType, um, request, superUser);
         }
+    }
+
+    private void updateSessionUser(String aType, SuperUserManager um, HttpServletRequest request, SuperDaoUser superUser) {
+        superUser = um.getByEmail(superUser.getEmail());
+        request.getSession().setAttribute(aType, superUser);
     }
 
 }

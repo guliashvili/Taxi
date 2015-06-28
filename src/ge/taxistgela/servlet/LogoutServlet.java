@@ -2,7 +2,7 @@ package ge.taxistgela.servlet;
 
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.GeneralCheckableInformation;
+import ge.taxistgela.bean.SuperDaoUser;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SessionManagerAPI;
@@ -37,14 +37,14 @@ public class LogoutServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             for (int i = 0; i < A_TYPE.length; i++) {
-                GeneralCheckableInformation info = (GeneralCheckableInformation) session.getAttribute(A_TYPE[i]);
+                SuperDaoUser info = (SuperDaoUser) session.getAttribute(A_TYPE[i]);
 
                 if (info instanceof Driver) {
                     dm.setDriverActiveStatus(((Driver) info).getDriverID(), false);
                 }
 
                 // if (i < 2)
-                //   sm.removeSession(i, ((GeneralCheckableInformationTokened) info).getToken());
+                //   sm.removeSession(i, ((SuperPersonalTokenUser) info).getToken());
 
                 session.removeAttribute(A_TYPE[i]);
             }

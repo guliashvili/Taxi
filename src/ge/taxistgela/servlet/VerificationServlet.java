@@ -110,8 +110,8 @@ public class VerificationServlet extends ActionServlet {
         response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
         response.getWriter().print(
-                "<h3>You have successfully verified your " + V_TYPE[type] + "</h3><br/><br/>" +
-                        "<a href=\"/\">Go to homepage</a>"
+                "<html><body><h3>You have successfully verified your " + V_TYPE[type] + "</h3><br/><br/>" +
+                        "<a href=\"/\">Go to homepage</a></body></html>"
         );
     }
 }

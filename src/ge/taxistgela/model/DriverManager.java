@@ -3,7 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.TaxRamAPI;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import java.util.List;
 
@@ -16,39 +16,39 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public Object getByFacebookID(String facebookID) {
-        if (facebookID == null) {
+    public Driver getByFacebookID(String driverFacebookID) {
+        if (driverFacebookID == null) {
             return null;
         }
 
-        return driverDao.getDriverByFacebookID(facebookID);
+        return driverDao.getDriverByFacebookID(driverFacebookID);
     }
 
     @Override
-    public Object getByGoogleID(String googleID) {
-        if (googleID == null) {
+    public Driver getByGoogleID(String driverGoogleID) {
+        if (driverGoogleID == null) {
             return null;
         }
 
-        return driverDao.getDriverByGoogleID(googleID);
+        return driverDao.getDriverByGoogleID(driverGoogleID);
     }
 
     @Override
-    public Object getByEmail(String email) {
-        if (email == null) {
+    public Driver getByEmail(String driverEmail) {
+        if (driverEmail == null) {
             return null;
         }
 
-        return driverDao.getDriverByEmail(email);
+        return driverDao.getDriverByEmail(driverEmail);
     }
 
     @Override
-    public Object getByPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null) {
+    public Driver getByPhoneNumber(String driverPhoneNumber) {
+        if (driverPhoneNumber == null) {
             return null;
         }
 
-        return driverDao.getDriverByPhoneNumber(phoneNumber);
+        return driverDao.getDriverByPhoneNumber(driverPhoneNumber);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class DriverManager extends  DriverManagerAPI {
         return ret;
     }
     @Override
-    public ErrorCode register(GeneralCheckableInformation d) {
+    public ErrorCode register(SuperDaoUser d) {
         ErrorCode ret = new ErrorCode();
         if (d == null) {
             ret.nullArgument();
@@ -148,7 +148,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation d, String oldPassword) {
+    public ErrorCode changePassword(SuperDaoUser d, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (d == null) {
             ret.nullArgument();
@@ -207,7 +207,7 @@ public class DriverManager extends  DriverManagerAPI {
     }
 
     @Override
-    public ErrorCode update(GeneralCheckableInformation d) {
+    public ErrorCode update(SuperDaoUser d) {
         ErrorCode ret = new ErrorCode();
         if (d == null)
             ret.nullArgument();

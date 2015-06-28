@@ -10,6 +10,12 @@
 $(document).ready(function(){
     initializeO();
 });
+function resendEmail(){
+
+}
+function resendPhone(){
+
+}
 function initializeO(){
     initializeMap();
     createPreferencesSaves();

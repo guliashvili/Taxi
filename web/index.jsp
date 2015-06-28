@@ -1,7 +1,6 @@
 <%@ page import="ge.taxistgela.bean.Company" %>
 <%@ page import="ge.taxistgela.bean.Driver" %>
 <%@ page import="ge.taxistgela.bean.User" %>
-<%@ page import="ge.taxistgela.socialNetwork.SNInfo" %>
 <%--
   Created by IntelliJ IDEA.
   ge.taxistgela.bean.User: Alex
@@ -20,6 +19,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <head>
     <title>Taxist Gela</title>
     <meta charset="utf-8"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="google-signin-client_id" content=<%=SNInfo.googleClientID%>>
 
@@ -148,7 +148,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input id="companyName" type="text" name="companyName" value="" placeholder="Company Name"/><br>
                             <input id="companyphoneNumber" type="text" name="companyphoneNumber" value="" placeholder="Company Phone Number"/><br>
                             <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
-                            <div class="g-signin2" data-onsuccess="onRegister"></div>
+                            <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                         <div id="userRegistration" class="hidden">
                             <input id="userfirstName" type="text" name="userfirstName" value="" placeholder="First Name"/><br>
@@ -164,7 +164,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             </select><br>
                             <input id="userphoneNumber" type="text" name="userphoneNumber" value="" placeholder="Phone Number"/><br>
                             <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
-                            <div class="g-signin2" data-onsuccess="onRegister"></div>
+                            <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                         <div id="driverRegistration" class="hidden">
                             <input id="driverfirstName" type="text" name="driverfirstName" value="" placeholder="First Name"/><br>
@@ -182,7 +182,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             </select><br>
                             <input id="driverphoneNumber" type="text" name="driverphoneNumber" value="" placeholder="Phone Number"/><br>
                             <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
-                            <div class="g-signin2" data-onsuccess="onRegister"></div>
+                            <a href="#" class="icon fa-google"><span class="label">Google+</span></a><br><br>
                         </div>
                         <div class="g-recaptcha" data-sitekey="6LcS8QgTAAAAAP98JRVGsRNt0uKxnX_LDKRiWN70"></div>
                     </form>
@@ -228,10 +228,10 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="password" name="password" placeholder="Password"><br>
                             <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
                             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-                            <div class="g-signin2" data-onsuccess="onLogin"></div>
                             <!--  <div id="loginStatus">
                             </div>
                             -->
+                            <a href="#" class="icon fa-google"><span class="label">Google+</span></a>
                             <br><br>
                         </div>
                     </form>

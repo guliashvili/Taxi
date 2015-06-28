@@ -3,7 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.UserDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.TaxRamAPI;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import java.util.List;
 
@@ -16,39 +16,28 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public Object getByFacebookID(String facebookID) {
-        if (facebookID == null) {
-            return null;
-        }
-
-        return userDao.getUserByFacebookID(facebookID);
+    public User getByEmail(String userEmail) {
+        if (userEmail == null) return null;
+        else return userDao.getUserByEmail(userEmail);
     }
 
     @Override
-    public Object getByGoogleID(String googleID) {
-        if (googleID == null) {
-            return null;
-        }
-
-        return userDao.getUserByGoogleID(googleID);
+    public User getByFacebookID(String userFacebookID) {
+        if (userFacebookID == null) return null;
+        else return userDao.getUserByFacebookID(userFacebookID);
     }
 
     @Override
-    public Object getByEmail(String email) {
-        if (email == null) {
-            return null;
-        }
-
-        return userDao.getUserByEmail(email);
+    public User getByGoogleID(String userGoogleID) {
+        if (userGoogleID == null) return null;
+        else return userDao.getUserByGoogleID(userGoogleID);
     }
 
     @Override
-    public Object getByPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null) {
+    public User getByPhoneNumber(String userPhoneNumber) {
+        if (userPhoneNumber == null)
             return null;
-        }
-
-        return userDao.getUserByPhoneNumber(phoneNumber);
+        else return userDao.getUserByPhoneNumber(userPhoneNumber);
     }
 
     @Override
@@ -165,7 +154,7 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public ErrorCode register(GeneralCheckableInformation u) {
+    public ErrorCode register(SuperDaoUser u) {
         ErrorCode ret = new ErrorCode();
         if (u == null)
             ret.nullArgument();
@@ -182,7 +171,7 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation u, String oldPassword) {
+    public ErrorCode changePassword(SuperDaoUser u, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (u == null)
             ret.nullArgument();
@@ -203,7 +192,7 @@ public class UserManager extends UserManagerAPI {
     }
 
     @Override
-    public ErrorCode update(GeneralCheckableInformation u) {
+    public ErrorCode update(SuperDaoUser u) {
         ErrorCode ret = new ErrorCode();
         if (u == null)
             ret.nullArgument();

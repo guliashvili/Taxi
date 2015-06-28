@@ -1,8 +1,4 @@
-<%@ page import="ge.taxistgela.bean.Order" %>
 <%@ page import="ge.taxistgela.bean.User" %>
-<%@ page import="ge.taxistgela.model.OrderManager" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.io.PrintWriter" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -13,20 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="Resources/assets/js/user.js"></script>
 <script src="/Resources/assets/js/addFacebookAccount.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
-<section id="order" class="hidden" style="background-color:#FFD800;padding:10px;position: absolute; top: 10px; left: 10px; z-index: 99;">
-    <div class='input-group date' id='datetimepicker10'>
-        <label for="startDate">Please Desired Time Of Departure</label>
-        <input type='text' id="startDate" name="startDate" class="form-control" />
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar">
-            </span>
-        </span>
-    </div>
-</section><!-- TODO -->
 <% User user = (User) session.getAttribute(User.class.getName());%>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
@@ -50,7 +35,8 @@
             <%} %>
         </div>
         <div class="12u$ (small) fit" style="float:left">
-            <a href="#" onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');"
+            <a href="#"
+               onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');"
                class="button special small fa fa-bar-chart"> Add Order</a>
         </div>
         <br><br><br><br>
@@ -59,7 +45,7 @@
             <input type="email" disabled value="<%=user.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!user.getIsVerifiedEmail()){out.println(" onclick='resendEmail()'");}%>>
                 <% if (user.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -71,13 +57,13 @@
             <input type="text" disabled value="<%=user.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(user.getIsVerifiedPhone()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!user.getIsVerifiedPhone()){out.println(" onclick='resendPhone()'");}%>>
                 <%
                     if (user.getIsVerifiedPhone()) {
-                    out.println("Verified");
-                } else {
-                    out.println("Verify");
-                } %>
+                        out.println("Verified");
+                    } else {
+                        out.println("Verify");
+                    } %>
             </button>
         </div>
         <div class="12u$">
@@ -96,16 +82,17 @@
             </form>
             <button id="passChange" class="special button">Save</button>
         </div>
+        <br>
+
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
                class="<%if(user.getGoogleID()!=null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
             <br><br>
-            <a href="#" style="float:left" class="<%if(user.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
-                    class="label">Facebook</span></a>
+            <%if (user.getFacebookID() != null) { %> <fb:login-button scope="public_profile,email"
+                                                                      onlogin="checkLoginState();"></fb:login-button> <%}%>
             <br>
         </div>
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
                 Your Preferences</a>
@@ -141,13 +128,10 @@
             </form>
         </div>
         <div class="12u 1u$(small)" style="float:left">
-            <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
+            <a href="#" onclick="$('#grid').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden" >
-            <div id="grid">
-
-            </div>
-        </div>
+        <div id="grid" class="hidden" style="color:black;width: 100%;padding:0px; height: 250px;"></div>
     </div>
+</div>
 </div>

@@ -2,10 +2,10 @@ package ge.taxistgela.model;
 
 import ge.taxistgela.bean.Company;
 import ge.taxistgela.bean.ErrorCode;
-import ge.taxistgela.bean.GeneralCheckableInformation;
+import ge.taxistgela.bean.SuperDaoUser;
 import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.TaxRamAPI;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 /**
  * Created by GIO on 5/25/2015.
@@ -16,39 +16,39 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public Object getByFacebookID(String facebookID) {
-        if (facebookID == null) {
+    public Company getByFacebookID(String companyFacebookID) {
+        if (companyFacebookID == null) {
             return null;
         }
 
-        return companyDao.getCompanyByFacebookID(facebookID);
+        return companyDao.getCompanyByFacebookID(companyFacebookID);
     }
 
     @Override
-    public Object getByGoogleID(String googleID) {
-        if (googleID == null) {
+    public Company getByGoogleID(String companyGoogleID) {
+        if (companyGoogleID == null) {
             return null;
         }
 
-        return companyDao.getCompanyByGoogleID(googleID);
+        return companyDao.getCompanyByGoogleID(companyGoogleID);
     }
 
     @Override
-    public Object getByEmail(String email) {
-        if (email == null) {
+    public Company getByEmail(String companyEmail) {
+        if (companyEmail == null) {
             return null;
         }
 
-        return companyDao.getCompanyByEmail(email);
+        return companyDao.getCompanyByEmail(companyEmail);
     }
 
     @Override
-    public Object getByPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null) {
+    public Company getByPhoneNumber(String companyPhoneNumber) {
+        if (companyPhoneNumber == null) {
             return null;
         }
 
-        return companyDao.getCompanyByPhoneNumber(phoneNumber);
+        return companyDao.getCompanyByPhoneNumber(companyPhoneNumber);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode register(GeneralCheckableInformation c) {
+    public ErrorCode register(SuperDaoUser c) {
         ErrorCode ret = new ErrorCode();
         if (c == null)
             ret.nullArgument();
@@ -165,7 +165,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode changePassword(GeneralCheckableInformation c, String oldPassword) {
+    public ErrorCode changePassword(SuperDaoUser c, String oldPassword) {
         ErrorCode ret = new ErrorCode();
         if (c == null)
             ret.nullArgument();
@@ -186,7 +186,7 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public ErrorCode update(GeneralCheckableInformation c) {
+    public ErrorCode update(SuperDaoUser c) {
         ErrorCode ret = new ErrorCode();
         if (c == null)
             ret.nullArgument();
@@ -206,8 +206,8 @@ public class CompanyManager extends   CompanyManagerAPI {
     }
 
     @Override
-    public Object getByID(Integer superUserID) {
-        Object ret = null;
+    public Company getByID(Integer superUserID) {
+        Company ret = null;
         if (superUserID != null)
             ret = companyDao.getCompanyByID(superUserID);
         return ret;

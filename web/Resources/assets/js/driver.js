@@ -11,6 +11,12 @@ function initializeO(){
     createPreferencesSaves();
     generateGrid();
 }
+function resendEmail(){
+
+}
+function resendPhone(){
+
+}
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
         var formData = $("#passForm").serialize();

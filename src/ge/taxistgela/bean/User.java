@@ -5,21 +5,11 @@ import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class User extends GeneralCheckableInformationTokened {
+public class User extends SuperPersonalTokenUser {
     private Integer userID;
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private Gender gender;
-    private String facebookID;
-    private String googleID;
     private Double rating;
     private UserPreference preference;
-    private Boolean isVerifiedEmail;
-    private Boolean isVerifiedPhone;
-    private String token;
+
 
     public User() {
         token = RandomStringUtils.randomAlphanumeric(20);
@@ -94,73 +84,7 @@ public class User extends GeneralCheckableInformationTokened {
         this.userID = userID;
     }
 
-    @Override
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public String getFacebookID() {
-        return facebookID;
-    }
-
-    public void setFacebookID(String facebookID) {
-        this.facebookID = facebookID;
-    }
-
-    public String getGoogleID() {
-        return googleID;
-    }
-
-    public void setGoogleID(String googleID) {
-        this.googleID = googleID;
-    }
 
     public Double getRating() {
         return rating;
@@ -178,20 +102,4 @@ public class User extends GeneralCheckableInformationTokened {
         this.preference = preference;
     }
 
-
-    public Boolean getIsVerifiedEmail() {
-        return isVerifiedEmail;
-    }
-
-    public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
-        this.isVerifiedEmail = isVerifiedEmail;
-    }
-
-    public Boolean getIsVerifiedPhone() {
-        return isVerifiedPhone;
-    }
-
-    public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
-        this.isVerifiedPhone = isVerifiedPhone;
-    }
 }

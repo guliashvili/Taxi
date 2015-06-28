@@ -137,7 +137,7 @@ public class RegistrationServlet extends ActionServlet {
         registerSuper(companyManager, company, request, response);
     }
 
-    private void registerSuper(SuperUserManager man, GeneralCheckableInformation obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void registerSuper(SuperUserManager man, SuperDaoUser obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (man == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {

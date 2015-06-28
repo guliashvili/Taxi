@@ -5,17 +5,11 @@ import ge.taxistgela.helper.ExternalAlgorithms;
 /**
  * Created by Alex on 5/25/2015.
  */
-public class Company extends GeneralCheckableInformation {
+public class Company extends SuperDaoUser {
     private Integer companyID;
     private String companyCode;
-    private String email;
-    private String password;
+
     private String companyName;
-    private String phoneNumber;
-    private String facebookID;
-    private String googleID;
-    private Boolean isVerifiedEmail;
-    private Boolean isVerifiedPhone;
 
 
     public Company() {
@@ -77,25 +71,7 @@ public class Company extends GeneralCheckableInformation {
         this.companyCode = companyCode;
     }
 
-    @Override
-    public String getEmail() {
-        return email;
-    }
 
-    @Override
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getCompanyName() {
         return companyName;
@@ -105,55 +81,6 @@ public class Company extends GeneralCheckableInformation {
         this.companyName = companyName;
     }
 
-    @Override
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    @Override
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public String getFacebookID() {
-        return facebookID;
-    }
-
-    @Override
-    public void setFacebookID(String facebookID) {
-        this.facebookID = facebookID;
-    }
-
-    @Override
-    public String getGoogleID() {
-        return googleID;
-    }
-
-    @Override
-    public void setGoogleID(String googleID) {
-        this.googleID = googleID;
-    }
-
-    @Override
-    public Boolean getIsVerifiedEmail() {
-        return isVerifiedEmail;
-    }
-
-    @Override
-    public void setIsVerifiedEmail(Boolean isVerifiedEmail) {
-        this.isVerifiedEmail = isVerifiedEmail;
-    }
-
-    @Override
-    public Boolean getIsVerifiedPhone() {
-        return isVerifiedPhone;
-    }
-
-    @Override
-    public void setIsVerifiedPhone(Boolean isVerifiedPhone) {
-        this.isVerifiedPhone = isVerifiedPhone;
-    }
 }
 
 

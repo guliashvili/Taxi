@@ -5,7 +5,7 @@ import ge.taxistgela.model.CompanyManagerAPI;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.SuperUserManager;
 import ge.taxistgela.model.UserManagerAPI;
-import ge.taxistgela.ram.TaxRamAPI;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +46,9 @@ public class UpdateServlet extends ActionServlet {
                     userPreference.setWantsAlone("on".equals(request.getParameter("wantsAlone")));
                 } catch (Exception ex) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    updateSessionUser(User.class.getName(), userManager, request, user);
+
                     return;
                 }
 
@@ -54,7 +57,8 @@ public class UpdateServlet extends ActionServlet {
                 if (errorCode.errorNotAccrued()) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
-                    user.setPreference(userPreference);
+                    updateSessionUser(User.class.getName(), userManager, request, user);
+
                     return;
                 }
             }
@@ -64,6 +68,8 @@ public class UpdateServlet extends ActionServlet {
             if (errorCode != null) {
                 response.getWriter().print(errorCode.toJson());
             }
+
+            updateSessionUser(User.class.getName(), userManager, request, user);
         }
     }
 
@@ -86,6 +92,8 @@ public class UpdateServlet extends ActionServlet {
                 } catch (Exception ex) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
+                    updateSessionUser(Driver.class.getName(), driverManager, request, driver);
+
                     return;
                 }
 
@@ -94,7 +102,8 @@ public class UpdateServlet extends ActionServlet {
                 if (errorCode.errorNotAccrued()) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
-                    driver.setPreferences(driverPreference);
+                    updateSessionUser(Driver.class.getName(), driverManager, request, driver);
+
                     return;
                 }
             }
@@ -104,6 +113,8 @@ public class UpdateServlet extends ActionServlet {
             if (errorCode != null) {
                 response.getWriter().print(errorCode.toJson());
             }
+
+            updateSessionUser(Driver.class.getName(), driverManager, request, driver);
         }
     }
 
@@ -129,7 +140,7 @@ public class UpdateServlet extends ActionServlet {
         if (man == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-            GeneralCheckableInformation obj = (GeneralCheckableInformation) request.getSession().getAttribute(A_TYPE[type]);
+            SuperDaoUser obj = (SuperDaoUser) request.getSession().getAttribute(A_TYPE[type]);
 
             ErrorCode errorCode = null;
 
@@ -144,6 +155,7 @@ public class UpdateServlet extends ActionServlet {
                 if (errorCode.errorNotAccrued()) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
+                    updateSessionUser(A_TYPE[type], man, request, obj);
                     return;
                 }
             }
@@ -153,6 +165,8 @@ public class UpdateServlet extends ActionServlet {
             if (errorCode != null) {
                 response.getWriter().print(errorCode.toJson());
             }
+
+            updateSessionUser(A_TYPE[type], man, request, obj);
         }
     }
 
@@ -202,6 +216,8 @@ public class UpdateServlet extends ActionServlet {
                 if (errorCode.errorNotAccrued()) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
+                    updateSessionUser(Driver.class.getName(), driverManager, request, driver);
+
                     return;
                 }
             }
@@ -211,6 +227,8 @@ public class UpdateServlet extends ActionServlet {
             if (errorCode != null) {
                 response.getWriter().print(errorCode.toJson());
             }
+
+            updateSessionUser(Driver.class.getName(), driverManager, request, driver);
         }
     }
 
@@ -234,16 +252,17 @@ public class UpdateServlet extends ActionServlet {
                     car.setNumPassengers(Integer.parseInt(request.getParameter("numPassengers")));
                 } catch (Exception ex) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    updateSessionUser(Driver.class.getName(), driverManager, request, driver);
                     return;
                 }
 
                 errorCode = driverManager.updateCar(car);
 
                 if (errorCode.errorNotAccrued()) {
-                    driver.setCar(car);
-
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
+                    updateSessionUser(Driver.class.getName(), driverManager, request, driver);
                     return;
                 }
             }
@@ -253,6 +272,13 @@ public class UpdateServlet extends ActionServlet {
             if (errorCode != null) {
                 response.getWriter().print(errorCode.toJson());
             }
+
+            updateSessionUser(Driver.class.getName(), driverManager, request, driver);
         }
+    }
+
+    private void updateSessionUser(String aType, SuperUserManager um, HttpServletRequest request, SuperDaoUser superUser) {
+        superUser = um.getByEmail(superUser.getEmail());
+        request.getSession().setAttribute(aType, superUser);
     }
 }

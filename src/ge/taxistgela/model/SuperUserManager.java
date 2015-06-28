@@ -1,7 +1,7 @@
 package ge.taxistgela.model;
 
 import ge.taxistgela.bean.ErrorCode;
-import ge.taxistgela.bean.GeneralCheckableInformation;
+import ge.taxistgela.bean.SuperDaoUser;
 
 
 /**
@@ -50,7 +50,7 @@ public interface SuperUserManager {
      * @param SuperUser
      * @return operationCode
      */
-    ErrorCode changePassword(GeneralCheckableInformation SuperUser, String oldPassword);
+    ErrorCode changePassword(SuperDaoUser SuperUser, String oldPassword);
 
     /**
      * Returns SuperUserManager selected by the certain superUserID.
@@ -58,15 +58,15 @@ public interface SuperUserManager {
      * @param superUserID
      * @return User generated from database.
      */
-    Object getByID(Integer superUserID);
+    SuperDaoUser getByID(Integer superUserID);
 
-    Object getByFacebookID(String superUserFacebookID);
+    SuperDaoUser getByFacebookID(String superUserFacebookID);
 
-    Object getByGoogleID(String superUserGoogleID);
+    SuperDaoUser getByGoogleID(String superUserGoogleID);
 
-    Object getByEmail(String superUserEmail);
+    SuperDaoUser getByEmail(String superUserEmail);
 
-    Object getByPhoneNumber(String superUserPhoneNumber);
+    SuperDaoUser getByPhoneNumber(String superUserPhoneNumber);
 
 
     /**
@@ -76,7 +76,7 @@ public interface SuperUserManager {
      * @param superUser
      * @return operationCode
      */
-    ErrorCode update(GeneralCheckableInformation superUser);
+    ErrorCode update(SuperDaoUser superUser);
 
     /**
      * Registers the certain SuperUserManager.
@@ -85,7 +85,7 @@ public interface SuperUserManager {
      * @param superUser
      * @return operationCode
      */
-    ErrorCode register(GeneralCheckableInformation superUser);
+    ErrorCode register(SuperDaoUser superUser);
 
     /**
      * verifies SuperUserManager email with the same token

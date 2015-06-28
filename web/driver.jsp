@@ -1,7 +1,4 @@
 <%@ page import="ge.taxistgela.bean.Driver" %>
-<%@ page import="ge.taxistgela.model.OrderManager" %>
-<%@ page import="ge.taxistgela.bean.Order" %>
-<%@ page import="java.util.List" %>
 \<%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -12,7 +9,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <script src="/Resources/assets/js/addFacebookAccount.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="Resources/assets/js/driver.js"></script>
 <% Driver driver = (Driver) session.getAttribute(Driver.class.getName());%>
 <section id="map" style="position:absolute;width:100%;height:100%;">
@@ -43,7 +39,7 @@
             <input type="email" disabled value="<%=driver.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!driver.getIsVerifiedEmail()){out.println(" onclick='resendEmail()'");}%>>
                 <% if (driver.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -55,7 +51,7 @@
             <input type="text" disabled value="<%=driver.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!driver.getIsVerifiedPhone()){out.println(" onclick='resendPhone()'");}%>>
                 <% if (driver.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {
@@ -84,10 +80,12 @@
                class="<%if(driver.getGoogleID()!=null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">getGoogleID</span></a>
             <br><br>
-            <a href="#" style="float:left" class="<%if(driver.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
+            <a href="#" style="float:left"
+               class="<%if(driver.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
                     class="label">Facebook</span></a>
         </div>
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+        <% if (driver.getFacebookID() != null) { %> <fb:login-button scope="public_profile,email"
+                                                                     onlogin="checkLoginState();"></fb:login-button> <% } %>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cP').toggleClass('hidden');" class="button special small fa fa-adjust"> Register To
                 Company</a>
@@ -100,44 +98,54 @@
             </form>
         </div>
         <div class="5u$ 12u$(small)">
-            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
+                Your Preferences</a>
         </div>
         <div class="5u$ 12u$(small)">
-            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Preferences</a>
+            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
+                Your Preferences</a>
         </div>
         <div id="cPref" class="6u$ hidden">
             <form id="cPrefForm">
                 <input type="text" name="action" value="dPreferences" class="hidden"/>
                 <label for="minimumUserRating"> Minimum User Rating </label>
-                <input type="number" id="minimumUserRating" name="minimumUserRating" value="<%=driver.getPreferences().getMinimumUserRating()%>" step="1"/>
+                <input type="number" id="minimumUserRating" name="minimumUserRating"
+                       value="<%=driver.getPreferences().getMinimumUserRating()%>" step="1"/>
                 <label for="coefficientPer"> Coefficient Per KM. </label>
-                <input type="number" id="coefficientPer" name="coefficientPer" value="<%=driver.getPreferences().getCoefficientPer()%>" step=".1"/>
+                <input type="number" id="coefficientPer" name="coefficientPer"
+                       value="<%=driver.getPreferences().getCoefficientPer()%>" step=".1"/>
             </form>
-            <button id="cPrefBtn" class="button special small fa fa-adjust"> Save </button>
+            <button id="cPrefBtn" class="button special small fa fa-adjust"> Save</button>
         </div>
         <div class="12u$(small)">
-            <a href="#" onclick="$('#cCar').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your Car Details</a>
-        </div><br>
+            <a href="#" onclick="$('#cCar').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit Your
+                Car Details</a>
+        </div>
+        <br>
+
         <div id="cCar" class="12u hidden">
             <form id="cCarForm">
                 <input type="text" name="action" value="dCar" class="hidden"/>
-                <input type="checkbox" id="conditioning" name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked");}%>>
-                    <label for="conditioning"> Conditioning </label>
+                <input type="checkbox" id="conditioning"
+                       name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked");}%>>
+                <label for="conditioning"> Conditioning </label>
                 </input><br>
                 <label for="carDescription"> Car Description </label>
-                <textarea id="carDescription" name="carDescription" style="width:60%;font-size:1em"><%=driver.getCar().getCarDescription()%></textarea>
+                <textarea id="carDescription" name="carDescription"
+                          style="width:60%;font-size:1em"><%=driver.getCar().getCarDescription()%></textarea>
                 <label for="carYear"> Car Year </label>
                 <input type="number" id="carYear" name="carYear" value="<%=driver.getCar().getCarYear()%>" step="1"/>
                 <label for="numPassengers"> Max. Number Of Passengers </label>
-                <input type="number" id="numPassengers" name="numPassengers" value="<%=driver.getCar().getNumPassengers()%>" step="1"/><br>
+                <input type="number" id="numPassengers" name="numPassengers"
+                       value="<%=driver.getCar().getNumPassengers()%>" step="1"/><br>
             </form>
-            <button id="cCarBtn" class="button special small fa fa-adjust"> Save </button>
+            <button id="cCarBtn" class="button special small fa fa-adjust"> Save</button>
         </div>
         <div class="12u 1u$(small)" style="float:left">
             <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden" >
+        <div id="history" class="12 1u$ hidden">
             <div id="grid">
 
             </div>
