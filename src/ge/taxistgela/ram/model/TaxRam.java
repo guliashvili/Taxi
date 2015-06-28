@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.model;
 
+import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.dao.DriverDao;
@@ -7,12 +8,15 @@ import ge.taxistgela.dao.OrderDao;
 import ge.taxistgela.dao.UserDao;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.ram.bean.DriverInfo;
+import ge.taxistgela.ram.bean.OrderInfo;
 import ge.taxistgela.ram.bean.UserInfo;
 import ge.taxistgela.ram.dao.DriverInfoDao;
 import ge.taxistgela.ram.dao.UserInfoDao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by GIO on 6/26/2015.
@@ -58,6 +62,18 @@ public class TaxRam implements TaxRamAPI {
     public void addOrder(Order order){
         UserInfo userInfo = userInfoDao.getUserInfoByID(order.getUserID());
         if(userInfo == null) return;
+        Long curMinute = TimeUnit.MILLISECONDS.toMinutes(new Date().getTime());
+
+        OrderInfo orderInfo = new OrderInfo(curMinute,-1,order.getEndLocation(),
+                order.getNumPassengers(),-1,order.getStartLocation(),order.getUserID(),
+                TimeUnit.MILLISECONDS.toMinutes(order.getStartTime().getTime()),
+                        userInfo.getPreference().getTimeLimit());
+
+
+
+
+
+
 
 
 
