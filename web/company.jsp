@@ -36,7 +36,7 @@
             <input type="email" disabled value="<%=company.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!company.getIsVerifiedEmail()){out.println(" onclick='resendEmail()'");}%>>
                 <% if (company.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -48,7 +48,7 @@
             <input type="text" disabled value="<%=company.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedPhone()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedPhone()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!company.getIsVerifiedPhone()){out.println(" onclick='resendPhone()'");}%>>
                 <% if (company.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {

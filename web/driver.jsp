@@ -39,7 +39,7 @@
             <input type="email" disabled value="<%=driver.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!driver.getIsVerifiedEmail()){out.println(" onclick='resendEmail()'");}%>>
                 <% if (driver.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -51,7 +51,7 @@
             <input type="text" disabled value="<%=driver.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>">
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!driver.getIsVerifiedPhone()){out.println(" onclick='resendPhone()'");}%>>
                 <% if (driver.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {
