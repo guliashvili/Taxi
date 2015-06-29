@@ -3,11 +3,12 @@
  */
 $(document).ready(function(){
     initializeO();
+    initializeSockets("bla");
 });
 var records=[];
 var travel=null;
 function initializeSockets(mToken){
-    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + mToken);
+    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + "bla");
 
     websocket.onopen = function (arg) {
         console.log("success", "connected");
@@ -28,7 +29,7 @@ function initializeSockets(mToken){
         console.log("success", "disconnected");
     };
 
-    websocket.onerror = function (arg) {
+    websocket.error = function (arg) {
         console.error(arg.data);
     };
 
