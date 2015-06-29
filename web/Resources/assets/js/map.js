@@ -91,6 +91,58 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
+function addOrder(lat,lng){
+	marker = new google.maps.Marker({
+		map:map,
+		draggable:true,
+		animation: google.maps.Animation.DROP,
+		position: new google.maps.LatLng(lat,lng)
+	});
+	var dateAsker = '<div id="order" style="overflow-y:scroll;width:300px;height:450px; color:black;background-color:#FFD800;padding:10px"> \
+			<form id="prefForm" action="" type="post">\
+			<div class="input-group date" id="datetimepicker10" style="margin-bottom:5px">\
+			<label for="startDate">Please Select Desired Time Of Departure</label>\
+			<input type="text" id="startDate" name="startDate" class="form-control" />\
+			<span class="input-group-addon">\
+			<span class="glyphicon glyphicon-calendar">\
+			</span>\
+			</span></div>\
+            <input type="text" name="action" value="uPreferences" class="hidden"/>\
+            <input type="number" id="minimumDriverRating" name="minimumDriverRating"\
+        value="0.0"\
+        style="color:black;padding-left:5px" value="1" step=".1">\
+            <label for="minimumDriverRating"> Minimum Driver Rating </label><br>\
+        <input type="checkbox" id="conditioning"\
+        name="conditioning">\
+    <label for="conditioning"> Conditioning Required </label>\
+        </input><br>\
+        <input type="number" name="carYear" value="0" id="carYear"\
+        style="color:black;padding-left:5px" value="1990" step="1">\
+            <label for="carYear"> Minimum Car Year </label>\
+        <input type="number" name="timeLimit" id="timeLimit" value="100"\
+        style="color:black;padding-left:5px" value="10" step="1">\
+            <label for="timeLimit"> Maximum Time Limit (Minutes) </label>\
+        <input type="number" name="passengerCount" id="passengerCount"\
+        value="0"\
+        style="color:black;padding-left:5px" value="1" step="1">\
+            <label for="passengerCount"> Passenger Count </label><br>\
+        <input type="checkbox" name="wantsAlone" id="wantsAlone"\
+        value="0"\
+        name="wantsAlone">\
+            <label for="wantsAlone"> Want To Travel Alone </label>\
+        </input>\
+        <button id="ProceedOrder" style="margin-top:5px" class="button special"> Proceed</button>\
+            <br>\
+            </form>';
+	cont = new google.maps.InfoWindow({
+		content: dateAsker
+	});
+	google.maps.event.addListener(marker, 'click', function(){openOrder(cont,marker);});
+	marker.setAnimation(google.maps.Animation.BOUNCE);
+}
+function openOrder(cont,mark){
+	cont.open(map,mark);
+}
 function placeMarker(loc) {
 	if (startMarker == null) {
 		startMarker = new google.maps.Marker({
