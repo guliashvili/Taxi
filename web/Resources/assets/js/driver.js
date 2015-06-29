@@ -3,12 +3,12 @@
  */
 
 // Here goes user panel management.
-$(document).ready(function(){
+$(document).ready(function () {
     initializeO();
 });
 var latitude = null;
 var longitude = null;
-function initializeO(){
+function initializeO() {
     $(".headCaption").removeClass("hidden");
     initializeMap();
     createPreferencesSaves();
@@ -60,14 +60,101 @@ function initializeSockets(mToken) {
 
     return websocket;
 }
-function resendEmail(){
+var latMap = {};
+var orderInfo;
+geocoder = new google.maps.Geocoder();
+function addOrder(ordr) {
+    console.log("addOrder");
+    orderInfo=ordr;
+    console.log(orderInfo);
+    var out = "";
+    latMap = {};
+    for (var i = 0; i < orderInfo.length; i++) {
+        var start = orderInfo[i].start.latitude + "," + orderInfo[i].start.longitude;
+        var end = orderInfo[i].end.latitude + "," + orderInfo[i].end.longitude;
+        console.log(orderInfo[i]);
+        if(latMap[start]==undefined) {
+            geocodeQuery.push(start);
+        }
+        if(latMap[end]==undefined) {
+            geocodeQuery.push(end);
+        }
+    }
+    if(geocodeQuery.length>0){
+        geocodeTimer=setInterval(function(){fetchGeocode();}, 1000);
+    }
+}
+var geocodeQuery=[];
+var geocodeTimer;
+function fetchGeocode(){
+    if(geocodeQuery.length==0){
+        $("#orderModalCont").html(generateModal(orderInfo));
+        $("#orderModal").modal("show");
+        clearInterval(geocodeTimer);
+    }
+    var start=geocodeQuery[geocodeQuery.length-1];
+    var arr=start.split(",");
+    var startM=new google.maps.LatLng(arr[0],arr[1]);
+    geocoder.geocode({'latLng': startM}, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                latMap[start] = results[1].formatted_address;
+                geocodeQuery.pop();
+                if (geocodeQuery.length == 0) {
+                    $("#orderModalCont").html(generateModal(orderInfo));
+                    $("#orderModal").modal("show");
+                    clearInterval(geocodeTimer);
+                }
+            } else {
+                latMap[start] = "unknown";
+            }
+        }
+    });
+}
+function size(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+function generateModal(orderInfo) {
+    var out="";
+    for(var i=0;i<orderInfo.length;i++){
+        out+='<div class="orderDiv>';
+        out+='<span>'+ orderInfo[i].user.firstName + " " + orderInfo[i].user.lastName +'</span>';
+        out+='<span>requires your assistance in getting from:</span>';
+        out+='<span>'+ latMap[orderInfo[i].start.latitude+","+orderInfo[i].start.longitude] + " to " + latMap[orderInfo[i].end.latitude+","+orderInfo[i].end.longitude] +'</span>';
+        out+='<span> and offers:'+orderInfo[i].maxPrice+'</span>';
+        if(orderInfo[i].user.preference.wantsAlone){
+            out+='<span> He wants to travel alone</span>';
+        }
+        if(user.gender="MALE") {
+            out += '<span> And is currently with his ' + orderInfo[i].user.preference.passengersCount + ' friends</span>';
+        }else{
+            out += '<span> And is currently with her ' + orderInfo[i].user.preference.passengersCount + ' friends</span><br>';
+        }
+        out+='<span> and offers:'+orderInfo[i].maxPrice+'</span><br>';
+        out+='<button onclick="acceptOffer('+i+')" class="special">Accept Offer</button><br>';
+        out+='<button onclick="rejectOffer('+i+')" class="special">Reject Offer</button><br>';
+        out+='</div>'
+    }
+    return out;
+}
+function acceptOffer(index){
 
 }
-function resendPhone(){
+function acceptOffer(index){
 
 }
-function createPreferencesSaves(){
-    $("#passChange").click(function(e){
+function resendEmail() {
+
+}
+function resendPhone() {
+
+}
+function createPreferencesSaves() {
+    $("#passChange").click(function (e) {
         var formData = $("#passForm").serialize();
         $.ajax({
             url: "/update",
@@ -82,7 +169,7 @@ function createPreferencesSaves(){
             }
         });
     });
-    $("#savePref").click(function(e){
+    $("#savePref").click(function (e) {
         var formData = $("#prefForm").serialize();
         $.ajax({
             url: "/update",
@@ -97,7 +184,7 @@ function createPreferencesSaves(){
             }
         });
     });
-    $("#companyCodeBtn").click(function(e){
+    $("#companyCodeBtn").click(function (e) {
         var formData = $("#companyCodeForm").serialize();
         $.ajax({
             url: "/update",
@@ -112,7 +199,7 @@ function createPreferencesSaves(){
             }
         });
     });
-    $("#cPrefBtn").click(function(e){
+    $("#cPrefBtn").click(function (e) {
         var formData = $("#cPrefForm").serialize();
         $.ajax({
             url: "/update",
@@ -127,7 +214,7 @@ function createPreferencesSaves(){
             }
         });
     });
-    $("#cCarBtn").click(function(e){
+    $("#cCarBtn").click(function (e) {
         var formData = $("#cCarForm").serialize();
         $.ajax({
             url: "/update",

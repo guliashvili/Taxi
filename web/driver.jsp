@@ -17,6 +17,15 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
+<div class="modal fade" id="orderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="orderModalCont" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
         <br>
@@ -103,7 +112,7 @@
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                                 data-scope="https://www.googleapis.com/auth/plus.login">
                                         </span>
-        </div>  <% } %>
+    </div>  <% } %>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cP').toggleClass('hidden');" class="button special small fa fa-adjust"> Register To
                 Company</a>
