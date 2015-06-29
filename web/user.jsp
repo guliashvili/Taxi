@@ -13,6 +13,9 @@
 
 </section>
 <% User user = (User) session.getAttribute(User.class.getName());%>
+<script>
+    initializeSockets(<%=user.getToken()%>)
+</script>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
         <br>
