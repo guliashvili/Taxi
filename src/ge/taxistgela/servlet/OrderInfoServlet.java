@@ -62,4 +62,68 @@ public class OrderInfoServlet extends ActionServlet {
         }
     }
 
+    public void dChoice(HttpServletRequest request, HttpServletResponse response) {
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+
+        if (taxRam == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
+
+            if (driver != null) {
+                Integer userID = null;
+                Integer orderID = null;
+
+                try {
+                    userID = Integer.parseInt(request.getParameter("userID"));
+                    orderID = Integer.parseInt(request.getParameter("orderID"));
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    return;
+                }
+
+                if (!taxRam.driverChoice(driver.getDriverID(), userID, orderID, true)) {
+                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                    return;
+                }
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    public void uChoice(HttpServletRequest request, HttpServletResponse response) {
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+
+        if (taxRam == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            User user = (User) request.getSession().getAttribute(User.class.getName());
+
+            if (user != null) {
+                Integer driverID = null;
+                Integer orderID = null;
+
+                try {
+                    driverID = Integer.parseInt(request.getParameter("driverID"));
+                    orderID = Integer.parseInt(request.getParameter("orderID"));
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    return;
+                }
+
+                if (!taxRam.userChoice(user.getUserID(), driverID, orderID, true)) {
+                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                    return;
+                }
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
 }
