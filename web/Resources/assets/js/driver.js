@@ -7,6 +7,7 @@ $(document).ready(function(){
     initializeO();
 });
 function initializeO(){
+    $(".headCaption").removeClass("hidden");
     initializeMap();
     createPreferencesSaves();
     generateGrid();

@@ -5,7 +5,9 @@ import ge.taxistgela.bean.Location;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public class DriverInfo extends Driver {
 
-    public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<OrderInfo>());
+    public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
     public Object block = new Object();
     public int nPassengers;
     private Location location;
@@ -24,6 +26,11 @@ public class DriverInfo extends Driver {
 
     public DriverInfo(Driver driver) {
         super(driver);
+    }
+
+    public synchronized void removeOldOrders() {
+        waitingList.removeIf(orderInfo ->
+                TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()) - orderInfo.getCreateTime() > OrderInfo.MAXIMUM_ORDER_LIFETIME);
     }
 
     public synchronized int getnPassengers() {

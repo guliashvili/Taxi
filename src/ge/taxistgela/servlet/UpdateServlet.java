@@ -246,6 +246,7 @@ public class UpdateServlet extends ActionServlet {
                 Car car = driver.getCar();
 
                 try {
+                    car.setCarID(request.getParameter("carID"));
                     car.setConditioning("on".equals(request.getParameter("conditioning")));
                     car.setCarDescription(request.getParameter("carDescription"));
                     car.setCarYear(Integer.parseInt(request.getParameter("carYear")));
@@ -257,7 +258,12 @@ public class UpdateServlet extends ActionServlet {
                     return;
                 }
 
-                errorCode = driverManager.updateCar(car);
+                if (driverManager.getCarByID(car.getCarID()) == null) {
+                    errorCode = driverManager.insertCar(car);
+                    errorCode.union(driverManager.update(driver));
+                } else {
+                    errorCode = driverManager.updateCar(car);
+                }
 
                 if (errorCode.errorNotAccrued()) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);

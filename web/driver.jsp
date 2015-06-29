@@ -63,6 +63,10 @@
             <button onclick="$('#cPass').toggleClass('hidden');" class="button special fa fa-key"> Change Password
             </button>
         </div>
+        <div class="12u$">
+            <button onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');" class="button special fa fa-key"> Become Active
+            </button>
+        </div>
         <div id="cPass" class="5u$ hidden">
             <form id="passForm" action="" type="post">
                 <span> Current Password: </span>
@@ -126,6 +130,8 @@
         <div id="cCar" class="12u hidden">
             <form id="cCarForm">
                 <input type="text" name="action" value="dCar" class="hidden"/>
+                <label for="carID"> Car Plate Number </label>
+                <input type="text" id="carID" name="carID" style="width:250px" value="<%=driver.getCar().getCarID()%>"/><br>
                 <input type="checkbox" id="conditioning"
                        name="conditioning" <%if(driver.getCar().hasConditioning()){out.println("checked");}%>>
                 <label for="conditioning"> Conditioning </label>

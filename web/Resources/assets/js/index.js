@@ -11,6 +11,7 @@ $(function () {
         $("#" + $(e.target).attr("showf")).removeClass("hidden");
         $("#registerBtn").removeClass("hidden");
     });
+    $(".headCaption").addClass("hidden");
     createRegister();
     createLogin();
 });
