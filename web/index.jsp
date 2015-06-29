@@ -32,6 +32,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="/Resources/assets/js/facebookRegister.js"></script>
     <script src="/Resources/assets/js/googleplusLogin.js"></script>
     <script src="/Resources/assets/js/googleplusRegister.js"></script>
+    <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Resources/assets/css/taxi.css">
@@ -57,6 +58,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     </script>
     <script src="Resources/assets/js/map.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
 </head>
 <body class="landing">
 
