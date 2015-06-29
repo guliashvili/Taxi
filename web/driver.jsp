@@ -1,4 +1,5 @@
 <%@ page import="ge.taxistgela.bean.Driver" %>
+<%@ page import="ge.taxistgela.socialNetwork.SNInfo" %>
 \<%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -9,6 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <script src="/Resources/assets/js/addFacebookAccount.js"></script>
+<script src="/Resources/assets/js/addGoogleplusAccount.js"></script>
 <script src="Resources/assets/js/driver.js"></script>
 <% Driver driver = (Driver) session.getAttribute(Driver.class.getName());%>
 <script> initializeSockets("<%=driver.getToken()%>") </script>
@@ -82,15 +84,26 @@
         </div>
         <div style="float:right" class="4u$ (xsmall)">
             <a href="#" style="float:left"
-               class="<%if(driver.getGoogleID()!=null){ %> disabled <%}%> icon fa-google-plus"><span
-                    class="label">getGoogleID</span></a>
+               class="<%if(driver.getGoogleID()==null){ %> disabled <%}%> icon fa-google-plus"><span
+                    class="label">Google+</span></a>
             <br><br>
             <a href="#" style="float:left"
-               class="<%if(driver.getFacebookID()!=null){ %> disabled <%}%> icon fa-facebook"><span
+               class="<%if(driver.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
                     class="label">Facebook</span></a>
         </div>
-        <% if (driver.getFacebookID() != null) { %> <fb:login-button scope="public_profile,email"
+        <% if (driver.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
                                                                      onlogin="checkLoginState();"></fb:login-button> <% } %>
+        <% if (driver.getGoogleID() == null) { %> <div class="gg_button">
+                                        <span
+                                                class="g-signin"
+                                                data-height="short"
+                                                data-callback="onLogin"
+                                                data-clientid=<%=SNInfo.googleClientID%>
+                                                        data-cookiepolicy="single_host_origin"
+                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                                data-scope="https://www.googleapis.com/auth/plus.login">
+                                        </span>
+        </div>  <% } %>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cP').toggleClass('hidden');" class="button special small fa fa-adjust"> Register To
                 Company</a>
