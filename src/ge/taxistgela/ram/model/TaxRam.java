@@ -122,62 +122,76 @@ public class TaxRam implements TaxRamAPI {
         sessionManager.sendMessage(SessionManager.USER_SESSION, userID, ret);
     }
 
-    public boolean driverAccepted(int driverID, int userID) {
+    public boolean driverChoice(int driverID, int userID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
         if (userInfo == null || driverInfo == null) return true;
-
         boolean ret = false;
-        OrderInfo orderInfo = null;
-        for (OrderInfo elem : driverInfo.waitingList) {
-            if (elem.getUser().getUserID() == userID)
-                orderInfo = elem;
+
+        if (!accept) {
+            ret |= !driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID);
+        } else {
+
+
+            OrderInfo orderInfo = null;
+            for (OrderInfo elem : driverInfo.waitingList) {
+                if (elem.getUser().getUserID() == userID)
+                    orderInfo = elem;
+            }
+
+            if (orderInfo != null) {
+                ret |= !(driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID));
+
+                if (!ret) {
+                    userInfo.waitingList.add(orderInfo);
+                    userInfo.removeOldOrders();
+
+
+                }
+            } else
+                ret = true;
         }
 
-        if (orderInfo != null) {
-            ret |= !(driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID));
-
-            if (!ret) {
-                userInfo.waitingList.add(orderInfo);
-                userInfo.removeOldOrders();
-
-                getWaitingDrivers(userID);
-            }
-        } else
-            ret = true;
+        getWaitingUsers(driverID);
+        getWaitingUsers(userID);
 
         return ret;
     }
 
-    public boolean userAccepted(int driverID, int userID) {
+    public boolean userChoice(int driverID, int userID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
         if (userInfo == null || driverInfo == null) return true;
 
         boolean ret = false;
-        OrderInfo orderInfo = null;
-        for (OrderInfo elem : driverInfo.waitingList) {
-            if (elem.getUser().getUserID() == userID)
-                orderInfo = elem;
+        if (!accept) {
+            ret |= !(userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getDriver().getDriverID() == driverID));
+        } else {
+            OrderInfo orderInfo = null;
+            for (OrderInfo elem : driverInfo.waitingList) {
+                if (elem.getUser().getUserID() == userID)
+                    orderInfo = elem;
 
-        }
-        if (orderInfo != null) {
-            ret |= !(userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID));
-
-            if (!ret) {
-                userInfo.waitingList.forEach(orderInfo1 -> {
-                    DriverInfo tmp = drivers.get(orderInfo1.getDriver().getDriverID());
-                    if (tmp != null)
-                        tmp.waitingList.removeIf(orderInfo2 -> orderInfo2.getUser().getUserID() == userID);
-                });
-                userInfo.waitingList.clear();
-                driverInfo.timeTable.add(orderInfo);
-                getWaitingUsers(driverID);
-                //TODO sheatyobine drivers users
             }
-        } else
-            ret = true;
+            if (orderInfo != null) {
+                ret |= !(userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getDriver().getDriverID() == driverID));
 
+                if (!ret) {
+                    userInfo.waitingList.forEach(orderInfo1 -> {
+                        DriverInfo tmp = drivers.get(orderInfo1.getDriver().getDriverID());
+                        if (tmp != null)
+                            tmp.waitingList.removeIf(orderInfo2 -> orderInfo2.getUser().getUserID() == userID);
+                    });
+                    userInfo.waitingList.clear();
+                    driverInfo.timeTable.add(orderInfo);
+
+                    //TODO sheatyobine drivers users
+                }
+            } else
+                ret = true;
+        }
+        getWaitingUsers(driverID);
+        getWaitingUsers(userID);
         return ret;
 
     }
