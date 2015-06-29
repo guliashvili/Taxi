@@ -16,9 +16,8 @@ public abstract class UserManagerAPI implements SuperUserTokenedManager {
     protected UserDaoAPI userDao;
     protected TaxRamAPI taxRam;
 
-    public UserManagerAPI(UserDaoAPI userDao, TaxRamAPI taxRam) {
+    public UserManagerAPI(UserDaoAPI userDao) {
         this.userDao = userDao;
-        this.taxRam = taxRam;
     }
 
     /**

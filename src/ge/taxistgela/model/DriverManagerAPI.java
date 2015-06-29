@@ -13,9 +13,8 @@ public abstract class DriverManagerAPI implements SuperUserTokenedManager {
     protected DriverDaoAPI driverDao;
     protected TaxRamAPI taxRam;
 
-    public DriverManagerAPI(DriverDaoAPI driverDao, TaxRamAPI taxRam) {
+    public DriverManagerAPI(DriverDaoAPI driverDao) {
         this.driverDao = driverDao;
-        this.taxRam = taxRam;
     }
 
     /**

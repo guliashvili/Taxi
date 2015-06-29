@@ -3,7 +3,6 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.dao.DriverDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.model.TaxRamAPI;
 
 import java.util.List;
 
@@ -11,8 +10,8 @@ import java.util.List;
  * Created by GIO on 5/25/2015.
  */
 public class DriverManager extends  DriverManagerAPI {
-    public DriverManager(DriverDaoAPI driverDao, TaxRamAPI taxRam) {
-        super(driverDao, taxRam);
+    public DriverManager(DriverDaoAPI driverDao) {
+        super(driverDao);
     }
 
     @Override

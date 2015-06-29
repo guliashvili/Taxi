@@ -39,15 +39,18 @@ public class ContextListener implements ServletContextListener,
         CompanyDao companyDao = new CompanyDao();
         OrderDao orderDao = new OrderDao();
         ReviewDao reviewDao = new ReviewDao();
+        UserManager um = new UserManager(userDao);
+        DriverManager dm = new DriverManager(driverDao);
+        SessionManager sessionManager = new SessionManager(new SuperUserTokenedManager[]{um, dm});
 
         ServletContext sc = sce.getServletContext();
-        TaxRamAPI ram = new TaxRam(orderDao, userDao, driverDao);
+        TaxRamAPI ram = new TaxRam(orderDao, userDao, driverDao, sessionManager);
 
         // add CompanyManager.
         sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(companyDao, ram));
 
         // add DriverManager.
-        DriverManager dm = new DriverManager(driverDao, ram);
+
         sc.setAttribute(DriverManagerAPI.class.getName(), dm);
 
         // add OrderManager.
@@ -57,11 +60,11 @@ public class ContextListener implements ServletContextListener,
         sc.setAttribute(ReviewManagerAPI.class.getName(), new ReviewManager(reviewDao));
 
         // add UserManager.
-        UserManager um = new UserManager(userDao, ram);
+
         sc.setAttribute(UserManagerAPI.class.getName(), um);
 
         // add SessionManager.
-        sc.setAttribute(SessionManagerAPI.class.getName(), new SessionManager(new SuperUserTokenedManager[]{um, dm}));
+        sc.setAttribute(SessionManagerAPI.class.getName(), sessionManager);
 
         // add TaxRam.
         sc.setAttribute(TaxRamAPI.class.getName(), ram);

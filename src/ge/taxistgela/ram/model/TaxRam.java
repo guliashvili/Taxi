@@ -1,11 +1,13 @@
 package ge.taxistgela.ram.model;
 
+import com.google.gson.Gson;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.dao.DriverDao;
 import ge.taxistgela.dao.OrderDao;
 import ge.taxistgela.dao.UserDao;
 import ge.taxistgela.helper.GoogleMapUtils;
+import ge.taxistgela.model.SessionManager;
 import ge.taxistgela.ram.bean.DriverInfo;
 import ge.taxistgela.ram.bean.OrderInfo;
 import ge.taxistgela.ram.bean.UserInfo;
@@ -23,21 +25,22 @@ import java.util.concurrent.TimeUnit;
 
 public class TaxRam implements TaxRamAPI {
 
+    SessionManager sessionManager;
     private OrderDao orderDao;
     private UserDao userDao;
     private DriverDao driverDao;
     private DriverInfoDao driverInfoDao;
     private UserInfoDao userInfoDao;
-
     private ConcurrentHashMap<Integer, DriverInfo> drivers = new ConcurrentHashMap<>();
     private ConcurrentHashMap<Integer, UserInfo> users = new ConcurrentHashMap<>();
 
-    public TaxRam(OrderDao orderDao, UserDao userDao, DriverDao driverDao) {
+    public TaxRam(OrderDao orderDao, UserDao userDao, DriverDao driverDao, SessionManager sessionManager) {
         this.driverDao = driverDao;
         this.userDao = userDao;
         this.orderDao = orderDao;
         this.driverInfoDao = new DriverInfoDao(driverDao, drivers, users);
         this.userInfoDao = new UserInfoDao(userDao, drivers, users);
+        this.sessionManager = sessionManager;
     }
 
     @Override
@@ -100,18 +103,23 @@ public class TaxRam implements TaxRamAPI {
 
     }
 
-    public List<OrderInfo> getWaitingUsers(int driverID) {
+    public void getWaitingUsers(int driverID) {
         DriverInfo driverInfo = drivers.get(driverID);
-        if (driverInfo == null) return null;
+        if (driverInfo == null) return;
         driverInfo.removeOldOrders();
-        return driverInfo.waitingList;//DON'T CHANGE daginebulia
+        String ret = new Gson().toJson(driverInfo.waitingList);
+
+        sessionManager.sendMessage(SessionManager.DRIVER_SESSION, driverID, ret);
+
+        return;//DON'T CHANGE daginebulia
     }
 
-    public List<OrderInfo> getWaitingDrivers(int userID) {
+    public void getWaitingDrivers(int userID) {
         UserInfo userInfo = users.get(userID);
-        if (userInfo == null) return null;
+        if (userInfo == null) return;
         userInfo.removeOldOrders();
-        return userInfo.waitingList;//DON'T CHANGE daginebulia
+        String ret = new Gson().toJson(userInfo.waitingList);
+        sessionManager.sendMessage(SessionManager.USER_SESSION, userID, ret);
     }
 
     public boolean driverAccepted(int driverID, int userID) {
@@ -132,7 +140,8 @@ public class TaxRam implements TaxRamAPI {
             if (!ret) {
                 userInfo.waitingList.add(orderInfo);
                 userInfo.removeOldOrders();
-                //TODO sheatyobine users
+
+                getWaitingDrivers(userID);
             }
         } else
             ret = true;
@@ -163,12 +172,14 @@ public class TaxRam implements TaxRamAPI {
                 });
                 userInfo.waitingList.clear();
                 driverInfo.timeTable.add(orderInfo);
+                getWaitingUsers(driverID);
                 //TODO sheatyobine drivers users
             }
         } else
             ret = true;
 
         return ret;
+
     }
 
 
