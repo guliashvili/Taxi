@@ -9,6 +9,7 @@ import ge.taxistgela.dao.UserDao;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.GoogleMapUtils;
 import ge.taxistgela.model.SessionManager;
+import ge.taxistgela.ram.bean.BOOLEAN;
 import ge.taxistgela.ram.bean.DriverInfo;
 import ge.taxistgela.ram.bean.OrderInfo;
 import ge.taxistgela.ram.bean.UserInfo;
@@ -81,24 +82,25 @@ public class TaxRam implements TaxRamAPI {
 
         UserInfo userInfo = userInfoDao.getUserInfoByID(order.getUserID());
         if(userInfo == null) return;
+
         Long curMinute = TimeUnit.MILLISECONDS.toMinutes(new Date().getTime());
 
 
         OrderInfo traki = new OrderInfo(curMinute, order.getEndLocation(),
                 order.getNumPassengers(), -1, order.getStartLocation(),
                 curMinute,
-                -1, userInfo, null);
+                -1, userInfo, null, null, order.getOrderID());
 
         List<DriverInfo> queue = driverInfoDao.getDriversByUserPreference(userInfo, traki);
 
-
+        BOOLEAN dealisDone = new BOOLEAN(false);
         for(DriverInfo driverInfo : queue) {
             OrderInfo orderInfo = new OrderInfo(curMinute, order.getEndLocation(),
                     order.getNumPassengers(), -1, order.getStartLocation(),
                     curMinute,
                     -1,
                     userInfo,
-                    driverInfo);
+                    driverInfo, dealisDone, order.getOrderID());
 
             orderInfo.setDistance((GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
                     GoogleMapUtils.getRoad(orderInfo.getStart(), orderInfo.getEnd()).distance.inMeters) / 1000.0);
@@ -108,7 +110,7 @@ public class TaxRam implements TaxRamAPI {
 
             driverInfo.waitingList.add(orderInfo);
 
-            driverInfo.removeOldOrders();
+            driverInfo.removeBadOrders();
 
             getWaitingUsers(driverInfo.getDriverID());
         }
@@ -119,7 +121,7 @@ public class TaxRam implements TaxRamAPI {
     public List<OrderInfo> getWaitingUsers(int driverID) {
         DriverInfo driverInfo = drivers.get(driverID);
         if (driverInfo == null) return null;
-        driverInfo.removeOldOrders();
+        driverInfo.removeBadOrders();
         ExternalAlgorithms.debugPrint("getWaitingUsers sending users to " + driverID + " size of " + driverInfo.waitingList.size());
 
         String ret = new Gson().toJson(driverInfo.waitingList);
@@ -133,7 +135,7 @@ public class TaxRam implements TaxRamAPI {
     public List<OrderInfo> getWaitingDrivers(int userID) {
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return null;
-        userInfo.removeOldOrders();
+        userInfo.removeBadOrders();
         ExternalAlgorithms.debugPrint("getWaitingDrivers sending drivers to " + userID + " size of " + userInfo.waitingList.size());
 
         String ret = new Gson().toJson(userInfo.waitingList);
@@ -142,25 +144,30 @@ public class TaxRam implements TaxRamAPI {
     }
 
     @Override
-    public boolean driverChoice(int driverID, int userID, boolean accept) {
+    public boolean driverChoice(int driverID, int userID, int orderID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
         if (userInfo == null || driverInfo == null) return true;
         boolean ret = false;
 
+        userInfo.removeBadOrders();
+        driverInfo.removeBadOrders();
+
         if (!accept) {
-            ret |= !driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID);
+            ret |= !driverInfo.waitingList.removeIf(orderInfo1 ->
+                    orderInfo1.getOrderID() == orderID);
 
         } else {
 
             OrderInfo orderInfo = null;
             for (OrderInfo elem : driverInfo.waitingList)
-                if (elem.getUser().getUserID() == userID)
+                if (elem.getOrderID() == orderID)
                     orderInfo = elem;
 
 
             if (orderInfo != null) {
-                ret |= !(driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID));
+
+                ret |= !(driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID));
 
                 if (!ret) {
                     userInfo.waitingList.add(orderInfo);
@@ -176,34 +183,45 @@ public class TaxRam implements TaxRamAPI {
     }
 
     @Override
-    public boolean userChoice(int driverID, int userID, boolean accept) {
+    public boolean userChoice(int driverID, int userID, int orderID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
         if (userInfo == null || driverInfo == null) return true;
 
         boolean ret = false;
+
+        userInfo.removeBadOrders();
+        driverInfo.removeBadOrders();
+
+
+
         if (!accept) {
-            ret |= !(userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getDriver().getDriverID() == driverID));
+            ret |= !(userInfo.waitingList.removeIf(orderInfo1 ->
+                    orderInfo1.getDriver().getDriverID() == driverID &&
+                            orderInfo1.getOrderID() == orderID));
         } else {
             OrderInfo orderInfo = null;
             for (OrderInfo elem : driverInfo.waitingList) {
-                if (elem.getUser().getUserID() == userID)
+                if (elem.getOrderID() == orderID && elem.getDriver().getDriverID() == driverID)
                     orderInfo = elem;
 
             }
 
-            if (orderInfo != null) {
-                ret |= !(userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getDriver().getDriverID() == driverID));
+            if (orderInfo != null && !orderInfo.getSetTrueDealIsDone()) {
+                ret |= !(userInfo.waitingList.removeIf(orderInfo1 ->
+                        orderInfo1.getDriver().getDriverID() == driverID &&
+                                orderInfo1.getDriver().getDriverID() == driverID &&
+                                orderInfo1.getOrderID() == orderID));
 
                 if (!ret) {
                     //TODO gaasuftave draiverebis siebi romlebshic useri chans
-                    userInfo.waitingList.clear();
+                    userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID);
                     driverInfo.route.addOrder(orderInfo);
                 }
             } else
                 ret = true;
         }
-        //getWaitingUsers(driverID);
+        getWaitingUsers(driverID);
         getWaitingDrivers(userID);
         return ret;
 

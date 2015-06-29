@@ -28,9 +28,11 @@ public class UserInfo extends User {
         super(user);
     }
 
-    public synchronized void removeOldOrders() {
+    public synchronized void removeBadOrders() {
         waitingList.removeIf(orderInfo ->
                 TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()) - orderInfo.getCreateTime() > OrderInfo.MAXIMUM_ORDER_LIFETIME);
+        waitingList.removeIf(orderInfo -> orderInfo.getDealIsDone());
+
     }
 
 
