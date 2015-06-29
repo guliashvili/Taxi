@@ -3,12 +3,11 @@
  */
 $(document).ready(function(){
     initializeO();
-    initializeSockets("bla");
 });
 var records=[];
 var travel=null;
 function initializeSockets(mToken){
-    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + "bla");
+    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + mToken);
 
     websocket.onopen = function (arg) {
         console.log("success", "connected");
