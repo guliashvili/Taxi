@@ -119,10 +119,6 @@
             <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
                 Your Preferences</a>
         </div>
-        <div class="5u$ 12u$(small)">
-            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
-                Your Preferences</a>
-        </div>
         <div id="cPref" class="6u$ hidden">
             <form id="cPrefForm">
                 <input type="text" name="action" value="dPreferences" class="hidden"/>
