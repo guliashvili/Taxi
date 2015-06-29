@@ -31,11 +31,11 @@ public class Driver extends SuperPersonalTokenUser {
         setLastName(lastName);
         setGender(gender);
         setPhoneNumber(phoneNumber);
-        setCar(car);
+        setCar(new Car(car));
         setFacebookID(facebookID);
         setGoogleID(googleID);
         setRating(rating);
-        setPreferences(preferences);
+        setPreferences(new DriverPreference(preferences));
         setIsActive(isActive);
         setIsVerifiedEmail(isVerifiedEmail);
         setIsVerifiedPhone(isVerifiedPhone);
@@ -70,6 +70,7 @@ public class Driver extends SuperPersonalTokenUser {
     }
 
     public synchronized void update(Driver driver) {
+        if (driver == null) return;
         update(driver.getDriverID(), driver.getPersonalID(), driver.getEmail(), driver.getPassword(), driver.getCompanyID(),
                 driver.getFirstName(), driver.getLastName(), driver.getGender(), driver.getPhoneNumber(), driver.getCar(),
                 driver.getFacebookID(), driver.getGoogleID(), driver.getRating(), driver.getPreferences(),

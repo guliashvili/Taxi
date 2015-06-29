@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class DriverInfo extends Driver {
 
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
+    public List<OrderInfo> timeTable = Collections.synchronizedList(new ArrayList<>());
+
     public Object block = new Object();
     public int nPassengers;
     private Location location;

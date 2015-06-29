@@ -28,7 +28,7 @@ public class User extends SuperPersonalTokenUser {
         setFacebookID(facebookID);
         setGoogleID(googleID);
         setRating(rating);
-        setPreference(preference);
+        setPreference(new UserPreference(preference));
         setIsVerifiedEmail(isVerifiedEmail);
         setIsVerifiedPhone(isVerifiedPhone);
     }
@@ -59,6 +59,7 @@ public class User extends SuperPersonalTokenUser {
     }
 
     public synchronized void update(User user) {
+        if (user == null) return;
         update(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
                 user.getGender(), user.getFacebookID(), user.getGoogleID(), user.getRating(), user.getPreference(),
                 user.getIsVerifiedEmail(), user.getIsVerifiedPhone());

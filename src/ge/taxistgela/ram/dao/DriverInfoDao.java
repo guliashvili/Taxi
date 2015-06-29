@@ -53,7 +53,7 @@ public class DriverInfoDao {
             if(curLocation == null) continue;
 
             if((GoogleMapUtils.getRoad(curLocation,orderInfo.getStart()).duration.inSeconds +
-                    GoogleMapUtils.getRoad(orderInfo.getStart(),orderInfo.getEnd()).duration.inSeconds)/60 > orderInfo.getTimeLimit())
+                    GoogleMapUtils.getRoad(orderInfo.getStart(), orderInfo.getEnd()).duration.inSeconds) / 60 > orderInfo.getUser().getPreference().getTimeLimit())
                 continue;
 
             if((userInfo.getPreference().isWantsAlone() && driverInfo.getnPassengers() > 0) ||

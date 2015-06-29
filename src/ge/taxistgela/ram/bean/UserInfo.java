@@ -4,7 +4,9 @@ import ge.taxistgela.bean.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by GIO on 6/28/2015.
@@ -15,20 +17,20 @@ public class UserInfo extends User {
 
 
     public Object block = new Object();
-    public List<OrderInfo> candidats1 = Collections.synchronizedList(new ArrayList<OrderInfo>());
-    public List<OrderInfo> candidats2 = Collections.synchronizedList(new ArrayList<OrderInfo>());
     public Long orderStartTime;
-
-
-
-
-
+    public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
     public UserInfo() {
         super();
     }
 
+
     public UserInfo(User user) {
         super(user);
+    }
+
+    public synchronized void removeOldOrders() {
+        waitingList.removeIf(orderInfo ->
+                TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()) - orderInfo.getCreateTime() > OrderInfo.MAXIMUM_ORDER_LIFETIME);
     }
 
 

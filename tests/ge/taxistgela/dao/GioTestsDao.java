@@ -87,8 +87,8 @@ public class GioTestsDao {
         review2 = new Review(-1, -1, false, 1.0, "review2");
 
 
-        car1 = new Car("JRJ-880", "jigri mdzgoli", 2000, true, 4);
-        car2 = new Car("PK-990-AC", "mweveli", 1994, false, 4);
+        car1 = new Car("JRJ880", "jigri mdzgoli", 2000, true, 4);
+        car2 = new Car("PK990AC", "mweveli", 1994, false, 4);
 
         driver1 = new Driver(-1, "01005030801", "vinmesmiti@gmail.com", "traki", null, "Giorgi", "Guliashvili", Gender.MALE, "557105511", car1,
                 null, "googleIDFOr traki", 4.0, driverPreference1, true, false, false);
