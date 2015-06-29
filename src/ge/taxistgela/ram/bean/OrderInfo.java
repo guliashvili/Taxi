@@ -32,19 +32,19 @@ public class OrderInfo{
 
     }
 
-    public Driver getDriver() {
+    public synchronized Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public synchronized void setDriver(Driver driver) {
         this.driver = new Driver(driver);
     }
 
-    public User getUser() {
+    public synchronized User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public synchronized void setUser(User user) {
         this.user = new User(user);
     }
 
