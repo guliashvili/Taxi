@@ -47,7 +47,12 @@ function initializeSockets(mToken) {
 
     websocket.onmessage = function (arg) {
         //console.log("success", arg.data);
-        addOrder(JSON.parse(arg.data));
+        var obj = JSON.parse(arg.data);
+        if(obj.inCar==undefined){
+            addOrder(obj);
+        }else{
+            defineRoute(obj);
+        }
     };
 
     websocket.onclose = function (arg) {
@@ -251,4 +256,11 @@ function createPreferencesSaves() {
             }
         });
     });
+}
+var curRoute;
+function defineRoute(route){
+    curRoute=route;
+}
+function displayRoute(){
+    //updates routeDiv TODO
 }
