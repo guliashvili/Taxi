@@ -31,7 +31,7 @@ public class DriverInfoDao {
 
     public DriverInfo getDriverInfoByID(int driverID){
         Driver driver = driverDao.getDriverByID(driverID);
-        if(driver == null || !driver.isVerified() || !driver.getIsActive()) return  null;
+        if (driver == null || !driver.isVerified()) return null;
         DriverInfo driverInfo = new DriverInfo(driver);
 
         return  driverInfo;
