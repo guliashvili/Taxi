@@ -86,7 +86,7 @@ CREATE TABLE Users (
 CREATE TABLE Orders (
   orderID            INT AUTO_INCREMENT PRIMARY KEY,
   userID             INT      NOT NULL, /*foreign key*/
-  driverID           INT      NOT NULL, /*foreign key*/
+  driverID      INT, /*foreign key*/
   numPassengers      INT      NOT NULL,
   startLocation_long Decimal(10, 7) NOT NULL,
   startLocation_lat  Decimal(10, 7) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE Orders (
   endLocation_lat    Decimal(10, 7) NOT NULL,
   startTime          DATETIME,
   endTime            DATETIME,
-  paymentAmount      Decimal(10, 7) NOT NULL,
+  paymentAmount DECIMAL(10, 7),
   callTime           DATETIME NOT NULL,
   revokedByUser   BOOL NOT NULL,
   revokedByDriver BOOL NOT NULL,
