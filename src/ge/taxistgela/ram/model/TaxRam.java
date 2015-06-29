@@ -63,8 +63,8 @@ public class TaxRam implements TaxRamAPI {
 
         ExternalAlgorithms.debugPrint("update location");
 
-            drivers.putIfAbsent(driverID, driverInfo);
-            drivers.get(driverID).setLocation(location);
+        drivers.putIfAbsent(driverID, driverInfo);
+        drivers.get(driverID).setLocation(location);
 
     }
 
@@ -191,23 +191,19 @@ public class TaxRam implements TaxRamAPI {
                     orderInfo = elem;
 
             }
+
             if (orderInfo != null) {
                 ret |= !(userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getDriver().getDriverID() == driverID));
 
                 if (!ret) {
-                    userInfo.waitingList.forEach(orderInfo1 -> {
-                        DriverInfo tmp = drivers.get(orderInfo1.getDriver().getDriverID());
-                        if (tmp != null)
-                            tmp.waitingList.removeIf(orderInfo2 -> orderInfo2.getUser().getUserID() == userID);
-                    });
+                    //TODO gaasuftave draiverebis siebi romlebshic useri chans
                     userInfo.waitingList.clear();
-                    driverInfo.timeTable.add(orderInfo);
-
+                    driverInfo.route.addOrder(orderInfo);
                 }
             } else
                 ret = true;
         }
-        getWaitingUsers(driverID);
+        //getWaitingUsers(driverID);
         getWaitingDrivers(userID);
         return ret;
 

@@ -29,9 +29,12 @@ public class OrderInfo{
         this.distance = distance;
         if (user != null) setUser(user);
         if (driver != null) setDriver(driver);
-
     }
 
+    public OrderInfo(OrderInfo orderInfo) {
+        this(orderInfo.createTime, orderInfo.end, orderInfo.nPassengers, orderInfo.maxPrice, orderInfo.start, orderInfo.startTime, orderInfo.distance,
+                orderInfo.user, orderInfo.driver);
+    }
     public synchronized Driver getDriver() {
         return driver;
     }
