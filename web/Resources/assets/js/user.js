@@ -72,12 +72,22 @@ function initializeO(){
 }
 var driversList="";
 function addOrderJ(){
-    var formData = $("#mapOrder").serialize()+"&action=addOrder&startLatitude="+startMarker.position.A+"&startLongitude="+startMarker.position.F+
-        "&endLatitude="+endMarker.position.A+"&endLongitude="+endMarker.position.F;
+    var arr = $("#mapOrder input");
+    var data = {};
+    for (var i = 1; i < arr.length; i++) {
+        data[$(arr[i]).attr("name")] = $(arr[i]).val();
+    }
+    data["action"] = "addOrder";
+    data["startLatitude"] = startMarker.position.A;
+    data["startLongitude"] = startMarker.position.F;
+    data["endLatitude"] = endMarker.position.A;
+    data["endLongitude"] = endMarker.position.F;
+    console.log(data);
     $.ajax({
         url: "/order",
         method: "post",
         cache: false,
+        data: data,
         success: function (data) {
             askWindow.setContent(driversList);
         },

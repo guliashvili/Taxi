@@ -126,9 +126,9 @@
                        name="wantsAlone">
                 <label for="wantsAlone"> Want To Travel Alone </label>
                 </input>
-                <button id="savePref" style="margin-top:5px" class="button special"> Save</button>
                 <br>
             </form>
+            <button id="savePref" style="margin-top:5px" class="button special"> Save</button>
         </div>
         <div class="12u 1u$(small)" style="float:left">
             <a href="#" onclick="$('#grid').toggleClass('hidden');" class="button special small fa fa-bar-chart">

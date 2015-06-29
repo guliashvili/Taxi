@@ -85,11 +85,11 @@ public class OrderServlet extends ActionServlet {
                 UserPreference userPreference = user.getPreference();
 
                 try {
-                    userPreference.setPassengersCount(Integer.parseInt(request.getParameter("passengersCount")));
+                    userPreference.setPassengersCount(Integer.parseInt(request.getParameter("passengerCount")));
                     userPreference.setTimeLimit(Integer.parseInt(request.getParameter("timeLimit")));
                     userPreference.setWantsAlone("on".equals(request.getParameter("wantsAlone")));
                     userPreference.setMinimumDriverRating(new Double(request.getParameter("minimumDriverRating")));
-                    userPreference.setCarYear(Integer.parseInt(request.getParameter("carYesr")));
+                    userPreference.setCarYear(Integer.parseInt(request.getParameter("carYear")));
                     userPreference.setConditioning("on".equals(request.getParameter("conditioning")));
                 } catch (Exception e) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -123,6 +123,7 @@ public class OrderServlet extends ActionServlet {
                 taxRam.addOrder(order);
 
                 response.setStatus(HttpServletResponse.SC_CREATED);
+                return;
             }
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
