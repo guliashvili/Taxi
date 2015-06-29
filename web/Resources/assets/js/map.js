@@ -27,8 +27,7 @@ var randomdrivers = [{lat: 41.732539, lang: 44.768887}, {lat: 41.721457, lang: 4
 }, {lat: 41.732000, lang: 44.768187}];
 function updateAsker(){
 	var dateAsker = "<form id='mapOrder' style='background-color:#FFD800;margin:5px;padding:5px;'>"+$("#prefForm").html()+
-		"<br><button id='addOrderM' onclick='addOrderJ()' class='special'> Add Order</button>"
-		+"</form>";
+		"<br></form><button id='addOrderM' onclick='addOrderJ()' class='special'> Add Order</button>";
 	return dateAsker;
 }
 function showPosition(position) {
