@@ -46,8 +46,8 @@ function initializeSockets(mToken) {
     };
 
     websocket.onmessage = function (arg) {
-        console.log("success", arg.data);
-        addOrder(arg.data);
+        //console.log("success", arg.data);
+        addOrder(JSON.parse(arg.data));
     };
 
     websocket.onclose = function (arg) {

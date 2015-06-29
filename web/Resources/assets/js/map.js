@@ -62,12 +62,13 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
-function addOrder(ordersInfo) {
+function addOrder(orderInfo) {
 	console.log("addOrder");
-	console.log(ordersInfo);
-	for (var orderInfo in ordersInfo) {
-		var start = orderInfo.start;
-		var end = orderInfo.end;
+	console.log(orderInfo);
+	for (var i = 0; i < orderInfo.length; i++) {
+		var start = orderInfo[i].start;
+		console.log(orderInfo[i]);
+		var end = orderInfo[i].end;
 
 		marker = new google.maps.Marker({
 			map: map,
