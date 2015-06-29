@@ -9,9 +9,9 @@ public class SNInfo {
     static{
         googleProjectID = "taxistgela";
         googleProjectNumber = "133454520924";
-        googleClientID = "133454520924-6sp4652ol0jpof842biu280foan0nube.apps.googleusercontent.com";
+        googleClientID = "133454520924-bs5ulmukvim8gtkdee91bc391p1crd5r.apps.googleusercontent.com";
         facebookProjectID = "TaxistGela";
         facebookProjectNumber = "771449059639215";
-        facebookClientID = "133454520924-6sp4652ol0jpof842biu280foan0nube.apps.googleusercontent.com";
+        facebookClientID = "";
     }
 }
