@@ -152,7 +152,7 @@ public class TaxRam implements TaxRamAPI {
         }
 
         getWaitingUsers(driverID);
-        getWaitingUsers(userID);
+        getWaitingDrivers(userID);
 
         return ret;
     }
@@ -184,13 +184,12 @@ public class TaxRam implements TaxRamAPI {
                     userInfo.waitingList.clear();
                     driverInfo.timeTable.add(orderInfo);
 
-                    //TODO sheatyobine drivers users
                 }
             } else
                 ret = true;
         }
         getWaitingUsers(driverID);
-        getWaitingUsers(userID);
+        getWaitingDrivers(userID);
         return ret;
 
     }
