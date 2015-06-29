@@ -9,8 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SessionManager implements SessionManagerAPI {
 
-    public static final int USER_SESSION = 1;
-    public static final int DRIVER_SESSION = 2;
+    public static final int USER_SESSION = 0;
+    public static final int DRIVER_SESSION = 1;
 
     private Map<String, Session> userSessions;
     private Map<String, Session> driverSessions;

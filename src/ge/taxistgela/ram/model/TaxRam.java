@@ -46,18 +46,28 @@ public class TaxRam implements TaxRamAPI {
 
     @Override
     public Location getDriverLocation(int driverID) {
-        if(!drivers.containsKey(driverID)) return null;
-        return  drivers.get(driverID).getLocation();
+        if (!drivers.containsKey(driverID)) {
+            ExternalAlgorithms.debugPrint("wrong get location " + driverID);
+            return null;
+        } else {
+            ExternalAlgorithms.debugPrint("get location " + driverID);
+            return drivers.get(driverID).getLocation();
+
+        }
+
     }
 
     @Override
     public void updateDriverLocation(int driverID, Location location) {
         DriverInfo driverInfo = driverInfoDao.getDriverInfoByID(driverID);
-        if(driverInfo == null) return;
+        if (driverInfo == null) {
+            ExternalAlgorithms.debugPrint("wrong update location");
+        } else {
+            ExternalAlgorithms.debugPrint("update location");
 
-        drivers.putIfAbsent(driverID,driverInfo);
-        drivers.get(driverID).setLocation(location);
-
+            drivers.putIfAbsent(driverID, driverInfo);
+            drivers.get(driverID).setLocation(location);
+        }
     }
     public double getPrice(DriverInfo driverInfo,UserInfo userInfo,OrderInfo orderInfo){
         return  (GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
@@ -67,7 +77,7 @@ public class TaxRam implements TaxRamAPI {
 
 
     public void addOrder(Order order){
-        ExternalAlgorithms.debugPrint(order.getUserID() + " \n");
+        ExternalAlgorithms.debugPrint("Order added " + order.getUserID() + " \n");
 
         UserInfo userInfo = userInfoDao.getUserInfoByID(order.getUserID());
         if(userInfo == null) return;
@@ -76,7 +86,7 @@ public class TaxRam implements TaxRamAPI {
 
         OrderInfo traki = new OrderInfo(curMinute, order.getEndLocation(),
                 order.getNumPassengers(), -1, order.getStartLocation(),
-                TimeUnit.MILLISECONDS.toMinutes(order.getStartTime().getTime()),
+                curMinute,
                 -1, userInfo, null);
 
         List<DriverInfo> queue = driverInfoDao.getDriversByUserPreference(userInfo, traki);
@@ -85,7 +95,7 @@ public class TaxRam implements TaxRamAPI {
         for(DriverInfo driverInfo : queue) {
             OrderInfo orderInfo = new OrderInfo(curMinute, order.getEndLocation(),
                     order.getNumPassengers(), -1, order.getStartLocation(),
-                    TimeUnit.MILLISECONDS.toMinutes(order.getStartTime().getTime()),
+                    curMinute,
                     -1,
                     userInfo,
                     driverInfo);
@@ -109,6 +119,8 @@ public class TaxRam implements TaxRamAPI {
         DriverInfo driverInfo = drivers.get(driverID);
         if (driverInfo == null) return;
         driverInfo.removeOldOrders();
+        ExternalAlgorithms.debugPrint("getWaitingUsers sending users to " + driverID + " size of " + driverInfo.waitingList.size());
+
         String ret = new Gson().toJson(driverInfo.waitingList);
 
         sessionManager.sendMessage(SessionManager.DRIVER_SESSION, driverID, ret);
@@ -120,6 +132,8 @@ public class TaxRam implements TaxRamAPI {
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return;
         userInfo.removeOldOrders();
+        ExternalAlgorithms.debugPrint("getWaitingDrivers sending drivers to " + userID + " size of " + userInfo.waitingList.size());
+
         String ret = new Gson().toJson(userInfo.waitingList);
         sessionManager.sendMessage(SessionManager.USER_SESSION, userID, ret);
     }

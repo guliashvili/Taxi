@@ -7,7 +7,7 @@ $(document).ready(function(){
 var records=[];
 var travel=null;
 function initializeSockets(mToken){
-    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + mToken);
+    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 0 + "/" + mToken);
 
     websocket.onopen = function (arg) {
         console.log("success", "connected");
@@ -20,7 +20,7 @@ function initializeSockets(mToken){
         for(var d in list){
             driversList+="<button class='special>"+ d.car.carID+"</button>";
         }
-        driversList="</div>"
+        driversList = "</div>";
         askWindow.setContent(driversList);
     };
 
@@ -28,7 +28,7 @@ function initializeSockets(mToken){
         console.log("success", "disconnected");
     };
 
-    websocket.onerror = function (arg) {
+    websocket.error = function (arg) {
         console.error(arg.data);
     };
 
@@ -69,15 +69,24 @@ function initializeO(){
     });
     console.log("ajax request sent");
 }
-var driversList="";
+var driversList = "<img src='Resources/images/loading.gif' style='width:400px;height:auto' />";
 function addOrderJ(){
-    var formData = $("#mapOrder").serialize()+"&action=addOrder&startLatitude="+startMarker.position.A+"&startLongitude="+startMarker.position.F+
-        "&endLatitude="+endMarker.position.A+"&endLongitude="+endMarker.position.F;
+    var arr = $("#mapOrder input");
+    var data = {};
+    for (var i = 1; i < arr.length; i++) {
+        data[$(arr[i]).attr("name")] = $(arr[i]).val();
+    }
+    data["action"] = "addOrder";
+    data["startLatitude"] = startMarker.position.A;
+    data["startLongitude"] = startMarker.position.F;
+    data["endLatitude"] = endMarker.position.A;
+    data["endLongitude"] = endMarker.position.F;
+    console.log(data);
     $.ajax({
         url: "/order",
         method: "post",
         cache: false,
-        data: formData,
+        data: data,
         success: function (data) {
             askWindow.setContent(driversList);
         },

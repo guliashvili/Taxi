@@ -23,8 +23,10 @@ public class Configurator extends ServerEndpointConfig.Configurator {
 
     @Override
     public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
+        System.out.println("passed handshake");
         HttpSession session = (HttpSession) request.getHttpSession();
-        System.out.println("handshake test");
+
+        System.out.println("passed handshake");
         if (session != null) {
             sec.getUserProperties().put(ServletContext.class.getName(), session.getServletContext());
         }

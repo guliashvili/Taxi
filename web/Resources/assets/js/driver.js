@@ -6,11 +6,59 @@
 $(document).ready(function(){
     initializeO();
 });
+var latitude = null;
+var longitude = null;
 function initializeO(){
     $(".headCaption").removeClass("hidden");
     initializeMap();
     createPreferencesSaves();
-    generateGrid();
+    setInterval(function () {
+        navigator.geolocation.getCurrentPosition(updateLatLang);
+        if (latitude == null || longitude == null) return;
+        $.ajax({
+            url: "/update",
+            method: "post",
+            data: {
+                action: "dLocation",
+                latitude: latitude,
+                longitude: longitude
+            },
+            cache: false,
+            success: function (data) {
+                //console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    }, 3000);
+    //generateGrid();
+}
+function updateLatLang(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+}
+function initializeSockets(mToken) {
+    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + mToken);
+
+    websocket.onopen = function (arg) {
+        console.log("success", "connected");
+    };
+
+    websocket.onmessage = function (arg) {
+        //console.log("success", arg.data);
+        addOrder(JSON.parse(arg.data));
+    };
+
+    websocket.onclose = function (arg) {
+        console.log("success", "disconnected");
+    };
+
+    websocket.error = function (arg) {
+        console.error(arg.data);
+    };
+
+    return websocket;
 }
 function resendEmail(){
 
