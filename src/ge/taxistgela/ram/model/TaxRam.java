@@ -115,9 +115,9 @@ public class TaxRam implements TaxRamAPI {
 
     }
 
-    public void getWaitingUsers(int driverID) {
+    public List<OrderInfo> getWaitingUsers(int driverID) {
         DriverInfo driverInfo = drivers.get(driverID);
-        if (driverInfo == null) return;
+        if (driverInfo == null) return null;
         driverInfo.removeOldOrders();
         ExternalAlgorithms.debugPrint("getWaitingUsers sending users to " + driverID + " size of " + driverInfo.waitingList.size());
 
@@ -125,17 +125,18 @@ public class TaxRam implements TaxRamAPI {
 
         sessionManager.sendMessage(SessionManager.DRIVER_SESSION, driverID, ret);
 
-        return;//DON'T CHANGE daginebulia
+        return driverInfo.waitingList;//DON'T CHANGE daginebulia
     }
 
-    public void getWaitingDrivers(int userID) {
+    public List<OrderInfo> getWaitingDrivers(int userID) {
         UserInfo userInfo = users.get(userID);
-        if (userInfo == null) return;
+        if (userInfo == null) return null;
         userInfo.removeOldOrders();
         ExternalAlgorithms.debugPrint("getWaitingDrivers sending drivers to " + userID + " size of " + userInfo.waitingList.size());
 
         String ret = new Gson().toJson(userInfo.waitingList);
         sessionManager.sendMessage(SessionManager.USER_SESSION, userID, ret);
+        return userInfo.waitingList;
     }
 
     public boolean driverChoice(int driverID, int userID, boolean accept) {
