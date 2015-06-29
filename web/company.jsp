@@ -1,5 +1,7 @@
 <%@ page import="ge.taxistgela.bean.Company" %>
 <%@ page import="ge.taxistgela.socialNetwork.SNInfo" %>
+<%@ page import="ge.taxistgela.dao.CompanyDao" %>
+<%@ page import="ge.taxistgela.model.CompanyManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -22,12 +24,20 @@
         <h2> Greetings <%= company.getCompanyName()%> <br></h2>
 
         <div class="5u$">
-            <a href="#"><h3>Your Average Driver Rating: 4.3</h3></a>
+            <a href="#"><h3>Your Average Driver Rating: <% CompanyManager man  =(CompanyManager) request.getServletContext().getAttribute(CompanyManager.class.getName());
+            double Rating= man.getCompanyScore(company.getCompanyID());%>
+            </h3></a>
+            <% for (int i = 1; i <= 5; ++i) { %>
+            <% if (Rating >= i) { %>
             <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
+            <% } else { %>
+            <% if (Math.ceil(Rating) > i) { %>
             <li class="fa fa-star-half-o"></li>
+            <% } else { %>
             <li class="fa fa-star-o"></li>
+            <%} %>
+            <%} %>
+            <%} %>
         </div>
         <div class="3u$ (small)">
             <span> Your Company Code </span> <a href="#" data-target="#helperModal" data-toggle="modal"
