@@ -69,7 +69,7 @@ function initializeO(){
     });
     console.log("ajax request sent");
 }
-var driversList="";
+var driversList = "<img src='Resources/images/loading.gif' style='width:400px;height:auto' />";
 function addOrderJ(){
     var arr = $("#mapOrder input");
     var data = {};
