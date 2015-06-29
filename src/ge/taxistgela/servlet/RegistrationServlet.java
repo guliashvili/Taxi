@@ -77,7 +77,7 @@ public class RegistrationServlet extends ActionServlet {
             return;
         }
 
-        Car car = new Car(RandomStringUtils.randomAlphanumeric(20), "Untitled", 1900, false, 0);
+        Car car = new Car(RandomStringUtils.randomAlphanumeric(7), "Untitled", 1900, false, 0);
 
         code = driverManager.insertCar(car);
         if (code.errorAccrued()) {
