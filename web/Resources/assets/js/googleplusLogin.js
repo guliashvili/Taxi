@@ -3,6 +3,8 @@
  */
 
 function onLogin(googleUser) {
+    if(!googleUser['g-oauth-window'])
+        return;
     var id_token = googleUser.getAuthResponse().id_token;
     var objectName;
     if ($("#userLogin:checked").val() != undefined) {
