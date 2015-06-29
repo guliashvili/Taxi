@@ -142,10 +142,32 @@ function generateModal(orderInfo) {
     return out;
 }
 function rejectOffer(index){
-
+    $.ajax({
+        url: "/order",
+        method: "post",
+        data: {action: "driverReject",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
+        }
+    });
 }
 function acceptOffer(index){
-
+    $.ajax({
+        url: "/order",
+        method: "post",
+        data: {action: "driverAccept",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
+        }
+    });
 }
 function resendEmail() {
 
