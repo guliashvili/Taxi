@@ -62,15 +62,19 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
+var orderMarkers = [];
 function addOrder(orderInfo) {
 	console.log("addOrder");
 	console.log(orderInfo);
+	while (orderMarkers.length > 0) {
+		orderMarkers.pop().setMap(null);
+	}
 	for (var i = 0; i < orderInfo.length; i++) {
 		var start = orderInfo[i].start;
 		console.log(orderInfo[i]);
 		var end = orderInfo[i].end;
 
-		marker = new google.maps.Marker({
+		var tmpMarker = new google.maps.Marker({
 			map: map,
 			draggable: true,
 			animation: google.maps.Animation.DROP,
@@ -80,10 +84,11 @@ function addOrder(orderInfo) {
 		cont = new google.maps.InfoWindow({
 			content: dateAsker
 		});
-		google.maps.event.addListener(marker, 'click', function () {
-			openOrder(cont, marker);
+		google.maps.event.addListener(tmpMarker, 'click', function () {
+			openOrder(cont, tmpMarker);
 		});
-		marker.setAnimation(google.maps.Animation.BOUNCE);
+		orderMarkers.push(tmpMarker);
+		tmpMarker.setAnimation(google.maps.Animation.BOUNCE);
 	}
 }
 function openOrder(cont,mark){
