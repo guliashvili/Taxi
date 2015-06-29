@@ -141,7 +141,7 @@ function generateModal(orderInfo) {
     }
     return out;
 }
-function acceptOffer(index){
+function rejectOffer(index){
 
 }
 function acceptOffer(index){
