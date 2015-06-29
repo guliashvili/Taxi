@@ -10,7 +10,7 @@
 
 
 function onLogin(authResult) {
-    console.log("GELA");
+    console.log("onLogin called");
     if (!authResult['g-oauth-window'] || !authResult['status']['signed_in'])
         return;
     gapi.client.load('plus','v1', function() {

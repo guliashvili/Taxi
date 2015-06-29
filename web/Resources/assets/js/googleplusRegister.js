@@ -3,12 +3,15 @@
  */
 
 function onRegister(authResult) {
+    console.log("onRegister called");
     if (!authResult['g-oauth-window'] || !authResult['status']['signed_in'])
         return;
+    console.log("onRegister called");
     gapi.client.load('plus','v1', function() {
         var requestRegister = gapi.client.plus.people.get({
             'userId': 'me'
         });
+        console.log("onRegister called");
         requestRegister.execute(function (resp) {
             console.log(resp);
             var googleplusId = resp.id;
@@ -85,7 +88,6 @@ function onRegister(authResult) {
                     $("#companyphoneNumber").val(phoneNumber);
                 }
             }
-
         });
     });
 }
