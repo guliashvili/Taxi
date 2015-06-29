@@ -8,6 +8,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 
+
 function onLogin(authResult) {
     console.log("GELA");
     if (!authResult['g-oauth-window'] || !authResult['status']['signed_in'])
