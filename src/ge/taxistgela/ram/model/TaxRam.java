@@ -60,14 +60,12 @@ public class TaxRam implements TaxRamAPI {
     @Override
     public void updateDriverLocation(int driverID, Location location) {
         DriverInfo driverInfo = driverInfoDao.getDriverInfoByID(driverID);
-        if (driverInfo == null) {
-            ExternalAlgorithms.debugPrint("wrong update location");
-        } else {
-            ExternalAlgorithms.debugPrint("update location");
+
+        ExternalAlgorithms.debugPrint("update location");
 
             drivers.putIfAbsent(driverID, driverInfo);
             drivers.get(driverID).setLocation(location);
-        }
+
     }
 
     @Override
