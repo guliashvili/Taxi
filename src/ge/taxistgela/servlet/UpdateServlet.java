@@ -171,7 +171,7 @@ public class UpdateServlet extends ActionServlet {
     }
 
     public void dLocation(HttpServletRequest request, HttpServletResponse response) {
-        TaxRamAPI taxRam = (TaxRamAPI) request.getSession().getAttribute(TaxRamAPI.class.getName());
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
 
         if (taxRam == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

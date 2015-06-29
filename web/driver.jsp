@@ -11,6 +11,7 @@
 <script src="/Resources/assets/js/addFacebookAccount.js"></script>
 <script src="Resources/assets/js/driver.js"></script>
 <% Driver driver = (Driver) session.getAttribute(Driver.class.getName());%>
+<script> initializeSockets("<%=driver.getToken()%>") </script>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>

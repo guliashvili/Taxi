@@ -62,19 +62,28 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
-function addOrder(orderInfo){
-	marker = new google.maps.Marker({
-		map:map,
-		draggable:true,
-		animation: google.maps.Animation.DROP,
-		position: new google.maps.LatLng(lat,lng)
-	});
-	var dateAsker = '';
-	cont = new google.maps.InfoWindow({
-		content: dateAsker
-	});
-	google.maps.event.addListener(marker, 'click', function(){openOrder(cont,marker);});
-	marker.setAnimation(google.maps.Animation.BOUNCE);
+function addOrder(ordersInfo) {
+	console.log("addOrder");
+	console.log(ordersInfo);
+	for (var orderInfo in ordersInfo) {
+		var start = orderInfo.start;
+		var end = orderInfo.end;
+
+		marker = new google.maps.Marker({
+			map: map,
+			draggable: true,
+			animation: google.maps.Animation.DROP,
+			position: new google.maps.LatLng(start.latitude, start.longitude)
+		});
+		var dateAsker = '';
+		cont = new google.maps.InfoWindow({
+			content: dateAsker
+		});
+		google.maps.event.addListener(marker, 'click', function () {
+			openOrder(cont, marker);
+		});
+		marker.setAnimation(google.maps.Animation.BOUNCE);
+	}
 }
 function openOrder(cont,mark){
 	cont.open(map,mark);
