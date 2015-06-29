@@ -69,13 +69,15 @@ public class TaxRam implements TaxRamAPI {
             drivers.get(driverID).setLocation(location);
         }
     }
+
+    @Override
     public double getPrice(DriverInfo driverInfo,UserInfo userInfo,OrderInfo orderInfo){
         return  (GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
                 GoogleMapUtils.getRoad(orderInfo.getStart(),orderInfo.getEnd()).distance.inMeters)/1000.0 *
                 driverInfo.getPreferences().getCoefficientPer();//TODO
     }
 
-
+    @Override
     public void addOrder(Order order){
         ExternalAlgorithms.debugPrint("Order added " + order.getUserID() + " \n");
 
@@ -115,9 +117,10 @@ public class TaxRam implements TaxRamAPI {
 
     }
 
-    public void getWaitingUsers(int driverID) {
+    @Override
+    public List<OrderInfo> getWaitingUsers(int driverID) {
         DriverInfo driverInfo = drivers.get(driverID);
-        if (driverInfo == null) return;
+        if (driverInfo == null) return null;
         driverInfo.removeOldOrders();
         ExternalAlgorithms.debugPrint("getWaitingUsers sending users to " + driverID + " size of " + driverInfo.waitingList.size());
 
@@ -125,19 +128,22 @@ public class TaxRam implements TaxRamAPI {
 
         sessionManager.sendMessage(SessionManager.DRIVER_SESSION, driverID, ret);
 
-        return;//DON'T CHANGE daginebulia
+        return driverInfo.waitingList;//DON'T CHANGE daginebulia
     }
 
-    public void getWaitingDrivers(int userID) {
+    @Override
+    public List<OrderInfo> getWaitingDrivers(int userID) {
         UserInfo userInfo = users.get(userID);
-        if (userInfo == null) return;
+        if (userInfo == null) return null;
         userInfo.removeOldOrders();
         ExternalAlgorithms.debugPrint("getWaitingDrivers sending drivers to " + userID + " size of " + userInfo.waitingList.size());
 
         String ret = new Gson().toJson(userInfo.waitingList);
         sessionManager.sendMessage(SessionManager.USER_SESSION, userID, ret);
+        return userInfo.waitingList;
     }
 
+    @Override
     public boolean driverChoice(int driverID, int userID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
@@ -171,6 +177,7 @@ public class TaxRam implements TaxRamAPI {
         return ret;
     }
 
+    @Override
     public boolean userChoice(int driverID, int userID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
@@ -207,8 +214,4 @@ public class TaxRam implements TaxRamAPI {
         return ret;
 
     }
-
-
-
-
 }

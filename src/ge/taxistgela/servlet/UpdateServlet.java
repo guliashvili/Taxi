@@ -88,7 +88,7 @@ public class UpdateServlet extends ActionServlet {
 
                 try {
                     driverPreference.setMinimumUserRating(new Double(request.getParameter("minimumUserRating")));
-                    driverPreference.setCoefficientPer(new Double(request.getParameter("coefficienPer")));
+                    driverPreference.setCoefficientPer(new Double(request.getParameter("coefficientPer")));
                 } catch (Exception ex) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
@@ -233,10 +233,10 @@ public class UpdateServlet extends ActionServlet {
     }
 
     public void dCar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        DriverManagerAPI driverManager = (DriverManagerAPI) request.getSession().getAttribute(DriverManagerAPI.class.getName());
+        DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
 
         if (driverManager == null) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
 
