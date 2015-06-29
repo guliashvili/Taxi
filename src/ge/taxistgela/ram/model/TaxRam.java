@@ -6,6 +6,7 @@ import ge.taxistgela.bean.Order;
 import ge.taxistgela.dao.DriverDao;
 import ge.taxistgela.dao.OrderDao;
 import ge.taxistgela.dao.UserDao;
+import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.helper.GoogleMapUtils;
 import ge.taxistgela.model.SessionManager;
 import ge.taxistgela.ram.bean.DriverInfo;
@@ -66,6 +67,8 @@ public class TaxRam implements TaxRamAPI {
 
 
     public void addOrder(Order order){
+        ExternalAlgorithms.debugPrint(order.getUserID() + " \n");
+
         UserInfo userInfo = userInfoDao.getUserInfoByID(order.getUserID());
         if(userInfo == null) return;
         Long curMinute = TimeUnit.MILLISECONDS.toMinutes(new Date().getTime());
@@ -74,8 +77,7 @@ public class TaxRam implements TaxRamAPI {
         OrderInfo traki = new OrderInfo(curMinute, order.getEndLocation(),
                 order.getNumPassengers(), -1, order.getStartLocation(),
                 TimeUnit.MILLISECONDS.toMinutes(order.getStartTime().getTime()),
-                -1, null, null);
-        traki.setUser(userInfo);
+                -1, userInfo, null);
 
         List<DriverInfo> queue = driverInfoDao.getDriversByUserPreference(userInfo, traki);
 
@@ -98,7 +100,7 @@ public class TaxRam implements TaxRamAPI {
 
             driverInfo.removeOldOrders();
 
-            //TODO sheatyobine driverebs
+            getWaitingUsers(driverInfo.getDriverID());
         }
 
     }
@@ -130,23 +132,20 @@ public class TaxRam implements TaxRamAPI {
 
         if (!accept) {
             ret |= !driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID);
+
         } else {
 
-
             OrderInfo orderInfo = null;
-            for (OrderInfo elem : driverInfo.waitingList) {
+            for (OrderInfo elem : driverInfo.waitingList)
                 if (elem.getUser().getUserID() == userID)
                     orderInfo = elem;
-            }
+
 
             if (orderInfo != null) {
                 ret |= !(driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getUser().getUserID() == userID));
 
                 if (!ret) {
                     userInfo.waitingList.add(orderInfo);
-                    userInfo.removeOldOrders();
-
-
                 }
             } else
                 ret = true;

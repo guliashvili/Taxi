@@ -19,8 +19,8 @@ public class DriverInfo extends Driver {
     public List<OrderInfo> timeTable = Collections.synchronizedList(new ArrayList<>());
 
     public Object block = new Object();
-    public int nPassengers;
-    private Location location;
+    public int nPassengers = 0;
+    private Location location = null;
 
     public DriverInfo() {
         super();
