@@ -77,6 +77,7 @@ function addOrderJ(){
         url: "/order",
         method: "post",
         cache: false,
+        data: formData,
         success: function (data) {
             askWindow.setContent(driversList);
         },
