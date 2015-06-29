@@ -2,26 +2,26 @@
  * Created by Tornike on 27.06.2015.
  */
 
-(function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/client:plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-})();
-
 function onRegister(authResult) {
     if (!authResult['g-oauth-window'] || !authResult['status']['signed_in'])
         return;
-    String GOOGLE_ME_URL = "https://www.googleapis.com/plus/v1/people/me";
-    final DefaultHttpClient client = new DefaultHttpClient();
-    final HttpGet request = new HttpGet(GOOGLE_ME_URL);
-    request.addHeader("Authorization", "OAuth=" + authToken);
-    request.execute(function (resp) {
-            var googleplusId = resp.userid;
-            var name = resp.first_name;
-            var surname = resp.lastName;
-            var phoneNumber = resp.phone;
-            var sex = resp.gender;
-            var email = resp.gmail;
+    gapi.client.load('plus','v1', function() {
+        var requestRegister = gapi.client.plus.people.get({
+            'userId': 'me'
+        });
+        requestRegister.execute(function (resp) {
+            console.log(resp);
+            var googleplusId = resp.id;
+            var nameAndSurname = resp.displayName;
+            var name = nameAndSurname.split(" ", 1);
+            var surname = "";
+            var phoneNumber = undefined;
+            var sex = undefined;
+            var email = resp.emails[0].value;
+
+            if (nameAndSurname.indexOf(' ') != -1)
+                surname = nameAndSurname.substr(nameAndSurname.indexOf(' ') + 1, nameAndSurname.length - name.length - 1);
+
             console.log(googleplusId + " " + name + " " + surname + " " + phoneNumber + " " + sex + " " + email);
             if ($("#userReg:checked").val() != undefined) {
                 if (googleplusId != undefined) {
@@ -87,4 +87,5 @@ function onRegister(authResult) {
             }
 
         });
+    });
 }
