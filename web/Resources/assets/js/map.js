@@ -91,7 +91,7 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
-function addOrder(lat,lng){
+function addOrder(orderInfo){
 	marker = new google.maps.Marker({
 		map:map,
 		draggable:true,

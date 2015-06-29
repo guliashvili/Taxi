@@ -24,6 +24,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <meta name="google-signin-client_id" content=<%=SNInfo.googleClientID%>>
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/Resources/assets/js/facebookLogin.js"></script>
