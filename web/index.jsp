@@ -150,7 +150,17 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input id="companyName" type="text" name="companyName" value="" placeholder="Company Name"/><br>
                             <input id="companyphoneNumber" type="text" name="companyphoneNumber" value="" placeholder="Company Phone Number"/><br>
                             <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
-                            <div class="g-signin2" data-onsuccess="onRegister"></div>
+                            <div class="gg_button">
+                                <span
+                                                class="g-signin"
+                                                data-height="short"
+                                                data-callback="onRegister"
+                                                data-clientid=<%=SNInfo.googleClientID%>
+                                                        data-cookiepolicy="single_host_origin"
+                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                                data-scope="https://www.googleapis.com/auth/plus.login">
+                                </span>
+                            </div>
                         </div>
                         <div id="userRegistration" class="hidden">
                             <input id="userfirstName" type="text" name="userfirstName" value="" placeholder="First Name"/><br>
@@ -167,7 +177,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input id="userphoneNumber" type="text" name="userphoneNumber" value="" placeholder="Phone Number"/><br>
                             <fb:login-button scope="public_profile,email" data-onsuccess="checkRegisterState();"></fb:login-button>
                             <div class="gg_button">
-                                <span id="signinButton">
                                         <span
                                                 class="g-signin"
                                                 data-height="short"
@@ -177,7 +186,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                                 data-scope="https://www.googleapis.com/auth/plus.login">
                                         </span>
-                                </span>
                             </div>
                         </div>
                         <div id="driverRegistration" class="hidden">
@@ -196,7 +204,17 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             </select><br>
                             <input id="driverphoneNumber" type="text" name="driverphoneNumber" value="" placeholder="Phone Number"/><br>
                             <fb:login-button scope="public_profile,email" onlogin="checkRegisterState();"></fb:login-button>
-                            <div class="g-signin2" data-onsuccess="onRegister"></div>
+                            <div class="gg_button">
+                                        <span
+                                                class="g-signin"
+                                                data-height="short"
+                                                data-callback="onRegister"
+                                                data-clientid=<%=SNInfo.googleClientID%>
+                                                        data-cookiepolicy="single_host_origin"
+                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                                data-scope="https://www.googleapis.com/auth/plus.login">
+                                        </span>
+                            </div>
                         </div>
                         <div class="g-recaptcha" data-sitekey="6LcS8QgTAAAAAP98JRVGsRNt0uKxnX_LDKRiWN70"></div>
                     </form>
@@ -242,7 +260,17 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input type="password" name="password" placeholder="Password"><br>
                             <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
                             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-                            <div class="g-signin2" data-onsuccess="onLogin"></div>
+                            <div class="gg_button">
+                                        <span
+                                                class="g-signin"
+                                                data-height="short"
+                                                data-callback="onLogin"
+                                                data-clientid=<%=SNInfo.googleClientID%>
+                                                        data-cookiepolicy="single_host_origin"
+                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                                data-scope="https://www.googleapis.com/auth/plus.login">
+                                        </span>
+                            </div>
                             <!--  <div id="loginStatus">
                             </div>
                             -->

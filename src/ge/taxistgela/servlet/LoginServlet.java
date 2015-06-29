@@ -53,13 +53,7 @@ public class LoginServlet extends ActionServlet {
 
 
     public void loginGPSuper(SuperUserManager man, int type, HttpServletRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
-        String id_token = request.getParameter("id_token");
-        String googleID = ExternalAlgorithms.verify(id_token);
-        if (googleID == null){
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
+        String googleID = request.getParameter("googleplusId");
         ExternalAlgorithms.debugPrint("LoginGP " + A_TYPE[type] + " " + googleID);
 
         if (man == null) {
