@@ -69,6 +69,7 @@ public class TaxRam implements TaxRamAPI {
 
     }
 
+
     @Override
     public double getPrice(DriverInfo driverInfo,UserInfo userInfo,OrderInfo orderInfo){
         return  (GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
