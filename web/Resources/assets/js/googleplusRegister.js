@@ -11,9 +11,14 @@
 function onRegister(authResult) {
     if (!authResult['g-oauth-window'] || !authResult['status']['signed_in'])
         return;
-    String GOOGLE_ME_URL = "https://www.googleapis.com/plus/v1/people/me";
-    final DefaultHttpClient client = new DefaultHttpClient();
-    final HttpGet request = new HttpGet(GOOGLE_ME_URL);
+    String;
+    GOOGLE_ME_URL = "https://www.googleapis.com/plus/v1/people/me";
+    final;
+    DefaultHttpClient;
+    client = new DefaultHttpClient();
+    final;
+    HttpGet;
+    request = new HttpGet(GOOGLE_ME_URL);
     request.addHeader("Authorization", "OAuth=" + authToken);
     request.execute(function (resp) {
             var googleplusId = resp.userid;
