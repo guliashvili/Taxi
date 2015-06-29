@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.model.OrderManagerAPI;
 import ge.taxistgela.model.UserManagerAPI;
-import ge.taxistgela.ram.model.TaxRam;
 import ge.taxistgela.ram.model.TaxRamAPI;
 
 import javax.servlet.annotation.WebServlet;
@@ -73,7 +72,7 @@ public class OrderServlet extends ActionServlet {
     }
 
     public void addOrder(HttpServletRequest request, HttpServletResponse response) {
-        TaxRam taxRam = (TaxRam) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
         if (taxRam == null || userManager == null) {

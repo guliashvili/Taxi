@@ -69,13 +69,15 @@ public class TaxRam implements TaxRamAPI {
             drivers.get(driverID).setLocation(location);
         }
     }
+
+    @Override
     public double getPrice(DriverInfo driverInfo,UserInfo userInfo,OrderInfo orderInfo){
         return  (GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
                 GoogleMapUtils.getRoad(orderInfo.getStart(),orderInfo.getEnd()).distance.inMeters)/1000.0 *
                 driverInfo.getPreferences().getCoefficientPer();//TODO
     }
 
-
+    @Override
     public void addOrder(Order order){
         ExternalAlgorithms.debugPrint("Order added " + order.getUserID() + " \n");
 
@@ -115,6 +117,7 @@ public class TaxRam implements TaxRamAPI {
 
     }
 
+    @Override
     public List<OrderInfo> getWaitingUsers(int driverID) {
         DriverInfo driverInfo = drivers.get(driverID);
         if (driverInfo == null) return null;
@@ -128,6 +131,7 @@ public class TaxRam implements TaxRamAPI {
         return driverInfo.waitingList;//DON'T CHANGE daginebulia
     }
 
+    @Override
     public List<OrderInfo> getWaitingDrivers(int userID) {
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return null;
@@ -139,6 +143,7 @@ public class TaxRam implements TaxRamAPI {
         return userInfo.waitingList;
     }
 
+    @Override
     public boolean driverChoice(int driverID, int userID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
@@ -172,6 +177,7 @@ public class TaxRam implements TaxRamAPI {
         return ret;
     }
 
+    @Override
     public boolean userChoice(int driverID, int userID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
@@ -208,8 +214,4 @@ public class TaxRam implements TaxRamAPI {
         return ret;
 
     }
-
-
-
-
 }
