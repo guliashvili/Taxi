@@ -39,7 +39,6 @@ public class DriverDao implements DriverDaoAPI {
             "Cars.carYear >= ? AND " +
             "Cars.numPassengers >= ? AND " +
             "? >= DriverPreferences.minimumUserRating AND " +
-            "Drivers.isActive AND " +
             "Drivers.isVerifiedPhone=TRUE AND Drivers.isVerifiedEmail=TRUE";
 
     private final static String insert_car_STMT = "INSERT INTO Cars(carID,carDescription,carYear,conditioning,numPassengers) " +
