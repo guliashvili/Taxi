@@ -91,6 +91,7 @@ public class TaxRam implements TaxRamAPI {
                 curMinute,
                 -1, userInfo, null, null, order.getOrderID());
 
+
         List<DriverInfo> queue = driverInfoDao.getDriversByUserPreference(userInfo, traki);
 
         BOOLEAN dealisDone = new BOOLEAN(false);
