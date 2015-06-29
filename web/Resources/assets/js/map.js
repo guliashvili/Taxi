@@ -25,6 +25,12 @@ var randomdrivers = [{lat: 41.732539, lang: 44.768887}, {lat: 41.721457, lang: 4
 	lat: 41.732039,
 	lang: 44.768587
 }, {lat: 41.732000, lang: 44.768187}];
+function updateAsker(){
+	var dateAsker = "<form id='mapOrder' style='background-color:#FFD800;margin:5px;padding:5px;'>"+$("#prefForm").html()+
+		"<br><button id='addOrderM' onclick='addOrderJ()' class='special'> Add Order</button>"
+		+"</form>";
+	return dateAsker;
+}
 function showPosition(position) {
 	var mapOptions = { //your location
 		center: {lat: position.coords.latitude, lng: position.coords.longitude},
@@ -40,45 +46,11 @@ function showPosition(position) {
 		google.maps.event.addListener(map, 'click', function (event) {
 			placeMarker(event.latLng);
 		});
-		var dateAsker = '<div id="order" style="overflow-y:scroll;width:300px;height:450px; color:black;background-color:#FFD800;padding:10px"> \
-			<form id="prefForm" action="" type="post">\
-			<div class="input-group date" id="datetimepicker10" style="margin-bottom:5px">\
-			<label for="startDate">Please Select Desired Time Of Departure</label>\
-			<input type="text" id="startDate" name="startDate" class="form-control" />\
-			<span class="input-group-addon">\
-			<span class="glyphicon glyphicon-calendar">\
-			</span>\
-			</span></div>\
-            <input type="text" name="action" value="uPreferences" class="hidden"/>\
-            <input type="number" id="minimumDriverRating" name="minimumDriverRating"\
-        value="0.0"\
-        style="color:black;padding-left:5px" value="1" step=".1">\
-            <label for="minimumDriverRating"> Minimum Driver Rating </label><br>\
-        <input type="checkbox" id="conditioning"\
-        name="conditioning">\
-    <label for="conditioning"> Conditioning Required </label>\
-        </input><br>\
-        <input type="number" name="carYear" value="0" id="carYear"\
-        style="color:black;padding-left:5px" value="1990" step="1">\
-            <label for="carYear"> Minimum Car Year </label>\
-        <input type="number" name="timeLimit" id="timeLimit" value="100"\
-        style="color:black;padding-left:5px" value="10" step="1">\
-            <label for="timeLimit"> Maximum Time Limit (Minutes) </label>\
-        <input type="number" name="passengerCount" id="passengerCount"\
-        value="0"\
-        style="color:black;padding-left:5px" value="1" step="1">\
-            <label for="passengerCount"> Passenger Count </label><br>\
-        <input type="checkbox" name="wantsAlone" id="wantsAlone"\
-        value="0"\
-        name="wantsAlone">\
-            <label for="wantsAlone"> Want To Travel Alone </label>\
-        </input>\
-        <button id="ProceedOrder" style="margin-top:5px" class="button special"> Proceed</button>\
-            <br>\
-            </form>';
+		var dateAsker = updateAsker();
 		askWindow = new google.maps.InfoWindow({
 			content: dateAsker
 		});
+
 	}
 	for (var i = 0; i < randomdrivers.length; ++i) {
 		var driver = new google.maps.Marker({
@@ -98,42 +70,7 @@ function addOrder(orderInfo){
 		animation: google.maps.Animation.DROP,
 		position: new google.maps.LatLng(lat,lng)
 	});
-	var dateAsker = '<div id="order" style="overflow-y:scroll;width:300px;height:450px; color:black;background-color:#FFD800;padding:10px"> \
-			<form id="prefForm" action="" type="post">\
-			<div class="input-group date" id="datetimepicker10" style="margin-bottom:5px">\
-			<label for="startDate">Please Select Desired Time Of Departure</label>\
-			<input type="text" id="startDate" name="startDate" class="form-control" />\
-			<span class="input-group-addon">\
-			<span class="glyphicon glyphicon-calendar">\
-			</span>\
-			</span></div>\
-            <input type="text" name="action" value="uPreferences" class="hidden"/>\
-            <input type="number" id="minimumDriverRating" name="minimumDriverRating"\
-        value="0.0"\
-        style="color:black;padding-left:5px" value="1" step=".1">\
-            <label for="minimumDriverRating"> Minimum Driver Rating </label><br>\
-        <input type="checkbox" id="conditioning"\
-        name="conditioning">\
-    <label for="conditioning"> Conditioning Required </label>\
-        </input><br>\
-        <input type="number" name="carYear" value="0" id="carYear"\
-        style="color:black;padding-left:5px" value="1990" step="1">\
-            <label for="carYear"> Minimum Car Year </label>\
-        <input type="number" name="timeLimit" id="timeLimit" value="100"\
-        style="color:black;padding-left:5px" value="10" step="1">\
-            <label for="timeLimit"> Maximum Time Limit (Minutes) </label>\
-        <input type="number" name="passengerCount" id="passengerCount"\
-        value="0"\
-        style="color:black;padding-left:5px" value="1" step="1">\
-            <label for="passengerCount"> Passenger Count </label><br>\
-        <input type="checkbox" name="wantsAlone" id="wantsAlone"\
-        value="0"\
-        name="wantsAlone">\
-            <label for="wantsAlone"> Want To Travel Alone </label>\
-        </input>\
-        <button id="ProceedOrder" style="margin-top:5px" class="button special"> Proceed</button>\
-            <br>\
-            </form>';
+	var dateAsker = '';
 	cont = new google.maps.InfoWindow({
 		content: dateAsker
 	});

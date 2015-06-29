@@ -6,7 +6,38 @@ $(document).ready(function(){
 });
 var records=[];
 var travel=null;
+function initializeSockets(mToken){
+    var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + mToken);
+
+    websocket.onopen = function (arg) {
+        console.log("success", "connected");
+    };
+
+    websocket.onmessage = function (arg) {
+        console.log("success", arg.data);
+        var list = arg.data;
+        driversList="<div style='background-color:#FFD800' id='driversList'>";
+        for(var d in list){
+            driversList+="<button class='special>"+ d.car.carID+"</button>";
+        }
+        driversList="</div>"
+        askWindow.setContent(driversList);
+    };
+
+    websocket.onclose = function (arg) {
+        console.log("success", "disconnected");
+    };
+
+    websocket.onerror = function (arg) {
+        console.error(arg.data);
+    };
+
+    return websocket;
+}
 function initializeO(){
+    $("input").change(function(e){
+        $(e.target).attr("value",$(e.target).val());
+    });
     $(".headCaption").removeClass("hidden");
     initializeMap(true);
     createPreferencesSaves();
@@ -37,6 +68,22 @@ function initializeO(){
         }
     });
     console.log("ajax request sent");
+}
+var driversList="";
+function addOrderJ(){
+    var formData = $("#mapOrder").serialize()+"&action=addOrder&startLatitude="+startMarker.position.A+"&startLongitude="+startMarker.position.F+
+        "&endLatitude="+endMarker.position.A+"&endLongitude="+endMarker.position.F;
+    $.ajax({
+        url: "/order",
+        method: "post",
+        cache: false,
+        success: function (data) {
+            askWindow.setContent(driversList);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function generateGrid(){
     $("#grid").removeClass("hidden");
@@ -122,6 +169,9 @@ function createPreferencesSaves(){
             cache: false,
             success: function (data) {
                 console.log(data);
+                var dateAsker = updateAsker();
+
+                askWindow.setContent(dateAsker);
             },
             error: function (data) {
                 console.error("Couldn't log in\n" + JSON.stringify(formData));
