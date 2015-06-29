@@ -1,11 +1,11 @@
 package ge.taxistgela.servlet;
 
 import com.google.gson.Gson;
-import ge.taxistgela.bean.Company;
-import ge.taxistgela.bean.Driver;
-import ge.taxistgela.bean.Order;
-import ge.taxistgela.bean.User;
+import ge.taxistgela.bean.*;
 import ge.taxistgela.model.OrderManagerAPI;
+import ge.taxistgela.model.UserManagerAPI;
+import ge.taxistgela.ram.model.TaxRam;
+import ge.taxistgela.ram.model.TaxRamAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +70,63 @@ public class OrderServlet extends ActionServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.getWriter().print(new Gson().toJson(orders));
+    }
+
+    public void addOrder(HttpServletRequest request, HttpServletResponse response) {
+        TaxRam taxRam = (TaxRam) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+
+        if (taxRam == null || userManager == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            User user = (User) request.getSession().getAttribute(User.class.getName());
+
+            if (user != null) {
+                UserPreference userPreference = user.getPreference();
+
+                try {
+                    userPreference.setPassengersCount(Integer.parseInt(request.getParameter("passengersCount")));
+                    userPreference.setTimeLimit(Integer.parseInt(request.getParameter("timeLimit")));
+                    userPreference.setWantsAlone("on".equals(request.getParameter("wantsAlone")));
+                    userPreference.setMinimumDriverRating(new Double(request.getParameter("minimumDriverRating")));
+                    userPreference.setCarYear(Integer.parseInt(request.getParameter("carYesr")));
+                    userPreference.setConditioning("on".equals(request.getParameter("conditioning")));
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    return;
+                }
+
+                userManager.updateUserPreference(userPreference);
+
+                Order order = new Order();
+
+                try {
+                    order.setStartLocation(new Location(
+                            new Double(request.getParameter("startLatitude")),
+                            new Double(request.getParameter("startLongitude"))
+                    ));
+
+                    order.setEndLocation(new Location(
+                            new Double(request.getParameter("endLatitude")),
+                            new Double(request.getParameter("endLongitude"))
+                    ));
+
+                    order.setUserID(user.getUserID());
+                    order.setNumPassengers(userPreference.getPassengersCount());
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    return;
+                }
+
+                taxRam.addOrder(order);
+
+                response.setStatus(HttpServletResponse.SC_CREATED);
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
 }
