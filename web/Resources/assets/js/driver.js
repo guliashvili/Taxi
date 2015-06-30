@@ -16,10 +16,10 @@ function fetchEverything(){
         data: {action:"getDriverInfo"},
         cache: false,
         success: function(data){
-            console.error(data);
+            console.log(data);
         },
         error: function(data){
-            console.error(data);
+            console.log(data);
         }
     });
 }
@@ -43,7 +43,7 @@ function initializeO(){
                 //console.log(data);
             },
             error: function (data) {
-                console.error(data);
+                console.log(data);
             }
         });
     }, 3000);
@@ -72,7 +72,7 @@ function initializeO(){
             generateGrid();
         },
         error: function (data) {
-            console.error(data);
+            console.log(data);
         }
     });
 }
@@ -371,6 +371,7 @@ function generateGrid(){
 }var curRoute;
 function defineRoute(route){
     curRoute=route;
+
 }
 function displayRoute(){
     //updates routeDiv TODO
