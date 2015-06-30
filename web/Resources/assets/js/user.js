@@ -6,6 +6,7 @@ $(document).ready(function(){
 });
 var records=[];
 var travel=null;
+var drivers;
 function initializeSockets(mToken){
     var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 0 + "/" + mToken);
 
@@ -15,10 +16,10 @@ function initializeSockets(mToken){
 
     websocket.onmessage = function (arg) {
         console.log("success", arg.data);
-        var list = arg.data;
+        drivers=JSON.parse(arg.data);
         driversList="<div style='background-color:#FFD800' id='driversList'>";
-        for(var i=0;i<list.length;i++){
-            driversList+="<button class='special>"+ d.car.carID+"</button>";
+        for(var i=0;i<drivers.length;i++){
+            driversList+="<button onclick='acceptDriver("+i+")' class='special>"+ drivers[i].carID+"</button>";
         }
         driversList = "</div>";
         askWindow.setContent(driversList);
@@ -151,6 +152,34 @@ function askForDate(){
             $(e.target).attr("value",$(e.target).val());
         });
     }
+}
+function acceptDriver(index){
+    $.ajax({
+        url: "/orderinfo",
+        method: "post",
+        data: {action: "userAccept",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
+        }
+    });
+}
+function rejectDriver(index){
+    $.ajax({
+        url: "/orderinfo",
+        method: "post",
+        data: {action: "userReject",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
+        }
+    });
 }
 function resendEmail(){
 

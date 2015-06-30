@@ -74,7 +74,7 @@ function initializeSockets(mToken) {
     };
 
     websocket.onmessage = function (arg) {
-        //console.log("success", arg.data);
+        console.log("success", arg.data);
         var obj = JSON.parse(arg.data);
         if(obj.inCar==undefined){
             addOrder(obj);
@@ -190,7 +190,7 @@ function rejectOffer(index){
 }
 function acceptOffer(index){
     $.ajax({
-        url: "/order",
+        url: "/orderinfo",
         method: "post",
         data: {action: "driverAccept",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
         cache: false,
