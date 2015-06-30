@@ -193,7 +193,7 @@ function rejectOffer(index){
     $.ajax({
         url: "/order",
         method: "post",
-        data: {action: "driverReject",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "driverReject",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -207,7 +207,7 @@ function revokeOffer(index){
     $.ajax({
         url: "/orderInfo",
         method: "post",
-        data: {action: "revokeOrderDriver",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "revokeOrderDriver",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -221,7 +221,7 @@ function acceptOffer(index){
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "driverAccept",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "driverAccept",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);

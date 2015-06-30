@@ -186,7 +186,7 @@ function acceptDriver(index){
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "userAccept",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "userAccept",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -200,7 +200,7 @@ function rejectDriver(index){
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "userReject",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "userReject",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
