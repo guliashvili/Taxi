@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.helper.GoogleMapUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -14,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by GIO on 6/29/2015.
  */
-public class Route {
-    @Expose
+public class Route implements Serializable {
+    @Expose(serialize = true)
     public List<OrderInfo> inCar = Collections.synchronizedList(new ArrayList<>());
-    @Expose
+    @Expose(serialize = true)
     public List<RouteElement> route = Collections.synchronizedList(new ArrayList<>());
     public ConcurrentHashMap<Integer, DriverInfo> drivers = new ConcurrentHashMap<>();
     public ConcurrentHashMap<Integer, UserInfo> users = new ConcurrentHashMap<>();
