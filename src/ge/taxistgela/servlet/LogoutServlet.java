@@ -36,6 +36,9 @@ public class LogoutServlet extends HttpServlet {
             for (int i = 0; i < A_TYPE.length; i++) {
                 SuperDaoUser info = (SuperDaoUser) session.getAttribute(A_TYPE[i]);
 
+                if (info == null)
+                    continue;
+
                 if (info instanceof Driver) {
                     dm.setDriverActiveStatus(((Driver) info).getDriverID(), false);
                 }
