@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 
@@ -16,18 +17,15 @@ import java.util.concurrent.TimeUnit;
 public class DriverInfo extends Driver {
 
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
-    public Route route = new Route();
+    public Route route;
 
     public Object block = new Object();
     public int nPassengers = 0;
     private Location location = null;
 
-    public DriverInfo() {
-        super();
-    }
-
-    public DriverInfo(Driver driver) {
+    public DriverInfo(Driver driver, ConcurrentHashMap<Integer, UserInfo> users, ConcurrentHashMap<Integer, DriverInfo> drivers) {
         super(driver);
+        route = new Route(drivers, users);
     }
 
     public synchronized void removeBadOrders() {

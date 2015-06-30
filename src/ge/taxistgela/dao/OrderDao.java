@@ -62,10 +62,13 @@ public class OrderDao implements OrderDaoAPI {
             order.setEndLocation(new Location(
                     rslt.getDouble("Orders.endLocation_lat"),
                     rslt.getDouble("Orders.endLocation_long")));
-            order.setStartTime(simpleDateFormat.parse(rslt.getString("Orders.startTime")));
-            order.setEndTime(simpleDateFormat.parse(rslt.getString("Orders.endTime")));
+            String res = rslt.getString("Orders.startTime");
+            order.setStartTime((res == null) ? null : simpleDateFormat.parse(res));
+            res = rslt.getString("Orders.endTime");
+            order.setEndTime(res == null ? null : simpleDateFormat.parse(res));
             order.setPaymentAmount(rslt.getDouble("Orders.paymentAmount"));
-            order.setCallTime(simpleDateFormat.parse(rslt.getString("Orders.callTime")));
+            res = rslt.getString("Orders.callTime");
+            order.setCallTime((res == null) ? null : simpleDateFormat.parse(res));
             order.setRevokedByUser(rslt.getBoolean("Orders.revokedByUser"));
             order.setRevokedByDriver(rslt.getBoolean("Orders.revokedByDriver"));
         } catch (SQLException e) {

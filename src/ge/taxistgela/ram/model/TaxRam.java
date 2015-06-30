@@ -80,7 +80,11 @@ public class TaxRam implements TaxRamAPI {
     public void addOrder(Order order){
         ExternalAlgorithms.debugPrint("Order added " + order.getUserID() + " \n");
 
-        UserInfo userInfo = userInfoDao.getUserInfoByID(order.getUserID());
+
+        if (!users.containsKey(order.getUserID()))
+            users.putIfAbsent(order.getUserID(), userInfoDao.getUserInfoByID(order.getUserID()));
+        UserInfo userInfo = users.get(order.getUserID());
+
         if(userInfo == null) return;
 
         Long curMinute = TimeUnit.MILLISECONDS.toMinutes(new Date().getTime());
@@ -275,6 +279,7 @@ public class TaxRam implements TaxRamAPI {
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return null;
         DriverInfo driverInfo = userInfo.getDriverInfo();
+        if (driverInfo == null) return null;
 
         Route route = driverInfo.route;
         if (route == null) return null;
