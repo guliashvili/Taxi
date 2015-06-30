@@ -25,12 +25,12 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
     <script type="text/javascript" src="/Resources/assets/js/jquery-2.1.4.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="Resources/assets/css/w2ui-1.4.2.min.css"/>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css"
           rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="Resources/assets/css/bootstrap.min.css">
+    <script src="Resources/assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Resources/assets/css/taxi.css">
     <link rel="stylesheet" href="Resources/assets/css/main.css"/>
     <script src="Resources/assets/js/jquery.scrollex.min.js"></script>
@@ -43,7 +43,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="Resources/assets/js/login.js"></script>
     <script src="Resources/assets/js/register.js"></script>
     <script src="Resources/assets/js/index.js"></script>
-    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+    <script type="text/javascript" src="Resources/assets/js/w2ui-1.4.2.min.js"></script>
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="Resources/assets/css/ie8.css"/><![endif]-->
