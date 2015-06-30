@@ -20,20 +20,20 @@ var longitude = null;
  * grid data
  * @type {Array}
  */
-var records=[];
+var records = [];
 /**
  * fetches needed information from server
  */
-function fetchEverything(){
+function fetchEverything() {
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action:"getDriverInfo"},
+        data: {action: "getDriverInfo"},
         cache: false,
-        success: function(data){
+        success: function (data) {
             console.log(data);
         },
-        error: function(data){
+        error: function (data) {
             console.log(data);
         }
     });
@@ -41,7 +41,7 @@ function fetchEverything(){
 /**
  * constructor for driver.js
  */
-function initializeO(){
+function initializeO() {
     // checkLoginState();
     $(".headCaption").removeClass("hidden");
     initializeMap();
@@ -70,23 +70,23 @@ function initializeO(){
     $.ajax({
         url: "/order",
         method: "post",
-        data: {action:"getOrders"},
+        data: {action: "getOrders"},
         cache: false,
         success: function (data) {
-            records=data;
-            for (var i=0;i<records.length;++i){
-                records[i]['recid']= records[i].orderID;
-                records[i]['userID']=records[i].userID;
-                if(records[i].revokedByDriver){
-                    records[i]['style']="background-color:red";
+            records = data;
+            for (var i = 0; i < records.length; ++i) {
+                records[i]['recid'] = records[i].orderID;
+                records[i]['userID'] = records[i].userID;
+                if (records[i].revokedByDriver) {
+                    records[i]['style'] = "background-color:red";
                 }
-                if(records[i].revokedByUser){
-                    records[i]['style']="background-color:green";
+                if (records[i].revokedByUser) {
+                    records[i]['style'] = "background-color:green";
                 }
-                var recM=[records[i].startLocation.latitude,records[i].startLocation.longitude,records[i].endLocation.latitude,records[i].endLocation.longitude];
+                var recM = [records[i].startLocation.latitude, records[i].startLocation.longitude, records[i].endLocation.latitude, records[i].endLocation.longitude];
                 console.log(recM);
-                records[i]['startLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[0]+','+recM[1]+','+recM[2]+','+recM[3]+");'>";
-                records[i]['endLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[2]+','+recM[3]+','+recM[0]+','+recM[1]+");'>";
+                records[i]['startLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[0] + ',' + recM[1] + ',' + recM[2] + ',' + recM[3] + ");'>";
+                records[i]['endLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[2] + ',' + recM[3] + ',' + recM[0] + ',' + recM[1] + ");'>";
             }
             console.log(data);
             generateGrid();
@@ -103,7 +103,9 @@ function initializeO(){
 function updateLatLang(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    if(curMarker!=null){removeFromMap(curMarker);}
+    if (curMarker != null) {
+        removeFromMap(curMarker);
+    }
     curMarker = new google.maps.Marker({
         position: {lat: position.coords.latitude, lng: position.coords.longitude},
         map: map,
@@ -126,9 +128,9 @@ function initializeSockets(mToken) {
     websocket.onmessage = function (arg) {
         console.log("success", arg.data);
         var obj = JSON.parse(arg.data);
-        if(obj.inCar==undefined){
+        if (obj.inCar == undefined) {
             addOrder(obj);
-        }else{
+        } else {
             defineRoute(obj);
         }
     };
@@ -156,7 +158,7 @@ geocoder = new google.maps.Geocoder();
 geocoderNames = new google.maps.Geocoder();
 function addOrder(ordr) {
     console.log("addOrder");
-    orderInfo=ordr;
+    orderInfo = ordr;
     console.log(orderInfo);
     var out = "";
     latMap = {};
@@ -164,15 +166,17 @@ function addOrder(ordr) {
         var start = orderInfo[i].start.latitude + "," + orderInfo[i].start.longitude;
         var end = orderInfo[i].end.latitude + "," + orderInfo[i].end.longitude;
         console.log(orderInfo[i]);
-        if(latMap[start]==undefined) {
+        if (latMap[start] == undefined) {
             geocodeQuery.push(start);
         }
-        if(latMap[end]==undefined) {
+        if (latMap[end] == undefined) {
             geocodeQuery.push(end);
         }
     }
-    if(geocodeQuery.length>0){
-        geocodeTimer=setInterval(function(){fetchGeocode();}, 1000);
+    if (geocodeQuery.length > 0) {
+        geocodeTimer = setInterval(function () {
+            fetchGeocode();
+        }, 1000);
     }
     if (orderInfo.length == 0) {
         $("#orderModalCont").html(generateModal(orderInfo));
@@ -182,21 +186,21 @@ function addOrder(ordr) {
         clearInterval(geocodeTimer);
     }
 }
-var geocodeQuery=[];
+var geocodeQuery = [];
 var geocodeTimer;
 /**
  * asynchroniously fetches names with locations
  * pops geocodeQuery and fills up latMap
  */
-function fetchGeocode(){
-    if(geocodeQuery.length==0){
+function fetchGeocode() {
+    if (geocodeQuery.length == 0) {
         $("#orderModalCont").html(generateModal(orderInfo));
         $("#orderModal").modal("show");
         clearInterval(geocodeTimer);
     }
-    var start=geocodeQuery[geocodeQuery.length-1];
-    var arr=start.split(",");
-    var startM=new google.maps.LatLng(arr[0],arr[1]);
+    var start = geocodeQuery[geocodeQuery.length - 1];
+    var arr = start.split(",");
+    var startM = new google.maps.LatLng(arr[0], arr[1]);
     geocoder.geocode({'latLng': startM}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[1]) {
@@ -231,25 +235,25 @@ function size(obj) {
  * @returns {string}
  */
 function generateModal(orderInfo) {
-    var out="";
-    for(var i=0;i<orderInfo.length;i++){
-        out+='<div class="orderDiv">';
-        out+='<span>'+ orderInfo[i].user.firstName + " " + orderInfo[i].user.lastName +'</span>';
-        out+='<span>requires your assistance in getting from:</span>';
-        out+='<span>'+ latMap[orderInfo[i].start.latitude+","+orderInfo[i].start.longitude] + " to " + latMap[orderInfo[i].end.latitude+","+orderInfo[i].end.longitude] +'</span>';
-        out+='<span> and offers:'+orderInfo[i].maxPrice+'</span>';
-        if(orderInfo[i].user.preference.wantsAlone){
-            out+='<span> He wants to travel alone</span>';
+    var out = "";
+    for (var i = 0; i < orderInfo.length; i++) {
+        out += '<div class="orderDiv">';
+        out += '<span>' + orderInfo[i].user.firstName + " " + orderInfo[i].user.lastName + '</span>';
+        out += '<span>requires your assistance in getting from:</span>';
+        out += '<span>' + latMap[orderInfo[i].start.latitude + "," + orderInfo[i].start.longitude] + " to " + latMap[orderInfo[i].end.latitude + "," + orderInfo[i].end.longitude] + '</span>';
+        out += '<span> and offers:' + orderInfo[i].maxPrice + '</span>';
+        if (orderInfo[i].user.preference.wantsAlone) {
+            out += '<span> He wants to travel alone</span>';
         }
-        if(orderInfo[i].user.gender="MALE") {
+        if (orderInfo[i].user.gender = "MALE") {
             out += '<span> And is currently with his ' + orderInfo[i].user.preference.passengersCount + ' friends</span>';
-        }else{
+        } else {
             out += '<span> And is currently with her ' + orderInfo[i].user.preference.passengersCount + ' friends</span><br>';
         }
-        out+='<span> and offers:'+orderInfo[i].maxPrice+'</span><br>';
-        out+='<button onclick="acceptOffer('+i+')" class="special">Accept Offer</button><br>';
-        out+='<button onclick="rejectOffer('+i+')" class="special">Reject Offer</button><br>';
-        out+='</div>'
+        out += '<span> and offers:' + orderInfo[i].maxPrice + '</span><br>';
+        out += '<button onclick="acceptOffer(' + i + ')" class="special">Accept Offer</button><br>';
+        out += '<button onclick="rejectOffer(' + i + ')" class="special">Reject Offer</button><br>';
+        out += '</div>'
     }
     return out;
 }
@@ -257,11 +261,11 @@ function generateModal(orderInfo) {
  * rejects index'th offer from list (left top corner)
  * @param index
  */
-function rejectOffer(index){
+function rejectOffer(index) {
     $.ajax({
         url: "/order",
         method: "post",
-        data: {action: "driverReject",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
+        data: {action: "driverReject", orderID: orderInfo[index].orderID, userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -275,11 +279,11 @@ function rejectOffer(index){
  * rejects offer from user (orderInfo should be initialized)
  * @param index
  */
-function revokeOffer(index){
+function revokeOffer(index) {
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "revokeOrderDriver",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
+        data: {action: "revokeOrderDriver", orderID: orderInfo[index].orderID, userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -294,12 +298,12 @@ function revokeOffer(index){
  * accept offer from user orderInfo[index]
  * @param index
  */
-function acceptOffer(index){
-    console.log(orderInfo[index].orderID,orderInfo[index].user.userID);
+function acceptOffer(index) {
+    console.log(orderInfo[index].orderID, orderInfo[index].user.userID);
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "driverAccept",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
+        data: {action: "driverAccept", orderID: orderInfo[index].orderID, userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -314,10 +318,10 @@ function acceptOffer(index){
  * carryRoute(index) identifies current part of order as done and sends information to server
  * @param index
  */
-function carryRoute(index){
+function carryRoute(index) {
     var elem = curRoute.route[index];
-    var action="leaveUser";
-    if(elem.pickUser){
+    var action = "leaveUser";
+    if (elem.pickUser) {
         action = "pickUser";
     }
     $.ajax({
@@ -450,7 +454,7 @@ function createPreferencesSaves() {
 /**
  * generated grid containing driver history
  */
-function generateGrid(){
+function generateGrid() {
     $("#grid").removeClass("hidden");
     $('#grid').w2grid({
         name: 'grid',
@@ -460,22 +464,22 @@ function generateGrid(){
             footer: false
         },
         columns: [
-            { field: 'recid', caption: 'orderID', size: '10%', sortable: true, attr: 'align=center' },
-            { field: 'userID', caption: 'userID', size: '5%', sortable: true, resizable: false },
-            { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
-            { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
-            { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
-            { field: 'endTime', caption: 'endTime', size: '30%', resizable: true },
-            { field: 'paymentAmount', caption: 'paymentAmount', size: '10%', resizable: true },
-            { field: 'callTime', caption: 'callTime', size: '30%', resizable: true },
+            {field: 'recid', caption: 'orderID', size: '10%', sortable: true, attr: 'align=center'},
+            {field: 'userID', caption: 'userID', size: '5%', sortable: true, resizable: false},
+            {field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true},
+            {field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true},
+            {field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true},
+            {field: 'endTime', caption: 'endTime', size: '30%', resizable: true},
+            {field: 'paymentAmount', caption: 'paymentAmount', size: '10%', resizable: true},
+            {field: 'callTime', caption: 'callTime', size: '30%', resizable: true},
         ],
         searches: [
-            { field: 'userID', caption: 'userID', type: 'text' },
-            { field: 'orderID', caption: 'orderID', type: 'text' },
+            {field: 'userID', caption: 'userID', type: 'text'},
+            {field: 'orderID', caption: 'orderID', type: 'text'},
         ],
-        sortData: [{ field: 'orderID', direction: 'ASC' }],
+        sortData: [{field: 'orderID', direction: 'ASC'}],
         records: records,
-        onLoad: function(event){
+        onLoad: function (event) {
             //because i am too lazy to read docs, hoping to make a difference
             console.log("grid loaded");
             $("#grid").addClass("hidden");//needs fixing somehow fucks grid up dunno why
@@ -491,35 +495,35 @@ var curRoute;
  * route marker
  * @type {google.maps.marker}
  */
-var routeMarker=null;
+var routeMarker = null;
 
 /**
  * displays curRoute
  * fills nameQueue and triggers fetchNames
  * also sets nameTimer
  */
-function defineRoute(route){
-    curRoute=route;
+function defineRoute(route) {
+    curRoute = route;
     directionsDisplay.setMap(null);
     displayRoute();
-    var out="";
+    var out = "";
     for (var i = 0; i < curRoute.route.length; ++i) {
-        if (curRoute.route[0].pickUser) {
-            if(latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude]==undefined){
-                namequeue.push(curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude);
-            }
+        if (latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude] == undefined) {
+            namequeue.push(curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude);
         }
     }
-    nameTimer==setInterval(function(){fetchNames();}, 1000);
+    nameTimer = setInterval(function () {
+        fetchNames();
+    }, 1000);
 }
 /**
  * displays curRoute
  */
-function displayRoute(){
-    if(routeMarker!=null){
+function displayRoute() {
+    if (routeMarker != null) {
         routeMarker.setMap(null);
     }
-    if(curRoute.route.length == 0) return;
+    if (curRoute.route.length == 0) return;
     var routeElem = curRoute.route[0];
     routeMarker = new google.maps.Marker({
         map: map,
@@ -529,7 +533,7 @@ function displayRoute(){
     console.log("displayRoute");
     while (curMarker == null) {
     }
-    drawRoute(curMarker,routeMarker);
+    drawRoute(curMarker, routeMarker);
 }
 /**
  * used in drawRoute procedure
@@ -542,30 +546,30 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
  * @param marker1
  * @param marker2
  */
-function drawRoute(marker1,marker2) {
+function drawRoute(marker1, marker2) {
     var request = {
         origin: marker1.position,
         destination: marker2.position,
         travelMode: google.maps.TravelMode.DRIVING
     };
     var directionsService = new google.maps.DirectionsService();
-    directionsService.route(request, function(response, status) {
+    directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
         }
     });
     directionsDisplay.setMap(map);
 }
-var namequeue=[];
+var namequeue = [];
 var nameTimer;
-function fetchNames(){
-    if(geocodeQuery.length==0){
+function fetchNames() {
+    if (geocodeQuery.length == 0) {
         $("#routeDiv").html(generateRouteDiv());
         clearInterval(geocodeTimer);
     }
-    var start=namequeue[namequeue.length-1];
-    var arr=start.split(",");
-    var startM=new google.maps.LatLng(arr[0],arr[1]);
+    var start = namequeue[namequeue.length - 1];
+    var arr = start.split(",");
+    var startM = new google.maps.LatLng(arr[0], arr[1]);
     geocoderNames.geocode({'latLng': startM}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[1]) {
@@ -585,8 +589,8 @@ function fetchNames(){
  * generates div with text from curRoute ready to display
  * @returns {string}
  */
-function generateRouteDiv(){
-    var out="";
+function generateRouteDiv() {
+    var out = "";
     for (var i = 0; i < curRoute.route.length; ++i) {
         if (curRoute.route[0].pickUser) {
             out += "<span> pick user </span>";
