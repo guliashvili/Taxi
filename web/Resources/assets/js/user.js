@@ -34,8 +34,17 @@ function initializeSockets(mToken){
         console.log("success", arg.data);
         drivers=JSON.parse(arg.data);
         driverList="";
-        while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
+
+        while (driverMarkersT.length > 0) {
+            removeFromMap(driverMarkersT.pop());
+        }
         if(drivers==null) return;
+        while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
+        if(drivers==null){
+            var dateAsker = updateAsker();
+            askWindow.setContent(dateAsker);
+            askWindow.setMap(map);
+        }
         for(var i=0;i<drivers.length;i++){
             var cont="";
             cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
@@ -57,6 +66,7 @@ function initializeSockets(mToken){
         }
         if(askWindow!=null){
             askWindow.setContent(driversList);
+            askWindow.setMap(map);
         }
         removeFromMap(startMarker);
         removeFromMap(endMarker);
@@ -123,10 +133,19 @@ function revokeOrder() {
         success: function (data) {
             console.log(data);
             clearPinPoint();
+            removeFromMap(startMarker);
+            removeFromMap(endMarker);
             removeFromMap(askWindow);
+            startMarker = null;
+            endMarker = null;
         },
         error: function (data) {
-            console.error("Couldn't log in\n" + JSON.stringify(formData));
+            clearPinPoint();
+            removeFromMap(startMarker);
+            removeFromMap(endMarker);
+            removeFromMap(askWindow);
+            startMarker = null;
+            endMarker = null;
         }
     });
 }
@@ -151,6 +170,7 @@ function addOrderJ(){
         success: function (data) {
             if(askWindow!=null) {
                 askWindow.setContent(driversList);
+                askWindow.setMap(map);
             }
         },
         error: function (data) {
@@ -310,6 +330,7 @@ function createPreferencesSaves(){
                 var dateAsker = updateAsker();
 
                 askWindow.setContent(dateAsker);
+                askWindow.setMap(map);
             },
             error: function (data) {
                 console.error(JSON.stringify(formData));
