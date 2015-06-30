@@ -246,8 +246,8 @@ public class TaxRam implements TaxRamAPI {
                                 orderInfo1.getDriver().getDriverID() == driverID &&
                                 orderInfo1.getOrderID() == orderID));
 
-                if (!ret) {
-                    userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID);
+                if (!ret && userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID)) {
+
                     driverInfo.route.addOrder(orderInfo);
                 }
             } else
