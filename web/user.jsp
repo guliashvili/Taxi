@@ -41,7 +41,7 @@
         <div id="addOrdBtn1" class="12u$ (small) fit" style="float:left">
             <a href="#"
                onclick="minimize()"
-               class="button special small fa fa-bar-chart"> Add Order</a>
+               class="button special small fa fa-bar-chart"> Show Map</a>
         </div>
         <div id="revokeOrderBTN" class="12u$ (small) fit" style="float:left">
         <a href="#"

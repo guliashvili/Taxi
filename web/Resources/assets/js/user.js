@@ -64,7 +64,6 @@ function initializeSockets(mToken){
             $(e.target).attr("value", $(e.target).val());
         });
         $("#revokeOrderBTN").removeClass("hidden");
-        $("#addOrdBtn1").addClass("hidden");
     };
 
     websocket.onclose = function (arg) {
