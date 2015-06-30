@@ -38,13 +38,13 @@ function initializeSockets(mToken){
         while (driverMarkersT.length > 0) {
             removeFromMap(driverMarkersT.pop());
         }
-        if(drivers==null) return;
-        while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
+
         if(drivers==null){
             var dateAsker = updateAsker();
             askWindow.setContent(dateAsker);
             askWindow.setMap(map);
         }
+        while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
         for(var i=0;i<drivers.length;i++){
             var cont="";
             cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
