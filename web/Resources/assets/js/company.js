@@ -39,6 +39,7 @@ function resendPhone(){
     });
 }
 function initializeO(){
+    checkLoginState();
     $(".headCaption").removeClass("hidden");
     initializeMap();
     createPreferencesSaves();
@@ -60,4 +61,7 @@ function createPreferencesSaves(){
             }
         });
     });
+}
+function generateGrid(){
+
 }

@@ -24,6 +24,7 @@ function fetchEverything(){
     });
 }
 function initializeO(){
+    checkLoginState();
     $(".headCaption").removeClass("hidden");
     initializeMap();
     createPreferencesSaves();

@@ -77,6 +77,7 @@ function initializeSockets(mToken){
     return websocket;
 }
 function initializeO(){
+    checkLoginState();
     $("input").change(function(e){
         $(e.target).attr("value",$(e.target).val());
     });
