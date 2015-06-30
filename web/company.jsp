@@ -9,10 +9,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="/Resources/assets/js/addFacebookAccount.js"></script>
-<script src="/Resources/assets/js/addGoogleplusAccount.js"></script>
 <script src="/Resources/assets/js/company.js"></script>
 <% Company company = (Company) session.getAttribute(Company.class.getName());%>
+<script>
+    clickChoice = "add";
+</script>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
