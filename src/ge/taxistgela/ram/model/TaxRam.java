@@ -324,8 +324,8 @@ public class TaxRam implements TaxRamAPI {
         return ret;
     }
 
-    public boolean leaveUser(int driverID, int orderID, int userID) {
-        boolean ret = revokeOrderUser(userID);
+    public double leaveUser(int driverID, int orderID, int userID) {
+        double ret = 0;// revokeOrderUser(userID);
 
         return ret;
     }
