@@ -77,9 +77,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <figure class="front">
                 <h2 id="mainHeader">Taxist Gela</h2>
 
-                <p>Some Very Inspiring<br/>
-                    Text goes<br/>
-                    Here
+                Taxi is subject that needs passing<br/>
+                    At least<br/>
+                    Twice
                 <ul class="actions">
                     <li><a href="#" class="button special" data-toggle="modal" data-target="#loginModal">Sign in</a>
                     </li>
