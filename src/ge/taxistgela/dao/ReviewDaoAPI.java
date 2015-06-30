@@ -52,4 +52,6 @@ public interface ReviewDaoAPI {
     List<Review> getReviewByOrderID(int orderID);
 
     List<Review> getReviewByCompanyID(int companyID);
+
+    List<Review> getAllReviews();
 }

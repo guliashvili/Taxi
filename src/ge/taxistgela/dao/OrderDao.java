@@ -39,6 +39,8 @@ public class OrderDao implements OrderDaoAPI {
 
     private static final String GET_ORDER_BY_Driver_ID = "SELECT * FROM Orders WHERE driverID = ?";
 
+    private static final String GET_ALL_ORDERS = "SELECT * FROM Orders";
+
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
@@ -225,6 +227,28 @@ public class OrderDao implements OrderDaoAPI {
                 st.setInt(1, driverID);
 
                 ExternalAlgorithms.debugPrintSelect("getOrdersByDriverID \n" + st.toString());
+
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
+                    while (rslt.next())
+                        orders.add(fetchOrder(rslt));
+                }
+            }
+        } catch (SQLException e) {
+            orders = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection conn = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_ALL_ORDERS))) {
+
+                ExternalAlgorithms.debugPrintSelect("getAllOrders \n" + st.toString());
 
                 try (ResultSetEnhanced rslt = st.executeQuery()) {
                     while (rslt.next())

@@ -39,6 +39,8 @@ public class ReviewDao implements ReviewDaoAPI {
     private static final String GET_REVIEW_BY_ORDER_ID = "SELECT * " +
             "FROM Reviews WHERE Reviews.orderID = ?";
 
+    private static final String GET_ALL_REVIEWS = "SELECT * FROM Reviews";
+
     private boolean setStrings(PreparedStatementEnhanced st, Review review, boolean update) {
         boolean errorCode = false;
         try {
@@ -222,6 +224,29 @@ public class ReviewDao implements ReviewDaoAPI {
         }
 
         return reviews;
+    }
+
+    @Override
+    public List<Review> getAllReviews() {
+        List<Review> reviews = new ArrayList<>();
+
+        try (Connection conn = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_ALL_REVIEWS))) {
+                ExternalAlgorithms.debugPrintSelect("getAllReviews \n" + st.toString());
+
+
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
+                    while (rslt.next())
+                        reviews.add(fetchReview(rslt));
+                }
+            }
+        } catch (SQLException e) {
+            reviews = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+
+        return reviews;
+
     }
 
     /**

@@ -58,4 +58,6 @@ public abstract class ReviewManagerAPI {
      * @return List of reviews.
      */
     public abstract List<Review> getReviewByCompanyID(Integer companyID);
+
+    public abstract List<Review> getAllReviews();
 }

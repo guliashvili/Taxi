@@ -50,4 +50,6 @@ public interface OrderDaoAPI {
      * @return List of orders.
      */
     List<Order> getOrdersByDriverID(int driverID);
+
+    List<Order> getAllOrders();
 }

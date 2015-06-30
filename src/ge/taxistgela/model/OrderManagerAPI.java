@@ -57,4 +57,5 @@ public abstract class OrderManagerAPI {
      */
     public abstract List<Order> getOrdersByDriverID(Integer driverID);
 
+    public abstract List<Order> getAllOrders();
 }
