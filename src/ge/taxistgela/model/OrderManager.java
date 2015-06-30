@@ -10,8 +10,23 @@ import java.util.List;
  */
 public class OrderManager extends OrderManagerAPI {
     public OrderManager(OrderDaoAPI orderDaoAPI){super(orderDaoAPI);}
+
+    private boolean hasOpenOrder(int userID) {
+        List<Order> ls = orderDaoAPI.getOrderByUserID(userID);
+
+        for (Order elem : ls) {
+            if (elem.getRevokedByDriver() ||
+                    elem.getRevokedByDriver() ||
+                    elem.getEndLocation() != null)
+                return true;
+        }
+        return false;
+
+    }
+
     @Override
     public boolean addOrder(Order order) {
+        if (hasOpenOrder(order.getUserID())) return true;
         return orderDaoAPI.addOrder(order);
     }
 
