@@ -96,6 +96,7 @@ function openOrder(cont,mark){
 	cont.open(map,mark);
 }
 function placeMarker(loc) {
+	if (drivers != undefined && drivers.length > 0) return;
 	if (startMarker == null) {
 		startMarker = new google.maps.Marker({
 			position: loc,
@@ -183,4 +184,5 @@ function pinpoint(lat,lng,lat1,lng1){
 		marker2.setMap(null);
 		travel.setMap(null);
 	});
+	return marker1;
 }

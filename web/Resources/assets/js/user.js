@@ -14,7 +14,7 @@ function fetchEverything(){
         data: {action:"getUserInfo"},
         cache: false,
         success: function(data){
-            console.error(data);
+            console.log(data);
         },
         error: function(data){
             console.error(data);
@@ -32,12 +32,28 @@ function initializeSockets(mToken){
     websocket.onmessage = function (arg) {
         console.log("success", arg.data);
         drivers=JSON.parse(arg.data);
-        driversList="<div style='background-color:#FFD800' id='driversList'>";
+        driversList = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
         for(var i=0;i<drivers.length;i++){
-            driversList+="<button onclick='acceptDriver("+i+")' class='special>"+ drivers[i].carID+"</button>";
+            driversList += "Price:" + drivers[i].maxPrice + " Phone:" + drivers[i].driver.phoneNumber + " CAR:" + drivers[i].driver.car.carID + "<br>" + "Rating:" + drivers[i].driver.rating + "<br>";
+
+            driversList += "<button onclick='acceptDriver(" + i + ")' class='special'>Accept</button>";
         }
-        driversList = "</div>";
+        driversList += "</div>";
         askWindow.setContent(driversList);
+        if (startMarker != null) {
+            startMarker.setMap(null);
+        }
+        if (endMarker != null) {
+            endMarker.setMap(null);
+        }
+        if (drivers.length != 0) {
+            startMarker = pinpoint(drivers[0].start.latitude, drivers[0].start.longitude,
+                drivers[0].end.latitude, drivers[0].end.longitude);
+            askWindow.open(map, startMarker);
+            $("input").change(function (e) {
+                $(e.target).attr("value", $(e.target).val());
+            });
+        }
     };
 
     websocket.onclose = function (arg) {
