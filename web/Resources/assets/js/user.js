@@ -69,8 +69,10 @@ function initializeSockets(mToken){
             driverMarkersT.push(tmpMarker);
         }
         if(askWindow!=null){
-            askWindow.setContent(driversList);
-            askWindow.setMap(map);
+            if(drivers.length > 0){
+                askWindow.setContent(driversList);
+                askWindow.setMap(map);
+            }
         }
         removeFromMap(startMarker);
         removeFromMap(endMarker);
