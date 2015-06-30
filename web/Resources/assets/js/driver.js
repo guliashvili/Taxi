@@ -9,6 +9,20 @@ $(document).ready(function () {
 var latitude = null;
 var longitude = null;
 var records=[];
+function fetchEverything(){
+    $.ajax({
+        url: "/orderinfo",
+        method: "post",
+        data: {action:"getDriverInfo"},
+        cache: false,
+        success: function(data){
+            console.error(data);
+        },
+        error: function(data){
+            console.error(data);
+        }
+    });
+}
 function initializeO(){
     $(".headCaption").removeClass("hidden");
     initializeMap();
@@ -71,6 +85,7 @@ function initializeSockets(mToken) {
 
     websocket.onopen = function (arg) {
         console.log("success", "connected");
+        fetchEverything();
     };
 
     websocket.onmessage = function (arg) {
