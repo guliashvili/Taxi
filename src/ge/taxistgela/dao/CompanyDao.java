@@ -461,7 +461,7 @@ public class CompanyDao implements CompanyDaoAPI {
         List<Company> companies = new ArrayList<>();
 
         try (Connection con = DBConnectionProvider.getConnection()) {
-            try (Statement st = con.createStatement()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(base_select_STMT))) {
 
                 ExternalAlgorithms.debugPrintSelect("getAllCompanies \n" + st.toString());
 
@@ -470,14 +470,28 @@ public class CompanyDao implements CompanyDaoAPI {
                     companies.add(fetchCompany(res));
             }
         } catch (SQLException e) {
+            companies = null;
             ExternalAlgorithms.debugPrint(e);
         }
+
+        return companies;
     }
 
-    private Company fetchCompany(ResultSetEnhanced res) {
+    private Company fetchCompany(ResultSetEnhanced res) throws SQLException {
         Company company = new Company();
 
         company.setCompanyID(res.getInt(1));
+        company.setCompanyCode(res.getString(2));
+        company.setEmail(res.getString(3));
+        company.setPassword(res.getString(4));
+        company.setCompanyName(res.getString(5));
+        company.setPhoneNumber(res.getString(6));
+        company.setFacebookID(res.getString(7));
+        company.setGoogleID(res.getString(8));
+        company.setIsVerifiedEmail(res.getBoolean(9));
+        company.setIsVerifiedPhone(res.getBoolean(10));
+
+        return company;
 
     }
 }
