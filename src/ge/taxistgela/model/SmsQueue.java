@@ -21,7 +21,7 @@ public class SmsQueue {
             "http://localhost:8080/verify?action=cPhone&token="
     };
 
-    private BlockingQueue<String> queue;
+    private final BlockingQueue<String> queue;
 
     public SmsQueue() {
         queue = new LinkedBlockingQueue<>();
@@ -40,13 +40,14 @@ public class SmsQueue {
     }
 
     public String getSms() {
-        String ret;
+        String ret = "";
 
-        try {
-            ret = queue.take();
-        } catch (InterruptedException e) {
-            return null;
-        }
+        if (!queue.isEmpty())
+            try {
+                ret = queue.take();
+            } catch (InterruptedException e) {
+                ret = "";
+            }
 
         return ret;
     }
@@ -69,15 +70,11 @@ public class SmsQueue {
         }
 
         try {
-            addSms(phoneNumber, message);
+            queue.put(phoneNumber + " " + message);
         } catch (InterruptedException e) {
             return true;
         }
 
         return false;
-    }
-
-    private void addSms(String phoneNumber, String message) throws InterruptedException {
-        queue.put(phoneNumber + " " + message);
     }
 }

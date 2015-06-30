@@ -18,13 +18,6 @@ import java.io.UnsupportedEncodingException;
  */
 @WebServlet("/sendverification")
 public class SendVerificationServlet extends ActionServlet {
-
-    private static final String[] M_TYPE = {
-            "http://localhost:8080/verify?action=uPhone&token=",
-            "http://localhost:8080/verify?action=dPhone&token=",
-            "http://localhost:8080/verify?action=cPhone&token="
-    };
-
     public void uEmail(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(User.class.getName());
 
@@ -34,7 +27,7 @@ public class SendVerificationServlet extends ActionServlet {
     public void uPhone(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         User user = (User) request.getSession().getAttribute(User.class.getName());
 
-        sPhone(user, 0, request, response);
+        sPhone(user, request, response);
     }
 
     public void dEmail(HttpServletRequest request, HttpServletResponse response) {
@@ -46,7 +39,7 @@ public class SendVerificationServlet extends ActionServlet {
     public void dPhone(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
 
-        sPhone(driver, 1, request, response);
+        sPhone(driver, request, response);
     }
 
     public void dCompany(HttpServletRequest request, HttpServletResponse response) {
@@ -84,7 +77,7 @@ public class SendVerificationServlet extends ActionServlet {
     public void cPhone(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         Company company = (Company) request.getSession().getAttribute(Company.class.getName());
 
-        sPhone(company, 2, request, response);
+        sPhone(company, request, response);
     }
 
     private void sEmail(SuperDaoUser superUser, HttpServletResponse response) {
@@ -97,7 +90,7 @@ public class SendVerificationServlet extends ActionServlet {
         }
     }
 
-    private void sPhone(SuperDaoUser superUser, int type, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    private void sPhone(SuperDaoUser superUser, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         SmsQueue smsQueue = (SmsQueue) request.getServletContext().getAttribute(SmsQueue.class.getName());
 
         if (smsQueue == null) {
@@ -109,6 +102,8 @@ public class SendVerificationServlet extends ActionServlet {
                 } else {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
+
+                return;
             }
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

@@ -27,10 +27,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css"/>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="/Resources/assets/js/facebookLogin.js"></script>
-    <script src="/Resources/assets/js/facebookRegister.js"></script>
-    <script src="/Resources/assets/js/googleplusRegister.js"></script>
-    <script src="/Resources/assets/js/googleplusLogin.js"></script>
     <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css"
           rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -61,6 +57,14 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
     <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+    <%--<script src="/Resources/assets/js/facebookLogin.js"></script>--%>
+    <%--<script src="/Resources/assets/js/facebookRegister.js"></script>--%>
+    <%--<script src="/Resources/assets/js/googleplusRegister.js"></script>--%>
+    <%--<script src="/Resources/assets/js/googleplusLogin.js"></script>--%>
+    <script>
+        var clickChoice = undefined;
+    </script>
+    <script src="/Resources/assets/js/facebook.js"></script>
 </head>
 <body class="landing">
 

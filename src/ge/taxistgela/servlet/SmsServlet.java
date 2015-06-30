@@ -26,12 +26,6 @@ public class SmsServlet extends HttpServlet {
         } else {
             String message = smsQueue.getSms();
 
-            if (message == null) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
-                return;
-            }
-
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("text/plain");
             response.getWriter().print(message);
