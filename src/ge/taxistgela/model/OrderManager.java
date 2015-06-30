@@ -3,6 +3,7 @@ package ge.taxistgela.model;
 import ge.taxistgela.bean.Order;
 import ge.taxistgela.dao.OrderDaoAPI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,14 +14,14 @@ public class OrderManager extends OrderManagerAPI {
 
     public List<Order> getOpenOrder(int userID) {
         List<Order> ls = orderDaoAPI.getOrderByUserID(userID);
-
+        List<Order> ret = new ArrayList<>();
         for (Order elem : ls) {
-            if (elem.getRevokedByDriver() ||
-                    elem.getRevokedByDriver() ||
-                    elem.getEndLocation() != null)
-                return ls;
+            if (!(elem.getRevokedByDriver() ||
+                    elem.getRevokedByUser() ||
+                    elem.getEndLocation() != null))
+                ret.add(elem);
         }
-        return ls;
+        return ret;
 
     }
 

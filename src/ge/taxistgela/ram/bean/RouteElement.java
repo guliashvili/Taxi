@@ -2,10 +2,12 @@ package ge.taxistgela.ram.bean;
 
 import ge.taxistgela.bean.Location;
 
+import java.io.Serializable;
+
 /**
  * Created by GIO on 6/29/2015.
  */
-public class RouteElement {
+public class RouteElement implements Serializable {
     private OrderInfo orderInfo;
     private Location loc;
     private boolean pickUser; // True if you should pick at that location or false if you should leave

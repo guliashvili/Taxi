@@ -135,7 +135,7 @@ public class OrderInfoServlet extends ActionServlet {
 
                 order.setDriverID(driverID);
 
-                if (!orderManager.updateOrder(order)) {
+                if (!choice || !orderManager.updateOrder(order)) { // to rejects aketebs updates agar gamoidzaxebs
                     if (!taxRam.userChoice(user.getUserID(), driverID, orderID, choice)) {
                         response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
@@ -294,7 +294,7 @@ public class OrderInfoServlet extends ActionServlet {
                     order.setRevokedByDriver(true);
 
                     if (!orderManager.updateOrder(order)) {
-                        if (!taxRam.revokeOrderUser(userID)) {
+                        if (!taxRam.revokeOrderDriver(userID)) {
                             response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
                             return;
