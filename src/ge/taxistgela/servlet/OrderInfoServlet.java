@@ -142,4 +142,90 @@ public class OrderInfoServlet extends ActionServlet {
         }
     }
 
+    public void pickUser(HttpServletRequest request, HttpServletResponse response) {
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+
+        if (taxRam == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
+
+            if (driver != null) {
+                Integer userID = null;
+                Integer orderID = null;
+
+                try {
+                    userID = Integer.parseInt(request.getParameter("userID"));
+                    orderID = Integer.parseInt(request.getParameter("orderID"));
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    return;
+                }
+
+                if (!taxRam.pickUser(driver.getDriverID(), orderID, userID)) {
+                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                    return;
+                }
+
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    public void leaveUser(HttpServletRequest request, HttpServletResponse response) {
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+
+        if (taxRam == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
+
+            if (driver != null) {
+                Integer userID = null;
+                Integer orderID = null;
+
+                try {
+                    userID = Integer.parseInt(request.getParameter("userID"));
+                    orderID = Integer.parseInt(request.getParameter("orderID"));
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    return;
+                }
+
+                if (!taxRam.leaveUser(driver.getDriverID(), orderID, userID)) {
+                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                    return;
+                }
+
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    public void gerDriverRoute(HttpServletRequest request, HttpServletResponse response) {
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+
+        if (taxRam == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
+
+            if (driver != null) {
+                taxRam.getRouteDriver(driver.getDriverID());
+
+                response.setStatus(HttpServletResponse.SC_OK);
+
+                return;
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
 }
