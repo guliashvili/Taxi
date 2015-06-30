@@ -40,4 +40,9 @@ public class ReviewManager extends  ReviewManagerAPI {
     public List<Review> getReviewByCompanyID(Integer companyID) {
         return reviewDaoAPI.getReviewByCompanyID(companyID);
     }
+
+    @Override
+    public List<Review> getAllReviews() {
+        return reviewDaoAPI.getAllReviews();
+    }
 }

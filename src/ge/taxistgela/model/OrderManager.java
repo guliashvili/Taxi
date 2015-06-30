@@ -55,4 +55,9 @@ public class OrderManager extends OrderManagerAPI {
     public List<Order> getOrdersByDriverID(Integer driverID) {
         return orderDaoAPI.getOrdersByDriverID(driverID);
     }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderDaoAPI.getAllOrders();
+    }
 }
