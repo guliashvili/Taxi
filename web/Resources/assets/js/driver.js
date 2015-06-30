@@ -248,7 +248,7 @@ function acceptOffer(index){
     });
 }
 function carryRoute(index){
-    var elem = curRoute[index];
+    var elem = curRoute.route[index];
     var action="leaveUser";
     if(elem.pickUser){
         action = "pickUser";
@@ -256,7 +256,7 @@ function carryRoute(index){
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: action,userID: elem.orderInfo.user.userID,userID: elem.orderInfo.orderID},
+        data: {action: action, userID: elem.orderInfo.user.userID, orderID: elem.orderInfo.orderID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -415,7 +415,7 @@ function defineRoute(route){
             out += "<span> pick user </span>";
         }
         out += latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude];
-        out += "<button onclick='carryRoute' class='special fa fa-check'>.</button><br>";
+        out += "<button onclick='carryRoute(" + i + ")' class='special fa fa-check'>.</button><br>";
     }
     $("#routeDiv").html(out);
 }

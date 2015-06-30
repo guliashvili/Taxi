@@ -70,14 +70,14 @@ public class TaxRam implements TaxRamAPI {
 
 
     @Override
-    public double getPrice(DriverInfo driverInfo,UserInfo userInfo,OrderInfo orderInfo){
+    public synchronized double getPrice(DriverInfo driverInfo, UserInfo userInfo, OrderInfo orderInfo) {
         return  (GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
                 GoogleMapUtils.getRoad(orderInfo.getStart(),orderInfo.getEnd()).distance.inMeters)/1000.0 *
                 driverInfo.getPreferences().getCoefficientPer();//TODO
     }
 
     @Override
-    public void addOrder(Order order){
+    public synchronized void addOrder(Order order) {
         ExternalAlgorithms.debugPrint("Order added " + order.getUserID() + " \n");
 
 
@@ -127,7 +127,7 @@ public class TaxRam implements TaxRamAPI {
     }
 
     @Override
-    public List<OrderInfo> getWaitingUsers(int driverID) {
+    public synchronized List<OrderInfo> getWaitingUsers(int driverID) {
         DriverInfo driverInfo = drivers.get(driverID);
         if (driverInfo == null) return null;
         driverInfo.removeBadOrders();
@@ -148,7 +148,7 @@ public class TaxRam implements TaxRamAPI {
     }
 
     @Override
-    public List<OrderInfo> getWaitingDrivers(int userID) {
+    public synchronized List<OrderInfo> getWaitingDrivers(int userID) {
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return null;
         userInfo.removeBadOrders();
@@ -167,7 +167,7 @@ public class TaxRam implements TaxRamAPI {
     }
 
     @Override
-    public boolean driverChoice(int driverID, int userID, int orderID, boolean accept) {
+    public synchronized boolean driverChoice(int driverID, int userID, int orderID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
         if (userInfo == null || driverInfo == null) return true;
@@ -212,7 +212,7 @@ public class TaxRam implements TaxRamAPI {
     }
 
     @Override
-    public boolean userChoice(int driverID, int userID, int orderID, boolean accept) {
+    public synchronized boolean userChoice(int driverID, int userID, int orderID, boolean accept) {
         DriverInfo driverInfo = drivers.get(driverID);
         UserInfo userInfo = users.get(userID);
         if (userInfo == null || driverInfo == null) return true;
@@ -262,7 +262,7 @@ public class TaxRam implements TaxRamAPI {
 
     }
 
-    public Route getRouteDriver(int driverID) {
+    public synchronized Route getRouteDriver(int driverID) {
         DriverInfo driverInfo = drivers.get(driverID);
         if (driverInfo == null) return null;
         Route route = driverInfo.route;
@@ -274,7 +274,7 @@ public class TaxRam implements TaxRamAPI {
         return route;
     }
 
-    public OrderInfo getRouteUser(int userID) {
+    public synchronized OrderInfo getRouteUser(int userID) {
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return null;
         DriverInfo driverInfo = userInfo.getDriverInfo();
@@ -307,7 +307,7 @@ public class TaxRam implements TaxRamAPI {
     }
 
 
-    public boolean pickUser(int driverID, int orderID, int userID) {
+    public synchronized boolean pickUser(int driverID, int orderID, int userID) {
         UserInfo userInfo = users.get(userID);
         DriverInfo driverInfo = drivers.get(driverID);
         if (userInfo == null || driverInfo == null) return true;
@@ -324,13 +324,16 @@ public class TaxRam implements TaxRamAPI {
         return ret;
     }
 
-    public double leaveUser(int driverID, int orderID, int userID) {
-        double ret = 0;// revokeOrderUser(userID);
+    public synchronized double leaveUser(int driverID, int orderID, int userID) {
+        double ret = 1;// revokeOrderUser(userID);
+//TODO
 
+
+        revokeOrderUser(userID);
         return ret;
     }
 
-    public boolean revokeOrderUser(int userID) {
+    public synchronized boolean revokeOrderUser(int userID) {
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return true;
 
@@ -356,7 +359,7 @@ public class TaxRam implements TaxRamAPI {
         return false;
     }
 
-    public boolean revokeOrderDriver(int userID) {
+    public synchronized boolean revokeOrderDriver(int userID) {
         return revokeOrderUser(userID);
     }
 
