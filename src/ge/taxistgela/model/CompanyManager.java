@@ -7,6 +7,8 @@ import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
 import ge.taxistgela.ram.model.TaxRamAPI;
 
+import java.util.List;
+
 /**
  * Created by GIO on 5/25/2015.
  */
@@ -241,5 +243,10 @@ public class CompanyManager extends   CompanyManagerAPI {
     public Boolean checkGoogleID(String googleID) {
         if (googleID == null) return null;
         else return companyDao.checkGoogleID(googleID);
+    }
+
+    @Override
+    public List<Company> getAllCompanies() {
+        return companyDao.getAllCompanies();
     }
 }

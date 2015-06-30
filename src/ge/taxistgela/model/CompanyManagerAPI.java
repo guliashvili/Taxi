@@ -1,7 +1,10 @@
 package ge.taxistgela.model;
 
+import ge.taxistgela.bean.Company;
 import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.ram.model.TaxRamAPI;
+
+import java.util.List;
 
 /**
  * Created by GIO on 5/25/2015.
@@ -25,6 +28,8 @@ public abstract class CompanyManagerAPI implements SuperUserManager {
      * @return true/false
      */
     public abstract boolean checkCompanyCode(String companyCode);
+
+    public abstract List<Company> getAllCompanies();
 
 
 }
