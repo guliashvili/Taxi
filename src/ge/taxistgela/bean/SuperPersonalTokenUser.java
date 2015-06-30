@@ -34,4 +34,6 @@ public abstract class SuperPersonalTokenUser extends SuperDaoUser {
         this.gender = gender;
     }
 
+    public abstract String getToken();
+
 }
