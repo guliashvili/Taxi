@@ -221,6 +221,7 @@ public class OrderInfoServlet extends ActionServlet {
                         order.setPaymentAmount(amount);
 
                         if (!orderManager.updateOrder(order)) {
+                            taxRam.leaveUser(driver.getDriverID(), orderID, userID);
                             response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
                             return;

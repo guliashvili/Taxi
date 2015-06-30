@@ -327,6 +327,9 @@ public class TaxRam implements TaxRamAPI {
     public synchronized double leaveUser(int driverID, int orderID, int userID) {
         double ret = 1;// revokeOrderUser(userID);
 //TODO
+
+
+        revokeOrderUser(userID);
         return ret;
     }
 
