@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,8 +75,9 @@ public class OrderServlet extends ActionServlet {
     public void addOrder(HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+        OrderManagerAPI orderManage = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
 
-        if (taxRam == null || userManager == null) {
+        if (taxRam == null || userManager == null || orderManage == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             User user = (User) request.getSession().getAttribute(User.class.getName());
@@ -113,11 +115,17 @@ public class OrderServlet extends ActionServlet {
 
                     order.setUserID(user.getUserID());
                     order.setNumPassengers(userPreference.getPassengersCount());
+                    order.setPaymentAmount(null);
+                    order.setRevokedByDriver(false);
+                    order.setRevokedByUser(false);
+                    order.setCallTime(new Date());
                 } catch (Exception e) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
                     return;
                 }
+
+                orderManage.addOrder(order);
 
                 taxRam.addOrder(order);
 

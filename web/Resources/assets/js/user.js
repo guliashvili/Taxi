@@ -147,7 +147,9 @@ function askForDate(){
     travel.setMap(map);
     if(endMarker!=null){
         askWindow.open(map,startMarker);
-        $('#datetimepicker10').datetimepicker();
+        $("input").change(function(e){
+            $(e.target).attr("value",$(e.target).val());
+        });
     }
 }
 function resendEmail(){

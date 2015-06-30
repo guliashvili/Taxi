@@ -17,8 +17,8 @@ public class UserInfo extends User {
 
 
     public Object block = new Object();
-    public Long orderStartTime;
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
+    private DriverInfo driverInfo;
     public UserInfo() {
         super();
     }
@@ -28,13 +28,18 @@ public class UserInfo extends User {
         super(user);
     }
 
-    public synchronized void removeOldOrders() {
+    public synchronized void removeBadOrders() {
         waitingList.removeIf(orderInfo ->
                 TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()) - orderInfo.getCreateTime() > OrderInfo.MAXIMUM_ORDER_LIFETIME);
+        waitingList.removeIf(orderInfo -> orderInfo.getDealIsDone());
+
     }
 
+    public synchronized DriverInfo getDriverInfo() {
+        return driverInfo;
+    }
 
-
-
-
+    public synchronized void setDriverInfo(DriverInfo driverInfo) {
+        this.driverInfo = driverInfo;
+    }
 }

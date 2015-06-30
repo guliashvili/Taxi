@@ -17,6 +17,18 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
+<div class="modal fade" id="orderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="orderModalCont" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="routeDiv">
+
+</div>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
         <br>
