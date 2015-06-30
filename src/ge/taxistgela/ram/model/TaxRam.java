@@ -93,7 +93,7 @@ public class TaxRam implements TaxRamAPI {
         OrderInfo traki = new OrderInfo(curMinute, order.getEndLocation(),
                 order.getNumPassengers(), -1, order.getStartLocation(),
                 curMinute,
-                -1, userInfo, null, null, order.getOrderID());
+                -1, userInfo, null, null, order.getOrderID(), null);
 
 
         List<DriverInfo> queue = driverInfoDao.getDriversByUserPreference(userInfo, traki);
@@ -105,7 +105,7 @@ public class TaxRam implements TaxRamAPI {
                     curMinute,
                     -1,
                     userInfo,
-                    driverInfo, dealisDone, order.getOrderID());
+                    driverInfo, dealisDone, order.getOrderID(), driverInfo.getLocation());
 
             orderInfo.setDistance((GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
                     GoogleMapUtils.getRoad(orderInfo.getStart(), orderInfo.getEnd()).distance.inMeters) / 1000.0);

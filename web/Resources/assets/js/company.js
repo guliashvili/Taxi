@@ -39,7 +39,7 @@ function resendPhone(){
     });
 }
 function initializeO(){
-    checkLoginState();
+    // checkLoginState();
     $(".headCaption").removeClass("hidden");
     initializeMap();
     createPreferencesSaves();
