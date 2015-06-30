@@ -43,6 +43,7 @@ function initializeSockets(mToken){
             var dateAsker = updateAsker();
             askWindow.setContent(dateAsker);
             askWindow.setMap(map);
+            return;
         }
         while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
         for(var i=0;i<drivers.length;i++){
