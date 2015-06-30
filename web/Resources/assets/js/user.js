@@ -17,7 +17,7 @@ function initializeSockets(mToken){
         console.log("success", arg.data);
         var list = arg.data;
         driversList="<div style='background-color:#FFD800' id='driversList'>";
-        for(var d in list){
+        for(var i=0;i<list.length;i++){
             driversList+="<button class='special>"+ d.car.carID+"</button>";
         }
         driversList = "</div>";

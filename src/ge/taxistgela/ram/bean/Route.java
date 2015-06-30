@@ -23,7 +23,9 @@ public class Route {
         this.drivers = drivers;
         this.users = users;
     }
+    public Route(){
 
+    }
     public static double getDistance(List<RouteElement> tmp) {
         double ret = 0;
         for (int i = 1; i < tmp.size(); i++) {
