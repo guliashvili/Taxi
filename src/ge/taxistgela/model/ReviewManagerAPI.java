@@ -50,4 +50,12 @@ public abstract class ReviewManagerAPI {
      * @return List of reviews.
      */
     public abstract List<Review> getReviewByDriverID(Integer driverID);
+
+    /**
+     * Returns list of reviews selected by the certain companyID.
+     *
+     * @param companyID
+     * @return List of reviews.
+     */
+    public abstract List<Review> getReviewByCompanyID(Integer companyID);
 }

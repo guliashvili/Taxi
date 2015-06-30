@@ -33,6 +33,9 @@ public class ReviewDao implements ReviewDaoAPI {
     private static final String GET_REVIEW_BY_DRIVER_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
             "FROM Reviews r INNER JOIN Orders o ON o.orderID=r.orderID AND o.driverID = ?";
 
+    private static final String GET_REVIEW_BY_COMPANY_ID = "SELECT r.reviewID, r.orderID, r.orientationFlag, r.rating, r.description " +
+            "FROM Reviews r INNER JOIN Orders o ON o.orderID=r.orderID INNER JOIN Drivers d ON o.driverID = d.driverID AND d.companyID=?";
+
     private static final String GET_REVIEW_BY_ORDER_ID = "SELECT * " +
             "FROM Reviews WHERE Reviews.orderID = ?";
 
@@ -121,6 +124,7 @@ public class ReviewDao implements ReviewDaoAPI {
         return review;
     }
 
+    @Override
     public List<Review> getReviewByOrderID(int orderID) {
         List<Review> reviews = new ArrayList<>();
 
@@ -180,6 +184,31 @@ public class ReviewDao implements ReviewDaoAPI {
                 st.setInt(1, driverID);
 
                 ExternalAlgorithms.debugPrintSelect("getReviewByDriverID \n" + st.toString());
+
+
+                try (ResultSetEnhanced rslt = st.executeQuery()) {
+                    while (rslt.next())
+                        reviews.add(fetchReview(rslt));
+                }
+            }
+        } catch (SQLException e) {
+            reviews = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+
+        return reviews;
+    }
+
+    @Override
+    public List<Review> getReviewByCompanyID(int companyID) {
+        List<Review> reviews = new ArrayList<>();
+
+        try (Connection conn = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(conn.prepareStatement(GET_REVIEW_BY_COMPANY_ID))) {
+
+                st.setInt(1, companyID);
+
+                ExternalAlgorithms.debugPrintSelect("getReviewByCompanyID \n" + st.toString());
 
 
                 try (ResultSetEnhanced rslt = st.executeQuery()) {

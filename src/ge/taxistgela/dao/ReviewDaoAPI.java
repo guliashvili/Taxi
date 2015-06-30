@@ -50,4 +50,6 @@ public interface ReviewDaoAPI {
     List<Review> getReviewByDriverID(int driverID);
 
     List<Review> getReviewByOrderID(int orderID);
+
+    List<Review> getReviewByCompanyID(int companyID);
 }
