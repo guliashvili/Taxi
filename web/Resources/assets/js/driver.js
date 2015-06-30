@@ -203,6 +203,20 @@ function rejectOffer(index){
         }
     });
 }
+function revokeOffer(index){
+    $.ajax({
+        url: "/orderInfo",
+        method: "post",
+        data: {action: "revokeOrderDriver",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
+        }
+    });
+}
 function acceptOffer(index){
     $.ajax({
         url: "/orderinfo",
