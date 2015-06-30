@@ -61,6 +61,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         var clickChoice = undefined;
     </script>
     <script src="/Resources/assets/js/facebook.js"></script>
+    <script src="/Resources/assets/js/google.js"></script>
 </head>
 <body class="landing">
 
@@ -179,7 +180,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                    placeholder="First Name"/><br>
                             <input id="userfacebookId" type="hidden" name="userfacebookId" value=""
                                    placeholder="Facebook Id"/>
-                            <input id="usergoogleplusId" type="hidden" name="usergoogleplusId" value=""
+                            <input id="usergoogleplusID" type="hidden" name="usergoogleplusId" value=""
                                    placeholder="Google Plus Id"/>
                             <input id="userlastName" type="text" name="userlastName" value=""
                                    placeholder="Last Name"/><br>
@@ -202,7 +203,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                         <span
                                                 class="g-signin"
                                                 data-height="short"
-                                                data-callback="onRegister"
+                                                data-callback="signinCallback"
                                                 data-clientid=<%=SNInfo.googleClientID%>
                                                         data-cookiepolicy="single_host_origin"
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
@@ -242,7 +243,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                         <span
                                                 class="g-signin"
                                                 data-height="short"
-                                                data-callback="onRegister"
+                                                data-callback="signinCallback"
                                                 data-clientid=<%=SNInfo.googleClientID%>
                                                         data-cookiepolicy="single_host_origin"
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
@@ -302,7 +303,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                         <span
                                                 class="g-signin"
                                                 data-height="short"
-                                                data-callback="onLogin"
+                                                data-callback="signinCallback"
                                                 data-clientid=<%=SNInfo.googleClientID%>
                                                         data-cookiepolicy="single_host_origin"
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"

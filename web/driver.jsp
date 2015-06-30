@@ -114,7 +114,7 @@
                                         <span
                                                 class="g-signin"
                                                 data-height="short"
-                                                data-callback="onLogin"
+                                                data-callback="signinCallback"
                                                 data-clientid=<%=SNInfo.googleClientID%>
                                                         data-cookiepolicy="single_host_origin"
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"

@@ -1,13 +1,17 @@
 package ge.taxistgela.servlet;
 
 import ge.taxistgela.bean.Driver;
+import ge.taxistgela.bean.Order;
 import ge.taxistgela.bean.User;
+import ge.taxistgela.model.OrderManagerAPI;
 import ge.taxistgela.ram.model.TaxRamAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Alex on 6/30/2015.
@@ -107,8 +111,9 @@ public class OrderInfoServlet extends ActionServlet {
 
     private void userChoice(boolean choice, HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+        OrderManagerAPI orderManager = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
 
-        if (taxRam == null) {
+        if (taxRam == null || orderManager == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             User user = (User) request.getSession().getAttribute(User.class.getName());
@@ -126,10 +131,16 @@ public class OrderInfoServlet extends ActionServlet {
                     return;
                 }
 
-                if (!taxRam.userChoice(driverID, user.getUserID(), orderID, choice)) {
-                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+                Order order = orderManager.getOrderByID(orderID);
 
-                    return;
+                order.setDriverID(driverID);
+
+                if (!orderManager.updateOrder(order)) {
+                    if (!taxRam.userChoice(user.getUserID(), driverID, orderID, choice)) {
+                        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                        return;
+                    }
                 }
             }
 
@@ -139,8 +150,9 @@ public class OrderInfoServlet extends ActionServlet {
 
     public void pickUser(HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+        OrderManagerAPI orderManager = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
 
-        if (taxRam == null) {
+        if (taxRam == null || orderManager == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
@@ -158,10 +170,16 @@ public class OrderInfoServlet extends ActionServlet {
                     return;
                 }
 
-                if (!taxRam.pickUser(driver.getDriverID(), orderID, userID)) {
-                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+                Order order = orderManager.getOrderByID(orderID);
 
-                    return;
+                order.setStartTime(new Date());
+
+                if (!orderManager.updateOrder(order)) {
+                    if (!taxRam.pickUser(driver.getDriverID(), orderID, userID)) {
+                        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                        return;
+                    }
                 }
 
             }
@@ -172,8 +190,9 @@ public class OrderInfoServlet extends ActionServlet {
 
     public void leaveUser(HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+        OrderManagerAPI orderManager = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
 
-        if (taxRam == null) {
+        if (taxRam == null || orderManager == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
@@ -191,11 +210,22 @@ public class OrderInfoServlet extends ActionServlet {
                     return;
                 }
 
-                double ret = taxRam.leaveUser(driver.getDriverID(), orderID, userID);
-                if (ret >= 0) {
-                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+                Order order = orderManager.getOrderByID(orderID);
 
-                    return;
+                order.setEndTime(new Date());
+
+                if (!orderManager.updateOrder(order)) {
+                    Double amount = taxRam.leaveUser(driver.getDriverID(), orderID, userID);
+
+                    if (amount > 0) {
+                        order.setPaymentAmount(amount);
+
+                        if (!orderManager.updateOrder(order)) {
+                            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                            return;
+                        }
+                    }
                 }
 
             }
@@ -206,18 +236,30 @@ public class OrderInfoServlet extends ActionServlet {
 
     public void revokeOrderUser(HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+        OrderManagerAPI orderManager = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
 
-        if (taxRam == null) {
+        if (taxRam == null || orderManager == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             User user = (User) request.getSession().getAttribute(User.class.getName());
 
             if (user != null) {
-                taxRam.revokeOrderUser(user.getUserID());
 
-                response.setStatus(HttpServletResponse.SC_ACCEPTED);
+                List<Order> openOrders = orderManager.getOpenOrder(user.getUserID());
 
-                return;
+                if (openOrders.size() == 1) {
+                    Order order = openOrders.get(0);
+
+                    order.setRevokedByUser(true);
+
+                    if (!orderManager.updateOrder(order)) {
+                        if (!taxRam.revokeOrderUser(user.getUserID())) {
+                            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                            return;
+                        }
+                    }
+                }
             }
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -226,8 +268,9 @@ public class OrderInfoServlet extends ActionServlet {
 
     public void revokeOrderDriver(HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+        OrderManagerAPI orderManager = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
 
-        if (taxRam == null) {
+        if (taxRam == null || orderManager == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             Driver driver = (Driver) request.getSession().getAttribute(User.class.getName());
@@ -243,11 +286,21 @@ public class OrderInfoServlet extends ActionServlet {
                     return;
                 }
 
-                taxRam.revokeOrderDriver(userID);
+                List<Order> openOrders = orderManager.getOpenOrder(userID);
 
-                response.setStatus(HttpServletResponse.SC_ACCEPTED);
+                if (openOrders.size() == 1) {
+                    Order order = openOrders.get(0);
 
-                return;
+                    order.setRevokedByDriver(true);
+
+                    if (!orderManager.updateOrder(order)) {
+                        if (!taxRam.revokeOrderUser(userID)) {
+                            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                            return;
+                        }
+                    }
+                }
             }
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
