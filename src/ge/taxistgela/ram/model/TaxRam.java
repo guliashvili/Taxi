@@ -284,20 +284,18 @@ public class TaxRam implements TaxRamAPI {
         if (route == null) return null;
 
         OrderInfo orderInfo = null;
-        synchronized (driverInfo.route.inCar) {
-            for (OrderInfo elem : driverInfo.route.inCar) {
-                if (elem.getOrderID() == userID) {
-                    orderInfo = elem;
-                }
-            }
-            synchronized (route) {
-                for (RouteElement elem : driverInfo.route.route) {
-                    if (elem.getOrderInfo().getOrderID() == userID) {
-                        orderInfo = elem.getOrderInfo();
-                    }
-                }
+
+        for (OrderInfo elem : driverInfo.route.inCar) {
+            if (elem.getOrderID() == userID) {
+                orderInfo = elem;
             }
         }
+        for (RouteElement elem : driverInfo.route.route) {
+            if (elem.getOrderInfo().getOrderID() == userID) {
+                orderInfo = elem.getOrderInfo();
+            }
+        }
+
 
         String message = new Gson().toJson(orderInfo);
 
