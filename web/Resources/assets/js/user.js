@@ -34,7 +34,7 @@ function initializeSockets(mToken){
         console.log("success", arg.data);
         drivers=JSON.parse(arg.data);
         driverList="";
-        while(driverMarkersT.length>0){driverMarkersT.pop().setMap(null);}
+        while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
         if(drivers==null) return;
         for(var i=0;i<drivers.length;i++){
             var cont="";
@@ -58,12 +58,8 @@ function initializeSockets(mToken){
         if(askWindow!=null){
             askWindow.setContent(driversList);
         }
-        if (startMarker != null) {
-            startMarker.setMap(null);
-        }
-        if (endMarker != null) {
-            endMarker.setMap(null);
-        }
+        removeFromMap(startMarker);
+        removeFromMap(endMarker);
 
         $("input").change(function (e) {
             $(e.target).attr("value", $(e.target).val());
@@ -126,6 +122,8 @@ function revokeOrder() {
         cache: false,
         success: function (data) {
             console.log(data);
+            clearPinPoint();
+            removeFromMap(askWindow);
         },
         error: function (data) {
             console.error("Couldn't log in\n" + JSON.stringify(formData));
@@ -198,9 +196,7 @@ function askForDate(){
         new google.maps.LatLng(startMarker.position.A, startMarker.position.F),
         new google.maps.LatLng(endMarker.position.A, endMarker.position.F)
     ];
-    if(travel!=null){
-        travel.setMap(null);
-    }
+    removeFromMap(travel);
     travel=new google.maps.Polyline({
         path: coords,
         geodesic: true,

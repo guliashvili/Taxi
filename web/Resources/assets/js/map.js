@@ -4,10 +4,14 @@
 
 // Add map element to the background.
 var map;
-var isUser;
-var startMarker = null;
-var endMarker = null;
-var askWindow = null;
+var isUser;//if user
+var startMarker = null;//for user
+var endMarker = null;//for user
+var askWindow = null;//for user
+/**
+ * initializes map
+ * @param isUser1 true if for user
+ */
 function initializeMap(isUser1) {
 	//geolocation
 	isUser = isUser1;
@@ -21,15 +25,27 @@ function initializeMap(isUser1) {
 		map = new google.maps.Map(document.getElementById('map'), mapOptions);
 	}
 }
+/**
+ * testing pursposes
+ * @type {*[]}
+ */
 var randomdrivers = [{lat: 41.732539, lang: 44.768887}, {lat: 41.721457, lang: 44.769402}, {
 	lat: 41.732039,
 	lang: 44.768587
 }, {lat: 41.732000, lang: 44.768187}];
+/**
+ * updates Modal
+ * @returns {string}
+ */
 function updateAsker(){
 	var dateAsker = "<form id='mapOrder' style='background-color:#FFD800;margin:5px;padding:5px;'>"+$("#prefForm").html()+
 		"<br></form><button id='addOrderM' onclick='addOrderJ()' class='special'> Add Order</button>";
 	return dateAsker;
 }
+/**
+ * marker for my current location
+ * @type {google.maps.marker}
+ */
 var curMarker=null;
 function showPosition(position) {
 	var mapOptions = { //your location
@@ -63,12 +79,16 @@ function showPosition(position) {
 		driver.setMap(map);
 	}
 }
+/**
+ * markers for orders (clearing purposes)
+ * @type {Array[google.maps.marker]}
+ */
 var orderMarkers = [];
 function addOrder(orderInfo) {
 	console.log("addOrder");
 	console.log(orderInfo);
 	while (orderMarkers.length > 0) {
-		orderMarkers.pop().setMap(null);
+		removeFromMap(orderMarkers.pop());
 	}
 	for (var i = 0; i < orderInfo.length; i++) {
 		var start = orderInfo[i].start;
@@ -92,9 +112,18 @@ function addOrder(orderInfo) {
 		tmpMarker.setAnimation(google.maps.Animation.BOUNCE);
 	}
 }
+/**
+ * opens order
+ * @param cont
+ * @param mark
+ */
 function openOrder(cont,mark){
 	cont.open(map,mark);
 }
+/**
+ * places marker for given location
+ * @param loc
+ */
 function placeMarker(loc) {
 	if (drivers != undefined && drivers.length > 0) return;
 	if (startMarker == null) {
@@ -128,6 +157,12 @@ function placeMarker(loc) {
 		askForDate();
 	}
 }
+/**
+ * gets car icon used for icons
+ * @param glyph
+ * @param color
+ * @returns {string}
+ */
 function getIcon(glyph, color) {
 	var canvas, ctx;
 	canvas = document.createElement('canvas');
@@ -139,6 +174,9 @@ function getIcon(glyph, color) {
 	ctx.fillText(glyph, 0, 16);
 	return canvas.toDataURL();
 }
+/**
+ * fetches map updates
+ */
 function updateMapLocations() {
 	$.ajax({
 		url: "/updateMap",
@@ -153,12 +191,36 @@ function updateMapLocations() {
 		}
 	});
 }
+/**
+ * minimizes main div (window)
+ */
 function minimize(){
 	$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');
 }
+/**
+ * sub procedure for pinpoint clears previous line and markers
+ */
 function clearPinPoint(){
-	//TODO
+	removeFromMap(travel);
+	removeFromMap(marker1);
+	removeFromMap(marker2);
 }
+function removeFromMap(obj){
+	if(obj!=null){
+		obj.setMap(null);
+	}
+}
+var marker1=null;
+var marker2=null;
+var travel=null;
+/**
+ * pinpoints given place on map draws line between them
+ * @param lat latitude of first point
+ * @param lng longitude of first point
+ * @param lat1 latitude of second point
+ * @param lng1 longitude of second point
+ * @returns {google.maps.Marker} first marker
+ */
 function pinpoint(lat,lng,lat1,lng1){
 	console.log("pinpointing:"+lat+" "+lng+" "+lat1+" "+lng1+" ");
 	minimize();
@@ -166,7 +228,7 @@ function pinpoint(lat,lng,lat1,lng1){
 		new google.maps.LatLng(lat, lng),
 		new google.maps.LatLng(lat1, lng1)
 	];
-	var travel=new google.maps.Polyline({
+	travel=new google.maps.Polyline({
 		path: coords,
 		geodesic: true,
 		strokeColor: '#FF0000',
@@ -175,20 +237,20 @@ function pinpoint(lat,lng,lat1,lng1){
 	});
 	travel.setMap(map);
 	map.setCenter(new google.maps.LatLng(lat,lng));
-	var marker1 = new google.maps.Marker({
+	marker1 = new google.maps.Marker({
 		position: new google.maps.LatLng(lat,lng),
 		map: map,
 		title: 'Start Position'
 	});
-	var marker2 = new google.maps.Marker({
+	marker2 = new google.maps.Marker({
 		position: new google.maps.LatLng(lat1,lng1),
 		map: map,
 		title: 'End Position'
 	});
 	google.maps.event.addListener(map, 'click', function (event) {
-		marker1.setMap(null);
-		marker2.setMap(null);
-		travel.setMap(null);
+		removeFromMap(marker1);
+		removeFromMap(marker2);
+		removeFromMap(travel);
 	});
 	return marker1;
 }

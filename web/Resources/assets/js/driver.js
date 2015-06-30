@@ -103,7 +103,7 @@ function initializeO(){
 function updateLatLang(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    if(curMarker!=null){curMarker.setMap(null);}
+    if(curMarker!=null){removeFromMap(curMarker);}
     curMarker = new google.maps.Marker({
         position: {lat: position.coords.latitude, lng: position.coords.longitude},
         map: map,
@@ -559,6 +559,13 @@ function drawRoute(marker1,marker2) {
 var namequeue=[];
 var nameTimer;
 function fetchNames(){
+    if(geocodeQuery.length==0){
+        $("#routeDiv").html(generateRouteDiv());
+        clearInterval(geocodeTimer);
+    }
+    var start=namequeue[namequeue.length-1];
+    var arr=start.split(",");
+    var startM=new google.maps.LatLng(arr[0],arr[1]);
     geocoderNames.geocode({'latLng': startM}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[1]) {
@@ -566,6 +573,7 @@ function fetchNames(){
                 namequeue.pop();
                 if (namequeue.length == 0) {
                     $("#routeDiv").html(generateRouteDiv());
+                    clearInterval(nameTimer);
                 }
             } else {
                 latMap[start] = "unknown";
