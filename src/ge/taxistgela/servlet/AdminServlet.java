@@ -41,30 +41,64 @@ public class AdminServlet extends ActionServlet {
     public void banUser(HttpServletRequest request, HttpServletResponse response) {
         UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
 
-        banSuper(userManager, request, response);
+        String userID = request.getParameter("userID");
+        String password = RandomStringUtils.randomAlphanumeric(20);
+
+        toogleBan(userManager, userID, password, request, response);
     }
 
     public void banDriver(HttpServletRequest request, HttpServletResponse response) {
         DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
 
-        banSuper(driverManager, request, response);
+        String driverID = request.getParameter("driverID");
+        String password = RandomStringUtils.randomAlphanumeric(20);
+
+        toogleBan(driverManager, driverID, password, request, response);
     }
 
     public void banCompany(HttpServletRequest request, HttpServletResponse response) {
         CompanyManagerAPI orderManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
 
-        banSuper(orderManager, request, response);
+        String companyID = request.getParameter("companyID");
+        String password = RandomStringUtils.randomAlphanumeric(20);
+
+        toogleBan(orderManager, companyID, password, request, response);
     }
 
-    private void banSuper(SuperUserManager superUserManager, HttpServletRequest request, HttpServletResponse response) {
+    public void unbanUser(HttpServletRequest request, HttpServletResponse response) {
+        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+
+        String userID = request.getParameter("userID");
+        String password = request.getParameter("password");
+
+        toogleBan(userManager, userID, password, request, response);
+    }
+
+    public void unbanDriver(HttpServletRequest request, HttpServletResponse response) {
+        DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
+
+        String driverID = request.getParameter("driverID");
+        String password = RandomStringUtils.randomAlphanumeric(20);
+
+        toogleBan(driverManager, driverID, password, request, response);
+    }
+
+    public void unbanCompany(HttpServletRequest request, HttpServletResponse response) {
+        CompanyManagerAPI orderManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
+
+        String companyID = request.getParameter("companyID");
+        String password = request.getParameter("password");
+
+        toogleBan(orderManager, companyID, password, request, response);
+    }
+
+    private void toogleBan(SuperUserManager superUserManager, String sID, String password, HttpServletRequest request, HttpServletResponse response) {
         if (superUserManager == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
             Admin admin = (Admin) request.getSession().getAttribute(Admin.class.getName());
 
             if (admin != null) {
-                String sID = request.getParameter("id");
-
                 if (sID != null) {
                     Integer id = null;
 
@@ -79,7 +113,7 @@ public class AdminServlet extends ActionServlet {
                     SuperDaoUser superUser = superUserManager.getByID(id);
 
                     if (superUser != null) {
-                        superUser.setPassword(RandomStringUtils.randomAlphanumeric(10));
+                        superUser.setPassword(password);
 
                         ErrorCode errorCode = superUserManager.update(superUser);
 
@@ -97,6 +131,4 @@ public class AdminServlet extends ActionServlet {
             }
         }
     }
-
-
 }
