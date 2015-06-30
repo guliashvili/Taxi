@@ -68,7 +68,9 @@ function initializeSockets(mToken){
             startMarker = null;
             endMarker=null;
             askWindow.setContent(dateAsker);
-            askWindow.setMap(map);
+            if(askWindow.getMap()==null) {
+                askWindow.setMap(map);
+            }
         }
         if(askWindow!=null){
             if(drivers.length > 0){
@@ -180,7 +182,9 @@ function addOrderJ(){
         success: function (data) {
             if(askWindow!=null) {
                 askWindow.setContent(driversList);
-                askWindow.setMap(map);
+                if(askWindow.getMap()==null){
+                    askWindow.setMap(map);
+                }
             }
         },
         error: function (data) {
