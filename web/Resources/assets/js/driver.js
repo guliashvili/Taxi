@@ -9,6 +9,20 @@ $(document).ready(function () {
 var latitude = null;
 var longitude = null;
 var records=[];
+function fetchEverything(){
+    $.ajax({
+        url: "/orderinfo",
+        method: "post",
+        data: {action:"getDriverInfo"},
+        cache: false,
+        success: function(data){
+            console.log(data);
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+}
 function initializeO(){
     $(".headCaption").removeClass("hidden");
     initializeMap();
@@ -29,7 +43,7 @@ function initializeO(){
                 //console.log(data);
             },
             error: function (data) {
-                console.error(data);
+                console.log(data);
             }
         });
     }, 3000);
@@ -58,7 +72,7 @@ function initializeO(){
             generateGrid();
         },
         error: function (data) {
-            console.error(data);
+            console.log(data);
         }
     });
 }
@@ -71,6 +85,7 @@ function initializeSockets(mToken) {
 
     websocket.onopen = function (arg) {
         console.log("success", "connected");
+        fetchEverything();
     };
 
     websocket.onmessage = function (arg) {
@@ -150,7 +165,7 @@ function size(obj) {
         if (obj.hasOwnProperty(key)) size++;
     }
     return size;
-};
+}
 function generateModal(orderInfo) {
     var out="";
     for(var i=0;i<orderInfo.length;i++){
@@ -178,7 +193,21 @@ function rejectOffer(index){
     $.ajax({
         url: "/order",
         method: "post",
-        data: {action: "driverReject",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "driverReject",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
+        }
+    });
+}
+function revokeOffer(index){
+    $.ajax({
+        url: "/orderInfo",
+        method: "post",
+        data: {action: "revokeOrderDriver",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -189,10 +218,11 @@ function rejectOffer(index){
     });
 }
 function acceptOffer(index){
+    console.log(orderInfo[index].orderID,orderInfo[index].user.userID);
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "driverAccept",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "driverAccept",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -203,10 +233,32 @@ function acceptOffer(index){
     });
 }
 function resendEmail() {
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "dEmail"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function resendPhone() {
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "dPhone"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function createPreferencesSaves() {
     $("#passChange").click(function (e) {
@@ -242,7 +294,7 @@ function createPreferencesSaves() {
     $("#companyCodeBtn").click(function (e) {
         var formData = $("#companyCodeForm").serialize();
         $.ajax({
-            url: "/update",
+            url: "/sendverification",
             method: "post",
             data: formData,
             cache: false,
@@ -250,7 +302,7 @@ function createPreferencesSaves() {
                 console.log(data);
             },
             error: function (data) {
-                console.error("Couldn't log in\n" + JSON.stringify(formData));
+                console.error(JSON.stringify(formData));
             }
         });
     });
@@ -320,6 +372,7 @@ function generateGrid(){
 }var curRoute;
 function defineRoute(route){
     curRoute=route;
+
 }
 function displayRoute(){
     //updates routeDiv TODO

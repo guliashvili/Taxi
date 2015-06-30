@@ -1,7 +1,6 @@
 <%@ page import="ge.taxistgela.bean.Company" %>
+<%@ page import="ge.taxistgela.model.CompanyManagerAPI" %>
 <%@ page import="ge.taxistgela.socialNetwork.SNInfo" %>
-<%@ page import="ge.taxistgela.dao.CompanyDao" %>
-<%@ page import="ge.taxistgela.model.CompanyManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -24,8 +23,9 @@
         <h2> Greetings <%= company.getCompanyName()%> <br></h2>
 
         <div class="5u$">
-            <a href="#"><h3>Your Average Driver Rating: <% CompanyManager man  =(CompanyManager) request.getServletContext().getAttribute(CompanyManager.class.getName());
-            double Rating= man.getCompanyScore(company.getCompanyID());%>
+            <a href="#"><h3>Your Average Driver
+                Rating: <% CompanyManagerAPI man = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
+                    double Rating = man.getCompanyScore(company.getCompanyID());%>
             </h3></a>
             <% for (int i = 1; i <= 5; ++i) { %>
             <% if (Rating >= i) { %>
@@ -48,7 +48,11 @@
             <input type="email" disabled value="<%=company.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!company.getIsVerifiedEmail()){out.println(" onclick='resendEmail()'");}%>>
+            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%
+                if (!company.getIsVerifiedEmail()) {
+                    out.println(" onclick='resendEmail()'");
+                }
+            %>>
                 <% if (company.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -60,7 +64,11 @@
             <input type="text" disabled value="<%=company.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedPhone()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!company.getIsVerifiedPhone()){out.println(" onclick='resendPhone()'");}%>>
+            <button class="fa fa-check-circle button small <% if(company.getIsVerifiedPhone()){out.println("disabled verified");}else{out.println("special");}%>" <%
+                if (!company.getIsVerifiedPhone()) {
+                    out.println(" onclick='resendPhone()'");
+                }
+            %>>
                 <% if (company.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {
@@ -88,9 +96,10 @@
             <a href="#" style="float:left"
                class="<%if(company.getGoogleID()==null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
-            <% if (company.getGoogleID() != null) { %>  Account Attached <%  }%>
+            <% if (company.getGoogleID() != null) { %>  Account Attached <% }%>
             <br><br>
-            <%if (company.getGoogleID() == null) { %> <div class="gg_button">
+            <%if (company.getGoogleID() == null) { %>
+            <div class="gg_button">
                                                             <span
                                                                     class="g-signin"
                                                                     data-height="short"
@@ -100,12 +109,13 @@
                                                                     data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                                                     data-scope="https://www.googleapis.com/auth/plus.login">
                                                             </span>
-            </div> <%}%>
+            </div>
+            <%}%>
             <br><br>
             <a href="#" style="float:left"
                class="<%if(company.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
                     class="label">Facebook</span></a>
-            <% if (company.getFacebookID() != null) { %>  Account Attached <%  }%>
+            <% if (company.getFacebookID() != null) { %>  Account Attached <% }%>
             <br><br>
             <% if (company.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
                                                                           onlogin="checkLoginState();"></fb:login-button> <% } %>

@@ -7,11 +7,26 @@ $(document).ready(function(){
 var records=[];
 var travel=null;
 var drivers;
+function fetchEverything(){
+    $.ajax({
+        url: "/orderinfo",
+        method: "post",
+        data: {action:"getUserInfo"},
+        cache: false,
+        success: function(data){
+            console.error(data);
+        },
+        error: function(data){
+            console.error(data);
+        }
+    });
+}
 function initializeSockets(mToken){
     var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 0 + "/" + mToken);
 
     websocket.onopen = function (arg) {
         console.log("success", "connected");
+        fetchEverything();
     };
 
     websocket.onmessage = function (arg) {
@@ -70,6 +85,20 @@ function initializeO(){
         }
     });
     console.log("ajax request sent");
+}
+function revokeOffer(index){
+    $.ajax({
+        url: "/orderInfo",
+        method: "post",
+        data: {action: "revokeUserDriver"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
+        }
+    });
 }
 var driversList = "<img src='Resources/images/loading.gif' style='width:400px;height:auto' />";
 function addOrderJ(){
@@ -157,13 +186,13 @@ function acceptDriver(index){
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "userAccept",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "userAccept",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
         },
         error: function (data) {
-            console.error("Couldn't log in\n" + JSON.stringify(formData));
+            console.error(JSON.stringify(formData));
         }
     });
 }
@@ -171,21 +200,43 @@ function rejectDriver(index){
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "userReject",orderID: orderInfo[index].orderID,userID: oderInfo[index].user.userID},
+        data: {action: "userReject",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,
         success: function (data) {
             console.log(data);
         },
         error: function (data) {
-            console.error("Couldn't log in\n" + JSON.stringify(formData));
+            console.error(JSON.stringify(formData));
         }
     });
 }
 function resendEmail(){
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "uEmail"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function resendPhone(){
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "uPhone"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
@@ -199,7 +250,7 @@ function createPreferencesSaves(){
                 console.log(data);
             },
             error: function (data) {
-                console.error("Couldn't log in\n" + JSON.stringify(formData));
+                console.error(JSON.stringify(formData));
             }
         });
     });
@@ -217,7 +268,7 @@ function createPreferencesSaves(){
                 askWindow.setContent(dateAsker);
             },
             error: function (data) {
-                console.error("Couldn't log in\n" + JSON.stringify(formData));
+                console.error(JSON.stringify(formData));
             }
         });
     });

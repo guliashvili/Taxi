@@ -11,10 +11,32 @@ $(document).ready(function(){
     initializeO();
 });
 function resendEmail(){
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "cEmail"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function resendPhone(){
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "cPhone"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function initializeO(){
     $(".headCaption").removeClass("hidden");

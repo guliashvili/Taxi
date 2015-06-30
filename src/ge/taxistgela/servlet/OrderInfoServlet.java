@@ -1,16 +1,13 @@
 package ge.taxistgela.servlet;
 
-import com.google.gson.Gson;
 import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.User;
-import ge.taxistgela.ram.bean.OrderInfo;
 import ge.taxistgela.ram.model.TaxRamAPI;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Alex on 6/30/2015.
@@ -18,7 +15,7 @@ import java.util.List;
 @WebServlet("/orderinfo")
 public class OrderInfoServlet extends ActionServlet {
 
-    public void getWaitingUsers(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void getDriverInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
 
         if (taxRam == null) {
@@ -27,11 +24,10 @@ public class OrderInfoServlet extends ActionServlet {
             Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
 
             if (driver != null) {
-                List<OrderInfo> users = taxRam.getWaitingUsers(driver.getDriverID());
+                taxRam.getRouteDriver(driver.getDriverID());
+                taxRam.getWaitingUsers(driver.getDriverID());
 
                 response.setStatus(HttpServletResponse.SC_OK);
-                response.setContentType("application/json");
-                response.getWriter().print(new Gson().toJson(users));
 
                 return;
             }
@@ -40,7 +36,7 @@ public class OrderInfoServlet extends ActionServlet {
         }
     }
 
-    public void getWaitingDrivers(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void getUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
 
         if (taxRam == null) {
@@ -49,11 +45,10 @@ public class OrderInfoServlet extends ActionServlet {
             User user = (User) request.getSession().getAttribute(User.class.getName());
 
             if (user != null) {
-                List<OrderInfo> drivers = taxRam.getWaitingDrivers(user.getUserID());
+                taxRam.getRouteUser(user.getUserID());
+                taxRam.getWaitingUsers(user.getUserID());
 
                 response.setStatus(HttpServletResponse.SC_OK);
-                response.setContentType("application/json");
-                response.getWriter().print(new Gson().toJson(drivers));
 
                 return;
             }
@@ -208,18 +203,48 @@ public class OrderInfoServlet extends ActionServlet {
         }
     }
 
-    public void gerDriverRoute(HttpServletRequest request, HttpServletResponse response) {
+    public void revokeOrderUser(HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
 
         if (taxRam == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
-            Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
+            User user = (User) request.getSession().getAttribute(User.class.getName());
+
+            if (user != null) {
+                taxRam.revokeOrderUser(user.getUserID());
+
+                response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                return;
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    public void revokeOrderDriver(HttpServletRequest request, HttpServletResponse response) {
+        TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
+
+        if (taxRam == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            Driver driver = (Driver) request.getSession().getAttribute(User.class.getName());
 
             if (driver != null) {
-                taxRam.getRouteDriver(driver.getDriverID());
+                Integer userID = null;
 
-                response.setStatus(HttpServletResponse.SC_OK);
+                try {
+                    userID = Integer.parseInt(request.getParameter("userID"));
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+                    return;
+                }
+
+                taxRam.revokeOrderDriver(userID);
+
+                response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
                 return;
             }
