@@ -10,6 +10,8 @@ import ge.taxistgela.helper.ResultSetEnhanced;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Alex on 5/25/2015.
@@ -452,5 +454,30 @@ public class CompanyDao implements CompanyDaoAPI {
                 ExternalAlgorithms.debugPrint(e);
             }
         return false;
+    }
+
+    @Override
+    public List<Company> getAllCompanies() {
+        List<Company> companies = new ArrayList<>();
+
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (Statement st = con.createStatement()) {
+
+                ExternalAlgorithms.debugPrintSelect("getAllCompanies \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+                if (res.next())
+                    companies.add(fetchCompany(res));
+            }
+        } catch (SQLException e) {
+            ExternalAlgorithms.debugPrint(e);
+        }
+    }
+
+    private Company fetchCompany(ResultSetEnhanced res) {
+        Company company = new Company();
+
+        company.setCompanyID(res.getInt(1));
+
     }
 }

@@ -2,10 +2,14 @@ package ge.taxistgela.dao;
 
 import ge.taxistgela.bean.Company;
 
+import java.util.List;
+
 /**
  * Created by Alex on 5/25/2015.
  */
 public interface CompanyDaoAPI {
+
+    List<Company> getAllCompanies();
 
     Company getCompanyByID(int userID);
 
