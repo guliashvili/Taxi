@@ -321,18 +321,7 @@ public class TaxRam implements TaxRamAPI {
     }
 
     public boolean leaveUser(int driverID, int orderID, int userID) {
-        UserInfo userInfo = users.get(userID);
-        DriverInfo driverInfo = drivers.get(driverID);
-        if (userInfo == null || driverInfo == null) return true;
-        boolean ret = false;
-
-        driverInfo.route.leaveUser(userInfo, orderID);
-
-        getRouteUser(userID);
-        getRouteDriver(driverID);
-
-        getWaitingDrivers(userID);
-        getWaitingUsers(driverID);
+        boolean ret = revokeOrderUser(userID);
 
         return ret;
     }
