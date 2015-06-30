@@ -93,7 +93,7 @@ public class TaxRam implements TaxRamAPI {
         OrderInfo traki = new OrderInfo(curMinute, order.getEndLocation(),
                 order.getNumPassengers(), -1, order.getStartLocation(),
                 curMinute,
-                -1, userInfo, null, null, order.getOrderID());
+                -1, userInfo, null, null, order.getOrderID(), null);
 
 
         List<DriverInfo> queue = driverInfoDao.getDriversByUserPreference(userInfo, traki);
@@ -105,7 +105,7 @@ public class TaxRam implements TaxRamAPI {
                     curMinute,
                     -1,
                     userInfo,
-                    driverInfo, dealisDone, order.getOrderID());
+                    driverInfo, dealisDone, order.getOrderID(), driverInfo.getLocation());
 
             orderInfo.setDistance((GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
                     GoogleMapUtils.getRoad(orderInfo.getStart(), orderInfo.getEnd()).distance.inMeters) / 1000.0);
@@ -230,7 +230,7 @@ public class TaxRam implements TaxRamAPI {
                             orderInfo1.getOrderID() == orderID));
         } else {
             OrderInfo orderInfo = null;
-            for (OrderInfo elem : driverInfo.waitingList) {
+            for (OrderInfo elem : userInfo.waitingList) {
                 if (elem.getOrderID() == orderID && elem.getDriver().getDriverID() == driverID) {
                     orderInfo = elem;
                     break;
@@ -243,11 +243,10 @@ public class TaxRam implements TaxRamAPI {
                 userInfo.setDriverInfo(driverInfo);
                 ret |= !(userInfo.waitingList.removeIf(orderInfo1 ->
                         orderInfo1.getDriver().getDriverID() == driverID &&
-                                orderInfo1.getDriver().getDriverID() == driverID &&
                                 orderInfo1.getOrderID() == orderID));
 
-                if (!ret && userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID)) {
-
+                if (!ret) {
+                    userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID);
                     driverInfo.route.addOrder(orderInfo);
                 }
             } else
@@ -325,8 +324,8 @@ public class TaxRam implements TaxRamAPI {
         return ret;
     }
 
-    public boolean leaveUser(int driverID, int orderID, int userID) {
-        boolean ret = revokeOrderUser(userID);
+    public double leaveUser(int driverID, int orderID, int userID) {
+        double ret = 0;// revokeOrderUser(userID);
 
         return ret;
     }

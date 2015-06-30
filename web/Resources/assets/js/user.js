@@ -39,13 +39,15 @@ function initializeSockets(mToken){
             var cont="";
             cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
             cont += "Price:" + drivers[i].maxPrice + " Phone:" + drivers[i].driver.phoneNumber + " CAR:" + drivers[i].driver.car.carID + "<br>" + "Rating:" + drivers[i].driver.rating + "<br>";
-            cont += "<button onclick='acceptDriver(" + i + ")' class='special'>Accept</button>";
+            cont += "<button onclick='acceptDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='special'>Accept</button>";
+            cont += "<button onclick='rejectDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='special'>Reject</button>";
+
             cont += "</div>";
             tmpWindow = new google.maps.InfoWindow({
                 content: cont
             });
             var tmpMarker = new google.maps.Marker({
-                position: {lat: drivers[i].driver.Location.latitiude, lng: drivers[i].driver.Location.longitude},
+                position: new google.maps.LatLng(drivers[i].location.latitude, drivers[i].location.longitude),
                 map: map,
                 title: 'Taxi Map'
             });
@@ -79,7 +81,7 @@ function initializeSockets(mToken){
     return websocket;
 }
 function initializeO(){
-    checkLoginState();
+    //checkLoginState();
     $("input").change(function(e){
         $(e.target).attr("value",$(e.target).val());
     });
@@ -115,11 +117,11 @@ function initializeO(){
     });
     console.log("ajax request sent");
 }
-function revokeOrder(index){
+function revokeOrder() {
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "revokeUserDriver"},
+        data: {action: "revokeOrderUser"},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -213,11 +215,11 @@ function askForDate(){
         });
     }
 }
-function acceptDriver(index){
+function acceptDriver(orderID, driverID) {
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "userAccept",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
+        data: {action: "userAccept", orderID: orderID, driverID: driverID},
         cache: false,
         success: function (data) {
             console.log(data);
@@ -241,11 +243,11 @@ function revokeOffer(index){
         }
     });
 }
-function rejectDriver(index){
+function rejectDriver(orderID, driverID) {
     $.ajax({
         url: "/orderinfo",
         method: "post",
-        data: {action: "userReject",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
+        data: {action: "userReject", orderID: orderID, driverID: driverID},
         cache: false,
         success: function (data) {
             console.log(data);

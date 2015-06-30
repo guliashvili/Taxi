@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.bean;
 
+import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.User;
 
@@ -16,11 +17,11 @@ public class OrderInfo{
     private long startTime;
     private int orderID;
     private User user;
-    private DriverInfo driver;
+    private Driver driver;
     private BOOLEAN dealisDone;
+    private Location location;
 
-
-    public OrderInfo(long createTime, Location end, int nPassengers, double maxPrice, Location start, long startTime, double distance, User user, DriverInfo driver, BOOLEAN dealisDone, int orderID) {
+    public OrderInfo(long createTime, Location end, int nPassengers, double maxPrice, Location start, long startTime, double distance, User user, Driver driver, BOOLEAN dealisDone, int orderID, Location location) {
         this.createTime = createTime;
         this.end = end;
         this.nPassengers = nPassengers;
@@ -32,11 +33,12 @@ public class OrderInfo{
         if (driver != null) setDriver(driver);
         this.dealisDone = dealisDone;
         this.orderID = orderID;
+        this.location = location;
     }
 
     public OrderInfo(OrderInfo orderInfo) {
         this(orderInfo.createTime, orderInfo.end, orderInfo.nPassengers, orderInfo.maxPrice, orderInfo.start, orderInfo.startTime, orderInfo.distance,
-                orderInfo.user, orderInfo.driver, orderInfo.dealisDone, orderInfo.orderID);
+                orderInfo.user, orderInfo.driver, orderInfo.dealisDone, orderInfo.orderID, orderInfo.location);
     }
 
 
@@ -59,12 +61,12 @@ public class OrderInfo{
         this.orderID = orderID;
     }
 
-    public synchronized DriverInfo getDriver() {
+    public synchronized Driver getDriver() {
         return driver;
     }
 
-    public synchronized void setDriver(DriverInfo driver) {
-        this.driver = new DriverInfo(driver);
+    public synchronized void setDriver(Driver driver) {
+        this.driver = new Driver(driver);
     }
 
     public synchronized User getUser() {

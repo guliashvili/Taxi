@@ -31,7 +31,7 @@ public interface TaxRamAPI {
 
     boolean pickUser(int driverID, int orderID, int userID);
 
-    boolean leaveUser(int driverID, int orderID, int userID);
+    double leaveUser(int driverID, int orderID, int userID);
 
     Route getRouteDriver(int driverID);
 

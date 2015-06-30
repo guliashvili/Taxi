@@ -126,7 +126,7 @@ public class OrderInfoServlet extends ActionServlet {
                     return;
                 }
 
-                if (!taxRam.userChoice(user.getUserID(), driverID, orderID, choice)) {
+                if (!taxRam.userChoice(driverID, user.getUserID(), orderID, choice)) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
                     return;
@@ -191,7 +191,8 @@ public class OrderInfoServlet extends ActionServlet {
                     return;
                 }
 
-                if (!taxRam.leaveUser(driver.getDriverID(), orderID, userID)) {
+                double ret = taxRam.leaveUser(driver.getDriverID(), orderID, userID);
+                if (ret >= 0) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
                     return;
