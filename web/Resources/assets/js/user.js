@@ -40,12 +40,6 @@ function initializeSockets(mToken){
         }
 
         if(drivers==null){
-            var dateAsker = updateAsker();
-            clearPinPoint();
-            startMarker = null;
-            endMarker=null;
-            askWindow.setContent(dateAsker);
-            askWindow.setMap(map);
             return;
         }
         while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
@@ -68,9 +62,23 @@ function initializeSockets(mToken){
             tmpWindow.open(map, tmpMarker);
             driverMarkersT.push(tmpMarker);
         }
+        if(drivers.length == 0){
+            var dateAsker = updateAsker();
+            clearPinPoint();
+            startMarker = null;
+            endMarker=null;
+            askWindow.setContent(dateAsker);
+            if(askWindow.getMap()==null) {
+                askWindow.setMap(map);
+            }
+        }
         if(askWindow!=null){
-            askWindow.setContent(driversList);
-            askWindow.setMap(map);
+            if(drivers.length > 0){
+                askWindow.setContent(driversList);
+                if(askWindow.getMap()==null){
+                    askWindow.setMap(map);
+                }
+            }
         }
         removeFromMap(startMarker);
         removeFromMap(endMarker);
@@ -174,7 +182,9 @@ function addOrderJ(){
         success: function (data) {
             if(askWindow!=null) {
                 askWindow.setContent(driversList);
-                askWindow.setMap(map);
+                if(askWindow.getMap()==null){
+                    askWindow.setMap(map);
+                }
             }
         },
         error: function (data) {
