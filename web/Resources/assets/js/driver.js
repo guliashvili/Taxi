@@ -406,6 +406,13 @@ var curRoute;
 var routeMarker=null;
 function defineRoute(route){
     curRoute=route;
+    displayRoute();
+    var out="";
+    for(var i=0;i<curRoute.length;++i){
+        out+=latMap[curRoute[i].loc.latitude + "," + curRoute[i].loc.longitude];
+        out+="<button onclick='carryRoute' class='special fa fa-check'>.</button>";
+    }
+    $("#routeDiv").html(out);
 }
 function displayRoute(){
     if(routeMarker!=null){
@@ -418,14 +425,12 @@ function displayRoute(){
         map: map,
         title: 'Taxi Map'
     });
-
+    drawRoute(curMarker,routeMarker);
 }
-function calcRoute(marker1,marker2) {
-    var start = new google.maps.LatLng(marker1.position.A,marker1.position.F);
-    var end = new google.maps.LatLng(marker2.position.A,marker2.position.F);
+function drawRoute(marker1,marker2) {
     var request = {
-        origin:start,
-        destination:end,
+        origin:marker1,
+        destination:marker2,
         travelMode: google.maps.TravelMode.DRIVING
     };
     directionsService.route(request, function(response, status) {

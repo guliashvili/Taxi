@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-<div id="routeDiv">
+<div id="routeDiv" style="position:fixed;top:30px;left:0;background-color:#FFD800;width:25%;height:500px;overflow-y:auto">
 
 </div>
 <div class="prefPanel">
