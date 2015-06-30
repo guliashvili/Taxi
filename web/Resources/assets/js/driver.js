@@ -111,6 +111,7 @@ function updateLatLang(position) {
         map: map,
         title: 'Taxi Map'
     });
+    //map.setCenter(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
 }
 /**
  * initializes sockets should be called only once

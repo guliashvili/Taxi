@@ -35,7 +35,11 @@ function initializeSockets(mToken){
         drivers=JSON.parse(arg.data);
         driverList="";
         while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
-        if(drivers==null) return;
+        if(drivers==null){
+            var dateAsker = updateAsker();
+            askWindow.setContent(dateAsker);
+            askWindow.setMap(map);
+        }
         for(var i=0;i<drivers.length;i++){
             var cont="";
             cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
