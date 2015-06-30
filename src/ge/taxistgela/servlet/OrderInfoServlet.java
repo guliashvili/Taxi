@@ -248,8 +248,7 @@ public class OrderInfoServlet extends ActionServlet {
 
                 List<Order> openOrders = orderManager.getOpenOrder(user.getUserID());
 
-                if (openOrders.size() == 1) {
-                    Order order = openOrders.get(0);
+                for (Order order : openOrders) {
 
                     order.setRevokedByUser(true);
 
@@ -289,8 +288,8 @@ public class OrderInfoServlet extends ActionServlet {
 
                 List<Order> openOrders = orderManager.getOpenOrder(userID);
 
-                if (openOrders.size() == 1) {
-                    Order order = openOrders.get(0);
+
+                for (Order order : openOrders) {
 
                     order.setRevokedByDriver(true);
 
