@@ -23,6 +23,7 @@ public abstract class OrderManagerAPI {
 
     public abstract List<Order> getOrdersByCompanyID(Integer companyID);
 
+    public abstract List<Order> getOpenOrder(int userID);
 
     /**
      * Updates the certain order with the new data. (status active).
