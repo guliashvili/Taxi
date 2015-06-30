@@ -14,13 +14,14 @@ function fetchEverything(){
         data: {action:"getUserInfo"},
         cache: false,
         success: function(data){
-            console.error(data);
+            console.log(data);
         },
         error: function(data){
             console.error(data);
         }
     });
 }
+var driverMarkersT=[];
 function initializeSockets(mToken){
     var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 0 + "/" + mToken);
 
@@ -32,12 +33,36 @@ function initializeSockets(mToken){
     websocket.onmessage = function (arg) {
         console.log("success", arg.data);
         drivers=JSON.parse(arg.data);
-        driversList="<div style='background-color:#FFD800' id='driversList'>";
+        driverList="";
+        while(driverMarkersT.length>0){driverMarkersT.pop().setMap(null);}
         for(var i=0;i<drivers.length;i++){
-            driversList+="<button onclick='acceptDriver("+i+")' class='special>"+ drivers[i].carID+"</button>";
+            var cont="";
+            cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
+            cont += "Price:" + drivers[i].maxPrice + " Phone:" + drivers[i].driver.phoneNumber + " CAR:" + drivers[i].driver.car.carID + "<br>" + "Rating:" + drivers[i].driver.rating + "<br>";
+            cont += "<button onclick='acceptDriver(" + i + ")' class='special'>Accept</button>";
+            cont += "</div>";
+            tmpWindow = new google.maps.InfoWindow({
+                content: cont
+            });
+            var tmpMarker = new google.maps.Marker({
+                position: {lat: drivers[i].driver.Location.latitiude, lng: drivers[i].driver.Location.longitude},
+                map: map,
+                title: 'Taxi Map'
+            });
+            tmpWindow.open(map, tmpMarker);
+            driverMarkersT.push(tmpMarker);
         }
-        driversList = "</div>";
         askWindow.setContent(driversList);
+        if (startMarker != null) {
+            startMarker.setMap(null);
+        }
+        if (endMarker != null) {
+            endMarker.setMap(null);
+        }
+
+        $("input").change(function (e) {
+            $(e.target).attr("value", $(e.target).val());
+        });
     };
 
     websocket.onclose = function (arg) {

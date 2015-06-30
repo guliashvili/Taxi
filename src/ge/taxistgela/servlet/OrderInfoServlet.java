@@ -46,7 +46,7 @@ public class OrderInfoServlet extends ActionServlet {
 
             if (user != null) {
                 taxRam.getRouteUser(user.getUserID());
-                taxRam.getWaitingUsers(user.getUserID());
+                taxRam.getWaitingDrivers(user.getUserID());
 
                 response.setStatus(HttpServletResponse.SC_OK);
 
