@@ -1,10 +1,14 @@
 package ge.taxistgela.ram.bean;
 
+import ge.taxistgela.bean.Location;
 import ge.taxistgela.helper.GoogleMapUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by GIO on 6/29/2015.
@@ -12,7 +16,13 @@ import java.util.List;
 public class Route {
     public List<OrderInfo> inCar = Collections.synchronizedList(new ArrayList<>());
     public List<RouteElement> route = Collections.synchronizedList(new ArrayList<>());
+    private ConcurrentHashMap<Integer, DriverInfo> drivers = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, UserInfo> users = new ConcurrentHashMap<>();
 
+    public Route(ConcurrentHashMap<Integer, DriverInfo> drivers, ConcurrentHashMap<Integer, UserInfo> users) {
+        this.drivers = drivers;
+        this.users = users;
+    }
 
     public static double getDistance(List<RouteElement> tmp) {
         double ret = 0;
@@ -25,12 +35,15 @@ public class Route {
     }
 
 
-    public static double findTheBest(RouteElement last, List<RouteElement> tmp, double bestAns, double curAns) {
+    public double findTheBest(Location last, double curTime, List<RouteElement> tmp, double bestAns, double curAns) {
         if (bestAns < curAns) return bestAns;
         if (tmp.size() == 0) return curAns;
 
+
         for (int i = 0; i < tmp.size(); i++) {
             boolean isNotLogical = false;
+            double nextCurTime = curTime + GoogleMapUtils.getRoad(last, tmp.get(i).getLoc()).duration.inSeconds / 60.0;
+
             if (!tmp.get(i).isPickUser()) {
                 for (RouteElement elem : tmp) {
                     if (elem.isPickUser() &&
@@ -39,25 +52,32 @@ public class Route {
                         break;
                     }
                 }
+
+                isNotLogical |= (nextCurTime - tmp.get(i).getOrderInfo().getCreateTime()) >
+                        tmp.get(i).getOrderInfo().getUser().getPreference().getTimeLimit();
             }
+
+
             if (isNotLogical) continue;
 
             double cur = curAns;
-            if (last != null)
-                cur += GoogleMapUtils.getRoad(last.getLoc(), tmp.get(i).getLoc()).distance.inMeters / 1000.0;
 
-            last = tmp.get(i);
+            cur += GoogleMapUtils.getRoad(last, tmp.get(i).getLoc()).distance.inMeters / 1000.0;
+
+
+            RouteElement elem = tmp.get(i);
             tmp.remove(i);
 
-            bestAns = findTheBest(last, tmp, bestAns, cur);
+            bestAns = findTheBest(last, nextCurTime,
+                    tmp, bestAns, cur);
 
-            tmp.add(i, last);
+            tmp.add(i, elem);
 
         }
         return bestAns;
     }
 
-    public double getOptimalPrice(OrderInfo orderInfo) {
+    public double getOptimalPriceIfInserted(OrderInfo orderInfo) {
         List<RouteElement> tmp = new ArrayList<>();
         tmp.addAll(route);
 
@@ -68,7 +88,9 @@ public class Route {
 
         tmp.sort((o1, o2) -> o1.getOrderInfo().getOrderID() - o2.getOrderInfo().getOrderID());
 
-        double dist1 = findTheBest(null, tmp, 99999999, 0);
+
+        double dist1 = findTheBest(drivers.get(tmp.get(0).getOrderInfo().getDriver().getDriverID()).getLocation(),
+                TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()), tmp, 99999999, 0);
 
         double M = orderInfo.getDistance();
 
@@ -88,7 +110,7 @@ public class Route {
         }
         double payD = dist1 - dist0 + M / (n + 1);
 
-        return payD;
+        return payD * orderInfo.getDriver().getPreferences().getCoefficientPer();
     }
 
     public synchronized void addOrder(OrderInfo orderInfo) {
@@ -137,7 +159,7 @@ public class Route {
             boolean res2 = route.removeIf(routeElement ->
                     routeElement.getOrderInfo().getUser().getUserID() == userInfo.getUserID()
                             && routeElement.getOrderInfo().getOrderID() == orderID &&
-                            !routeElement.isPickUser());
+                            routeElement.isPickUser());
         }
     }
 
