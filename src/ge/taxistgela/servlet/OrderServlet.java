@@ -125,12 +125,12 @@ public class OrderServlet extends ActionServlet {
                     return;
                 }
 
-                orderManage.addOrder(order);
+                if (!orderManage.addOrder(order)) {
+                    taxRam.addOrder(order);
+                    response.setStatus(HttpServletResponse.SC_CREATED);
 
-                taxRam.addOrder(order);
-
-                response.setStatus(HttpServletResponse.SC_CREATED);
-                return;
+                    return;
+                }
             }
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

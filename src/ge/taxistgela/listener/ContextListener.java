@@ -1,10 +1,9 @@
-package ge.taxistgela.listener; /**
+package ge.taxistgela.listener;
+/**
  * Created by Alex on 6/5/2015.
  */
 
 import ge.taxistgela.dao.*;
-import ge.taxistgela.dispatcher.OrderDispatcher;
-import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.model.*;
 import ge.taxistgela.ram.model.TaxRam;
 import ge.taxistgela.ram.model.TaxRamAPI;
@@ -69,13 +68,8 @@ public class ContextListener implements ServletContextListener,
         // add TaxRam.
         sc.setAttribute(TaxRamAPI.class.getName(), ram);
 
-        // add OrderDispatcher.
-        OrderDispatcher orderDispatcher = new OrderDispatcher(sc);
-        sc.setAttribute(OrderDispatcher.class.getName(), orderDispatcher);
-        ExternalAlgorithms.debugPrint("Starting order dispatcher...");
-        orderDispatcher.start();
-
-
+        // add SmsQueue.
+        sc.setAttribute(SmsQueue.class.getName(), new SmsQueue());
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
@@ -106,10 +100,8 @@ public class ContextListener implements ServletContextListener,
         // remove TaxRam.
         sc.removeAttribute(TaxRamAPI.class.getName());
 
-        // remove OrderDispatcher.
-        OrderDispatcher orderDispatcher = (OrderDispatcher) sce.getServletContext().getAttribute(OrderDispatcher.class.getName());
-        orderDispatcher.cancel();
-        sce.getServletContext().removeAttribute(OrderDispatcher.class.getName());
+        // remove SmsQueue.
+        sc.removeAttribute(SmsQueue.class.getName());
     }
 
     // -------------------------------------------------------

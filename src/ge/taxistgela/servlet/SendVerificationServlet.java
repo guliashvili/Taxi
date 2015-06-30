@@ -6,10 +6,12 @@ import ge.taxistgela.bean.SuperDaoUser;
 import ge.taxistgela.bean.User;
 import ge.taxistgela.helper.EmailSender;
 import ge.taxistgela.model.CompanyManagerAPI;
+import ge.taxistgela.model.SmsQueue;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Alex on 6/5/2015.
@@ -17,14 +19,22 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/sendverification")
 public class SendVerificationServlet extends ActionServlet {
 
+    private static final String[] M_TYPE = {
+            "http://localhost:8080/verify?action=uPhone&token=",
+            "http://localhost:8080/verify?action=dPhone&token=",
+            "http://localhost:8080/verify?action=cPhone&token="
+    };
+
     public void uEmail(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(User.class.getName());
 
         sEmail(user, response);
     }
 
-    public void uPhone(HttpServletRequest request, HttpServletResponse response) {
+    public void uPhone(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        User user = (User) request.getSession().getAttribute(User.class.getName());
 
+        sPhone(user, 0, request, response);
     }
 
     public void dEmail(HttpServletRequest request, HttpServletResponse response) {
@@ -33,8 +43,10 @@ public class SendVerificationServlet extends ActionServlet {
         sEmail(driver, response);
     }
 
-    public void dPhone(HttpServletRequest request, HttpServletResponse response) {
+    public void dPhone(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        Driver driver = (Driver) request.getSession().getAttribute(Driver.class.getName());
 
+        sPhone(driver, 1, request, response);
     }
 
     public void dCompany(HttpServletRequest request, HttpServletResponse response) {
@@ -69,8 +81,10 @@ public class SendVerificationServlet extends ActionServlet {
         sEmail(company, response);
     }
 
-    public void cPhone(HttpServletRequest request, HttpServletResponse response) {
+    public void cPhone(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        Company company = (Company) request.getSession().getAttribute(Company.class.getName());
 
+        sPhone(company, 2, request, response);
     }
 
     private void sEmail(SuperDaoUser superUser, HttpServletResponse response) {
@@ -80,6 +94,24 @@ public class SendVerificationServlet extends ActionServlet {
             EmailSender.verifyEmail(superUser);
 
             response.setStatus(HttpServletResponse.SC_OK);
+        }
+    }
+
+    private void sPhone(SuperDaoUser superUser, int type, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        SmsQueue smsQueue = (SmsQueue) request.getServletContext().getAttribute(SmsQueue.class.getName());
+
+        if (smsQueue == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else {
+            if (superUser != null) {
+                if (!smsQueue.addSms(superUser)) {
+                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            }
+
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 }

@@ -3,10 +3,7 @@ package ge.taxistgela.servlet;
 import ge.taxistgela.bean.*;
 import ge.taxistgela.helper.EmailSender;
 import ge.taxistgela.helper.GoogleReCaptchaValidation;
-import ge.taxistgela.model.CompanyManagerAPI;
-import ge.taxistgela.model.DriverManagerAPI;
-import ge.taxistgela.model.SuperUserManager;
-import ge.taxistgela.model.UserManagerAPI;
+import ge.taxistgela.model.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +16,8 @@ import java.io.IOException;
  */
 @WebServlet("/register")
 public class RegistrationServlet extends ActionServlet {
+
+
     private boolean verify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ErrorCode errorCode = new ErrorCode();
         String gRecaptchaResponse = request
@@ -145,7 +144,9 @@ public class RegistrationServlet extends ActionServlet {
     }
 
     private void registerSuper(SuperUserManager man, SuperDaoUser obj, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (man == null) {
+        SmsQueue smsQueue = (SmsQueue) request.getServletContext().getAttribute(SmsQueue.class.getName());
+
+        if (man == null || smsQueue == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
 
@@ -158,6 +159,8 @@ public class RegistrationServlet extends ActionServlet {
                 response.setStatus(HttpServletResponse.SC_CREATED);
 
                 EmailSender.verifyEmail(obj);
+
+                smsQueue.addSms(obj);
 
                 return;
             }
