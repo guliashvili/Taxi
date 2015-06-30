@@ -110,7 +110,8 @@ public class TaxRam implements TaxRamAPI {
             orderInfo.setDistance((GoogleMapUtils.getRoad(driverInfo.getLocation(), orderInfo.getStart()).distance.inMeters +
                     GoogleMapUtils.getRoad(orderInfo.getStart(), orderInfo.getEnd()).distance.inMeters) / 1000.0);
 
-            orderInfo.setMaxPrice(orderInfo.getDistance() * orderInfo.getDriver().getPreferences().getCoefficientPer());
+            double noPrice = driverInfo.route.getOptimalPriceIfInserted(orderInfo);
+            orderInfo.setMaxPrice(noPrice);
 
 
             driverInfo.waitingList.add(orderInfo);

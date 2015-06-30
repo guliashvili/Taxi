@@ -34,6 +34,10 @@ function initializeSockets(mToken){
         console.log("success", arg.data);
         drivers=JSON.parse(arg.data);
         driverList="";
+        while (driverMarkersT.length > 0) {
+            removeFromMap(driverMarkersT.pop());
+        }
+        if(drivers==null) return;
         while(driverMarkersT.length>0){removeFromMap(driverMarkersT);}
         if(drivers==null){
             var dateAsker = updateAsker();
@@ -128,11 +132,19 @@ function revokeOrder() {
         success: function (data) {
             console.log(data);
             clearPinPoint();
+            removeFromMap(startMarker);
+            removeFromMap(endMarker);
             removeFromMap(askWindow);
+            startMarker = null;
+            endMarker = null;
         },
         error: function (data) {
             clearPinPoint();
+            removeFromMap(startMarker);
+            removeFromMap(endMarker);
             removeFromMap(askWindow);
+            startMarker = null;
+            endMarker = null;
         }
     });
 }

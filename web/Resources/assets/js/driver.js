@@ -564,9 +564,10 @@ function drawRoute(marker1, marker2) {
 var namequeue = [];
 var nameTimer;
 function fetchNames() {
-    if (geocodeQuery.length == 0) {
+    if (namequeue.length == 0) {
         $("#routeDiv").html(generateRouteDiv());
-        clearInterval(geocodeTimer);
+        clearInterval(nameTimer);
+        return;
     }
     var start = namequeue[namequeue.length - 1];
     var arr = start.split(",");
