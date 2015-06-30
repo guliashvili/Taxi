@@ -24,7 +24,7 @@
 
         <div class="5u$">
             <a href="#"><h3>Your Average Driver
-                Rating: <% CompanyManagerAPI man = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
+                Rating: <% CompanyManagerAPI man = (CompanyManagerAPI) application.getAttribute(CompanyManagerAPI.class.getName());
                     double Rating = man.getCompanyScore(company.getCompanyID());%>
             </h3></a>
             <% for (int i = 1; i <= 5; ++i) { %>

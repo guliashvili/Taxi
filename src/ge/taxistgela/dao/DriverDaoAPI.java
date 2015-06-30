@@ -211,4 +211,6 @@ public interface DriverDaoAPI {
      * @return true/false
      */
     boolean checkGoogleID(String googleID);
+
+    List<Driver> getAllDrivers();
 }

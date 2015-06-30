@@ -283,4 +283,9 @@ public class UserManager extends UserManagerAPI {
         if (googleID == null) return null;
         else return userDao.checkGoogleID(googleID);
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
 }

@@ -163,4 +163,6 @@ public interface UserDaoAPI {
      */
     boolean checkGoogleID(String googleID);
 
+    List<User> getAllUsers();
+
 }

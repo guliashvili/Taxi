@@ -799,4 +799,26 @@ public class DriverDao implements DriverDaoAPI {
             }
         return false;
     }
+
+    @Override
+    public List<Driver> getAllDrivers() {
+        List<Driver> drivers = new ArrayList<>();
+
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(base_join_select_STMT))) {
+
+                ExternalAlgorithms.debugPrintSelect("getAllDrivers \n" + st.toString());
+                ResultSetEnhanced res = st.executeQuery();
+
+                while (res.next()) {
+                    drivers.add(getDriver(res));
+                }
+            }
+        } catch (SQLException e) {
+            drivers = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+
+        return drivers;
+    }
 }
