@@ -218,6 +218,7 @@ function revokeOffer(index){
     });
 }
 function acceptOffer(index){
+    console.log(orderInfo[index].orderID,orderInfo[index].user.userID);
     $.ajax({
         url: "/orderinfo",
         method: "post",
