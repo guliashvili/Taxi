@@ -150,7 +150,7 @@ function size(obj) {
         if (obj.hasOwnProperty(key)) size++;
     }
     return size;
-};
+}
 function generateModal(orderInfo) {
     var out="";
     for(var i=0;i<orderInfo.length;i++){
@@ -203,10 +203,32 @@ function acceptOffer(index){
     });
 }
 function resendEmail() {
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "dEmail"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function resendPhone() {
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "dPhone"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function createPreferencesSaves() {
     $("#passChange").click(function (e) {
@@ -242,7 +264,7 @@ function createPreferencesSaves() {
     $("#companyCodeBtn").click(function (e) {
         var formData = $("#companyCodeForm").serialize();
         $.ajax({
-            url: "/update",
+            url: "/sendverification",
             method: "post",
             data: formData,
             cache: false,
@@ -250,7 +272,7 @@ function createPreferencesSaves() {
                 console.log(data);
             },
             error: function (data) {
-                console.error("Couldn't log in\n" + JSON.stringify(formData));
+                console.error(JSON.stringify(formData));
             }
         });
     });

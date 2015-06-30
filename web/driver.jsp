@@ -131,7 +131,7 @@
             <form id="companyCodeForm" action="" type="post">
                 <input name="companyCode" type="text" placeholder="Company Code"/><br>
                 <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
-                <input type="text" name="action" value="dCompanyCode" class="hidden"/>
+                <input type="text" name="action" value="dCompany" class="hidden"/>
             </form>
         </div>
         <div class="5u$ 12u$(small)">
