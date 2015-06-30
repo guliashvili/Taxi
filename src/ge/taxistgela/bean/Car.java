@@ -1,15 +1,21 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 
 /**
  * Created by Alex on 5/25/2015.
  */
 public class Car {
+    @Expose
     private String carID;
+    @Expose
     private String carDescription;
+    @Expose
     private Integer carYear;
+    @Expose
     private Boolean conditioning;
+    @Expose
     private Integer numPassengers;
 
     public Car() {

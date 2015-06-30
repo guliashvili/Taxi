@@ -1,5 +1,6 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 
 import java.util.Date;
@@ -8,17 +9,29 @@ import java.util.Date;
  * Created by Alex on 5/25/2015.
  */
 public class Order {
+    @Expose
     private Integer orderID;
+    @Expose
     private Integer userID;
+    @Expose
     private Integer driverID;
+    @Expose
     private Integer numPassengers;
+    @Expose
     private Location startLocation;
+    @Expose
     private Location endLocation;
+    @Expose
     private Date startTime;
+    @Expose
     private Date endTime;
+    @Expose
     private Double paymentAmount;
+    @Expose
     private Date callTime;
+    @Expose
     private Boolean revokedByUser;
+    @Expose
     private Boolean revokedByDriver;
 
     public Order() {

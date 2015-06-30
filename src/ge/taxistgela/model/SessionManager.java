@@ -51,7 +51,7 @@ public class SessionManager implements SessionManagerAPI {
     }
 
     @Override
-    public void sendMessage(int sessionType, Integer ID, String message) {
+    public synchronized void sendMessage(int sessionType, Integer ID, String message) {
         Map<String, Session> sessions = getMap(sessionType);
         String token = managers[sessionType].getTokenByID(ID);
 

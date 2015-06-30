@@ -1,12 +1,15 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 
 /**
  * Created by Alex on 5/25/2015.
  */
 public class Location {
+    @Expose
     private Double latitude;
+    @Expose
     private Double longitude;
 
     public Location(Location loc) {

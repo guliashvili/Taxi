@@ -1,5 +1,6 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -7,12 +8,19 @@ import org.apache.commons.lang3.RandomStringUtils;
  * Created by Alex on 5/25/2015.
  */
 public class Driver extends SuperPersonalTokenUser {
+    @Expose
     private Integer driverID;
+    @Expose
     private String personalID;
+    @Expose
     private Integer companyID;
+    @Expose
     private Car car;
+    @Expose
     private Double rating;
+    @Expose
     private DriverPreference preferences;
+    @Expose
     private Boolean isActive;
 
     public Driver() {

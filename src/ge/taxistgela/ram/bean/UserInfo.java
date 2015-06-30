@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.bean.User;
 
 import java.util.ArrayList;
@@ -14,11 +15,13 @@ import java.util.concurrent.TimeUnit;
 public class UserInfo extends User {
 
 
-
-
+    @Expose
     public Object block = new Object();
+    @Expose
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
+    @Expose
     private OrderInfo orderInfo = null;
+    @Expose
     private DriverInfo driverInfo = null;
     public UserInfo() {
         super();
