@@ -153,9 +153,12 @@ function updateMapLocations() {
 		}
 	});
 }
+function minimize(){
+	$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');
+}
 function pinpoint(lat,lng,lat1,lng1){
 	console.log("pinpointing:"+lat+" "+lng+" "+lat1+" "+lng1+" ");
-	$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');
+	minimize();
 	var coords=[
 		new google.maps.LatLng(lat, lng),
 		new google.maps.LatLng(lat1, lng1)

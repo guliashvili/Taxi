@@ -39,10 +39,15 @@
             <%} %>
             <%} %>
         </div>
-        <div class="12u$ (small) fit" style="float:left">
+        <div id="addOrdBtn1" class="12u$ (small) fit" style="float:left">
             <a href="#"
-               onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');"
+               onclick="minimize()"
                class="button special small fa fa-bar-chart"> Add Order</a>
+        </div>
+        <div id="revokeOrderBTN" class="12u$ (small) fit" style="float:left">
+        <a href="#"
+           onclick="revokeOrder()"
+           class="button special small fa fa-bar-chart"> Add Order</a>
         </div>
         <br><br><br><br>
 

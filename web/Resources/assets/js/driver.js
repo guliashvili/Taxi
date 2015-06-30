@@ -217,7 +217,7 @@ function rejectOffer(index){
 }
 function revokeOffer(index){
     $.ajax({
-        url: "/orderInfo",
+        url: "/orderinfo",
         method: "post",
         data: {action: "revokeOrderDriver",orderID: orderInfo[index].orderID,userID: orderInfo[index].user.userID},
         cache: false,

@@ -63,6 +63,8 @@ function initializeSockets(mToken){
         $("input").change(function (e) {
             $(e.target).attr("value", $(e.target).val());
         });
+        $("#revokeOrder").removeClass("hidden");
+        $("#addOrdBtn1").addClass("hidden");
     };
 
     websocket.onclose = function (arg) {
@@ -111,7 +113,7 @@ function initializeO(){
     });
     console.log("ajax request sent");
 }
-function revokeOffer(index){
+function revokeOrder(index){
     $.ajax({
         url: "/orderInfo",
         method: "post",
@@ -218,6 +220,20 @@ function acceptDriver(index){
         },
         error: function (data) {
             console.error(JSON.stringify(formData));
+        }
+    });
+}
+function revokeOffer(index){
+    $.ajax({
+        url: "/orderinfo",
+        method: "post",
+        data: {action: "revokeOrderUser"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error("Couldn't log in\n" + JSON.stringify(formData));
         }
     });
 }
