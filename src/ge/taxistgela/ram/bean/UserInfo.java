@@ -17,8 +17,8 @@ public class UserInfo extends User {
 
 
     public Object block = new Object();
-    public Long orderStartTime;
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
+    private DriverInfo driverInfo;
     public UserInfo() {
         super();
     }
@@ -35,8 +35,11 @@ public class UserInfo extends User {
 
     }
 
+    public synchronized DriverInfo getDriverInfo() {
+        return driverInfo;
+    }
 
-
-
-
+    public synchronized void setDriverInfo(DriverInfo driverInfo) {
+        this.driverInfo = driverInfo;
+    }
 }
