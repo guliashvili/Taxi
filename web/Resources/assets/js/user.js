@@ -54,7 +54,9 @@ function initializeSockets(mToken){
             tmpWindow.open(map, tmpMarker);
             driverMarkersT.push(tmpMarker);
         }
-        askWindow.setContent(driversList);
+        if(askWindow!=null){
+            askWindow.setContent(driversList);
+        }
         if (startMarker != null) {
             startMarker.setMap(null);
         }
@@ -148,7 +150,9 @@ function addOrderJ(){
         cache: false,
         data: data,
         success: function (data) {
-            askWindow.setContent(driversList);
+            if(askWindow!=null) {
+                askWindow.setContent(driversList);
+            }
         },
         error: function (data) {
             console.error(data);
@@ -204,7 +208,7 @@ function askForDate(){
         strokeWeight: 2
     });
     travel.setMap(map);
-    if(endMarker!=null){
+    if(endMarker!=null && askWindow!=null){
         askWindow.open(map,startMarker);
         $("input").change(function(e){
             $(e.target).attr("value",$(e.target).val());
