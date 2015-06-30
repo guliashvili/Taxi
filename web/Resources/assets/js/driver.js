@@ -58,6 +58,7 @@ function initializeO(){
             records=data;
             for (var i=0;i<records.length;++i){
                 records[i]['recid']= records[i].orderID;
+                records[i]['userID']=records[i].userID;
                 if(records[i].revokedByDriver){
                     records[i]['style']="background-color:red";
                 }
@@ -382,7 +383,7 @@ function generateGrid(){
         },
         columns: [
             { field: 'recid', caption: 'orderID', size: '10%', sortable: true, attr: 'align=center' },
-            { field: 'driverID', caption: 'driverID', size: '5%', sortable: true, resizable: false },
+            { field: 'userID', caption: 'userID', size: '5%', sortable: true, resizable: false },
             { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
             { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
             { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
@@ -391,7 +392,7 @@ function generateGrid(){
             { field: 'callTime', caption: 'callTime', size: '30%', resizable: true },
         ],
         searches: [
-            { field: 'driverID', caption: 'driverID', type: 'text' },
+            { field: 'userID', caption: 'userID', type: 'text' },
             { field: 'orderID', caption: 'orderID', type: 'text' },
         ],
         sortData: [{ field: 'orderID', direction: 'ASC' }],
