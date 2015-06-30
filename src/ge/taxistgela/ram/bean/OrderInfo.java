@@ -1,6 +1,5 @@
 package ge.taxistgela.ram.bean;
 
-import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.User;
 
@@ -17,11 +16,11 @@ public class OrderInfo{
     private long startTime;
     private int orderID;
     private User user;
-    private Driver driver;
+    private DriverInfo driver;
     private BOOLEAN dealisDone;
 
 
-    public OrderInfo(long createTime, Location end, int nPassengers, double maxPrice, Location start, long startTime, double distance, User user, Driver driver, BOOLEAN dealisDone, int orderID) {
+    public OrderInfo(long createTime, Location end, int nPassengers, double maxPrice, Location start, long startTime, double distance, User user, DriverInfo driver, BOOLEAN dealisDone, int orderID) {
         this.createTime = createTime;
         this.end = end;
         this.nPassengers = nPassengers;
@@ -60,12 +59,12 @@ public class OrderInfo{
         this.orderID = orderID;
     }
 
-    public synchronized Driver getDriver() {
+    public synchronized DriverInfo getDriver() {
         return driver;
     }
 
-    public synchronized void setDriver(Driver driver) {
-        this.driver = new Driver(driver);
+    public synchronized void setDriver(DriverInfo driver) {
+        this.driver = new DriverInfo(driver);
     }
 
     public synchronized User getUser() {

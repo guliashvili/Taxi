@@ -63,7 +63,7 @@ function initializeSockets(mToken){
         $("input").change(function (e) {
             $(e.target).attr("value", $(e.target).val());
         });
-        $("#revokeOrder").removeClass("hidden");
+        $("#revokeOrderBTN").removeClass("hidden");
         $("#addOrdBtn1").addClass("hidden");
     };
 
@@ -115,7 +115,7 @@ function initializeO(){
 }
 function revokeOrder(index){
     $.ajax({
-        url: "/orderInfo",
+        url: "/orderinfo",
         method: "post",
         data: {action: "revokeUserDriver"},
         cache: false,

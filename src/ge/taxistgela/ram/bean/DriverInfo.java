@@ -28,6 +28,15 @@ public class DriverInfo extends Driver {
         route = new Route(drivers, users);
     }
 
+    public DriverInfo(DriverInfo driverInfo) {
+        super(driverInfo);
+        waitingList = Collections.synchronizedList(new ArrayList<>());
+        route = new Route(driverInfo.route.drivers, driverInfo.route.users);
+        block = driverInfo.block;
+        nPassengers = driverInfo.nPassengers;
+        location = driverInfo.location;
+    }
+
     public synchronized void removeBadOrders() {
         waitingList.removeIf(orderInfo ->
                 TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()) - orderInfo.getCreateTime() > OrderInfo.MAXIMUM_ORDER_LIFETIME);
