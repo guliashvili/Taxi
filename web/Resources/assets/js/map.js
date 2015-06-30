@@ -30,7 +30,7 @@ function updateAsker(){
 		"<br></form><button id='addOrderM' onclick='addOrderJ()' class='special'> Add Order</button>";
 	return dateAsker;
 }
-var curMarker;
+var curMarker=null;
 function showPosition(position) {
 	var mapOptions = { //your location
 		center: {lat: position.coords.latitude, lng: position.coords.longitude},

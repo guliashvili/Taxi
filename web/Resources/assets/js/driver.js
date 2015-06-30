@@ -79,6 +79,7 @@ function initializeO(){
 function updateLatLang(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
+    if(curMarker!=null){curMarker.setMap(null);}
     curMarker = new google.maps.Marker({
         position: {lat: position.coords.latitude, lng: position.coords.longitude},
         map: map,
