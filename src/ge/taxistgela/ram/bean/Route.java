@@ -99,19 +99,16 @@ public class Route implements Serializable {
         double M = orderInfo.getDistance();
 
         int n = 0;
-        synchronized (inCar) {
-            for (OrderInfo orderInfo1 : inCar) {
-                if (orderInfo1.getOrderID() != orderInfo.getOrderID()) n++;
-            }
-
-            synchronized (route) {
-                for (RouteElement routeElement : route) {
-                    if (routeElement.getOrderInfo().getOrderID() != orderInfo.getOrderID() && routeElement.isPickUser())
-                        n++;
-                }
-            }
-
+        for (OrderInfo orderInfo1 : inCar) {
+            if (orderInfo1.getOrderID() != orderInfo.getOrderID()) n++;
         }
+
+        for (RouteElement routeElement : route) {
+            if (routeElement.getOrderInfo().getOrderID() != orderInfo.getOrderID() && routeElement.isPickUser())
+                n++;
+        }
+
+
         double payD = dist1 - dist0 + M / (n + 1);
 
         return payD * orderInfo.getDriver().getPreferences().getCoefficientPer();
@@ -146,25 +143,10 @@ public class Route implements Serializable {
     }
 
     public synchronized void leaveUser(UserInfo userInfo, int orderID) {
-        RouteElement a = null;
-        for (RouteElement elem : route) {
-            if (elem.getOrderInfo().getUser().getUserID() == userInfo.getUserID() &&
-                    elem.getOrderInfo().getOrderID() == orderID
-                    && !elem.isPickUser()) {
-                a = elem;
-                break;
-            }
-        }
-        if (a != null) {
-            boolean res1 = route.removeIf(routeElement ->
-                    routeElement.getOrderInfo().getUser().getUserID() == userInfo.getUserID()
-                            && routeElement.getOrderInfo().getOrderID() == orderID &&
-                            !routeElement.isPickUser());
-            boolean res2 = route.removeIf(routeElement ->
-                    routeElement.getOrderInfo().getUser().getUserID() == userInfo.getUserID()
-                            && routeElement.getOrderInfo().getOrderID() == orderID &&
-                            routeElement.isPickUser());
-        }
+
+        route.removeIf(routeElement -> routeElement.getOrderInfo().getUser().getUserID() == userInfo.getUserID());
+        inCar.removeIf(orderInfo -> orderInfo.getUser().getUserID() == userInfo.getUserID());
+
     }
 
 
