@@ -6,9 +6,24 @@
 $(document).ready(function () {
     initializeO();
 });
+/**
+ * my current latitude
+ * @type {double}
+ */
 var latitude = null;
+/**
+ * my current longitude
+ * @type {double}
+ */
 var longitude = null;
+/**
+ * grid data
+ * @type {Array}
+ */
 var records=[];
+/**
+ * fetches needed information from server
+ */
 function fetchEverything(){
     $.ajax({
         url: "/orderinfo",
@@ -23,6 +38,9 @@ function fetchEverything(){
         }
     });
 }
+/**
+ * constructor for driver.js
+ */
 function initializeO(){
     // checkLoginState();
     $(".headCaption").removeClass("hidden");
@@ -78,6 +96,10 @@ function initializeO(){
         }
     });
 }
+/**
+ * updates current location and sets marker
+ * @param position
+ */
 function updateLatLang(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
@@ -88,6 +110,11 @@ function updateLatLang(position) {
         title: 'Taxi Map'
     });
 }
+/**
+ * initializes sockets should be called only once
+ * @param mToken
+ * @returns {WebSocket}
+ */
 function initializeSockets(mToken) {
     var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + mToken);
 
@@ -116,9 +143,17 @@ function initializeSockets(mToken) {
 
     return websocket;
 }
+/**
+ * latMap
+ * @type {map["lat,lang"] = name}
+ */
 var latMap = {};
+/**
+ * holds current orderInfo
+ */
 var orderInfo;
 geocoder = new google.maps.Geocoder();
+geocoderNames = new google.maps.Geocoder();
 function addOrder(ordr) {
     console.log("addOrder");
     orderInfo=ordr;
@@ -149,6 +184,10 @@ function addOrder(ordr) {
 }
 var geocodeQuery=[];
 var geocodeTimer;
+/**
+ * asynchroniously fetches names with locations
+ * pops geocodeQuery and fills up latMap
+ */
 function fetchGeocode(){
     if(geocodeQuery.length==0){
         $("#orderModalCont").html(generateModal(orderInfo));
@@ -174,6 +213,11 @@ function fetchGeocode(){
         }
     });
 }
+/**
+ * object size method
+ * @param obj
+ * @returns {number}
+ */
 function size(obj) {
     var size = 0, key;
     for (key in obj) {
@@ -181,6 +225,11 @@ function size(obj) {
     }
     return size;
 }
+/**
+ * generates modal
+ * @param orderInfo
+ * @returns {string}
+ */
 function generateModal(orderInfo) {
     var out="";
     for(var i=0;i<orderInfo.length;i++){
@@ -204,6 +253,10 @@ function generateModal(orderInfo) {
     }
     return out;
 }
+/**
+ * rejects index'th offer from list (left top corner)
+ * @param index
+ */
 function rejectOffer(index){
     $.ajax({
         url: "/order",
@@ -218,6 +271,10 @@ function rejectOffer(index){
         }
     });
 }
+/**
+ * rejects offer from user (orderInfo should be initialized)
+ * @param index
+ */
 function revokeOffer(index){
     $.ajax({
         url: "/orderinfo",
@@ -232,6 +289,11 @@ function revokeOffer(index){
         }
     });
 }
+/**
+ * orderInfo should be initialized
+ * accept offer from user orderInfo[index]
+ * @param index
+ */
 function acceptOffer(index){
     console.log(orderInfo[index].orderID,orderInfo[index].user.userID);
     $.ajax({
@@ -247,6 +309,11 @@ function acceptOffer(index){
         }
     });
 }
+/**
+ * curRoute.route[index]
+ * carryRoute(index) identifies current part of order as done and sends information to server
+ * @param index
+ */
 function carryRoute(index){
     var elem = curRoute.route[index];
     var action="leaveUser";
@@ -266,6 +333,9 @@ function carryRoute(index){
         }
     });
 }
+/**
+ * resends email (verification)
+ */
 function resendEmail() {
     $.ajax({
         url: "/sendverification",
@@ -280,6 +350,9 @@ function resendEmail() {
         }
     });
 }
+/**
+ * send request to server in order to send new sms to phone of driver
+ */
 function resendPhone() {
     $.ajax({
         url: "/sendverification",
@@ -294,6 +367,9 @@ function resendPhone() {
         }
     });
 }
+/**
+ * creates preference listeners
+ */
 function createPreferencesSaves() {
     $("#passChange").click(function (e) {
         var formData = $("#passForm").serialize();
@@ -371,7 +447,9 @@ function createPreferencesSaves() {
         });
     });
 }
-
+/**
+ * generated grid containing driver history
+ */
 function generateGrid(){
     $("#grid").removeClass("hidden");
     $('#grid').w2grid({
@@ -404,21 +482,39 @@ function generateGrid(){
         }
     });
 }
+/**
+ * current route json
+ * consists of .inCar and .route
+ */
 var curRoute;
+/**
+ * route marker
+ * @type {google.maps.marker}
+ */
 var routeMarker=null;
+
+/**
+ * displays curRoute
+ * fills nameQueue and triggers fetchNames
+ * also sets nameTimer
+ */
 function defineRoute(route){
     curRoute=route;
+    directionsDisplay.setMap(null);
     displayRoute();
     var out="";
     for (var i = 0; i < curRoute.route.length; ++i) {
         if (curRoute.route[0].pickUser) {
-            out += "<span> pick user </span>";
+            if(latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude]==undefined){
+                namequeue.push(curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude);
+            }
         }
-        out += latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude];
-        out += "<button onclick='carryRoute(" + i + ")' class='special fa fa-check'>.</button><br>";
     }
-    $("#routeDiv").html(out);
+    nameTimer==setInterval(function(){fetchNames();}, 1000);
 }
+/**
+ * displays curRoute
+ */
 function displayRoute(){
     if(routeMarker!=null){
         routeMarker.setMap(null);
@@ -435,8 +531,17 @@ function displayRoute(){
     }
     drawRoute(curMarker,routeMarker);
 }
-
+/**
+ * used in drawRoute procedure
+ * @type {google.maps.DirectionsRenderer}
+ */
 var directionsDisplay = new google.maps.DirectionsRenderer();
+/**
+ * draws directions on map fetches information from google directionservice
+ * in order to use this service directionsDisplay should be initialized
+ * @param marker1
+ * @param marker2
+ */
 function drawRoute(marker1,marker2) {
     var request = {
         origin: marker1.position,
@@ -450,4 +555,36 @@ function drawRoute(marker1,marker2) {
         }
     });
     directionsDisplay.setMap(map);
+}
+var namequeue=[];
+var nameTimer;
+function fetchNames(){
+    geocoderNames.geocode({'latLng': startM}, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+                latMap[start] = results[1].formatted_address;
+                namequeue.pop();
+                if (namequeue.length == 0) {
+                    $("#routeDiv").html(generateRouteDiv());
+                }
+            } else {
+                latMap[start] = "unknown";
+            }
+        }
+    });
+}
+/**
+ * generates div with text from curRoute ready to display
+ * @returns {string}
+ */
+function generateRouteDiv(){
+    var out="";
+    for (var i = 0; i < curRoute.route.length; ++i) {
+        if (curRoute.route[0].pickUser) {
+            out += "<span> pick user </span>";
+        }
+        out += latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude];
+        out += "<button onclick='carryRoute(" + i + ")' class='special fa fa-check'>.</button><br>";
+    }
+    return out;
 }

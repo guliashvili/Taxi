@@ -156,6 +156,9 @@ function updateMapLocations() {
 function minimize(){
 	$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');
 }
+function clearPinPoint(){
+	//TODO
+}
 function pinpoint(lat,lng,lat1,lng1){
 	console.log("pinpointing:"+lat+" "+lng+" "+lat1+" "+lng1+" ");
 	minimize();

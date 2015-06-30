@@ -35,6 +35,7 @@ function initializeSockets(mToken){
         drivers=JSON.parse(arg.data);
         driverList="";
         while(driverMarkersT.length>0){driverMarkersT.pop().setMap(null);}
+        if(drivers==null) return;
         for(var i=0;i<drivers.length;i++){
             var cont="";
             cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
