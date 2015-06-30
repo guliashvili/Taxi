@@ -15,11 +15,13 @@ public class OrderInfo{
     private Location start,end;
     private int nPassengers;
     private long startTime;
+    private int orderID;
     private User user;
     private Driver driver;
+    private BOOLEAN dealisDone;
 
 
-    public OrderInfo(long createTime, Location end, int nPassengers, double maxPrice, Location start, long startTime, double distance, User user, Driver driver) {
+    public OrderInfo(long createTime, Location end, int nPassengers, double maxPrice, Location start, long startTime, double distance, User user, Driver driver, BOOLEAN dealisDone, int orderID) {
         this.createTime = createTime;
         this.end = end;
         this.nPassengers = nPassengers;
@@ -29,22 +31,48 @@ public class OrderInfo{
         this.distance = distance;
         if (user != null) setUser(user);
         if (driver != null) setDriver(driver);
-
+        this.dealisDone = dealisDone;
+        this.orderID = orderID;
     }
 
-    public Driver getDriver() {
+    public OrderInfo(OrderInfo orderInfo) {
+        this(orderInfo.createTime, orderInfo.end, orderInfo.nPassengers, orderInfo.maxPrice, orderInfo.start, orderInfo.startTime, orderInfo.distance,
+                orderInfo.user, orderInfo.driver, orderInfo.dealisDone, orderInfo.orderID);
+    }
+
+
+    public synchronized boolean getSetTrueDealIsDone() {
+        boolean ret = dealisDone.get();
+        if (!ret)
+            dealisDone.set(true);
+        return ret;
+    }
+
+    public synchronized boolean getDealIsDone() {
+        return dealisDone.get();
+    }
+
+    public synchronized int getOrderID() {
+        return orderID;
+    }
+
+    public synchronized void setOrderID(int orderID) {
+        this.orderID = orderID;
+    }
+
+    public synchronized Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public synchronized void setDriver(Driver driver) {
         this.driver = new Driver(driver);
     }
 
-    public User getUser() {
+    public synchronized User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public synchronized void setUser(User user) {
         this.user = new User(user);
     }
 

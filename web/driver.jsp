@@ -17,6 +17,18 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
+<div class="modal fade" id="orderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="orderModalCont" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="routeDiv">
+
+</div>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
         <br>
@@ -86,14 +98,9 @@
             <a href="#" style="float:left"
                class="<%if(driver.getGoogleID()==null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
+            <% if (driver.getGoogleID() != null) { %>  Account Attached <%  }%>
             <br><br>
-            <a href="#" style="float:left"
-               class="<%if(driver.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
-                    class="label">Facebook</span></a>
-        </div>
-        <% if (driver.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
-                                                                     onlogin="checkLoginState();"></fb:login-button> <% } %>
-        <% if (driver.getGoogleID() == null) { %> <div class="gg_button">
+            <% if (driver.getGoogleID() == null) { %> <div class="gg_button">
                                         <span
                                                 class="g-signin"
                                                 data-height="short"
@@ -103,7 +110,19 @@
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                                 data-scope="https://www.googleapis.com/auth/plus.login">
                                         </span>
-        </div>  <% } %>
+            </div>  <% } %>
+
+            <br><br>
+            <a href="#" style="float:left"
+               class="<%if(driver.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
+                    class="label">Facebook</span></a>
+            <% if (driver.getFacebookID() != null) { %>  Account Attached <%  }%>
+            <br><br>
+            <% if (driver.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
+                                                                         onlogin="checkLoginState();"></fb:login-button> <% } %>
+            <br><br>
+        </div>
+
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cP').toggleClass('hidden');" class="button special small fa fa-adjust"> Register To
                 Company</a>
@@ -114,10 +133,6 @@
                 <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
                 <input type="text" name="action" value="dCompanyCode" class="hidden"/>
             </form>
-        </div>
-        <div class="5u$ 12u$(small)">
-            <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
-                Your Preferences</a>
         </div>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit
@@ -162,13 +177,9 @@
             <button id="cCarBtn" class="button special small fa fa-adjust"> Save</button>
         </div>
         <div class="12u 1u$(small)" style="float:left">
-            <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
+            <a href="#" onclick="$('#grid').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden">
-            <div id="grid">
-
-            </div>
-        </div>
+        <div id="grid" class="hidden" style="color:black;width: 100%;padding:0px; height: 250px;"></div>
     </div>
 </div>

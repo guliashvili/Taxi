@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class DriverInfo extends Driver {
 
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
-    public List<OrderInfo> timeTable = Collections.synchronizedList(new ArrayList<>());
+    public Route route = new Route();
 
     public Object block = new Object();
     public int nPassengers = 0;
@@ -30,9 +30,11 @@ public class DriverInfo extends Driver {
         super(driver);
     }
 
-    public synchronized void removeOldOrders() {
+    public synchronized void removeBadOrders() {
         waitingList.removeIf(orderInfo ->
                 TimeUnit.MILLISECONDS.toMinutes(new Date().getTime()) - orderInfo.getCreateTime() > OrderInfo.MAXIMUM_ORDER_LIFETIME);
+        waitingList.removeIf(orderInfo -> orderInfo.getDealIsDone());
+
     }
 
     public synchronized int getnPassengers() {

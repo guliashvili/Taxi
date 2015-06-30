@@ -8,7 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="Resources/assets/js/user.js"></script>
+<script src="/Resources/assets/js/user.js"></script>
 <script src="/Resources/assets/js/addFacebookAccount.js"></script>
 <script src="/Resources/assets/js/addGoogleplusAccount.js"></script>
 <section id="map" style="position:absolute;width:100%;height:100%;">
@@ -93,15 +93,7 @@
             <a href="#" style="float:left"
                class="<%if(user.getGoogleID()==null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
-            <br><br>
-            <a href="#" style="float:left"
-               class="<%if(user.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
-                    class="label">Facebook</span></a>
-        </div>
-
-            <br><br>
-            <%if (user.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
-                                                                      onlogin="checkLoginState();"></fb:login-button> <%}%>
+            <% if (user.getGoogleID() != null) { %>  Account Attached <%  }%>
             <br><br>
             <%if (user.getGoogleID() == null) { %> <div class="gg_button">
                                                         <span
@@ -113,7 +105,18 @@
                                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                                                 data-scope="https://www.googleapis.com/auth/plus.login">
                                                         </span>
-                                                    </div> <%}%>
+                                                </div> <%}%>
+            <br><br>
+            <a href="#" style="float:left"
+               class="<%if(user.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
+                    class="label">Facebook</span></a>
+            <% if (user.getFacebookID() != null) { %>  Account Attached <%  }%>
+            <br><br>
+            <%if (user.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
+                                                                      onlogin="checkLoginState();"></fb:login-button> <%}%>
+            <br><br>
+        </div>
+
             <br>
         </div>
         <div class="5u$ 12u$(small)">

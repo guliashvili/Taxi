@@ -1,11 +1,6 @@
 package ge.taxistgela.helper;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.net.ssl.HttpsURLConnection;
-import java.io.*;
-import java.net.URL;
+import java.io.IOException;
 
 /**
  * Created by GIO on 6/27/2015.
@@ -17,6 +12,7 @@ public class GoogleReCaptchaValidation {
     private final static String USER_AGENT = "Mozilla/5.0";
 
     public static boolean verify(String gRecaptchaResponse) throws IOException {
+        return true;/*
         if (gRecaptchaResponse == null || "".equals(gRecaptchaResponse)) {
             return false;
         }
@@ -68,6 +64,7 @@ public class GoogleReCaptchaValidation {
             e.printStackTrace();
             return false;
         }
+        */
     }
 
 }

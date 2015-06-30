@@ -1,5 +1,7 @@
 <%@ page import="ge.taxistgela.bean.Company" %>
 <%@ page import="ge.taxistgela.socialNetwork.SNInfo" %>
+<%@ page import="ge.taxistgela.dao.CompanyDao" %>
+<%@ page import="ge.taxistgela.model.CompanyManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -10,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="/Resources/assets/js/addFacebookAccount.js"></script>
 <script src="/Resources/assets/js/addGoogleplusAccount.js"></script>
-<script src="Resources/assets/js/company.js"></script>
+<script src="/Resources/assets/js/company.js"></script>
 <% Company company = (Company) session.getAttribute(Company.class.getName());%>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
@@ -22,12 +24,20 @@
         <h2> Greetings <%= company.getCompanyName()%> <br></h2>
 
         <div class="5u$">
-            <a href="#"><h3>Your Average Driver Rating: 4.3</h3></a>
+            <a href="#"><h3>Your Average Driver Rating: <% CompanyManager man  =(CompanyManager) request.getServletContext().getAttribute(CompanyManager.class.getName());
+            double Rating= man.getCompanyScore(company.getCompanyID());%>
+            </h3></a>
+            <% for (int i = 1; i <= 5; ++i) { %>
+            <% if (Rating >= i) { %>
             <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
+            <% } else { %>
+            <% if (Math.ceil(Rating) > i) { %>
             <li class="fa fa-star-half-o"></li>
+            <% } else { %>
             <li class="fa fa-star-o"></li>
+            <%} %>
+            <%} %>
+            <%} %>
         </div>
         <div class="3u$ (small)">
             <span> Your Company Code </span> <a href="#" data-target="#helperModal" data-toggle="modal"
@@ -78,16 +88,9 @@
             <a href="#" style="float:left"
                class="<%if(company.getGoogleID()==null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
+            <% if (company.getGoogleID() != null) { %>  Account Attached <%  }%>
             <br><br>
-            <a href="#" style="float:left"
-               class="<%if(company.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
-                    class="label">Facebook</span></a>
-        </div>
-        <br><br>
-        <% if (company.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
-                                                                      onlogin="checkLoginState();"></fb:login-button> <% } %>
-        <br><br>
-        <%if (company.getGoogleID() == null) { %> <div class="gg_button">
+            <%if (company.getGoogleID() == null) { %> <div class="gg_button">
                                                             <span
                                                                     class="g-signin"
                                                                     data-height="short"
@@ -97,7 +100,17 @@
                                                                     data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                                                     data-scope="https://www.googleapis.com/auth/plus.login">
                                                             </span>
-        </div> <%}%>
+            </div> <%}%>
+            <br><br>
+            <a href="#" style="float:left"
+               class="<%if(company.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
+                    class="label">Facebook</span></a>
+            <% if (company.getFacebookID() != null) { %>  Account Attached <%  }%>
+            <br><br>
+            <% if (company.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
+                                                                          onlogin="checkLoginState();"></fb:login-button> <% } %>
+            <br><br>
+        </div>
 
         <div class="12u 1u$(small)" style="float:left">
             <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">

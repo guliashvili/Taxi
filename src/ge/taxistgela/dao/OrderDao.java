@@ -88,10 +88,10 @@ public class OrderDao implements OrderDaoAPI {
             st.setDouble(5, order.getStartLocation().getLatitude());
             st.setDouble(6, order.getEndLocation().getLongitude());
             st.setDouble(7, order.getEndLocation().getLatitude());
-            st.setString(8, simpleDateFormat.format(order.getStartTime()));
-            st.setString(9, simpleDateFormat.format(order.getEndTime()));
+            st.setString(8, (order.getStartTime() == null) ? null : simpleDateFormat.format(order.getStartTime()));
+            st.setString(9, (order.getEndTime() == null) ? null : simpleDateFormat.format(order.getEndTime()));
             st.setDouble(10, order.getPaymentAmount());
-            st.setString(11, simpleDateFormat.format(order.getCallTime()));
+            st.setString(11, (order.getCallTime() == null) ? null : simpleDateFormat.format(order.getCallTime()));
             st.setBoolean(12, order.getRevokedByUser());
             st.setBoolean(13, order.getRevokedByDriver());
             if (update)

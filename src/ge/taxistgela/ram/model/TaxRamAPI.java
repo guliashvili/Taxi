@@ -24,7 +24,7 @@ public interface TaxRamAPI {
 
     List<OrderInfo> getWaitingDrivers(int userID);
 
-    boolean driverChoice(int driverID, int userID, boolean accept);
+    boolean driverChoice(int driverID, int userID, int orderID, boolean accept);
 
-    boolean userChoice(int driverID, int userID, boolean accept);
+    boolean userChoice(int driverID, int userID, int orderID, boolean accept);
 }
