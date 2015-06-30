@@ -79,6 +79,11 @@ function initializeO(){
 function updateLatLang(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
+    curMarker = new google.maps.Marker({
+        position: {lat: position.coords.latitude, lng: position.coords.longitude},
+        map: map,
+        title: 'Taxi Map'
+    });
 }
 function initializeSockets(mToken) {
     var websocket = new WebSocket("ws://" + window.location.host + "/wsapp/" + 1 + "/" + mToken);
@@ -232,6 +237,25 @@ function acceptOffer(index){
         }
     });
 }
+function carryRoute(index){
+    var elem = curRoute[index];
+    var action="leaveUser";
+    if(elem.pickUser){
+        action = "pickUser";
+    }
+    $.ajax({
+        url: "/orderinfo",
+        method: "post",
+        data: {action: action,userID: elem.orderInfo.user.userID,userID: elem.orderInfo.orderID},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
+}
 function resendEmail() {
     $.ajax({
         url: "/sendverification",
@@ -369,11 +393,36 @@ function generateGrid(){
             $("#grid").addClass("hidden");//needs fixing somehow fucks grid up dunno why
         }
     });
-}var curRoute;
+}
+var curRoute;
+var routeMarker=null;
 function defineRoute(route){
     curRoute=route;
-
 }
 function displayRoute(){
-    //updates routeDiv TODO
+    if(routeMarker!=null){
+        routeMarker.setMap(null);
+    }
+    if(curRoute.route.length == 0) return;
+    var routeElem = curRoute.route[0];
+    routeMarker = new google.maps.Marker({
+        position: {lat: routeElem.loc.latitude, lng: routeElem.loc.longitude},
+        map: map,
+        title: 'Taxi Map'
+    });
+
+}
+function calcRoute(marker1,marker2) {
+    var start = new google.maps.LatLng(marker1.position.A,marker1.position.F);
+    var end = new google.maps.LatLng(marker2.position.A,marker2.position.F);
+    var request = {
+        origin:start,
+        destination:end,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
 }

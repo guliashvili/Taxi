@@ -30,13 +30,14 @@ function updateAsker(){
 		"<br></form><button id='addOrderM' onclick='addOrderJ()' class='special'> Add Order</button>";
 	return dateAsker;
 }
+var curMarker;
 function showPosition(position) {
 	var mapOptions = { //your location
 		center: {lat: position.coords.latitude, lng: position.coords.longitude},
 		zoom: 13
 	};
 	map = new google.maps.Map(document.getElementById('map'), mapOptions);
-	var marker = new google.maps.Marker({
+	curMarker = new google.maps.Marker({
 		position: {lat: position.coords.latitude, lng: position.coords.longitude},
 		map: map,
 		title: 'Taxi Map'
