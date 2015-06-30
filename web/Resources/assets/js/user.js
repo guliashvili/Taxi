@@ -59,6 +59,7 @@ function initializeO(){
                 var recM=[records[i].startLocation.latitude,records[i].startLocation.longitude,records[i].endLocation.latitude,records[i].endLocation.longitude];
                 console.log(recM);
                 records[i]['startLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[0]+','+recM[1]+','+recM[2]+','+recM[3]+");'>";
+                records[i]['endLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[2]+','+recM[3]+','+recM[0]+','+recM[1]+");'>";
             }
             console.log(data);
             generateGrid();
@@ -105,14 +106,14 @@ function generateGrid(){
             footer: false
         },
         columns: [
-            { field: 'recid', caption: 'orderID', size: '50px', sortable: true, attr: 'align=center' },
-            { field: 'driverID', caption: 'driverID', size: '30%', sortable: true, resizable: false },
-            { field: 'numPassengers', caption: 'numPassengers', size: '40%', resizable: true },
-            { field: 'startLocation', caption: 'startLocation', size: '20px', resizable: true },
-            { field: 'Travel', caption: 'endLocation', size: '20px', resizable: true },
-            { field: 'endTime', caption: 'endTime', size: '20px', resizable: true },
-            { field: 'paymentAmount', caption: 'paymentAmount', size: '20px', resizable: true },
-            { field: 'callTime', caption: 'callTime', size: '20px', resizable: true },
+            { field: 'recid', caption: 'orderID', size: '10%', sortable: true, attr: 'align=center' },
+            { field: 'driverID', caption: 'driverID', size: '5%', sortable: true, resizable: false },
+            { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
+            { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
+            { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
+            { field: 'endTime', caption: 'endTime', size: '30%', resizable: true },
+            { field: 'paymentAmount', caption: 'paymentAmount', size: '10%', resizable: true },
+            { field: 'callTime', caption: 'callTime', size: '30%', resizable: true },
         ],
         searches: [
             { field: 'driverID', caption: 'driverID', type: 'text' },
@@ -127,6 +128,7 @@ function generateGrid(){
         }
     });
 }
+
 function askForDate(){
     var coords=[
         new google.maps.LatLng(startMarker.position.A, startMarker.position.F),

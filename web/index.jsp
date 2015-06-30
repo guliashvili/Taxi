@@ -161,15 +161,15 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <br>
 
                             <div class="gg_button">
-                                <span
-                                        class="g-signin"
-                                        data-height="short"
-                                        data-callback="onRegister"
-                                        data-clientid=<%=SNInfo.googleClientID%>
-                                                data-cookiepolicy="single_host_origin"
-                                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                                        data-scope="https://www.googleapis.com/auth/plus.login">
-                                </span>
+                                    <span
+                                            class="g-signin"
+                                            data-height="short"
+                                            data-callback="onRegister"
+                                            data-clientid=<%=SNInfo.googleClientID%>
+                                                    data-cookiepolicy="single_host_origin"
+                                            data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                            data-scope="https://www.googleapis.com/auth/plus.login">
+                                    </span>
                             </div>
                         </div>
                         <div id="userRegistration" class="hidden">
