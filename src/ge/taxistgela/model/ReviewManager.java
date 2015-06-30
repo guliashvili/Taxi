@@ -35,4 +35,9 @@ public class ReviewManager extends  ReviewManagerAPI {
     public List<Review> getReviewByDriverID(Integer driverID) {
         return reviewDaoAPI.getReviewByDriverID(driverID);
     }
+
+    @Override
+    public List<Review> getReviewByCompanyID(Integer companyID) {
+        return reviewDaoAPI.getReviewByCompanyID(companyID);
+    }
 }

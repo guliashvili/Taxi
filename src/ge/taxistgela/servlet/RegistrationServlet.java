@@ -118,7 +118,9 @@ public class RegistrationServlet extends ActionServlet {
             Company company = (Company) companyManager.getByID(companyID);
             driver = (Driver) driverManager.getByEmail(driver.getEmail());
 
-            EmailSender.verifyCompany(driver, company);
+            if (company != null && driver != null) {
+                EmailSender.verifyCompany(driver, company);
+            }
         }
     }
 
