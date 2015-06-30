@@ -154,7 +154,7 @@ function size(obj) {
 function generateModal(orderInfo) {
     var out="";
     for(var i=0;i<orderInfo.length;i++){
-        out+='<div class="orderDiv>';
+        out+='<div class="orderDiv">';
         out+='<span>'+ orderInfo[i].user.firstName + " " + orderInfo[i].user.lastName +'</span>';
         out+='<span>requires your assistance in getting from:</span>';
         out+='<span>'+ latMap[orderInfo[i].start.latitude+","+orderInfo[i].start.longitude] + " to " + latMap[orderInfo[i].end.latitude+","+orderInfo[i].end.longitude] +'</span>';
