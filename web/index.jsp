@@ -61,6 +61,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         var clickChoice = undefined;
     </script>
     <script src="/Resources/assets/js/facebook.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/Resources/assets/js/google.js"></script>
 </head>
 <body class="landing">
@@ -163,17 +164,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                              onlogin="checkLoginState();"></fb:login-button>
                             <br>
 
-                            <div class="gg_button">
-                                    <span
-                                            class="g-signin"
-                                            data-height="short"
-                                            data-callback="onRegister"
-                                            data-clientid=<%=SNInfo.googleClientID%>
-                                                    data-cookiepolicy="single_host_origin"
-                                            data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                                            data-scope="https://www.googleapis.com/auth/plus.login">
-                                    </span>
-                            </div>
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         </div>
                         <div id="userRegistration" class="hidden">
                             <input id="userfirstName" type="text" name="userfirstName" value=""
@@ -199,17 +190,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                              onlogin="checkLoginState();"></fb:login-button>
                             <br>
 
-                            <div class="gg_button">
-                                        <span
-                                                class="g-signin"
-                                                data-height="short"
-                                                data-callback="signinCallback"
-                                                data-clientid=<%=SNInfo.googleClientID%>
-                                                        data-cookiepolicy="single_host_origin"
-                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                                                data-scope="https://www.googleapis.com/auth/plus.login">
-                                        </span>
-                            </div>
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         </div>
                         <div id="driverRegistration" class="hidden">
                             <input id="driverfirstName" type="text" name="driverfirstName" value=""
@@ -239,17 +220,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                              onlogin="checkLoginState();"></fb:login-button>
                             <br>
 
-                            <div class="gg_button">
-                                        <span
-                                                class="g-signin"
-                                                data-height="short"
-                                                data-callback="signinCallback"
-                                                data-clientid=<%=SNInfo.googleClientID%>
-                                                        data-cookiepolicy="single_host_origin"
-                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                                                data-scope="https://www.googleapis.com/auth/plus.login">
-                                        </span>
-                            </div>
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         </div>
                         <div class="g-recaptcha" data-sitekey="6LcS8QgTAAAAAP98JRVGsRNt0uKxnX_LDKRiWN70"></div>
                     </form>
@@ -299,17 +270,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                              onlogin="checkLoginState();"></fb:login-button>
                             <br>
 
-                            <div class="gg_button">
-                                        <span
-                                                class="g-signin"
-                                                data-height="short"
-                                                data-callback="signinCallback"
-                                                data-clientid=<%=SNInfo.googleClientID%>
-                                                        data-cookiepolicy="single_host_origin"
-                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                                                data-scope="https://www.googleapis.com/auth/plus.login">
-                                        </span>
-                            </div>
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
                             <!--  <div id="loginStatus">
                             </div>
                             -->
