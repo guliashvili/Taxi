@@ -112,4 +112,6 @@ public abstract class DriverManagerAPI implements SuperUserTokenedManager {
      * @return
      */
     public abstract ErrorCode verifyCompany(String token);
+
+    public abstract List<Driver> getAllDrivers();
 }

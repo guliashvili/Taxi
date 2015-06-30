@@ -392,4 +392,9 @@ public class DriverManager extends  DriverManagerAPI {
         if (googleID == null) return null;
         else return driverDao.checkGoogleID(googleID);
     }
+
+    @Override
+    public List<Driver> getAllDrivers() {
+        return driverDao.getAllDrivers();
+    }
 }

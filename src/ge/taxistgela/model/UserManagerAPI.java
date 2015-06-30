@@ -62,4 +62,5 @@ public abstract class UserManagerAPI implements SuperUserTokenedManager {
      */
     public abstract List<User> getUsersByPreferences(Driver driver);
 
+    public abstract List<User> getAllUsers();
 }

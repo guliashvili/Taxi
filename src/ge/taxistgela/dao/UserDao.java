@@ -644,4 +644,27 @@ public class UserDao implements UserDaoAPI {
             }
         return false;
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+
+        try (Connection con = DBConnectionProvider.getConnection()) {
+            try (PreparedStatementEnhanced st = new PreparedStatementEnhanced(con.prepareStatement(base_joined_select_STMT))) {
+
+                ExternalAlgorithms.debugPrintSelect("getAllUsers \n" + st.toString());
+
+                ResultSetEnhanced res = st.executeQuery();
+
+                while (res.next()) {
+                    users.add(getUser(res));
+                }
+            }
+        } catch (SQLException e) {
+            users = null;
+            ExternalAlgorithms.debugPrint(e);
+        }
+
+        return users;
+    }
 }
