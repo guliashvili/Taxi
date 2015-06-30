@@ -34,6 +34,7 @@ function initializeSockets(mToken){
         console.log("success", arg.data);
         drivers=JSON.parse(arg.data);
         driverList="";
+
         while (driverMarkersT.length > 0) {
             removeFromMap(driverMarkersT.pop());
         }
