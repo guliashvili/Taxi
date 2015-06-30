@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.helper.GoogleMapUtils;
 
@@ -14,7 +15,9 @@ import java.util.concurrent.TimeUnit;
  * Created by GIO on 6/29/2015.
  */
 public class Route {
+    @Expose
     public List<OrderInfo> inCar = Collections.synchronizedList(new ArrayList<>());
+    @Expose
     public List<RouteElement> route = Collections.synchronizedList(new ArrayList<>());
     private ConcurrentHashMap<Integer, DriverInfo> drivers = new ConcurrentHashMap<>();
     private ConcurrentHashMap<Integer, UserInfo> users = new ConcurrentHashMap<>();

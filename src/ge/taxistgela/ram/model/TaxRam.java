@@ -268,7 +268,7 @@ public class TaxRam implements TaxRamAPI {
         if (driverInfo == null) return null;
         Route route = driverInfo.route;
         if (route == null) return null;
-        String message = new Gson().toJson(route);
+        String message = ExternalAlgorithms.parseToJson(route);
 
         sessionManager.sendMessage(SessionManager.DRIVER_SESSION, driverID, message);
 

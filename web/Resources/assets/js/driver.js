@@ -136,6 +136,13 @@ function addOrder(ordr) {
     if(geocodeQuery.length>0){
         geocodeTimer=setInterval(function(){fetchGeocode();}, 1000);
     }
+    if (orderInfo.length == 0) {
+        $("#orderModalCont").html(generateModal(orderInfo));
+        $("#orderModal").modal("hide");
+
+
+        clearInterval(geocodeTimer);
+    }
 }
 var geocodeQuery=[];
 var geocodeTimer;
