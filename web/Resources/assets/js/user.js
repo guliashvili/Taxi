@@ -57,6 +57,7 @@ function initializeSockets(mToken){
         }
         if(askWindow!=null){
             askWindow.setContent(driversList);
+            askWindow.setMap(map);
         }
         removeFromMap(startMarker);
         removeFromMap(endMarker);
@@ -152,6 +153,7 @@ function addOrderJ(){
         success: function (data) {
             if(askWindow!=null) {
                 askWindow.setContent(driversList);
+                askWindow.setMap(map);
             }
         },
         error: function (data) {
@@ -311,6 +313,7 @@ function createPreferencesSaves(){
                 var dateAsker = updateAsker();
 
                 askWindow.setContent(dateAsker);
+                askWindow.setMap(map);
             },
             error: function (data) {
                 console.error(JSON.stringify(formData));
