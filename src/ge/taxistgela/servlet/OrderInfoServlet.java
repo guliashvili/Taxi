@@ -62,7 +62,15 @@ public class OrderInfoServlet extends ActionServlet {
         }
     }
 
-    public void dChoice(HttpServletRequest request, HttpServletResponse response) {
+    public void driverAccept(HttpServletRequest request, HttpServletResponse response) {
+        driverChoice(true, request, response);
+    }
+
+    public void driverReject(HttpServletRequest request, HttpServletResponse response) {
+        driverChoice(false, request, response);
+    }
+
+    private void driverChoice(boolean choice, HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
 
         if (taxRam == null) {
@@ -94,7 +102,15 @@ public class OrderInfoServlet extends ActionServlet {
         }
     }
 
-    public void uChoice(HttpServletRequest request, HttpServletResponse response) {
+    public void userAccept(HttpServletRequest request, HttpServletResponse response) {
+        userChoice(true, request, response);
+    }
+
+    public void userReject(HttpServletRequest request, HttpServletResponse response) {
+        userChoice(false, request, response);
+    }
+
+    private void userChoice(boolean choice, HttpServletRequest request, HttpServletResponse response) {
         TaxRamAPI taxRam = (TaxRamAPI) request.getServletContext().getAttribute(TaxRamAPI.class.getName());
 
         if (taxRam == null) {
@@ -115,7 +131,7 @@ public class OrderInfoServlet extends ActionServlet {
                     return;
                 }
 
-                if (!taxRam.userChoice(user.getUserID(), driverID, orderID, true)) {
+                if (!taxRam.userChoice(user.getUserID(), driverID, orderID, choice)) {
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
                     return;
