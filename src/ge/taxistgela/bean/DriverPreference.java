@@ -1,13 +1,17 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 
 /**
  * Created by Alex on 5/25/2015.
  */
 public class DriverPreference {
+    @Expose
     private Integer driverPreferenceID;
+    @Expose
     private Double minimumUserRating;
+    @Expose
     private Double coefficientPer; //yovel wutze an mandzilze ra tarifi aqvs. amas mere shevxedevat riti gvirchevnia davtvalot
 
     public DriverPreference(Integer driverPreferenceID, Double minimumUserRating, Double coefficientPer) {        setDriverPreferenceID(driverPreferenceID);

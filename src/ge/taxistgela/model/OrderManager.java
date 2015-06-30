@@ -18,7 +18,7 @@ public class OrderManager extends OrderManagerAPI {
         for (Order elem : ls) {
             if (!(elem.getRevokedByDriver() ||
                     elem.getRevokedByUser() ||
-                    elem.getEndLocation() != null))
+                    elem.getEndTime() != null))
                 ret.add(elem);
         }
         return ret;

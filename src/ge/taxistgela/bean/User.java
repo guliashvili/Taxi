@@ -1,13 +1,17 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 import org.apache.commons.lang3.RandomStringUtils;
 /**
  * Created by Alex on 5/25/2015.
  */
 public class User extends SuperPersonalTokenUser {
+    @Expose
     private Integer userID;
+    @Expose
     private Double rating;
+    @Expose
     private UserPreference preference;
 
 

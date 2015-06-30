@@ -1,14 +1,17 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 
 /**
  * Created by Alex on 5/25/2015.
  */
 public class Company extends SuperDaoUser {
+    @Expose
     private Integer companyID;
+    @Expose
     private String companyCode;
-
+    @Expose
     private String companyName;
 
 

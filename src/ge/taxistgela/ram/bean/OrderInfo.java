@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.Location;
 import ge.taxistgela.bean.User;
@@ -9,16 +10,27 @@ import ge.taxistgela.bean.User;
  */
 public class OrderInfo{
     public final  static int MAXIMUM_ORDER_LIFETIME = 30;
+    @Expose
     private double maxPrice;
+    @Expose
     private double distance;
+    @Expose
     private long createTime;
-    private Location start,end;
+    @Expose
+    private Location start, end;
+    @Expose
     private int nPassengers;
+    @Expose
     private long startTime;
+    @Expose
     private int orderID;
+    @Expose
     private User user;
+    @Expose
     private Driver driver;
+    @Expose
     private BOOLEAN dealisDone;
+    @Expose
     private Location location;
 
     public OrderInfo(long createTime, Location end, int nPassengers, double maxPrice, Location start, long startTime, double distance, User user, Driver driver, BOOLEAN dealisDone, int orderID, Location location) {

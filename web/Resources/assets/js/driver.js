@@ -410,9 +410,12 @@ function defineRoute(route){
     curRoute=route;
     displayRoute();
     var out="";
-    for(var i=0;i<curRoute.length;++i){
-        out+=latMap[curRoute[i].loc.latitude + "," + curRoute[i].loc.longitude];
-        out+="<button onclick='carryRoute' class='special fa fa-check'>.</button>";
+    for (var i = 0; i < curRoute.route.length; ++i) {
+        if (curRoute.route[0].pickUser) {
+            out += "<span> pick user </span>";
+        }
+        out += latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude];
+        out += "<button onclick='carryRoute' class='special fa fa-check'>.</button><br>";
     }
     $("#routeDiv").html(out);
 }
@@ -423,21 +426,28 @@ function displayRoute(){
     if(curRoute.route.length == 0) return;
     var routeElem = curRoute.route[0];
     routeMarker = new google.maps.Marker({
-        position: {lat: routeElem.loc.latitude, lng: routeElem.loc.longitude},
         map: map,
         title: 'Taxi Map'
     });
+    routeMarker.setPosition(new google.maps.LatLng(routeElem.loc.latitude + "", routeElem.loc.longitude + ""));
+    console.log("displayRoute");
+    while (curMarker == null) {
+    }
     drawRoute(curMarker,routeMarker);
 }
+
+var directionsDisplay = new google.maps.DirectionsRenderer();
 function drawRoute(marker1,marker2) {
     var request = {
-        origin:marker1,
-        destination:marker2,
+        origin: marker1.position,
+        destination: marker2.position,
         travelMode: google.maps.TravelMode.DRIVING
     };
+    var directionsService = new google.maps.DirectionsService();
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
         }
     });
+    directionsDisplay.setMap(map);
 }

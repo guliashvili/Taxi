@@ -1,17 +1,25 @@
 package ge.taxistgela.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.helper.ExternalAlgorithms;
 
 /**
  * Created by Alex on 5/25/2015.
  */
 public class UserPreference {
+    @Expose
     private Integer userPreferenceID;
+    @Expose
     private Double minimumDriverRating;
+    @Expose
     private Boolean conditioning; // true unda, false kidia
+    @Expose
     private Integer carYear; // meti an toli gamoshvebis wliani manqanebi
+    @Expose
     private Integer timeLimit; // maximum ra droshi(Call time idan) unda mimiyvanos danishnulebis punqtshi
+    @Expose
     private Integer passengersCount; // ramdeni kaci midian
+    @Expose
     private Boolean wantsAlone;
 
     public UserPreference(Integer userPreferenceID, Double minimumDriverRating, Boolean conditioning, Integer carYear, Integer timeLimit, Integer passengersCount, Boolean wantsAlone) {

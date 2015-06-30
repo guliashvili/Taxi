@@ -1,5 +1,6 @@
 package ge.taxistgela.ram.bean;
 
+import com.google.gson.annotations.Expose;
 import ge.taxistgela.bean.Driver;
 import ge.taxistgela.bean.Location;
 
@@ -16,11 +17,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class DriverInfo extends Driver {
 
+    @Expose
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
+    @Expose
     public Route route;
 
+    @Expose
     public Object block = new Object();
+    @Expose
     public int nPassengers = 0;
+    @Expose
     private Location location = null;
 
     public DriverInfo(Driver driver, ConcurrentHashMap<Integer, UserInfo> users, ConcurrentHashMap<Integer, DriverInfo> drivers) {
