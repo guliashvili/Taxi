@@ -59,7 +59,11 @@ public class SessionManager implements SessionManagerAPI {
             Session session = sessions.get(token);
 
             if (session.isOpen()) {
-                session.getAsyncRemote().sendText(message);
+                try {
+                    session.getBasicRemote().sendText(message);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

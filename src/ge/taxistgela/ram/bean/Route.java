@@ -81,6 +81,19 @@ public class Route implements Serializable {
         return bestAns;
     }
 
+    public int getCount(int orderID) {
+        int n = 0;
+        for (OrderInfo orderInfo1 : inCar) {
+            if (orderInfo1.getOrderID() != orderID) n++;
+        }
+
+        for (RouteElement routeElement : route) {
+            if (routeElement.getOrderInfo().getOrderID() != orderID && routeElement.isPickUser())
+                n++;
+        }
+        return n;
+    }
+
     public double getOptimalPriceIfInserted(OrderInfo orderInfo) {
         List<RouteElement> tmp = new ArrayList<>();
         tmp.addAll(route);
@@ -98,20 +111,19 @@ public class Route implements Serializable {
 
         double M = orderInfo.getDistance();
 
-        int n = 0;
-        for (OrderInfo orderInfo1 : inCar) {
-            if (orderInfo1.getOrderID() != orderInfo.getOrderID()) n++;
-        }
+        int n = getCount(orderInfo.getOrderID());
+        double me = dist1 - dist0;
+        double payD = me + (M - me) / (n + 1);
 
-        for (RouteElement routeElement : route) {
-            if (routeElement.getOrderInfo().getOrderID() != orderInfo.getOrderID() && routeElement.isPickUser())
-                n++;
-        }
+        payD *= orderInfo.getDriver().getPreferences().getCoefficientPer();
 
+        payD = Math.min(payD, orderInfo.getMaxPrice());
 
-        double payD = dist1 - dist0 + M / (n + 1);
+        return payD;
+    }
 
-        return payD * orderInfo.getDriver().getPreferences().getCoefficientPer();
+    public synchronized void updateLocations() {
+
     }
 
     public synchronized void addOrder(OrderInfo orderInfo) {
@@ -120,6 +132,9 @@ public class Route implements Serializable {
 
         route.add(a);
         route.add(b);
+        if (route.size() > 2)
+            updateLocations();
+
     }
 
     public synchronized void pickUser(UserInfo userInfo, int orderID) {
@@ -142,10 +157,18 @@ public class Route implements Serializable {
         }
     }
 
-    public synchronized void leaveUser(UserInfo userInfo, int orderID) {
+    public synchronized double leaveUser(UserInfo userInfo, int orderID) {
 
+        OrderInfo orderInfoo = null;
+        for (OrderInfo elem : inCar) {
+            if (elem.getUser().getUserID() == userInfo.getUserID()) orderInfoo = elem;
+        }
         route.removeIf(routeElement -> routeElement.getOrderInfo().getUser().getUserID() == userInfo.getUserID());
         inCar.removeIf(orderInfo -> orderInfo.getUser().getUserID() == userInfo.getUserID());
+
+        if (orderInfoo == null) return -1;
+        else
+            return orderInfoo.getMaxPrice();
 
     }
 

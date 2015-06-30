@@ -51,7 +51,7 @@ function initializeSockets(mToken){
             cont += "<button onclick='rejectDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='special'>Reject</button>";
 
             cont += "</div>";
-            tmpWindow = new google.maps.InfoWindow({
+            var tmpWindow = new google.maps.InfoWindow({
                 content: cont
             });
             var tmpMarker = new google.maps.Marker({

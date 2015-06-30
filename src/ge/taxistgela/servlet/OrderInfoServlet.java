@@ -254,12 +254,13 @@ public class OrderInfoServlet extends ActionServlet {
 
                     if (!orderManager.updateOrder(order)) {
                         if (!taxRam.revokeOrderUser(user.getUserID())) {
-                            response.setStatus(HttpServletResponse.SC_ACCEPTED);
 
-                            return;
                         }
                     }
                 }
+                response.setStatus(HttpServletResponse.SC_ACCEPTED);
+
+                return;
             }
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

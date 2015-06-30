@@ -275,7 +275,7 @@ public class TaxRam implements TaxRamAPI {
         return route;
     }
 
-    public synchronized OrderInfo getRouteUser(int userID) {
+    public synchronized OrderInfo getRouteUser(int userID) {/*
         UserInfo userInfo = users.get(userID);
         if (userInfo == null) return null;
         DriverInfo driverInfo = userInfo.getDriverInfo();
@@ -302,7 +302,8 @@ public class TaxRam implements TaxRamAPI {
 
         sessionManager.sendMessage(SessionManager.USER_SESSION, userID, message);
 
-        return orderInfo;
+        return orderInfo;*/
+        return null;
     }
 
 
@@ -324,7 +325,11 @@ public class TaxRam implements TaxRamAPI {
     }
 
     public synchronized double leaveUser(int driverID, int orderID, int userID) {
-        double ret = 1;// revokeOrderUser(userID);
+        UserInfo userInfo = users.get(userID);
+        DriverInfo driverInfo = drivers.get(driverID);
+        if (userInfo == null || driverInfo == null) return -1;
+
+        double ret = driverInfo.route.leaveUser(userInfo, orderID);
 //TODO
 
 
