@@ -88,7 +88,7 @@ function addOrder(orderInfo) {
 	console.log("addOrder");
 	console.log(orderInfo);
 	while (orderMarkers.length > 0) {
-		orderMarkers.pop().setMap(null);
+		removeFromMap(orderMarkers.pop());
 	}
 	for (var i = 0; i < orderInfo.length; i++) {
 		var start = orderInfo[i].start;
@@ -201,8 +201,18 @@ function minimize(){
  * sub procedure for pinpoint clears previous line and markers
  */
 function clearPinPoint(){
-	//TODO
+	removeFromMap(travel);
+	removeFromMap(marker1);
+	removeFromMap(marker2);
 }
+function removeFromMap(obj){
+	if(obj!=null){
+		obj.setMap(null);
+	}
+}
+var marker1=null;
+var marker2=null;
+var travel=null;
 /**
  * pinpoints given place on map draws line between them
  * @param lat latitude of first point
@@ -218,7 +228,7 @@ function pinpoint(lat,lng,lat1,lng1){
 		new google.maps.LatLng(lat, lng),
 		new google.maps.LatLng(lat1, lng1)
 	];
-	var travel=new google.maps.Polyline({
+	travel=new google.maps.Polyline({
 		path: coords,
 		geodesic: true,
 		strokeColor: '#FF0000',
@@ -227,20 +237,20 @@ function pinpoint(lat,lng,lat1,lng1){
 	});
 	travel.setMap(map);
 	map.setCenter(new google.maps.LatLng(lat,lng));
-	var marker1 = new google.maps.Marker({
+	marker1 = new google.maps.Marker({
 		position: new google.maps.LatLng(lat,lng),
 		map: map,
 		title: 'Start Position'
 	});
-	var marker2 = new google.maps.Marker({
+	marker2 = new google.maps.Marker({
 		position: new google.maps.LatLng(lat1,lng1),
 		map: map,
 		title: 'End Position'
 	});
 	google.maps.event.addListener(map, 'click', function (event) {
-		marker1.setMap(null);
-		marker2.setMap(null);
-		travel.setMap(null);
+		removeFromMap(marker1);
+		removeFromMap(marker2);
+		removeFromMap(travel);
 	});
 	return marker1;
 }
