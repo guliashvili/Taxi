@@ -10,6 +10,10 @@
 <script src="/Resources/assets/js/driver.js"></script>
 <% Driver driver = (Driver) session.getAttribute(Driver.class.getName());%>
 <script>
+    ga('send', 'pageview', {
+        'page': '/driver.jsp',
+        'title': 'Driver Panel'
+    });
     initializeSockets("<%=driver.getToken()%>");
     clickChoice = "add";
 </script>

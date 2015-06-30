@@ -11,6 +11,10 @@
 <script src="/Resources/assets/js/company.js"></script>
 <% Company company = (Company) session.getAttribute(Company.class.getName());%>
 <script>
+    ga('send', 'pageview', {
+        'page': '/company.jsp',
+        'title': 'Company Panel'
+    });
     clickChoice = "add";
 </script>
 <section id="map" style="position:absolute;width:100%;height:100%;">

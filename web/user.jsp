@@ -13,6 +13,10 @@
 </section>
 <% User user = (User) session.getAttribute(User.class.getName());%>
 <script>
+    ga('send', 'pageview', {
+        'page': '/user.jsp',
+        'title': 'User Panel'
+    });
     initializeSockets("<%=user.getToken()%>");
     clickChoice = "add";
 </script>
