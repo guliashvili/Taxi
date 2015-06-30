@@ -162,7 +162,7 @@ function generateModal(orderInfo) {
         if(orderInfo[i].user.preference.wantsAlone){
             out+='<span> He wants to travel alone</span>';
         }
-        if(user.gender="MALE") {
+        if(orderInfo[i].user.gender="MALE") {
             out += '<span> And is currently with his ' + orderInfo[i].user.preference.passengersCount + ' friends</span>';
         }else{
             out += '<span> And is currently with her ' + orderInfo[i].user.preference.passengersCount + ' friends</span><br>';
