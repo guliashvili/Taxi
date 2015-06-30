@@ -41,6 +41,9 @@ function initializeSockets(mToken){
 
         if(drivers==null){
             var dateAsker = updateAsker();
+            clearPinPoint();
+            startMarker = null;
+            endMarker=null;
             askWindow.setContent(dateAsker);
             askWindow.setMap(map);
             return;
