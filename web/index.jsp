@@ -57,10 +57,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
     <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
-    <%--<script src="/Resources/assets/js/facebookLogin.js"></script>--%>
-    <%--<script src="/Resources/assets/js/facebookRegister.js"></script>--%>
-    <%--<script src="/Resources/assets/js/googleplusRegister.js"></script>--%>
-    <%--<script src="/Resources/assets/js/googleplusLogin.js"></script>--%>
     <script>
         var clickChoice = undefined;
     </script>
@@ -82,12 +78,14 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 <h2 id="mainHeader">Taxist Gela</h2>
 
                 Taxi is subject that needs passing<br/>
-                    At least<br/>
-                    Twice
+                At least<br/>
+                Twice
                 <ul class="actions">
-                    <li><a href="#" class="button special" data-toggle="modal" data-target="#loginModal">Sign in</a>
+                    <li><a href="#" class="button special" data-toggle="modal"
+                           onclick="$('#loginModal').modal('show');clickChoice='login';">Sign in</a>
                     </li>
-                    <li><a href="#" class="button special" data-toggle="modal" data-target="#registerModal">Register</a>
+                    <li><a href="#" class="button special" data-toggle="modal"
+                           onclick="$('#registerModal').modal('show');clickChoice='register';">Register</a>
                     </li>
                 </ul>
             </figure>
@@ -161,7 +159,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input id="companyphoneNumber" type="text" name="companyphoneNumber" value=""
                                    placeholder="Company Phone Number"/><br>
                             <fb:login-button scope="public_profile,email"
-                                             onlogin="checkRegisterState();"></fb:login-button>
+                                             onlogin="checkLoginState();"></fb:login-button>
                             <br>
 
                             <div class="gg_button">
@@ -197,7 +195,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input id="userphoneNumber" type="text" name="userphoneNumber" value=""
                                    placeholder="Phone Number"/><br>
                             <fb:login-button scope="public_profile,email"
-                                             onlogin="checkRegisterState();"></fb:login-button>
+                                             onlogin="checkLoginState();"></fb:login-button>
                             <br>
 
                             <div class="gg_button">
@@ -237,7 +235,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <input id="driverphoneNumber" type="text" name="driverphoneNumber" value=""
                                    placeholder="Phone Number"/><br>
                             <fb:login-button scope="public_profile,email"
-                                             onlogin="checkRegisterState();"></fb:login-button>
+                                             onlogin="checkLoginState();"></fb:login-button>
                             <br>
 
                             <div class="gg_button">

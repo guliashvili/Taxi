@@ -8,12 +8,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<script src="/Resources/assets/js/addFacebookAccount.js"></script>
-<script src="/Resources/assets/js/addGoogleplusAccount.js"></script>
 <script src="/Resources/assets/js/driver.js"></script>
 <% Driver driver = (Driver) session.getAttribute(Driver.class.getName());%>
-<script> initializeSockets("<%=driver.getToken()%>") </script>
+<script>
+    initializeSockets("<%=driver.getToken()%>");
+    clickChoice = "add";
+</script>
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
@@ -54,7 +54,11 @@
             <input type="email" disabled value="<%=driver.getEmail()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!driver.getIsVerifiedEmail()){out.println(" onclick='resendEmail()'");}%>>
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%
+                if (!driver.getIsVerifiedEmail()) {
+                    out.println(" onclick='resendEmail()'");
+                }
+            %>>
                 <% if (driver.getIsVerifiedEmail()) {
                     out.println("Verified");
                 } else {
@@ -66,7 +70,11 @@
             <input type="text" disabled value="<%=driver.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%if(!driver.getIsVerifiedPhone()){out.println(" onclick='resendPhone()'");}%>>
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%
+                if (!driver.getIsVerifiedPhone()) {
+                    out.println(" onclick='resendPhone()'");
+                }
+            %>>
                 <% if (driver.getIsVerifiedPhone()) {
                     out.println("Verified");
                 } else {
@@ -79,7 +87,8 @@
             </button>
         </div>
         <div class="12u$">
-            <button onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');" class="button special fa fa-key"> Become Active
+            <button onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');"
+                    class="button special fa fa-key"> Become Active
             </button>
         </div>
         <div id="cPass" class="5u$ hidden">
@@ -98,9 +107,10 @@
             <a href="#" style="float:left"
                class="<%if(driver.getGoogleID()==null){ %> disabled <%}%> icon fa-google-plus"><span
                     class="label">Google+</span></a>
-            <% if (driver.getGoogleID() != null) { %>  Account Attached <%  }%>
+            <% if (driver.getGoogleID() != null) { %>  Account Attached <% }%>
             <br><br>
-            <% if (driver.getGoogleID() == null) { %> <div class="gg_button">
+            <% if (driver.getGoogleID() == null) { %>
+            <div class="gg_button">
                                         <span
                                                 class="g-signin"
                                                 data-height="short"
@@ -110,13 +120,14 @@
                                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
                                                 data-scope="https://www.googleapis.com/auth/plus.login">
                                         </span>
-            </div>  <% } %>
+            </div>
+            <% } %>
 
             <br><br>
             <a href="#" style="float:left"
                class="<%if(driver.getFacebookID()==null){ %> disabled <%}%> icon fa-facebook"><span
                     class="label">Facebook</span></a>
-            <% if (driver.getFacebookID() != null) { %>  Account Attached <%  }%>
+            <% if (driver.getFacebookID() != null) { %>  Account Attached <% }%>
             <br><br>
             <% if (driver.getFacebookID() == null) { %> <fb:login-button scope="public_profile,email"
                                                                          onlogin="checkLoginState();"></fb:login-button> <% } %>
