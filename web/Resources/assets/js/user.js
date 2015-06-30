@@ -211,7 +211,7 @@ function askForDate(){
         });
     }
 }
-function acceptDriver(driverID, orderID) {
+function acceptDriver(orderID, driverID) {
     $.ajax({
         url: "/orderinfo",
         method: "post",
@@ -239,7 +239,7 @@ function revokeOffer(index){
         }
     });
 }
-function rejectDriver(driverID, orderID) {
+function rejectDriver(orderID, driverID) {
     $.ajax({
         url: "/orderinfo",
         method: "post",

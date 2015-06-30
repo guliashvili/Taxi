@@ -230,7 +230,7 @@ public class TaxRam implements TaxRamAPI {
                             orderInfo1.getOrderID() == orderID));
         } else {
             OrderInfo orderInfo = null;
-            for (OrderInfo elem : driverInfo.waitingList) {
+            for (OrderInfo elem : userInfo.waitingList) {
                 if (elem.getOrderID() == orderID && elem.getDriver().getDriverID() == driverID) {
                     orderInfo = elem;
                     break;
@@ -243,11 +243,10 @@ public class TaxRam implements TaxRamAPI {
                 userInfo.setDriverInfo(driverInfo);
                 ret |= !(userInfo.waitingList.removeIf(orderInfo1 ->
                         orderInfo1.getDriver().getDriverID() == driverID &&
-                                orderInfo1.getDriver().getDriverID() == driverID &&
                                 orderInfo1.getOrderID() == orderID));
 
-                if (!ret && userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID)) {
-
+                if (!ret) {
+                    userInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderID);
                     driverInfo.route.addOrder(orderInfo);
                 }
             } else
