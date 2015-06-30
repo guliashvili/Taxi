@@ -19,8 +19,8 @@ public class Route {
     public List<OrderInfo> inCar = Collections.synchronizedList(new ArrayList<>());
     @Expose
     public List<RouteElement> route = Collections.synchronizedList(new ArrayList<>());
-    private ConcurrentHashMap<Integer, DriverInfo> drivers = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<Integer, UserInfo> users = new ConcurrentHashMap<>();
+    public ConcurrentHashMap<Integer, DriverInfo> drivers = new ConcurrentHashMap<>();
+    public ConcurrentHashMap<Integer, UserInfo> users = new ConcurrentHashMap<>();
 
     public Route(ConcurrentHashMap<Integer, DriverInfo> drivers, ConcurrentHashMap<Integer, UserInfo> users) {
         this.drivers = drivers;

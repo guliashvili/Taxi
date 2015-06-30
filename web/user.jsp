@@ -47,7 +47,7 @@
         <div id="revokeOrderBTN" class="12u$ (small) fit" style="float:left">
         <a href="#"
            onclick="revokeOrder()"
-           class="button special small fa fa-bar-chart"> Add Order</a>
+           class="button special small fa fa-bar-chart"> Revoke </a>
         </div>
         <br><br><br><br>
 
