@@ -113,7 +113,11 @@ public class TaxRam implements TaxRamAPI {
 
             driverInfo.removeBadOrders();
 
+            getRouteUser(userInfo.getUserID());
             getWaitingUsers(driverInfo.getDriverID());
+
+            getWaitingDrivers(userInfo.getUserID());
+            getRouteDriver(driverInfo.getDriverID());
         }
 
     }
@@ -195,7 +199,10 @@ public class TaxRam implements TaxRamAPI {
         }
 
         getWaitingUsers(driverID);
+        getRouteDriver(driverID);
+
         getWaitingDrivers(userID);
+        getRouteUser(userID);
 
         return ret;
     }
@@ -228,6 +235,7 @@ public class TaxRam implements TaxRamAPI {
             }
 
             if (orderInfo != null && !orderInfo.getSetTrueDealIsDone()) {
+                userInfo.setOrderInfo(orderInfo);
                 userInfo.setDriverInfo(driverInfo);
                 ret |= !(userInfo.waitingList.removeIf(orderInfo1 ->
                         orderInfo1.getDriver().getDriverID() == driverID &&
@@ -306,20 +314,47 @@ public class TaxRam implements TaxRamAPI {
         getRouteUser(userID);
         getRouteDriver(driverID);
 
+        getWaitingDrivers(userID);
+        getWaitingUsers(driverID);
+
         return ret;
     }
 
     public boolean leaveUser(int driverID, int orderID, int userID) {
-        UserInfo userInfo = users.get(userID);
-        DriverInfo driverInfo = drivers.get(driverID);
-        if (userInfo == null || driverInfo == null) return true;
-        boolean ret = false;
-
-        driverInfo.route.leaveUser(userInfo, orderID);
-
-        getRouteUser(userID);
-        getRouteDriver(driverID);
+        boolean ret = revokeOrderUser(userID);
 
         return ret;
     }
+
+    public boolean revokeOrderUser(int userID) {
+        UserInfo userInfo = users.get(userID);
+        if (userInfo == null) return true;
+
+        OrderInfo orderInfo = userInfo.getOrderInfo();
+        DriverInfo driverInfo = userInfo.getDriverInfo();
+        if (orderInfo == null || driverInfo == null)
+            return true;
+
+        orderInfo.setCreateTime(0);
+        userInfo.setOrderInfo(null);
+        userInfo.setOrderInfo(null);
+        userInfo.waitingList.clear();
+        driverInfo.route.leaveUser(userInfo, orderInfo.getOrderID());
+        driverInfo.waitingList.removeIf(orderInfo1 -> orderInfo1.getOrderID() == orderInfo.getOrderID() && orderInfo1.getUser().getUserID() == userID);
+
+
+        getRouteUser(userID);
+        getRouteDriver(driverInfo.getDriverID());
+
+        getWaitingDrivers(userID);
+        getWaitingUsers(driverInfo.getDriverID());
+
+        return false;
+    }
+
+    public boolean revokeOrderDriver(int userID) {
+        return revokeOrderUser(userID);
+    }
+
+
 }

@@ -163,7 +163,7 @@ function acceptDriver(index){
             console.log(data);
         },
         error: function (data) {
-            console.error("Couldn't log in\n" + JSON.stringify(formData));
+            console.error(JSON.stringify(formData));
         }
     });
 }
@@ -177,15 +177,37 @@ function rejectDriver(index){
             console.log(data);
         },
         error: function (data) {
-            console.error("Couldn't log in\n" + JSON.stringify(formData));
+            console.error(JSON.stringify(formData));
         }
     });
 }
 function resendEmail(){
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "uEmail"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function resendPhone(){
-
+    $.ajax({
+        url: "/sendverification",
+        method: "post",
+        data: {action: "uPhone"},
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
 function createPreferencesSaves(){
     $("#passChange").click(function(e){
@@ -199,7 +221,7 @@ function createPreferencesSaves(){
                 console.log(data);
             },
             error: function (data) {
-                console.error("Couldn't log in\n" + JSON.stringify(formData));
+                console.error(JSON.stringify(formData));
             }
         });
     });
@@ -217,7 +239,7 @@ function createPreferencesSaves(){
                 askWindow.setContent(dateAsker);
             },
             error: function (data) {
-                console.error("Couldn't log in\n" + JSON.stringify(formData));
+                console.error(JSON.stringify(formData));
             }
         });
     });

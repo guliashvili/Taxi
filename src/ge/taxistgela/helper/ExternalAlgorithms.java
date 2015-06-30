@@ -5,12 +5,13 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;*/
-import ge.taxistgela.socialNetwork.SNInfo;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
 
 
 /**
@@ -73,5 +74,11 @@ public class ExternalAlgorithms {
             ExternalAlgorithms.debugPrint("Invalid ID token.");
         }*/
         return null;
+    }
+
+    public static String parseToJson(Object obj) {
+        final Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+        return gson.toJson(obj);
     }
 }

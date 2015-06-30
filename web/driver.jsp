@@ -11,7 +11,7 @@
 
 <script src="/Resources/assets/js/addFacebookAccount.js"></script>
 <script src="/Resources/assets/js/addGoogleplusAccount.js"></script>
-<script src="Resources/assets/js/driver.js"></script>
+<script src="/Resources/assets/js/driver.js"></script>
 <% Driver driver = (Driver) session.getAttribute(Driver.class.getName());%>
 <script> initializeSockets("<%=driver.getToken()%>") </script>
 <section id="map" style="position:absolute;width:100%;height:100%;">
@@ -131,7 +131,7 @@
             <form id="companyCodeForm" action="" type="post">
                 <input name="companyCode" type="text" placeholder="Company Code"/><br>
                 <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
-                <input type="text" name="action" value="dCompanyCode" class="hidden"/>
+                <input type="text" name="action" value="dCompany" class="hidden"/>
             </form>
         </div>
         <div class="5u$ 12u$(small)">
