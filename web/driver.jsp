@@ -1,5 +1,4 @@
 <%@ page import="ge.taxistgela.bean.Driver" %>
-<%@ page import="ge.taxistgela.socialNetwork.SNInfo" %>
 \<%--
   Created by IntelliJ IDEA.
   User: Ratmach
@@ -111,17 +110,7 @@
             <% if (driver.getGoogleID() != null) { %>  Account Attached <% }%>
             <br><br>
             <% if (driver.getGoogleID() == null) { %>
-            <div class="gg_button">
-                                        <span
-                                                class="g-signin"
-                                                data-height="short"
-                                                data-callback="signinCallback"
-                                                data-clientid=<%=SNInfo.googleClientID%>
-                                                        data-cookiepolicy="single_host_origin"
-                                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                                                data-scope="https://www.googleapis.com/auth/plus.login">
-                                        </span>
-            </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <% } %>
 
             <br><br>
