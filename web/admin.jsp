@@ -1,4 +1,7 @@
 <%@ page import="ge.taxistgela.admin.Admin" %>
+<%@ page import="ge.taxistgela.bean.User" %>
+<%@ page import="ge.taxistgela.model.UserManagerAPI" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Alex
@@ -12,7 +15,6 @@
     <title>Taxist Gela</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="google-signin-client_id" content=<%=SNInfo.googleClientID%>>
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/html5shiv.js"></script><![endif]-->
     <script type="text/javascript" src="/Resources/assets/js/jquery-2.1.4.min.js"></script>
@@ -31,10 +33,6 @@
     <!--[if lte IE 8]>
     <script src="Resources/assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="Resources/assets/js/main.js"></script>
-    <script src="Resources/assets/js/login.js"></script>
-    <script src="Resources/assets/js/register.js"></script>
-    <script src="Resources/assets/js/index.js"></script>
-    <script src="Resources/assets/js/review.js"></script>
     <script type="text/javascript" src="Resources/assets/js/w2ui-1.4.2.min.js"></script>
 
     <!--[if lte IE 8]>
@@ -65,20 +63,114 @@
         ga('send', 'pageview');
     </script>
 </head>
-<body class="lading">
+<body class="landing">
 <%
     Admin admin = (Admin) request.getSession().getAttribute(Admin.class.getName());
 
     if (admin == null) {
 %>
-<form method="post" action="/admin" id="adminForm">
-    <div class="innerContainer">
-        <input type="hidden" name="action" value="login"/>
-        <input type="text" id="username" name="username" placeholder="Email" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <button type="submit" class="btn btn-success btn-sm" style="float:right">Log In</button>
+<script>
+    console.log("pass");
+    $(function () {
+        $("#loginModal").modal("show");
+    })
+</script>
+<!-- Login Modal -->
+<div id="loginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Admin Panel</h5>
+            </div>
+            <div class="modal-body">
+                <form id="adminForm" method="post" action="admin">
+
+                    <div class="innerContainer">
+                        <input type="hidden" name="action" value="login"/>
+                        <input type="text" id="loginEmail" name="username" placeholder="Username" required><br>
+                        <input type="password" name="password" placeholder="Password" required><br>
+                        <button type="submit" class="btn btn-success btn-sm" style="float:right" id="adminBtn">Log
+                            In
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
     </div>
-</form>
+</div>
+<% } else { %>
+<table class="table table-bordered" style="overflow: auto;">
+    <tr>
+        <td>#</td>
+        <td>Password</td>
+        <td>Email</td>
+        <td>FirstName</td>
+        <td>LastName</td>
+        <td>PhoneNumber</td>
+        <td>Gender</td>
+        <td>Rating</td>
+        <td>FacebookID</td>
+        <td>GoogleID</td>
+        <td>IsVerifiedEmail</td>
+        <td>IsverifiedPhone</td>
+        <td>MinimumDriverRating</td>
+        <td>Conditioning</td>
+        <td>CarYear</td>
+        <td>PassengersCount</td>
+        <td>WantsAlone</td>
+        <td>TimeLimit</td>
+    </tr>
+    <%
+        UserManagerAPI userManager = (UserManagerAPI) request.getServletContext().getAttribute(UserManagerAPI.class.getName());
+        List<User> users = userManager.getAllUsers();
+
+        for (User user : users) {
+    %>
+    <tr>
+        <td><%=user.getUserID()%>
+        </td>
+        <td><%=user.getPassword()%>
+        </td>
+        <td><%=user.getEmail()%>
+        </td>
+        <td><%=user.getFirstName()%>
+        </td>
+        <td><%=user.getLastName()%>
+        </td>
+        <td><%=user.getPhoneNumber()%>
+        </td>
+        <td><%=user.getGender()%>
+        </td>
+        <td><%=user.getRating()%>
+        </td>
+        <td><%=user.getFacebookID()%>
+        </td>
+        <td><%=user.getGoogleID()%>
+        </td>
+        <td><%=user.getIsVerifiedEmail()%>
+        </td>
+        <td><%=user.getIsVerifiedPhone()%>
+        </td>
+        <td><%=user.getPreference().getMinimumDriverRating()%>
+        </td>
+        <td><%=user.getPreference().isConditioning()%>
+        </td>
+        <td><%=user.getPreference().getCarYear()%>
+        </td>
+        <td><%=user.getPreference().getPassengersCount()%>
+        </td>
+        <td><%=user.getPreference().isWantsAlone()%>
+        </td>
+        <td><%=user.getPreference().getTimeLimit()%>
+        </td>
+    </tr>
+    <% } %>
+</table>
 <% } %>
 </body>
 </html>
