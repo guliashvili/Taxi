@@ -17,7 +17,7 @@ function resendEmail(){
         data: {action: "cEmail"},
         cache: false,
         success: function (data) {
-            console.log(data);
+            //console.log(data);
         },
         error: function (data) {
             console.error(data);
@@ -31,7 +31,7 @@ function resendPhone(){
         data: {action: "cPhone"},
         cache: false,
         success: function (data) {
-            console.log(data);
+            //console.log(data);
         },
         error: function (data) {
             console.error(data);
@@ -51,19 +51,15 @@ function initializeO(){
         success: function (data) {
             historyT = data;
             for (var i = 0; i < historyT.length; ++i) {
-                historyT[i]['recid'] = "<button class='special fit' onclick='constructReview(" + historyT[i].orderID + ",true)'>+</button>";
+                historyT[i]['recid'] = "<button class='special fit' onclick='banDriver(" + historyT[i].driverID + ")'>BAN</button>";
                 if (historyT[i].revokedByDriver) {
                     historyT[i]['style'] = "background-color:red";
                 }
                 if (historyT[i].revokedByUser) {
                     historyT[i]['style'] = "background-color:green";
                 }
-                var recM = [historyT[i].startLocation.latitude, historyT[i].startLocation.longitude, historyT[i].endLocation.latitude, historyT[i].endLocation.longitude];
-                console.log(recM);
-                historyT[i]['startLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[0] + ',' + recM[1] + ',' + recM[2] + ',' + recM[3] + ");'>";
-                historyT[i]['endLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[2] + ',' + recM[3] + ',' + recM[0] + ',' + recM[1] + ");'>";
             }
-            console.log(data);
+            //console.log(data);
             generatehistoryGrid();
         },
         error: function (data) {
@@ -85,13 +81,9 @@ function initializeO(){
                 if(drivers_T[i].revokedByUser){
                     drivers_T[i]['style']="background-color:green";
                 }
-                var recM=[drivers_T[i].startLocation.latitude,drivers_T[i].startLocation.longitude,drivers_T[i].endLocation.latitude,drivers_T[i].endLocation.longitude];
-                console.log(recM);
-                drivers_T[i]['startLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[0]+','+recM[1]+','+recM[2]+','+recM[3]+");'>";
-                drivers_T[i]['endLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[2]+','+recM[3]+','+recM[0]+','+recM[1]+");'>";
             }
-            console.log(data);
             generateDriverGrid();
+            console.log("aaa");
         },
         error: function (data) {
             console.error(data);
@@ -105,17 +97,8 @@ function initializeO(){
         success: function (data) {
             reviews=data;
             for (var i=0;i<reviews.length;++i){
-                reviews[i]['recid']= "<button class='special fit' onclick='constructReview("+reviews[i].orderID+",true)'>+</button>";
-                if(reviews[i].revokedByDriver){
-                    reviews[i]['style']="background-color:red";
-                }
-                if(reviews[i].revokedByUser){
-                    reviews[i]['style']="background-color:green";
-                }
-                var recM=[reviews[i].startLocation.latitude,reviews[i].startLocation.longitude,reviews[i].endLocation.latitude,reviews[i].endLocation.longitude];
-                console.log(recM);
-                reviews[i]['startLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[0]+','+recM[1]+','+recM[2]+','+recM[3]+");'>";
-                reviews[i]['endLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[2]+','+recM[3]+','+recM[0]+','+recM[1]+");'>";
+                reviews[i]['recid'] = reviews[i].reviewID;
+                reviews[i]['description'] = "<textarea>" + reviews[i].description + "</textarea>";
             }
             console.log(data);
             generateReviewGrid();
@@ -204,14 +187,12 @@ function generateReviewGrid(){
             footer: false
         },
         columns: [
-            { field: 'recid', caption: 'Review', size: '10%', sortable: true, attr: 'align=center' },
-            { field: 'driverID', caption: 'driverID', size: '5%', sortable: true, resizable: false },
+            {field: 'recid', caption: 'reviewID', size: '10%', sortable: true, attr: 'align=center'},
+            {field: 'orderID', caption: 'orderID', size: '5%', sortable: true, resizable: false},
             { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
-            { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
-            { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
-            { field: 'endTime', caption: 'endTime', size: '30%', resizable: true },
-            { field: 'paymentAmount', caption: 'paymentAmount', size: '10%', resizable: true },
-            { field: 'callTime', caption: 'callTime', size: '30%', resizable: true },
+            {field: 'orientationFlag', caption: 'orientationFlag', size: '5%', resizable: true},
+            {field: 'rating', caption: 'rating', size: '5%', resizable: true},
+            {field: 'description', caption: 'description', size: '60%', resizable: true},
         ],
         searches: [
             { field: 'driverID', caption: 'driverID', type: 'text' },
@@ -222,5 +203,31 @@ function generateReviewGrid(){
     });
 }
 function banDriver(driverID){
-    //TODO
+    $.ajax({
+        url: "/company",
+        method: "post",
+        data: {action: "getReviews"},
+        cache: false,
+        success: function (data) {
+            reviews = data;
+            for (var i = 0; i < reviews.length; ++i) {
+                reviews[i]['recid'] = "<button class='special fit' onclick='constructReview(" + reviews[i].orderID + ",true)'>+</button>";
+                if (reviews[i].revokedByDriver) {
+                    reviews[i]['style'] = "background-color:red";
+                }
+                if (reviews[i].revokedByUser) {
+                    reviews[i]['style'] = "background-color:green";
+                }
+                var recM = [reviews[i].startLocation.latitude, reviews[i].startLocation.longitude, reviews[i].endLocation.latitude, reviews[i].endLocation.longitude];
+                console.log(recM);
+                reviews[i]['startLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[0] + ',' + recM[1] + ',' + recM[2] + ',' + recM[3] + ");'>";
+                reviews[i]['endLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[2] + ',' + recM[3] + ',' + recM[0] + ',' + recM[1] + ");'>";
+            }
+            console.log(data);
+            generateReviewGrid();
+        },
+        error: function (data) {
+            console.error(data);
+        }
+    });
 }
