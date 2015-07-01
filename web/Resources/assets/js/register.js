@@ -5,6 +5,8 @@
 // Registration management goes here.
 function createRegister () {
     $('#registerBtn').click(function () {
+        $("#errorLog").html("");
+
         var formData = $("#registrationForm").serialize();
 
         $.ajax({
@@ -19,6 +21,13 @@ function createRegister () {
             },
             error: function (data) {
                 console.log(data);
+
+                var resp = data;
+
+                for (var key in resp) {
+                    console.log(key + " " + resp(key));
+                    $("#errorLog").append(key + " " + resp(key));
+                }
             }
         });
 

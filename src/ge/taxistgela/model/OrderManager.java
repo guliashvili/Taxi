@@ -33,7 +33,7 @@ public class OrderManager extends OrderManagerAPI {
 
     @Override
     public List<Order> getOrdersByCompanyID(Integer companyID) {
-        return orderDaoAPI.getOrdersByDriverID(companyID);
+        return orderDaoAPI.getOrdersByCompanyID(companyID);
     }
 
     @Override
