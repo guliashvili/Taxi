@@ -209,22 +209,7 @@ function banDriver(driverID){
         data: {action: "getReviews"},
         cache: false,
         success: function (data) {
-            reviews = data;
-            for (var i = 0; i < reviews.length; ++i) {
-                reviews[i]['recid'] = "<button class='special fit' onclick='constructReview(" + reviews[i].orderID + ",true)'>+</button>";
-                if (reviews[i].revokedByDriver) {
-                    reviews[i]['style'] = "background-color:red";
-                }
-                if (reviews[i].revokedByUser) {
-                    reviews[i]['style'] = "background-color:green";
-                }
-                var recM = [reviews[i].startLocation.latitude, reviews[i].startLocation.longitude, reviews[i].endLocation.latitude, reviews[i].endLocation.longitude];
-                console.log(recM);
-                reviews[i]['startLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[0] + ',' + recM[1] + ',' + recM[2] + ',' + recM[3] + ");'>";
-                reviews[i]['endLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[2] + ',' + recM[3] + ',' + recM[0] + ',' + recM[1] + ");'>";
-            }
             console.log(data);
-            generateReviewGrid();
         },
         error: function (data) {
             console.error(data);
