@@ -120,10 +120,16 @@
             <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden">
-            <div id="grid">
+        <div id="gridHistory">
 
-            </div>
+        </div>
+
+        <div id="gridDrivers">
+
+        </div>
+
+        <div id="gridReview">
+
         </div>
         <div class="12u 1u$(small)" style="float:left">
             <a href="#" class="button special small fa fa-bar-chart"> View Drivers</a>
