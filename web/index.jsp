@@ -163,7 +163,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         <br><br>
 
                         <div id="companyRegistration" class="hidden">
-                            <input id="companyCode" type="text" name="companyCode" value="" placeholder="Company Code"/><br>
+                            <input id="companyCode" type="text" name="companyCode" value="" placeholder="Company Code"
+                                   required/><br>
                             <input id="companyemail" type="email" name="companyemail" value=""
                                    placeholder="Company Email"/><br>
                             <input id="companyfacebookId" type="hidden" name="companyfacebookId" value=""
@@ -241,7 +242,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         </div>
                         <div class="g-recaptcha" data-sitekey="6LcS8QgTAAAAAP98JRVGsRNt0uKxnX_LDKRiWN70"></div>
                     </form>
-                    <button id="registerBtn" class="hidden button special">Register</button>
+                    <button type="submit" id="registerBtn" class="hidden button special">Register</button>
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -277,12 +278,15 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                                    value="loginCompany">
                             <label for="companyLogin">Company</label>
                         </div>
+                        <span id="actionError" class="hidden">Please check action checkbox.</span>
                         <br><br>
 
                         <div class="innerContainer">
-                            <input type="text" name="email" placeholder="Email"><br>
-                            <input type="password" name="password" placeholder="Password"><br>
-                            <button class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log In</button>
+                            <input type="email" id="loginEmail" name="email" placeholder="Email" required><br>
+                            <input type="password" name="password" placeholder="Password" required><br>
+                            <button type="submit" class="btn btn-success btn-sm" style="float:right" id="loginBtn">Log
+                                In
+                            </button>
                             <fb:login-button scope="public_profile,email"
                                              onlogin="checkLoginState();"></fb:login-button>
                             <br>
@@ -291,6 +295,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <!--  <div id="loginStatus">
                             </div>
                             -->
+                            <span id="loginError" class="hidden">Couldn't login wrong parameters.</span>
                             <br><br>
                         </div>
                     </form>

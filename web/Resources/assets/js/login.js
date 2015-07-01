@@ -5,8 +5,11 @@
 
 // Login management goes here.
 
-function createLogin () {
-    $('#loginBtn').click(function () {
+function createLogin() {
+    $('#loginForm').submit(function () {
+        if (!validateLoginForm())
+            return false;
+
         var formData = $("#loginForm").serialize();
 
         $.ajax({
@@ -24,10 +27,25 @@ function createLogin () {
                 $("#banner").hide();
             },
             error: function (data) {
+                $("#loginError").removeClass("hidden");
                 console.error("Couldn't log in\n" + JSON.stringify(formData));
             }
         });
 
         return false;
     });
+}
+
+function validateLoginForm() {
+    $("#actionError").addClass("hidden");
+    $("#loginError").addClass("hidden");
+
+    if ($("#userLogin:checked").val() == undefined && $("#driverLogin:checked").val() == undefined
+        && $("#companyLogin:checked").val() == undefined) {
+        $("#actionError").removeClass("hidden");
+
+        return false;
+    }
+
+    return true;
 }
