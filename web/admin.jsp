@@ -1,5 +1,7 @@
 <%@ page import="ge.taxistgela.admin.Admin" %>
+<%@ page import="ge.taxistgela.bean.Driver" %>
 <%@ page import="ge.taxistgela.bean.User" %>
+<%@ page import="ge.taxistgela.model.DriverManagerAPI" %>
 <%@ page import="ge.taxistgela.model.UserManagerAPI" %>
 <%@ page import="java.util.List" %>
 <%--
@@ -104,7 +106,7 @@
     </div>
 </div>
 <% } else { %>
-<table class="table table-bordered" style="overflow: auto;">
+<table class="table table-bordered" style="overflow: auto;font-size: x-small;">
     <tr>
         <td>#</td>
         <td>Password</td>
@@ -168,9 +170,99 @@
         </td>
         <td><%=user.getPreference().getTimeLimit()%>
         </td>
+        <td>
+            <button onclick="banUser(<%=user.getUserID()%>)"> BAN</button>
+        </td>
+    </tr>
+    <% } %>
+</table>
+<br><br>
+<table class="table table-bordered" style="overflow: auto;font-size: x-small;">
+    <%
+        DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
+        List<Driver> drivers = driverManager.getAllDrivers();
+
+        for (Driver driver : drivers) {
+    %>
+    <tr>
+        <td><%=driver.getDriverID()%>
+        </td>
+        <td><%=driver.getPersonalID()%>
+        </td>
+        <td><%=driver.getPassword()%>
+        </td>
+        <td><%=driver.getEmail()%>
+        </td>
+        <td><%=driver.getCompanyID()%>
+        </td>
+        <td><%=driver.getFirstName()%>
+        </td>
+        <td><%=driver.getLastName()%>
+        </td>
+        <td><%=driver.getPhoneNumber()%>
+        </td>
+        <td><%=driver.getGender()%>
+        </td>
+        <td><%=driver.getRating()%>
+        </td>
+        <td><%=driver.getFacebookID()%>
+        </td>
+        <td><%=driver.getGoogleID()%>
+        </td>
+        <td><%=driver.getIsActive()%>
+        </td>
+        <td><%=driver.getIsVerifiedEmail()%>
+        </td>
+        <td><%=driver.getIsVerifiedPhone()%>
+        </td>
+        <td><%=driver.getPreferences().getMinimumUserRating()%>
+        </td>
+        <td><%=driver.getPreferences().getCoefficientPer()%>
+        </td>
+        <td><%=driver.getCar().getCarID()%>
+        </td>
+        <td><%=driver.getCar().getCarDescription()%>
+        </td>
+        <td><%=driver.getCar().getCarYear()%>
+        </td>
+        <td><%=driver.getCar().getNumPassengers()%>
+        </td>
+        <td>
+            <button onclick="banDriver(<%=driver.getDriverID()%>)"> BAN</button>
+        </td>
     </tr>
     <% } %>
 </table>
 <% } %>
 </body>
+<script>
+    function banUser(userID) {
+        $.ajax({
+            url: "/admin",
+            method: "post",
+            data: {action: "banUser", userID: userID},
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    }
+    function banDriver(driverID) {
+        $.ajax({
+            url: "/admin",
+            method: "post",
+            data: {action: "banDriver", driverID: driverID},
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    }
+</script>
 </html>
