@@ -1,8 +1,6 @@
 <%@ page import="ge.taxistgela.admin.Admin" %>
-<%@ page import="ge.taxistgela.bean.Driver" %>
-<%@ page import="ge.taxistgela.bean.User" %>
-<%@ page import="ge.taxistgela.model.DriverManagerAPI" %>
-<%@ page import="ge.taxistgela.model.UserManagerAPI" %>
+<%@ page import="ge.taxistgela.bean.*" %>
+<%@ page import="ge.taxistgela.model.*" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
@@ -171,7 +169,7 @@
         <td><%=user.getPreference().getTimeLimit()%>
         </td>
         <td>
-            <button onclick="banUser(<%=user.getUserID()%>)"> BAN</button>
+            <button onclick="banUser(<%=user.getUserID()%>)">BAN</button>
         </td>
     </tr>
     <% } %>
@@ -228,7 +226,123 @@
         <td><%=driver.getCar().getNumPassengers()%>
         </td>
         <td>
-            <button onclick="banDriver(<%=driver.getDriverID()%>)"> BAN</button>
+            <button onclick="banDriver(<%=driver.getDriverID()%>)">BAN</button>
+        </td>
+    </tr>
+    <% } %>
+</table>
+<br><br>
+<table class="table table-bordered" style="overflow: auto;font-size: x-small;">
+    <tr>
+        <td>#</td>
+        <td>CompanyCode</td>
+        <td>Email</td>
+        <td>Password</td>
+        <td>CompanyName</td>
+        <td>PhoneNumber</td>
+        <td>FacebookID</td>
+        <td>GoogleID</td>
+        <td>IsVerifiedEmail</td>
+        <td>isVerifiedPhone</td>
+    </tr>
+    <%
+        CompanyManagerAPI companyManager = (CompanyManagerAPI) request.getServletContext().getAttribute(CompanyManagerAPI.class.getName());
+        List<Company> companies = companyManager.getAllCompanies();
+
+        for (Company company : companies) {
+    %>
+    <tr>
+        <td><%=company.getCompanyID()%>
+        </td>
+        <td><%=company.getCompanyCode()%>
+        </td>
+        <td><%=company.getEmail()%>
+        </td>
+        <td><%=company.getPassword()%>
+        </td>
+        <td><%=company.getCompanyName()%>
+        </td>
+        <td><%=company.getPhoneNumber()%>
+        </td>
+        <td><%=company.getFacebookID()%>
+        </td>
+        <td><%=company.getGoogleID()%>
+        </td>
+        <td><%=company.getIsVerifiedEmail()%>
+        </td>
+        <td><%=company.getIsVerifiedPhone()%>
+        </td>
+        <td>
+            <button onclick="banCompany(<%=company.getCompanyID()%>)">BAN</button>
+        </td>
+    </tr>
+    <% } %>
+</table>
+<br><br>
+<table class="table table-bordered" style="overflow: auto;font-size: x-small;">
+    <tr>
+        <td>#</td>
+        <td>OrderID</td>
+        <td>OrientationFlag</td>
+        <td>Rating</td>
+        <td>Description</td>
+    </tr>
+    <%
+        ReviewManagerAPI reviewManager = (ReviewManagerAPI) request.getServletContext().getAttribute(ReviewManagerAPI.class.getName());
+        List<Review> reviews = reviewManager.getAllReviews();
+
+        for (Review review : reviews) {
+    %>
+    <tr>
+        <td><%=review.getReviewID()%>
+        </td>
+        <td><%=review.getOrderID()%>
+        </td>
+        <td><%=review.isOrientationFlag()%>
+        </td>
+        <td><%=review.getRating()%>
+        </td>
+        <td><%=review.getDescription()%>
+        </td>
+    </tr>
+    <% } %>
+</table>
+<br><br>
+<table class="table table-bordered" style="overflow: auto;font-size: x-small;">
+    <%
+        OrderManagerAPI orderManager = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
+        List<Order> orders = orderManager.getAllOrders();
+
+        for (Order order : orders) {
+    %>
+    <tr>
+        <td><%=order.getOrderID()%>
+        </td>
+        <td><%=order.getUserID()%>
+        </td>
+        <td><%=order.getDriverID()%>
+        </td>
+        <td><%=order.getNumPassengers()%>
+        </td>
+        <td><%=order.getStartLocation().getLatitude()%>
+        </td>
+        <td><%=order.getStartLocation().getLongitude()%>
+        </td>
+        <td><%=order.getEndLocation().getLatitude()%>
+        </td>
+        <td><%=order.getEndLocation().getLongitude()%>
+        </td>
+        <td><%=order.getStartTime()%>
+        </td>
+        <td><%=order.getEndTime()%>
+        </td>
+        <td><%=order.getPaymentAmount()%>
+        </td>
+        <td><%=order.getCallTime()%>
+        </td>
+        <td><%=order.getRevokedByUser()%>
+        </td>
+        <td><%=order.getRevokedByDriver()%>
         </td>
     </tr>
     <% } %>
@@ -255,6 +369,20 @@
             url: "/admin",
             method: "post",
             data: {action: "banDriver", driverID: driverID},
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.error(data);
+            }
+        });
+    }
+    function banCompany(companyID) {
+        $.ajax({
+            url: "/admin",
+            method: "post",
+            data: {action: "banCompany", companyID: companyID},
             cache: false,
             success: function (data) {
                 console.log(data);
