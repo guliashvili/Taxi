@@ -68,16 +68,6 @@ function showPosition(position) {
 		});
 
 	}
-	for (var i = 0; i < randomdrivers.length; ++i) {
-		var driver = new google.maps.Marker({
-			position: {lat: randomdrivers[i].lat, lng: randomdrivers[i].lang},
-			raiseOnDrag: true,
-			map: map,
-			icon: getIcon("\uf1ba"),
-			labelContent: '<i class="fa fa-send fa-3x" style="color:rgba(153,102,102,0.8);"></i>'
-		});
-		driver.setMap(map);
-	}
 }
 /**
  * markers for orders (clearing purposes)

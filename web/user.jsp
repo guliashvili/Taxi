@@ -14,10 +14,12 @@
 <div class="modal fade" id="reviewModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body" style="margin-top:30%">
+                <label for="reviewText">Rating:</label>
                 <input type="number" id="reviewRating" step=".1" value="0">
-                <textarea id="reviewText" name="carDescription"
-                          style="width:60%;font-size:1em"></textarea>
+                <label for="reviewText">Description:</label>
+                <textarea id="reviewText" style="width:100%;height:25%" name="carDescription"
+                          style="width:60%;font-size:1em"></textarea><br>
                 <button class="special" onclick="addReview()">Add Review</button>
             </div>
         </div>

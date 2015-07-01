@@ -57,7 +57,9 @@ function initializeSockets(mToken){
             var tmpMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(drivers[i].location.latitude, drivers[i].location.longitude),
                 map: map,
-                title: 'Taxi Map'
+                title: 'Taxi Map',
+                icon: getIcon("\uf1ba"),
+                labelContent: '<i class="fa fa-send fa-3x" style="color:rgba(153,102,102,0.8);"></i>'
             });
             tmpWindow.open(map, tmpMarker);
             driverMarkersT.push(tmpMarker);
@@ -65,11 +67,14 @@ function initializeSockets(mToken){
         if(drivers.length == 0){
             var dateAsker = updateAsker();
             clearPinPoint();
+            removeFromMap(startMarker);
+            removeFromMap(endMarker);
             startMarker = null;
             endMarker=null;
             askWindow.setContent(dateAsker);
             if(askWindow.getMap()==null) {
                 askWindow.setMap(map);
+                askWindow.close();
             }
         }
         if(askWindow!=null){
@@ -77,6 +82,7 @@ function initializeSockets(mToken){
                 askWindow.setContent(driversList);
                 if(askWindow.getMap()==null){
                     askWindow.setMap(map);
+                    askWindow.close();
                 }
             }
         }
@@ -147,6 +153,7 @@ function revokeOrder() {
             clearPinPoint();
             removeFromMap(startMarker);
             removeFromMap(endMarker);
+            askWindow.close();
             removeFromMap(askWindow);
             startMarker = null;
             endMarker = null;
@@ -155,6 +162,7 @@ function revokeOrder() {
             clearPinPoint();
             removeFromMap(startMarker);
             removeFromMap(endMarker);
+            askWindow.close();
             removeFromMap(askWindow);
             startMarker = null;
             endMarker = null;
@@ -183,8 +191,11 @@ function addOrderJ(){
             if(askWindow!=null) {
                 askWindow.setContent(driversList);
                 if(askWindow.getMap()==null){
+                    askWindow.close();
                     askWindow.setMap(map);
                 }
+                removeFromMap(startMarker);
+                removeFromMap(endMarker);
             }
         },
         error: function (data) {

@@ -51,7 +51,7 @@ function initializeO(){
         success: function (data) {
             historyT = data;
             for (var i = 0; i < historyT.length; ++i) {
-                historyT[i]['recid'] = "<button class='special fit' onclick='banDriver(" + historyT[i].driverID + ")'>BAN</button>";
+                historyT[i]['recid'] = historyT[i].driverID;
                 if (historyT[i].revokedByDriver) {
                     historyT[i]['style'] = "background-color:red";
                 }
@@ -74,7 +74,7 @@ function initializeO(){
         success: function (data) {
             drivers_T=data;
             for (var i = 0; i < drivers_T.length; ++i) {
-                drivers_T[i]['recid']= "<button class='special fit' onclick='constructReview("+drivers_T[i].orderID+",true)'>+</button>";
+                drivers_T[i]['recid'] = "<button class='special fit' onclick='banDriver(" + drivers_T[i].driverID + ",true)'>+</button>";
                 if(drivers_T[i].revokedByDriver){
                     drivers_T[i]['style']="background-color:red";
                 }
@@ -127,8 +127,8 @@ function createPreferencesSaves(){
 }
 var historyT;
 function generatehistoryGrid() {
-    $('#gridhistoryT').w2grid({
-        name: 'gridhistoryT',
+    $('#gridHistory').w2grid({
+        name: 'gridHistory',
         header: 'Orders',
         show: {
             toolbar: false,
@@ -140,7 +140,7 @@ function generatehistoryGrid() {
             { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
             { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
             { field: 'endTime', caption: 'endTime', size: '30%', resizable: true },
-            { field: 'paymentAmount', caption: 'paymentAmount', size: '10%', resizable: true },
+            {field: 'numPassengers', caption: 'Passengers', size: '30%', resizable: true},
             { field: 'callTime', caption: 'callTime', size: '30%', resizable: true },
         ],
         searches: [
@@ -206,7 +206,7 @@ function banDriver(driverID){
     $.ajax({
         url: "/company",
         method: "post",
-        data: {action: "getReviews"},
+        data: {action: "fireDriver", driverID: driverID},
         cache: false,
         success: function (data) {
             console.log(data);

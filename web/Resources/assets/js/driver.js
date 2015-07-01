@@ -593,8 +593,11 @@ function fetchNames() {
 function generateRouteDiv() {
     var out = "";
     for (var i = 0; i < curRoute.route.length; ++i) {
-        if (curRoute.route[0].pickUser) {
-            out += "<span> pick user </span>";
+        if (curRoute.route[i].pickUser) {
+            out += "<span> Pick user </span>";
+        } else {
+            out += "<span> Leave user </span>";
+            out += "<span> Amount To be paid" + curRoute.route[i].orderInfo.maxPrice + " </span>";
         }
         out += latMap[curRoute.route[i].loc.latitude + "," + curRoute.route[i].loc.longitude];
         out += "<button onclick='carryRoute(" + i + ")' class='special fa fa-check'>.</button><br>";

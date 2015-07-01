@@ -28,6 +28,8 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
    	Dim Timer1 As Timer
+	Dim httpClient1 As HttpClient
+	Dim httpRequest As HttpRequest
 End Sub
 
 Sub Globals
@@ -38,27 +40,27 @@ End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Timer1.Initialize("Timer1", 10000) ' 1000 = 1 second
+	httpClient1.Initialize("httpClient1")
    	Timer1.Enabled = True
 End Sub
 
-Sub check(URL As String)
-	Dim httpClient As HttpClient
-	httpClient.Initialize("")
-	Dim httpRequest As HttpRequest
-	httpRequest.InitializeGet(URL)
-	httpClient.Execute(httpRequest,1)		
+Sub check()
+	httpRequest.InitializeGet("http://192.168.76.142:8080/sms")
+	httpClient1.Execute(httpRequest,1)		
 End Sub
 
-Sub httpRequest_ResponseSuccess (Response As HttpResponse, TaskId As Int)
+Sub httpClient1_ResponseSuccess (Response As HttpResponse, TaskId As Int)
 	Dim res As String
 	Dim index As Int
 	Dim p As PhoneSms
 	res = Response.GetString("ASCII")
+	If (res.Length=0) Then Return
 	index = res.IndexOf(" ")
 	p.Send(res.SubString2(0,index),res.SubString(index+1))
 End Sub
+
 Sub Timer1_Tick()
-	check("localhost:8080/sms")
+	check
 End Sub
 
 Sub Activity_Resume
