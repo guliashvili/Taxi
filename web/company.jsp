@@ -122,15 +122,15 @@
             <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="gridHistory">
+        <div id="gridHistory" style="color:black;width: 100%;padding:0px; height: 250px;">
 
         </div>
 
-        <div id="gridDrivers">
+        <div id="gridDrivers" style="color:black;width: 100%;padding:0px; height: 250px;">
 
         </div>
 
-        <div id="gridReview">
+        <div id="gridReview" style="color:black;width: 100%;padding:0px; height: 250px;">
 
         </div>
         <div class="12u 1u$(small)" style="float:left">

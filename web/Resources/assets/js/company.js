@@ -49,22 +49,22 @@ function initializeO(){
         data: {action:"getOrders"},
         cache: false,
         success: function (data) {
-            history=data;
-            for (var i = 0; i < history.length; ++i) {
-                history[i]['recid']= "<button class='special fit' onclick='constructReview("+history[i].orderID+",true)'>+</button>";
-                if(history[i].revokedByDriver){
-                    history[i]['style']="background-color:red";
+            historyT = data;
+            for (var i = 0; i < historyT.length; ++i) {
+                historyT[i]['recid'] = "<button class='special fit' onclick='constructReview(" + historyT[i].orderID + ",true)'>+</button>";
+                if (historyT[i].revokedByDriver) {
+                    historyT[i]['style'] = "background-color:red";
                 }
-                if(history[i].revokedByUser){
-                    history[i]['style']="background-color:green";
+                if (historyT[i].revokedByUser) {
+                    historyT[i]['style'] = "background-color:green";
                 }
-                var recM=[history[i].startLocation.latitude,history[i].startLocation.longitude,history[i].endLocation.latitude,history[i].endLocation.longitude];
+                var recM = [historyT[i].startLocation.latitude, historyT[i].startLocation.longitude, historyT[i].endLocation.latitude, historyT[i].endLocation.longitude];
                 console.log(recM);
-                history[i]['startLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[0]+','+recM[1]+','+recM[2]+','+recM[3]+");'>";
-                history[i]['endLocation']="<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint("+recM[2]+','+recM[3]+','+recM[0]+','+recM[1]+");'>";
+                historyT[i]['startLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[0] + ',' + recM[1] + ',' + recM[2] + ',' + recM[3] + ");'>";
+                historyT[i]['endLocation'] = "<img src='http://www.iconarchive.com/download/i75881/martz90/circle/maps.ico' style='width:16px;height:16px' onclick='pinpoint(" + recM[2] + ',' + recM[3] + ',' + recM[0] + ',' + recM[1] + ");'>";
             }
             console.log(data);
-            generateHistoryGrid();
+            generatehistoryGrid();
         },
         error: function (data) {
             console.error(data);
@@ -142,19 +142,18 @@ function createPreferencesSaves(){
         });
     });
 }
-var history;
-function generateHistoryGrid(){
-    $('#gridHistory').w2grid({
-        name: 'gridHistory',
+var historyT;
+function generatehistoryGrid() {
+    $('#gridhistoryT').w2grid({
+        name: 'gridhistoryT',
         header: 'Orders',
         show: {
             toolbar: false,
             footer: false
         },
         columns: [
-            { field: 'recid', caption: 'Review', size: '10%', sortable: true, attr: 'align=center' },
+            {field: 'recid', caption: 'OrderID', size: '10%', sortable: true, attr: 'align=center'},
             { field: 'driverID', caption: 'driverID', size: '5%', sortable: true, resizable: false },
-            { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
             { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
             { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
             { field: 'endTime', caption: 'endTime', size: '30%', resizable: true },
@@ -166,7 +165,7 @@ function generateHistoryGrid(){
             { field: 'orderID', caption: 'orderID', type: 'text' },
         ],
         sortData: [{ field: 'orderID', direction: 'ASC' }],
-        records: history
+        records: historyT
     });
 }
 var drivers_T;
@@ -180,12 +179,12 @@ function generateDriverGrid(){
         },
         columns: [
             { field: 'recid', caption: 'driverID', size: '10%', sortable: true, attr: 'align=center' },
-            { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
-            { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
-            { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
-            { field: 'endTime', caption: 'endTime', size: '30%', resizable: true },
-            { field: 'paymentAmount', caption: 'paymentAmount', size: '10%', resizable: true },
-            { field: 'callTime', caption: 'callTime', size: '30%', resizable: true },
+            {field: 'driverID', caption: 'driverID', size: '5%', resizable: true},
+            {field: 'firstName', caption: 'firstName', size: '5%', resizable: true},
+            {field: 'lastName', caption: 'lastName', size: '5%', resizable: true},
+            {field: 'personalID', caption: 'personalID', size: '30%', resizable: true},
+            {field: 'phoneNumber', caption: 'phoneNumber', size: '10%', resizable: true},
+            {field: 'rating', caption: 'rating', size: '30%', resizable: true},
         ],
         searches: [
             { field: 'driverID', caption: 'driverID', type: 'text' },
