@@ -22,11 +22,10 @@ function createRegister () {
             error: function (data) {
                 console.log(data);
 
-                var resp = data;
+                var resp = $.parseJSON(data.responseText);
 
                 for (var key in resp) {
-                    console.log(key + " " + resp(key));
-                    $("#errorLog").append(key + " " + resp(key));
+                    $("#errorLog").append("<span>" + key + ": " + resp[key] + "</span><br>");
                 }
             }
         });

@@ -2,6 +2,7 @@ package ge.taxistgela.servlet;
 
 import com.google.gson.Gson;
 import ge.taxistgela.bean.*;
+import ge.taxistgela.helper.ExternalAlgorithms;
 import ge.taxistgela.model.DriverManagerAPI;
 import ge.taxistgela.model.OrderManagerAPI;
 import ge.taxistgela.model.ReviewManagerAPI;
@@ -56,7 +57,7 @@ public class CompanyServlet extends ActionServlet {
                 if (orders != null) {
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.setContentType("application/json");
-                    response.getWriter().print(new Gson().toJson(orders));
+                    response.getWriter().print(ExternalAlgorithms.parseToJson(orders));
 
                     return;
                 }
