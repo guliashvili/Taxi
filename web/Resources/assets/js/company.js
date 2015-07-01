@@ -81,6 +81,7 @@ function initializeO(){
                 if(drivers_T[i].revokedByUser){
                     drivers_T[i]['style']="background-color:green";
                 }
+                drivers_T[i]['driverID'] = "<h4 style='color:black'>" + drivers_T[i].car.carID + "</h4>";
             }
             generateDriverGrid();
             console.log("aaa");
@@ -99,6 +100,11 @@ function initializeO(){
             for (var i=0;i<reviews.length;++i){
                 reviews[i]['recid'] = reviews[i].reviewID;
                 reviews[i]['description'] = "<textarea>" + reviews[i].description + "</textarea>";
+                if (reviews[i].orientationFlag) {
+                    reviews[i]['style'] = "background-color:green";
+                } else {
+                    reviews[i]['style'] = "background-color:red";
+                }
             }
             console.log(data);
             generateReviewGrid();
@@ -161,12 +167,12 @@ function generateDriverGrid(){
             footer: false
         },
         columns: [
-            { field: 'recid', caption: 'driverID', size: '10%', sortable: true, attr: 'align=center' },
-            {field: 'driverID', caption: 'driverID', size: '5%', resizable: true},
-            {field: 'firstName', caption: 'firstName', size: '5%', resizable: true},
-            {field: 'lastName', caption: 'lastName', size: '5%', resizable: true},
-            {field: 'personalID', caption: 'personalID', size: '30%', resizable: true},
-            {field: 'phoneNumber', caption: 'phoneNumber', size: '10%', resizable: true},
+            {field: 'recid', caption: 'driverID', size: '10%', sortable: true, attr: 'align=center', resizable: false},
+            {field: 'driverID', caption: 'driverID', size: '80px', resizable: false},
+            {field: 'firstName', caption: 'firstName', size: '100px', resizable: true},
+            {field: 'lastName', caption: 'lastName', size: '100px', resizable: true},
+            {field: 'personalID', caption: 'personalID', size: '100px', resizable: true},
+            {field: 'phoneNumber', caption: 'Phone', size: '100px', resizable: true},
             {field: 'rating', caption: 'rating', size: '30%', resizable: true},
         ],
         searches: [
@@ -187,11 +193,10 @@ function generateReviewGrid(){
             footer: false
         },
         columns: [
-            {field: 'recid', caption: 'reviewID', size: '10%', sortable: true, attr: 'align=center'},
-            {field: 'orderID', caption: 'orderID', size: '5%', sortable: true, resizable: false},
-            { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
-            {field: 'orientationFlag', caption: 'orientationFlag', size: '5%', resizable: true},
-            {field: 'rating', caption: 'rating', size: '5%', resizable: true},
+            {field: 'recid', caption: 'reviewID', size: '0%', sortable: true, resizable: false, attr: 'align=center'},
+            {field: 'orderID', caption: 'ID', size: '10%', sortable: true, resizable: false},
+            {field: 'numPassengers', caption: 'Passangers', size: '5%', resizable: false},
+            {field: 'rating', caption: 'Rating', size: '80px', resizable: false},
             {field: 'description', caption: 'description', size: '60%', resizable: true},
         ],
         searches: [
@@ -215,4 +220,19 @@ function banDriver(driverID){
             console.error(data);
         }
     });
+}
+function getPlate(plate) {
+    var img = new Image;
+    var canvas, ctx;
+    canvas = document.createElement('canvas');
+    canvas.width = 351;
+    canvas.height = 83;
+    ctx = canvas.getContext('2d');
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        ctx.font = "bold 32px Arial";
+        ctx.fillText(plate, 30, 35);
+    };
+    img.src = "/Resources/images/gela.jpg";
+    return canvas.toDataURL();
 }

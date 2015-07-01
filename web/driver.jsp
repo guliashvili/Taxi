@@ -87,7 +87,7 @@
             <input type="text" disabled value="<%=driver.getPhoneNumber()%>">
         </div>
         <div class="6u$ 12u$(xsmall)">
-            <button class="fa fa-exchange button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%
+            <button class="fa fa-check-circle button small <% if(driver.getIsVerifiedEmail()){out.println("disabled verified");}else{out.println("special");}%>" <%
                 if (!driver.getIsVerifiedPhone()) {
                     out.println(" onclick='resendPhone()'");
                 }
@@ -101,7 +101,7 @@
         </div>
         <div class="12u$">
             <button onclick="$('.prefPanel').toggleClass('zero');$('#map').toggleClass('mOP');$('#panelToggle').toggleClass('hidden');"
-                    class="button special fa fa-key"> Become Active
+                    class="button special fa fa-exchange"> Become Active
             </button>
         </div>
         <div class="12u$">

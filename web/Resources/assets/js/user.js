@@ -215,12 +215,11 @@ function generateGrid(){
         columns: [
             { field: 'recid', caption: 'Review', size: '10%', sortable: true, attr: 'align=center' },
             { field: 'driverID', caption: 'driverID', size: '5%', sortable: true, resizable: false },
-            { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
+            {field: 'numPassengers', caption: 'Passangers', size: '5%', resizable: true},
             { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
-            { field: 'endLocation', caption: 'endLocation', size: '5%', resizable: true },
-            { field: 'endTime', caption: 'endTime', size: '30%', resizable: true },
-            { field: 'paymentAmount', caption: 'paymentAmount', size: '10%', resizable: true },
-            { field: 'callTime', caption: 'callTime', size: '30%', resizable: true },
+            {field: 'endTime', caption: 'Ended', size: '30%', resizable: true},
+            {field: 'paymentAmount', caption: 'Amount', size: '10%', resizable: true},
+            {field: 'callTime', caption: 'Call', size: '30%', resizable: true},
         ],
         searches: [
             { field: 'driverID', caption: 'driverID', type: 'text' },

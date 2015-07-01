@@ -174,7 +174,7 @@
         </form>
         <button id="savePref" style="margin-top:5px" class="button special"> Save</button>
     </div>
-    <div class="12u 1u$(small)" style="float:left">
+    <div class="12u 1u$(small)" style="margin-top:10px;float:left">
         <a href="#" onclick="$('#grid').toggleClass('hidden');" class="button special small fa fa-bar-chart">
             View Order History</a>
     </div>
