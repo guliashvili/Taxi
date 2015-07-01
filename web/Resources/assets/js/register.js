@@ -19,13 +19,13 @@ function createRegister () {
                 $("#loginModal").modal('show');
                 $("#regStatus").removeClass('hidden');
             },
-            error: function (data) {
-                console.log(data);
+            error: function (args) {
+                console.log(args);
 
-                var resp = $.parseJSON(data.responseText);
+                var resp = JSON.parse(args.responseText);
 
                 for (var key in resp) {
-                    $("#errorLog").append("<span>" + key + ": " + resp[key] + "</span><br>");
+                    $("#errorLog").append("<span>" + key + " " + resp[key] + "</span><br>");
                 }
             }
         });
