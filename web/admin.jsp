@@ -176,6 +176,29 @@
 </table>
 <br><br>
 <table class="table table-bordered" style="overflow: auto;font-size: x-small;">
+    <tr>
+        <td>#</td>
+        <td>PersonalID</td>
+        <td>Password</td>
+        <td>Email</td>
+        <td>CompanyID</td>
+        <td>FirstName</td>
+        <td>LastName</td>
+        <td>PhoneNumber</td>
+        <td>Gender</td>
+        <td>Rating</td>
+        <td>FacebookID</td>
+        <td>GoogleID</td>
+        <td>IsActive</td>
+        <td>IsVerifiedEmail</td>
+        <td>IsVerifiedPhone</td>
+        <td>MinimumUserRating</td>
+        <td>CoefficientPer</td>
+        <td>CarID</td>
+        <td>CarDescription</td>
+        <td>CarYear</td>
+        <td>NumPassengers</td>
+    </tr>
     <%
         DriverManagerAPI driverManager = (DriverManagerAPI) request.getServletContext().getAttribute(DriverManagerAPI.class.getName());
         List<Driver> drivers = driverManager.getAllDrivers();
@@ -309,6 +332,22 @@
 </table>
 <br><br>
 <table class="table table-bordered" style="overflow: auto;font-size: x-small;">
+    <tr>
+        <td>#</td>
+        <td>UserID</td>
+        <td>DriverID</td>
+        <td>NumPassengers</td>
+        <td>StartLocationLat</td>
+        <td>StartLocationLong</td>
+        <td>EndLocationLat</td>
+        <td>EndLocationLong</td>
+        <td>StartTime</td>
+        <td>EndTime</td>
+        <td>PaymentAmoun</td>
+        <td>CallTime</td>
+        <td>RevokedByUser</td>
+        <td>RevokedByDriver</td>
+    </tr>
     <%
         OrderManagerAPI orderManager = (OrderManagerAPI) request.getServletContext().getAttribute(OrderManagerAPI.class.getName());
         List<Order> orders = orderManager.getAllOrders();
