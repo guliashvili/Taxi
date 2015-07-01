@@ -26,7 +26,7 @@
             <div class="modal-body">
                 <input type="number" id="reviewRating" step=".1" value="0">
                 <textarea id="reviewText" name="carDescription"
-                          style="width:60%;font-size:1em"><%=driver.getCar().getCarDescription()%></textarea>
+                          style="width:60%;font-size:1em"></textarea>
                 <button class="special" onclick="addReview()">Add Review</button>
             </div>
         </div>
