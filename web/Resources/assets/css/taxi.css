@@ -51,7 +51,7 @@ body {
     font-size: 2.5em;
     padding-left: 5px;
     border: 0px none;
-    float: right;
+    float: left;
 }
 
 .modal .\34 u, .\34 u\24 {
@@ -405,6 +405,7 @@ input[type="radio"] + label:before {
     opacity: 0.5;
     transition: opacity .5s;
     -webkit-transition: opacity .5s;
+    margin-top:20px;
 }
 
 #map.mOP {
@@ -427,6 +428,7 @@ input[type="radio"] + label:before {
     padding-top: 45px;
     transition: height .5s;
     -webkit-transition: height .5s;
+    z-index:1000;
 }
 
 .prefPanel.zero {
@@ -587,4 +589,39 @@ input[type="radio"] + label:before {
 }
 #panel{
     height:100%;
+}
+#routeDiv{
+    position:fixed;
+    left:0;
+    top:0;
+    padding-top:50px;
+    padding-left:5px;
+    background-color:#FFD800;
+    height:100%;
+    width:100%;
+    overflow-y:auto;
+    transition: width .5s;
+    -webkit-transition: width .5s;
+}
+#routeDiv.cl{
+    width:0;
+    transition: width .5s;
+    -webkit-transition: width .5s;
+}
+#routeDivToggle{
+    z-index:999;
+    position:fixed;
+    width:5em;
+    height:5em;
+    top:45%;
+    left:-3em;
+    background:#FFD800;
+    transition: left .5s;
+    -webkit-transition: left .5s;
+}
+#routeDivToggle:hover{
+    left:-1em;
+    background:#FFD800;
+    transition: left .5s;
+    -webkit-transition: left .5s;
 }

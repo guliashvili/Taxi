@@ -29,9 +29,8 @@
         </div>
     </div>
 </div>
-<div id="routeDiv"
-     style="position:fixed;top:50px;left:0;background-color:#FFD800;width:25%;height:500px;overflow-y:auto">
-
+<button type="button" onclick="$('#routeDiv').toggleClass('cl');" id="routeDivToggle" class="btn btn-default" aria-label="Justify"><span style="font-size:4.5em" class="fa fa-align-justify" aria-hidden="true"></span></button>
+<div id="routeDiv" class="cl">
 </div>
 <div class="prefPanel">
     <div class="row uniform" style="margin-left:10px">
