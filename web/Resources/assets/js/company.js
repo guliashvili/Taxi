@@ -50,7 +50,7 @@ function initializeO(){
         cache: false,
         success: function (data) {
             history=data;
-            for (var i=0;i<records.length;++i){
+            for (var i = 0; i < history.length; ++i) {
                 history[i]['recid']= "<button class='special fit' onclick='constructReview("+history[i].orderID+",true)'>+</button>";
                 if(history[i].revokedByDriver){
                     history[i]['style']="background-color:red";
@@ -77,7 +77,7 @@ function initializeO(){
         cache: false,
         success: function (data) {
             drivers_T=data;
-            for (var i=0;i<records.length;++i){
+            for (var i = 0; i < drivers_T.length; ++i) {
                 drivers_T[i]['recid']= "<button class='special fit' onclick='constructReview("+drivers_T[i].orderID+",true)'>+</button>";
                 if(drivers_T[i].revokedByDriver){
                     drivers_T[i]['style']="background-color:red";

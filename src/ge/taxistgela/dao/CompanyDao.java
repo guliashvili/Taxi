@@ -371,7 +371,9 @@ public class CompanyDao implements CompanyDaoAPI {
 
                 ResultSetEnhanced res = st.executeQuery();
                 if (res.next()) {
-                    return res.getDouble(1);
+                    Double ret = res.getDouble(1);
+                    if (ret == null) return 0.0;
+                    else return ret;
                 }
             }
         } catch (SQLException e) {

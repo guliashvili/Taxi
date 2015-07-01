@@ -146,9 +146,9 @@
         <div id="cP" class="5u$ 12u$(small) hidden">
             <form id="companyCodeForm" action="" type="post">
                 <input name="companyCode" type="text" placeholder="Company Code"/><br>
-                <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
                 <input type="text" name="action" value="dCompany" class="hidden"/>
             </form>
+            <button id="companyCodeBtn" style="float:right;" class="button special">Register</button>
         </div>
         <div class="5u$ 12u$(small)">
             <a href="#" onclick="$('#cPref').toggleClass('hidden');" class="button special small fa fa-adjust"> Edit

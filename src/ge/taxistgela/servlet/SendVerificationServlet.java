@@ -60,6 +60,7 @@ public class SendVerificationServlet extends ActionServlet {
                         EmailSender.verifyCompany(driver, company);
 
                         response.setStatus(HttpServletResponse.SC_OK);
+                        return;
                     }
                 }
             }
