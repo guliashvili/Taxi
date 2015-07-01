@@ -28,8 +28,10 @@
 
         <div class="5u$">
             <a href="#"><h3>Your Average Driver
-                Rating: <% CompanyManagerAPI man = (CompanyManagerAPI) application.getAttribute(CompanyManagerAPI.class.getName());
-                    double Rating = man.getCompanyScore(company.getCompanyID());%>
+                Rating: <%
+                    ServletContext sc = request.getServletContext();
+                    CompanyManagerAPI man = (CompanyManagerAPI) sc.getAttribute(CompanyManagerAPI.class.getName());
+                    Double Rating = man.getCompanyScore(company.getCompanyID());%>
             </h3></a>
             <% for (int i = 1; i <= 5; ++i) { %>
             <% if (Rating >= i) { %>
@@ -120,10 +122,16 @@
             <a href="#" onclick="$('#history').toggleClass('hidden');" class="button special small fa fa-bar-chart">
                 View Order History</a>
         </div>
-        <div id="history" class="12 1u$ hidden">
-            <div id="grid">
+        <div id="gridHistory">
 
-            </div>
+        </div>
+
+        <div id="gridDrivers">
+
+        </div>
+
+        <div id="gridReview">
+
         </div>
         <div class="12u 1u$(small)" style="float:left">
             <a href="#" class="button special small fa fa-bar-chart"> View Drivers</a>
