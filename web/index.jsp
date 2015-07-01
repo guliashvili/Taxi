@@ -241,7 +241,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                             <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         </div>
                         <div class="g-recaptcha" data-sitekey="6LcS8QgTAAAAAP98JRVGsRNt0uKxnX_LDKRiWN70"></div>
-                        <span id="errorLog"></span>
+                        <div id="errorLog"></div>
                     </form>
                     <button type="submit" id="registerBtn" class="hidden button special">Register</button>
                 </div>
