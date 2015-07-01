@@ -57,7 +57,7 @@ public class Driver extends SuperPersonalTokenUser {
         token = driver.token;
     }
 
-    public synchronized void update(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+    public void update(Integer driverID, String personalID, String email, String password, Integer companyID, String firstName, String lastName, Gender gender, String phoneNumber, Car car, String facebookID, String googleID, Double rating, DriverPreference preferences, Boolean isActive, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
         setDriverID(driverID);
         setPersonalID(personalID);
         setEmail(email);
@@ -77,7 +77,7 @@ public class Driver extends SuperPersonalTokenUser {
         setIsVerifiedPhone(isVerifiedPhone);
     }
 
-    public synchronized void update(Driver driver) {
+    public void update(Driver driver) {
         if (driver == null) return;
         update(driver.getDriverID(), driver.getPersonalID(), driver.getEmail(), driver.getPassword(), driver.getCompanyID(),
                 driver.getFirstName(), driver.getLastName(), driver.getGender(), driver.getPhoneNumber(), driver.getCar(),
@@ -86,24 +86,24 @@ public class Driver extends SuperPersonalTokenUser {
         token = driver.token;
     }
 
-    public synchronized Boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public synchronized void setIsActive(Boolean isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
-    public synchronized String getToken() {
+    public String getToken() {
         return token;
     }
 
-    public synchronized void setToken(String token) {
+    public void setToken(String token) {
         this.token = token;
     }
 
     @Override
-    public synchronized boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (!(obj instanceof Driver)) return false;
         Driver o = (Driver) obj;
         return ExternalAlgorithms.equalsNull(getDriverID(), o.getDriverID()) &&
@@ -131,61 +131,61 @@ public class Driver extends SuperPersonalTokenUser {
     }
 
     @Override
-    public synchronized int hashCode() {
+    public int hashCode() {
         return getDriverID();
     }
 
-    public synchronized Car getCar() {
+    public Car getCar() {
         return car;
     }
 
-    public synchronized void setCar(Car car) {
+    public void setCar(Car car) {
         this.car = car;
     }
 
-    public synchronized Integer getDriverID() {
+    public Integer getDriverID() {
         return driverID;
     }
 
-    public synchronized void setDriverID(Integer driverID) {
+    public void setDriverID(Integer driverID) {
         this.driverID = driverID;
     }
 
-    public synchronized String getPersonalID() {
+    public String getPersonalID() {
         return personalID;
     }
 
-    public synchronized void setPersonalID(String personalID) {
+    public void setPersonalID(String personalID) {
         this.personalID = personalID;
     }
 
 
-    public synchronized Integer getCompanyID() {
+    public Integer getCompanyID() {
         return companyID;
     }
 
-    public synchronized void setCompanyID(Integer companyID) {
+    public void setCompanyID(Integer companyID) {
         this.companyID = companyID;
     }
 
 
-    public synchronized Double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public synchronized void setRating(Double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public synchronized DriverPreference getPreferences() {
+    public DriverPreference getPreferences() {
         return preferences;
     }
 
-    public synchronized void setPreferences(DriverPreference preferences) {
+    public void setPreferences(DriverPreference preferences) {
         this.preferences = preferences;
     }
 
-    public synchronized Boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
 

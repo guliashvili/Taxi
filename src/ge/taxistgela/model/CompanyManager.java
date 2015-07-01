@@ -5,7 +5,6 @@ import ge.taxistgela.bean.ErrorCode;
 import ge.taxistgela.bean.SuperDaoUser;
 import ge.taxistgela.dao.CompanyDaoAPI;
 import ge.taxistgela.helper.HashGenerator;
-import ge.taxistgela.ram.model.TaxRamAPI;
 
 import java.util.List;
 
@@ -13,8 +12,8 @@ import java.util.List;
  * Created by GIO on 5/25/2015.
  */
 public class CompanyManager extends   CompanyManagerAPI {
-    public CompanyManager(CompanyDaoAPI companyDao, TaxRamAPI taxRam) {
-        super(companyDao, taxRam);
+    public CompanyManager(CompanyDaoAPI companyDao) {
+        super(companyDao);
     }
 
     @Override

@@ -128,7 +128,7 @@ public class Route implements Serializable {
         return payD;
     }
 
-    public synchronized double updateLocations(Location last, double curTime, List<RouteElement> tmp, double bestAns, double curAns,
+    public double updateLocations(Location last, double curTime, List<RouteElement> tmp, double bestAns, double curAns,
                                                List<RouteElement> current, List<RouteElement> best) {
         if (bestAns < curAns)
             return bestAns;
@@ -180,7 +180,7 @@ public class Route implements Serializable {
         return bestAns;
     }
 
-    public synchronized void addOrder(OrderInfo orderInfo) {
+    public void addOrder(OrderInfo orderInfo) {
         List<RouteElement> tmp = new ArrayList<>();
         tmp.addAll(route);
 
@@ -227,7 +227,7 @@ public class Route implements Serializable {
         
     }
 
-    public synchronized void pickUser(UserInfo userInfo, int orderID) {
+    public void pickUser(UserInfo userInfo, int orderID) {
         RouteElement a = null;
         for (RouteElement elem : route)
             if (elem.getOrderInfo().getUser().getUserID() == userInfo.getUserID() &&
@@ -247,7 +247,7 @@ public class Route implements Serializable {
         }
     }
 
-    public synchronized double leaveUser(UserInfo userInfo, int orderID) {
+    public double leaveUser(UserInfo userInfo, int orderID) {
 
         OrderInfo orderInfoo = null;
         for (OrderInfo elem : inCar) {

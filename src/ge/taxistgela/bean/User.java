@@ -44,7 +44,7 @@ public class User extends SuperPersonalTokenUser {
         token = user.token;
     }
 
-    public synchronized void update(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
+    public void update(Integer userID, String email, String password, String firstName, String lastName, String phoneNumber, Gender gender, String facebookID, String googleID, Double rating, UserPreference preference, Boolean isVerifiedEmail, Boolean isVerifiedPhone) {
 
 
         setUserID(userID);
@@ -62,7 +62,7 @@ public class User extends SuperPersonalTokenUser {
         setIsVerifiedPhone(isVerifiedPhone);
     }
 
-    public synchronized void update(User user) {
+    public void update(User user) {
         if (user == null) return;
         update(user.getUserID(), user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(),
                 user.getGender(), user.getFacebookID(), user.getGoogleID(), user.getRating(), user.getPreference(),
@@ -70,16 +70,16 @@ public class User extends SuperPersonalTokenUser {
         token = user.token;
     }
 
-    public synchronized String getToken() {
+    public String getToken() {
         return token;
     }
 
-    public synchronized void setToken(String token) {
+    public void setToken(String token) {
         this.token = token;
     }
 
     @Override
-    public synchronized boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (!(obj instanceof User)) return false;
         User o = (User) obj;
         return ExternalAlgorithms.equalsNull(getUserID(), o.getUserID()) &&
@@ -102,32 +102,32 @@ public class User extends SuperPersonalTokenUser {
     }
 
     @Override
-    public synchronized int hashCode() {
+    public int hashCode() {
         return getUserID();
     }
 
-    public synchronized Integer getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public synchronized void setUserID(Integer userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
 
-    public synchronized Double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public synchronized void setRating(Double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public synchronized UserPreference getPreference() {
+    public UserPreference getPreference() {
         return preference;
     }
 
-    public synchronized void setPreference(UserPreference preference) {
+    public void setPreference(UserPreference preference) {
         this.preference = preference;
     }
 

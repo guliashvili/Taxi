@@ -13,9 +13,8 @@ public abstract class CompanyManagerAPI implements SuperUserManager {
     protected CompanyDaoAPI companyDao;
     protected TaxRamAPI taxRam;
 
-    public CompanyManagerAPI(CompanyDaoAPI companyDao, TaxRamAPI taxRam) {
+    public CompanyManagerAPI(CompanyDaoAPI companyDao) {
         this.companyDao = companyDao;
-        this.taxRam = taxRam;
     }
 
     public abstract Double getCompanyScore(Integer companyID);

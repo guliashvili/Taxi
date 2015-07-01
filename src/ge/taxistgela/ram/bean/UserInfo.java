@@ -16,8 +16,6 @@ public class UserInfo extends User {
 
 
     @Expose
-    public Object block = new Object();
-    @Expose
     public List<OrderInfo> waitingList = Collections.synchronizedList(new ArrayList<>());
     @Expose
     private OrderInfo orderInfo = null;
@@ -39,19 +37,19 @@ public class UserInfo extends User {
 
     }
 
-    public synchronized OrderInfo getOrderInfo() {
+    public OrderInfo getOrderInfo() {
         return orderInfo;
     }
 
-    public synchronized void setOrderInfo(OrderInfo orderInfo) {
+    public void setOrderInfo(OrderInfo orderInfo) {
         this.orderInfo = orderInfo;
     }
 
-    public synchronized DriverInfo getDriverInfo() {
+    public DriverInfo getDriverInfo() {
         return driverInfo;
     }
 
-    public synchronized void setDriverInfo(DriverInfo driverInfo) {
+    public void setDriverInfo(DriverInfo driverInfo) {
         this.driverInfo = driverInfo;
     }
 }

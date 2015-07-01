@@ -23,8 +23,6 @@ public class DriverInfo extends Driver {
     public Route route;
 
     @Expose
-    public Object block = new Object();
-    @Expose
     public int nPassengers = 0;
     @Expose
     private Location location = null;
@@ -38,7 +36,6 @@ public class DriverInfo extends Driver {
         super(driverInfo);
         waitingList = Collections.synchronizedList(new ArrayList<>());
         route = new Route(driverInfo.route.drivers, driverInfo.route.users);
-        block = driverInfo.block;
         nPassengers = driverInfo.nPassengers;
         location = driverInfo.location;
     }

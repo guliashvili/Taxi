@@ -46,7 +46,7 @@ public class ContextListener implements ServletContextListener,
         TaxRamAPI ram = new TaxRam(orderDao, userDao, driverDao, sessionManager);
 
         // add CompanyManager.
-        sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(companyDao, ram));
+        sc.setAttribute(CompanyManagerAPI.class.getName(), new CompanyManager(companyDao));
 
         // add DriverManager.
 

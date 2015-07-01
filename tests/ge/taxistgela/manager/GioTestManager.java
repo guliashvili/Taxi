@@ -43,7 +43,7 @@ public class GioTestManager {
         TaxRam taxRam = new TaxRam(null, null, null, null);
         driverManager = new DriverManager(new DriverDao());
         userManager = new UserManager(new UserDao());
-        companyManager = new CompanyManager(new CompanyDao(), taxRam);
+        companyManager = new CompanyManager(new CompanyDao());
 
         AdminDatabase db = new AdminDatabase();
         try {

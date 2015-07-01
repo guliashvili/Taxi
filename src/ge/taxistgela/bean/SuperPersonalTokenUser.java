@@ -10,27 +10,27 @@ public abstract class SuperPersonalTokenUser extends SuperDaoUser {
     private String lastName;
     private Gender gender;
 
-    public synchronized String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public synchronized void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public synchronized String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public synchronized void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public synchronized Gender getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public synchronized void setGender(Gender gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

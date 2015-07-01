@@ -38,7 +38,7 @@ public class TaxRam implements TaxRamAPI {
         this.userDao = userDao;
         this.orderDao = orderDao;
         this.driverInfoDao = new DriverInfoDao(driverDao, drivers, users);
-        this.userInfoDao = new UserInfoDao(userDao, drivers, users);
+        this.userInfoDao = new UserInfoDao(userDao);
         this.sessionManager = sessionManager;
     }
 

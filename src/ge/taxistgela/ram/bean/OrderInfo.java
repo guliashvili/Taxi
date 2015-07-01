@@ -54,107 +54,107 @@ public class OrderInfo{
     }
 
 
-    public synchronized boolean getSetTrueDealIsDone() {
+    public boolean getSetTrueDealIsDone() {
         boolean ret = dealisDone.get();
         if (!ret)
             dealisDone.set(true);
         return ret;
     }
 
-    public synchronized boolean getDealIsDone() {
+    public boolean getDealIsDone() {
         return dealisDone.get();
     }
 
-    public synchronized int getOrderID() {
+    public int getOrderID() {
         return orderID;
     }
 
-    public synchronized void setOrderID(int orderID) {
+    public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 
-    public synchronized Driver getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 
-    public synchronized void setDriver(Driver driver) {
+    public void setDriver(Driver driver) {
         this.driver = new Driver(driver);
     }
 
-    public synchronized User getUser() {
+    public User getUser() {
         return user;
     }
 
-    public synchronized void setUser(User user) {
+    public void setUser(User user) {
         this.user = new User(user);
     }
 
-    public synchronized void setStartTime(long startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
 
-    public synchronized void setCreateTime(long createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public synchronized double getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public synchronized void setDistance(double distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 
-    public synchronized double getMaxPrice() {
+    public double getMaxPrice() {
         return maxPrice;
     }
 
-    public synchronized void setMaxPrice(double maxPrice) {
+    public void setMaxPrice(double maxPrice) {
         this.maxPrice = maxPrice;
     }
 
 
-    public synchronized Long getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public synchronized void setStartTime(Long startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 
 
-    public synchronized int getnPassengers() {
+    public int getnPassengers() {
         return nPassengers;
     }
 
-    public synchronized void setnPassengers(int nPassengers) {
+    public void setnPassengers(int nPassengers) {
         this.nPassengers = nPassengers;
     }
 
-    public synchronized Long getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public synchronized void setCreateTime(Long createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
 
-    public synchronized Location getEnd() {
+    public Location getEnd() {
         return end;
     }
 
-    public synchronized void setEnd(Location end) {
+    public void setEnd(Location end) {
         this.end = end;
     }
 
 
-    public synchronized Location getStart() {
+    public Location getStart() {
         return start;
     }
 
-    public synchronized void setStart(Location start) {
+    public void setStart(Location start) {
         this.start = start;
     }
 
