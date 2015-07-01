@@ -43,6 +43,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="Resources/assets/js/login.js"></script>
     <script src="Resources/assets/js/register.js"></script>
     <script src="Resources/assets/js/index.js"></script>
+    <script src="Resources/assets/js/review.js"></script>
     <script type="text/javascript" src="Resources/assets/js/w2ui-1.4.2.min.js"></script>
 
     <!--[if lte IE 8]>
