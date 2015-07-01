@@ -47,9 +47,8 @@ function initializeSockets(mToken){
             var cont="";
             cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
             cont += "Price:" + drivers[i].maxPrice + " Phone:" + drivers[i].driver.phoneNumber + " CAR:" + drivers[i].driver.car.carID + "<br>" + "Rating:" + drivers[i].driver.rating + "<br>";
-            cont += "<button onclick='acceptDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='special'>Accept</button>";
-            cont += "<button onclick='rejectDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='special'>Reject</button>";
-
+            cont += "<button onclick='acceptDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='accept special'>Accept</button>";
+            cont += "<button onclick='rejectDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='accept special'>Reject</button>";
             cont += "</div>";
             var tmpWindow = new google.maps.InfoWindow({
                 content: cont

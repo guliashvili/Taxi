@@ -162,7 +162,6 @@ function addOrder(ordr) {
     orderInfo = ordr;
     console.log(orderInfo);
     var out = "";
-    latMap = {};
     for (var i = 0; i < orderInfo.length; i++) {
         var start = orderInfo[i].start.latitude + "," + orderInfo[i].start.longitude;
         var end = orderInfo[i].end.latitude + "," + orderInfo[i].end.longitude;
