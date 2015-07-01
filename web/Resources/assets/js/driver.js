@@ -75,7 +75,7 @@ function initializeO() {
         success: function (data) {
             records = data;
             for (var i = 0; i < records.length; ++i) {
-                records[i]['recid'] = records[i].orderID;
+                records[i]['recid']= "<button class='special fit' onclick='constructReview("+records[i].orderID+",false)'>+</button>";
                 records[i]['userID'] = records[i].userID;
                 if (records[i].revokedByDriver) {
                     records[i]['style'] = "background-color:red";

@@ -11,6 +11,18 @@
 <section id="map" style="position:absolute;width:100%;height:100%;">
 
 </section>
+<div class="modal fade" id="reviewModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input type="number" id="reviewRating" step=".1" value="0">
+                <textarea id="reviewText" name="carDescription"
+                          style="width:60%;font-size:1em"><%=driver.getCar().getCarDescription()%></textarea>
+                <button class="special" onclick="addReview()">Add Review</button>
+            </div>
+        </div>
+    </div>
+</div>
 <% User user = (User) session.getAttribute(User.class.getName());%>
 <script>
     ga('send', 'pageview', {

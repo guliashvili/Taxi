@@ -3,16 +3,16 @@
  */
 var orderID=null;
 var isUser=null;
-function construct(order,user){
+function constructReview(order,user){
     orderID=order;
     isUser=user;
     $("#reviewModal").modal('show');
 }
 function addReview(){
     if(isUser){
-        addReviewUser($("#reviewText").val(),$("#reviewDesc").val());
+        addReviewUser($("#reviewText").val(),$("#reviewRating").val());
     }else{
-        addReviewDriver($("#reviewText").val(),$("#reviewDesc").val());
+        addReviewDriver($("#reviewText").val(),$("#reviewRating").val());
     }
 }
 function addReviewUser(text,rating){

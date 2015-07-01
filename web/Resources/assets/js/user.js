@@ -115,7 +115,7 @@ function initializeO(){
         success: function (data) {
             records=data;
             for (var i=0;i<records.length;++i){
-                records[i]['recid']= "<button class='special fit' onclick='toggleReview("+records[i].orderID+")'>+</button>";
+                records[i]['recid']= "<button class='special fit' onclick='constructReview("+records[i].orderID+",true)'>+</button>";
                 if(records[i].revokedByDriver){
                     records[i]['style']="background-color:red";
                 }
