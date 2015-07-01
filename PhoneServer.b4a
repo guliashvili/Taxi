@@ -1,0 +1,72 @@
+﻿Version=5.02
+NumberOfModules=0
+Build1=Default,b4a.example
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~'End of default text.~\n~
+IconFile=
+NumberOfFiles=0
+NumberOfLibraries=4
+Library1=core
+Library2=phone
+Library3=http
+Library4=httputils2
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: B4A Example
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+   	Dim Timer1 As Timer
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Timer1.Initialize("Timer1", 10000) ' 1000 = 1 second
+   	Timer1.Enabled = True
+End Sub
+
+Sub check(URL As String)
+	Dim httpClient As HttpClient
+	httpClient.Initialize("")
+	Dim httpRequest As HttpRequest
+	httpRequest.InitializeGet(URL)
+	httpClient.Execute(httpRequest,1)		
+End Sub
+
+Sub httpRequest_ResponseSuccess (Response As HttpResponse, TaskId As Int)
+	Dim res As String
+	Dim index As Int
+	Dim p As PhoneSms
+	res = Response.GetString("ASCII")
+	index = res.IndexOf(" ")
+	p.Send(res.SubString2(0,index),res.SubString(index+1))
+End Sub
+Sub Timer1_Tick()
+	check("localhost:8080/sms")
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+
