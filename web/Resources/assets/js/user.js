@@ -47,8 +47,9 @@ function initializeSockets(mToken){
             var cont="";
             cont = "<div style='background-color:#FFD800;width:200px;height:200px' id='driversList'>";
             cont += "Price:" + drivers[i].maxPrice + " Phone:" + drivers[i].driver.phoneNumber + " CAR:" + drivers[i].driver.car.carID + "<br>" + "Rating:" + drivers[i].driver.rating + "<br>";
-            cont += "<button onclick='acceptDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='accept special'>Accept</button>";
-            cont += "<button onclick='rejectDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='accept special'>Reject</button>";
+            cont += "<button onclick='acceptDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='special'>Accept</button>";
+            cont += "<button onclick='rejectDriver(" + drivers[i].orderID + "," + drivers[i].driver.driverID + ")' class='special'>Reject</button>";
+
             cont += "</div>";
             var tmpWindow = new google.maps.InfoWindow({
                 content: cont
@@ -114,7 +115,7 @@ function initializeO(){
         success: function (data) {
             records=data;
             for (var i=0;i<records.length;++i){
-                records[i]['recid']= records[i].orderID;
+                records[i]['recid']= "<button class='special fit' onclick='toggleReview("+records[i].orderID+")'>+</button>";
                 if(records[i].revokedByDriver){
                     records[i]['style']="background-color:red";
                 }
@@ -201,7 +202,7 @@ function generateGrid(){
             footer: false
         },
         columns: [
-            { field: 'recid', caption: 'orderID', size: '10%', sortable: true, attr: 'align=center' },
+            { field: 'recid', caption: 'Review', size: '10%', sortable: true, attr: 'align=center' },
             { field: 'driverID', caption: 'driverID', size: '5%', sortable: true, resizable: false },
             { field: 'numPassengers', caption: 'numPassengers', size: '5%', resizable: true },
             { field: 'startLocation', caption: 'startLocation', size: '5%', resizable: true },
@@ -346,7 +347,7 @@ function createPreferencesSaves(){
                 askWindow.setMap(map);
             },
             error: function (data) {
-                console.error(JSON.stringify(formData));
+                console.error(JSON.stringify(data));
             }
         });
     });
